@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
+		//salut a tous 
 		try {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("../views/Main.fxml"));
 			Scene scene = new Scene(root,400,400);
