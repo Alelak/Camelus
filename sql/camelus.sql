@@ -16,6 +16,22 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `camelus` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `camelus` ;
+-- -----------------------------------------------------
+-- Table `camelus`.`admins`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `camelus`.`admins` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `fname` VARCHAR(45) NOT NULL,
+  `lname` VARCHAR(45) NOT NULL,
+  `hire_date` VARCHAR(45) NOT NULL,
+  `sin` INT(9) NOT NULL,
+  `superadmin` TINYINT(1) NULL DEFAULT 0,
+  `deleted` TINYINT(1) NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `camelus`.`units`
@@ -40,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `camelus`.`products` (
   `category` VARCHAR(45) NULL,
   `img_url` VARCHAR(45) NULL,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NULL DEFAULT 'CURRENT_TIMESTAMP',
+  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `FK_PRODUCTS_UNITS_ID_idx` (`unit_id` ASC),
@@ -50,25 +66,6 @@ CREATE TABLE IF NOT EXISTS `camelus`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `camelus`.`clients`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `camelus`.`clients` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `enterprise_name` VARCHAR(45) NOT NULL,
-  `contact_name` VARCHAR(45) NOT NULL,
-  `contact_tel` VARCHAR(45) NOT NULL,
-  `contact_email` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(255) NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `deleted` TINYINT(1) NULL DEFAULT 0,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `camelus`.`commissions`
@@ -104,6 +101,24 @@ CREATE TABLE IF NOT EXISTS `camelus`.`vendors` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `camelus`.`clients`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `camelus`.`clients` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `enterprise_name` VARCHAR(45) NOT NULL,
+  `contact_name` VARCHAR(45) NOT NULL,
+  `contact_tel` VARCHAR(45) NOT NULL,
+  `contact_email` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(255) NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted` TINYINT(1) NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -158,21 +173,7 @@ CREATE TABLE IF NOT EXISTS `camelus`.`order_lines` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `camelus`.`admins`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `camelus`.`admins` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `fname` VARCHAR(45) NOT NULL,
-  `lname` VARCHAR(45) NOT NULL,
-  `hire_date` VARCHAR(45) NOT NULL,
-  `sin` INT(9) NOT NULL,
-  `superadmin` TINYINT(1) NULL DEFAULT 0,
-  `deleted` TINYINT(1) NULL DEFAULT 0,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
