@@ -16,9 +16,12 @@ public class DBConnection {
 
 		try {
 			stream = Resources.getResourceAsStream(ressource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(stream);
-			sqlSessionFactory.getConfiguration().addMappers(
-					"com/devsolutions/camelus/mappers");
+			if (sqlSessionFactory == null) {
+				sqlSessionFactory = new SqlSessionFactoryBuilder()
+						.build(stream);
+				sqlSessionFactory.getConfiguration().addMappers(
+						"com/devsolutions/camelus/mappers");
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
