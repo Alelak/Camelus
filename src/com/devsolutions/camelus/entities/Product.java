@@ -10,10 +10,10 @@ public class Product {
 	private int quantity;
 	private int unit_id;
 	private String description;
-	private String category;
-	private String imgUrl;
+	private int category_id;
+	private String img_url;
 	private Date created_at;
-	private Date updtated_at;
+	private Date updated_at;
 	private int deleted;
 
 	public long getId() {
@@ -56,20 +56,20 @@ public class Product {
 		this.description = description;
 	}
 
-	public String getCategory() {
-		return category;
+	public int getCategory_id() {
+		return category_id;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
 	}
 
-	public String getImgUrl() {
-		return imgUrl;
+	public String getImg_url() {
+		return img_url;
 	}
 
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
 	}
 
 	public int getUnit_id() {
@@ -88,12 +88,12 @@ public class Product {
 		this.created_at = created_at;
 	}
 
-	public Date getUpdtated_at() {
-		return updtated_at;
+	public Date getUpdated_at() {
+		return updated_at;
 	}
 
-	public void setUpdtated_at(Date updtated_at) {
-		this.updtated_at = updtated_at;
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 
 	public int getDeleted() {

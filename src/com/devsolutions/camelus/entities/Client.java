@@ -11,8 +11,8 @@ public class Client {
 	private String contact_email;
 	private String address;
 	private String description;
-	private Date createdAt;
-	private Date updatedAt;
+	private Date created_at;
+	private Date updated_at;
 	private int deleted;
 
 	public int getAssociated_vendor() {
@@ -79,20 +79,20 @@ public class Client {
 		this.description = description;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreated_at() {
+		return created_at;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
 
-	public Date getUpdatedAt() {
-		return updatedAt;
+	public Date getUpdated_at() {
+		return updated_at;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 
 	public int getDeleted() {

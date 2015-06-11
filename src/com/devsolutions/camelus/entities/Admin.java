@@ -8,9 +8,11 @@ public class Admin {
 	private String password;
 	private String fname;
 	private String lname;
-	private Date hireDate;
+	private Date hire_date;
 	private int sin;
 	private int super_admin;
+	private Date created_at;
+	private Date updated_at;
 	private int deleted;
 
 	public int getId() {
@@ -53,12 +55,12 @@ public class Admin {
 		this.lname = lname;
 	}
 
-	public Date getHireDate() {
-		return hireDate;
+	public Date getHire_date() {
+		return hire_date;
 	}
 
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
+	public void setHire_date(Date hire_date) {
+		this.hire_date = hire_date;
 	}
 
 	public int getSin() {
@@ -83,6 +85,22 @@ public class Admin {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+	public Date getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 
 }

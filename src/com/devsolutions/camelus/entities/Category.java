@@ -2,11 +2,12 @@ package com.devsolutions.camelus.entities;
 
 import java.util.Date;
 
-public class Unit {
+public class Category {
+
 	private int id;
 	private String description;
-	private Date created_at;
 	private Date updated_at;
+	private Date created_at;
 
 	public int getId() {
 		return id;
@@ -24,20 +25,20 @@ public class Unit {
 		this.description = description;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
 	public Date getUpdated_at() {
 		return updated_at;
 	}
 
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
 
 }
