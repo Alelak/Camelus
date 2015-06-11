@@ -15,8 +15,9 @@ public class DBConnection {
 	static {
 
 		try {
-			stream = Resources.getResourceAsStream(ressource);
+
 			if (sqlSessionFactory == null) {
+				stream = Resources.getResourceAsStream(ressource);
 				sqlSessionFactory = new SqlSessionFactoryBuilder()
 						.build(stream);
 				sqlSessionFactory.getConfiguration().addMappers(
