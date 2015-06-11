@@ -2,8 +2,8 @@ package com.devsolutions.camelus.entities;
 
 public class OrderLine {
 	private long id;
-	private long productId;
-	private long orderId;
+	private long product_id;
+	private long order_id;
 	private double price;
 	private double modified_price;
 	private int quantity;
@@ -16,20 +16,20 @@ public class OrderLine {
 		this.id = id;
 	}
 
-	public long getProductId() {
-		return productId;
+	public long getProduct_id() {
+		return product_id;
 	}
 
-	public void setProductId(long productId) {
-		this.productId = productId;
+	public void setProduct_id(long product_id) {
+		this.product_id = product_id;
 	}
 
-	public long getOrderId() {
-		return orderId;
+	public long getOrder_id() {
+		return order_id;
 	}
 
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
+	public void setOrder_id(long order_id) {
+		this.order_id = order_id;
 	}
 
 	public double getPrice() {

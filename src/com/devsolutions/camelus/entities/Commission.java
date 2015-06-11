@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Commission {
 	private int id;
-	private boolean type;
+	private int type;
 	private int rate;
 	private int condition;
 	private Date created_at;
@@ -19,11 +19,11 @@ public class Commission {
 		this.id = id;
 	}
 
-	public boolean isType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(boolean type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
