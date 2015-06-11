@@ -3,21 +3,21 @@ package com.devsolutions.camelus.entities;
 import java.util.Date;
 
 public class Vendor {
-	private long id;
+	private int id;
 	private String login;
 	private String password;
 	private String fname;
 	private String lname;
-	private Date hireDate;
+	private Date hire_date;
 	private int sin;
-	private int commissionId;
+	private int commission_id;
 	private int deleted;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -53,12 +53,20 @@ public class Vendor {
 		this.lname = lname;
 	}
 
-	public Date getHireDate() {
-		return hireDate;
+	public Date getHire_date() {
+		return hire_date;
 	}
 
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
+	public void setHire_date(Date hire_date) {
+		this.hire_date = hire_date;
+	}
+
+	public int getCommission_id() {
+		return commission_id;
+	}
+
+	public void setCommission_id(int commission_id) {
+		this.commission_id = commission_id;
 	}
 
 	public int getSin() {
@@ -67,14 +75,6 @@ public class Vendor {
 
 	public void setSin(int sin) {
 		this.sin = sin;
-	}
-
-	public int getCommissionId() {
-		return commissionId;
-	}
-
-	public void setCommissionId(int commissionId) {
-		this.commissionId = commissionId;
 	}
 
 	public int getDeleted() {

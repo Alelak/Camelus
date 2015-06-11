@@ -4,15 +4,24 @@ import java.util.Date;
 
 public class Client {
 	private long id;
-	private String entrepriseName;
-	private String contactName;
-	private String contactTel;
-	private String contactEmail;
+	private int associated_vendor;
+	private String enterprise_name;
+	private String contact_name;
+	private String contact_tel;
+	private String contact_email;
 	private String address;
 	private String description;
 	private Date createdAt;
 	private Date updatedAt;
 	private int deleted;
+
+	public int getAssociated_vendor() {
+		return associated_vendor;
+	}
+
+	public void setAssociated_vendor(int associated_vendor) {
+		this.associated_vendor = associated_vendor;
+	}
 
 	public long getId() {
 		return id;
@@ -22,36 +31,36 @@ public class Client {
 		this.id = id;
 	}
 
-	public String getEntrepriseName() {
-		return entrepriseName;
+	public String getEnterprise_name() {
+		return enterprise_name;
 	}
 
-	public void setEntrepriseName(String entrepriseName) {
-		this.entrepriseName = entrepriseName;
+	public void setEnterprise_name(String enterprise_name) {
+		this.enterprise_name = enterprise_name;
 	}
 
-	public String getContactName() {
-		return contactName;
+	public String getContact_name() {
+		return contact_name;
 	}
 
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
+	public void setContact_name(String contact_name) {
+		this.contact_name = contact_name;
 	}
 
-	public String getContactTel() {
-		return contactTel;
+	public String getContact_tel() {
+		return contact_tel;
 	}
 
-	public void setContactTel(String contactTel) {
-		this.contactTel = contactTel;
+	public void setContact_tel(String contact_tel) {
+		this.contact_tel = contact_tel;
 	}
 
-	public String getContactEmail() {
-		return contactEmail;
+	public String getContact_email() {
+		return contact_email;
 	}
 
-	public void setContactEmail(String contactEmail) {
-		this.contactEmail = contactEmail;
+	public void setContact_email(String contact_email) {
+		this.contact_email = contact_email;
 	}
 
 	public String getAddress() {

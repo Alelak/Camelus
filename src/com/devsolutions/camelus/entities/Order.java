@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Order {
 	private long id;
-	private long vendorId;
-	private long clientId;
+	private long vendor_id;
+	private long client_id;
 	private String comment;
 	private Date oderedAt;
 	private int deleted;
@@ -18,20 +18,20 @@ public class Order {
 		this.id = id;
 	}
 
-	public long getVendorId() {
-		return vendorId;
+	public long getVendor_id() {
+		return vendor_id;
 	}
 
-	public void setVendorId(long vendorId) {
-		this.vendorId = vendorId;
+	public void setVendor_id(long vendor_id) {
+		this.vendor_id = vendor_id;
 	}
 
-	public long getClientId() {
-		return clientId;
+	public long getClient_id() {
+		return client_id;
 	}
 
-	public void setClientId(long clientId) {
-		this.clientId = clientId;
+	public void setClient_id(long client_id) {
+		this.client_id = client_id;
 	}
 
 	public String getComment() {

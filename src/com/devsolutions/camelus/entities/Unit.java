@@ -1,22 +1,23 @@
 package com.devsolutions.camelus.entities;
 
 public class Unit {
-	private long id;
-	private String Description;
+	private int id;
+	private String description;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
+
 }

@@ -3,21 +3,21 @@ package com.devsolutions.camelus.entities;
 import java.util.Date;
 
 public class Admin {
-	private long id;
+	private int id;
 	private String login;
 	private String password;
 	private String fname;
 	private String lname;
 	private Date hireDate;
 	private int sin;
-	private int superAdmin;
+	private int super_admin;
 	private int deleted;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -69,12 +69,12 @@ public class Admin {
 		this.sin = sin;
 	}
 
-	public int getSuperAdmin() {
-		return superAdmin;
+	public int getSuper_admin() {
+		return super_admin;
 	}
 
-	public void setSuperAdmin(int superAdmin) {
-		this.superAdmin = superAdmin;
+	public void setSuper_admin(int super_admin) {
+		this.super_admin = super_admin;
 	}
 
 	public int getDeleted() {
