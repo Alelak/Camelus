@@ -2,7 +2,7 @@ package com.devsolutions.camelus.entities;
 
 import java.util.Date;
 
-public class Products {
+public class Product {
 	
 	private long id;
 	private long upc;
@@ -14,7 +14,7 @@ public class Products {
 	private String imgUrl;
 	private Date createdAt;
 	private Date updtatedAt; 
-	private boolean deleted;
+	private int deleted;
 	
 	public long getId() {
 		return id;
@@ -76,10 +76,12 @@ public class Products {
 	public void setUpdtatedAt(Date updtatedAt) {
 		this.updtatedAt = updtatedAt;
 	}
-	public boolean isDeleted() {
+
+	public int getDeleted() {
 		return deleted;
 	}
-	public void setDeleted(boolean deleted) {
+
+	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
 }

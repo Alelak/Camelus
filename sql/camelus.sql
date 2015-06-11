@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camelus`.`products` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `upc` VARCHAR(12) NOT NULL,
+  `upc` INT(12) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `quantity` INT NOT NULL,
   `unit_id` INT NOT NULL,
