@@ -17,8 +17,6 @@ public class ProductManagerTest {
 		product.setUnit_id(1);
 		product.setDescription("du metal à vie!");
 		product.setCategory_id(1);
-		product.setImg_url("monDossier/image.png");
-
 		ProductManager.add(product);
 		System.out.println("Record inserted");
 	}
@@ -32,7 +30,6 @@ public class ProductManagerTest {
 		product.setUnit_id(1);
 		product.setDescription("une excellente qualité de metal!");
 		product.setCategory_id(1);
-		product.setImg_url("monDossier/image1.png");
 
 		ProductManager.update(product);
 		System.out.println("Record updated");
@@ -54,7 +51,6 @@ public class ProductManagerTest {
 			System.out.println("unit_id : " + product.getUnit_id());
 			System.out.println("description : " + product.getDescription());
 			System.out.println("category : " + product.getCategory_id());
-			System.out.println("img_url : " + product.getImg_url());
 			System.out.println("updated_at : " + product.getUpdated_at());
 			System.out.println("created_at : " + product.getCreated_at());
 			System.out.println("deleted : " + product.getDeleted());
@@ -72,7 +68,6 @@ public class ProductManagerTest {
 		System.out.println("unit_id : " + product.getUnit_id());
 		System.out.println("description : " + product.getDescription());
 		System.out.println("category : " + product.getCategory_id());
-		System.out.println("img_url : " + product.getImg_url());
 		System.out.println("updated_at : " + product.getUpdated_at());
 		System.out.println("created_at : " + product.getCreated_at());
 		System.out.println("deleted : " + product.getDeleted());
@@ -85,7 +80,7 @@ public class ProductManagerTest {
 		productManagerTest.getAll();
 		productManagerTest.update();
 		productManagerTest.getById();
-	//	productManagerTest.delete();
+		// productManagerTest.delete();
 
 	}
 }

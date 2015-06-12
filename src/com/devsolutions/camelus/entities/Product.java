@@ -11,7 +11,7 @@ public class Product {
 	private int unit_id;
 	private String description;
 	private int category_id;
-	private String img_url;
+	private byte[] img;
 	private Date created_at;
 	private Date updated_at;
 	private int deleted;
@@ -72,12 +72,12 @@ public class Product {
 		this.category_id = category_id;
 	}
 
-	public String getImg_url() {
-		return img_url;
+	public byte[] getImg() {
+		return img;
 	}
 
-	public void setImg_url(String img_url) {
-		this.img_url = img_url;
+	public void setImg(byte[] img) {
+		this.img = img;
 	}
 
 	public Date getCreated_at() {
