@@ -6,7 +6,7 @@ public class Commission {
 	private int id;
 	private int type;
 	private int rate;
-	private int condition;
+	private int mcondition;
 	private Date created_at;
 	private Date updated_at;
 	private int deleted;
@@ -35,12 +35,12 @@ public class Commission {
 		this.rate = rate;
 	}
 
-	public int getCondition() {
-		return condition;
+	public int getMcondition() {
+		return mcondition;
 	}
 
-	public void setCondition(int condition) {
-		this.condition = condition;
+	public void setMcondition(int mcondition) {
+		this.mcondition = mcondition;
 	}
 
 	public int getDeleted() {

@@ -93,11 +93,11 @@ public class VendorManagerTest {
 	
 	public static void main(String[] args) {
 		VendorManagerTest vendorManagerTest = new VendorManagerTest();
-		//vendorManagerTest.insert();
+		vendorManagerTest.insert();
 		//vendorManagerTest.update();
 		//vendorManagerTest.delete();
 		//vendorManagerTest.getByUsername();
 		//vendorManagerTest.getByName();
-		vendorManagerTest.getAll();
+		//vendorManagerTest.getAll();
 	}
 }
