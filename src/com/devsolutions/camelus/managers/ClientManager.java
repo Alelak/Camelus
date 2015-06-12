@@ -15,7 +15,6 @@ public class ClientManager {
 		List<Client> clients = session.getMapper(ClientMapper.class).getAll();
 		session.close();
 		return clients;
-
 	}
 
 	public static List<Client> getByVendorId(int associated_vendor) {
@@ -24,7 +23,6 @@ public class ClientManager {
 				.getByVendorId(associated_vendor);
 		session.close();
 		return clients;
-
 	}
 
 	public static Client getById(int id) {
@@ -32,7 +30,6 @@ public class ClientManager {
 		Client client = session.getMapper(ClientMapper.class).getById(id);
 		session.close();
 		return client;
-
 	}
 
 	public static void update(Client client) {
@@ -40,7 +37,6 @@ public class ClientManager {
 		session.getMapper(ClientMapper.class).update(client);
 		session.commit();
 		session.close();
-
 	}
 
 	public static void add(Client client) {
@@ -48,7 +44,6 @@ public class ClientManager {
 		session.getMapper(ClientMapper.class).add(client);
 		session.commit();
 		session.close();
-
 	}
 
 	public static void delete(int id) {
@@ -56,7 +51,6 @@ public class ClientManager {
 		session.getMapper(ClientMapper.class).delete(id);
 		session.commit();
 		session.close();
-
 	}
 
 }
