@@ -8,7 +8,6 @@ public class Order {
 	private long client_id;
 	private String comment;
 	private Date oderedAt;
-	private int deleted;
 
 	public long getId() {
 		return id;
@@ -48,14 +47,6 @@ public class Order {
 
 	public void setOderedAt(Date oderedAt) {
 		this.oderedAt = oderedAt;
-	}
-
-	public int getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(int deleted) {
-		this.deleted = deleted;
 	}
 
 }
