@@ -17,7 +17,7 @@ public class ProductManager {
 		return products;
 	}
 
-	public static Product getById(int id) {
+	public static Product getById(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Product product = session.getMapper(ProductMapper.class).getById(id);
 		session.close();
@@ -38,11 +38,23 @@ public class ProductManager {
 		session.close();
 	}
 
-	public static void delete(int id) {
+	public static void delete(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ProductMapper.class).delete(id);
 		session.commit();
 		session.close();
 	}
 
+	public static void incrementQuantity(int quantity,long id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(ProductMapper.class).incrementQuantity(quantity, id);
+		session.commit();
+		session.close();
+	}
+	public static void decrementQuantity(int quantity,long id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(ProductMapper.class).decrementQuantity(quantity, id);
+		session.commit();
+		session.close();
+	}
 }

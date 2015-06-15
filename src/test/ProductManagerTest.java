@@ -74,6 +74,16 @@ public class ProductManagerTest {
 		System.out.println("************************");
 	}
 
+	public void incrementQuantity() {
+		ProductManager.decrementQuantity(2, 1);
+		System.out.println("Incremented");
+	}
+
+	public void decrementQuantity() {
+		ProductManager.incrementQuantity(2, 1);
+		System.out.println("Decremented");
+	}
+
 	public static void main(String[] args) {
 		ProductManagerTest productManagerTest = new ProductManagerTest();
 		productManagerTest.insert();
@@ -81,6 +91,8 @@ public class ProductManagerTest {
 		productManagerTest.update();
 		productManagerTest.getById();
 		// productManagerTest.delete();
+		productManagerTest.incrementQuantity();
+		productManagerTest.decrementQuantity();
 
 	}
 }
