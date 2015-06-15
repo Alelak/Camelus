@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="500.0" maxWidth="500.0" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.LoginController">
+	<children>
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../../../images/image_holder.png" />
+			</image>
+		</ImageView>
+		<TextField fx:id="usernametxt" layoutX="163.0" layoutY="250.0" promptText="Username">
+         <tooltip>
+            <Tooltip text="Enter username" />
+         </tooltip></TextField>
+		<TextField fx:id="passwordtxt" layoutX="163.0" layoutY="332.0" promptText="Password">
+         <tooltip>
+            <Tooltip text="Enter password" />
+         </tooltip></TextField>
+		<Button fx:id="loginbtn" layoutX="257.0" layoutY="390.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Login">
+         <tooltip>
+            <Tooltip text="Click to login" />
+         </tooltip></Button>
+	</children>
+</AnchorPane>
