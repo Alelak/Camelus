@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass()
-					.getResource("../views/ViewProduct.fxml"));
+					.getResource("../views/Login.fxml"));
 			Scene scene = new Scene(root);
 			Font.loadFont(getClass().getResource("../../../../fonts/Roboto-Medium.ttf").toExternalForm(), 10);
 			scene.getStylesheets().add(
