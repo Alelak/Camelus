@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<GridPane fx:id="gridpane1" gridLinesVisible="false" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.MainWindowController">
+	<rowConstraints>
+		<RowConstraints percentHeight="7.0" />
+		<RowConstraints percentHeight="7.0" />
+		<RowConstraints percentHeight="1.0" />
+		<RowConstraints percentHeight="87.0" />
+		<RowConstraints percentHeight="1.0" />
+		<RowConstraints percentHeight="7.0" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
+	<children>
+		<HBox fx:id="header" GridPane.rowIndex="0" />
+		<HBox fx:id="footer" GridPane.rowIndex="5" />
+		<Separator prefWidth="200.0" GridPane.rowIndex="4">
+			<padding>
+				<Insets bottom="-6" />
+			</padding>
+		</Separator>
+		<Separator prefWidth="200.0" GridPane.rowIndex="2">
+			<padding>
+				<Insets top="-5" />
+			</padding>
+		</Separator>
+
+
+		<ToolBar id="toolbar" prefHeight="60" GridPane.rowIndex="1">
+			<padding>
+				<Insets left="450" />
+			</padding>
+			<items>
+				<HBox  alignment="CENTER">
+					<children>
+						<Button prefHeight="40" prefWidth="132" fx:id="tbacceuilbtn"
+							styleClass="tbbtn" text="Acceuil" />
+						<Button prefHeight="40" prefWidth="132" fx:id="tbclientsbtn"
+							styleClass="tbbtn" text="Clients" />
+						<Button prefHeight="40" prefWidth="132" fx:id="tbvendeursbtn"
+							styleClass="tbbtn" text="Vendeurs" />
+						<Button prefHeight="40" prefWidth="132" fx:id="tbproduitsbtn"
+							styleClass="tbbtn" text="Produits" />
+						<Button prefHeight="40" prefWidth="132" fx:id="tbcommands"
+							styleClass="tbbtn" text="Commandes" />
+						<Button prefHeight="40" prefWidth="132" fx:id="tbsettings"
+							styleClass="tbbtn" text="Settings" />
+					</children>
+				</HBox>
+			</items>
+		</ToolBar>
+
+
+	</children>
+</GridPane>

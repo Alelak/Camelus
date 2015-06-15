@@ -7,31 +7,51 @@
     -fx-border-radius: 0.0;
     -fx-cursor: hand ;
 }
-
+/*
 .button:hover {
     -fx-background-color: #2196F3;
     -fx-effect: dropshadow( gaussian   , rgba(0.0, 0.0, 0.0,0.3) , 0.0,0.0,1.0,1.0); 
 }
-
+*/
+/* 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color:#BBDEFB ;
   -fx-text-fill: #FFFFFF;
 }
 
-.button:focused {
-}
+*/
 .root{
+	
 	-fx-background-color: #FFFFFF;
 	 -fx-font-family: 'Roboto Medium';
 }
 .text-input{
-	-fx-background-radius: 0;
-	-fx-border-radius: 0;
+	-fx-background-radius: 0.0;
+	-fx-border-radius: 0.0;
 }
 
 .text-input:focused{
 	-fx-border-color: #03A9F4;
 	-fx-border-style: none;
-	-fx-border-width: 2;
+	-fx-border-width: 2.0;
 	
+}
+#header{
+	
+	-fx-background-color: #F5F5F5;
+}
+#footer{
+	-fx-background-color: #F5F5F5;
+}
+#toolbar{
+	-fx-background-color: #F5F5F5;
+}
+
+.tbbtn{
+	-fx-border-color: #1976D2;
+	-fx-border-width: 1.0;
+	-fx-background-color: #2196F3;
+}
+.tbbtn:hover {
+    -fx-background-color: #03A9F4;
 }
