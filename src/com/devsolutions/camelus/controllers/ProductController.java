@@ -65,6 +65,7 @@ public class ProductController implements Initializable {
 	private Desktop desktop = Desktop.getDesktop();
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
+	private byte[] imageInByte;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -119,7 +120,7 @@ public class ProductController implements Initializable {
 		product.setQuantity(Integer.parseInt(quantity.getText()));
 		product.setUnit_id(unit.getSelectionModel().getSelectedItem().getId());
 		product.setCategory_id(category.getSelectionModel().getSelectedItem().getId());
-		
+		product.setImg(imageInByte);
 		product.setDescription(description.getText());
 	
 		return product;
@@ -139,7 +140,7 @@ public class ProductController implements Initializable {
 			baos = new ByteArrayOutputStream();
 			ImageIO.write(originalImage, "jpg", baos);
 			baos.flush();
-			byte[] imageInByte = baos.toByteArray();
+			imageInByte = baos.toByteArray();
 			System.out.println(imageInByte);
 
 		} catch (Exception e1) {
