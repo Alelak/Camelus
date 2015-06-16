@@ -48,7 +48,7 @@ public class AddVendorController implements Initializable {
 	List<Commission> commissions;
 	ObservableList<Choice> commissionChoices;
 
-	AddVendorsController vendorTVConroller;
+	ShowVendorsController vendorTVConroller;
 
 	private Stage stage;
 
@@ -123,7 +123,7 @@ public class AddVendorController implements Initializable {
 		});
 	}
 
-	public void initData(AddVendorsController vendorTVConroller) {
+	public void initData(ShowVendorsController vendorTVConroller) {
 		this.vendorTVConroller = vendorTVConroller;
 	}
 

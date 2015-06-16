@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AddVendorsController implements Initializable {
+public class ShowVendorsController implements Initializable {
 
 	@FXML
 	TableView<Vendor> vendorTableView;

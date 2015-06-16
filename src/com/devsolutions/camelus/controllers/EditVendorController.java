@@ -64,7 +64,7 @@ public class EditVendorController implements Initializable{
 	List<Commission> commissions;
     ObservableList<Choice> commissionChoices;
     
-    AddVendorsController vendorTVConroller;
+    ShowVendorsController vendorTVConroller;
     
     private Stage stage;
     private Vendor vendorToUpdate;
@@ -156,7 +156,7 @@ public class EditVendorController implements Initializable{
 		commission.getSelectionModel().select(vendorToUpdate.getCommission_id());
 	}
 	
-	public void initData(AddVendorsController vendorTVConroller,Vendor vendorToUpdate){
+	public void initData(ShowVendorsController vendorTVConroller,Vendor vendorToUpdate){
 		this.vendorTVConroller = vendorTVConroller;
 		this.vendorToUpdate = vendorToUpdate;
 		initForm();
