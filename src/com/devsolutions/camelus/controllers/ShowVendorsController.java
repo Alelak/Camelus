@@ -52,7 +52,7 @@ public class ShowVendorsController implements Initializable {
 		addButton.setOnAction(e -> {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(
-						"../views/VendorScene.fxml"));
+						"../views/AddVendor.fxml"));
 
 				Stage newStage = new Stage();
 				Scene scene;
@@ -93,7 +93,7 @@ public class ShowVendorsController implements Initializable {
 			if (vendor != null) {
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(
-							"../views/VendorEditScene.fxml"));
+							"../views/EdirVendor.fxml"));
 
 					Stage newStage = new Stage();
 					Scene scene;

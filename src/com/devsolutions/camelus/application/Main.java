@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(
-					"../views/Login.fxml"));
+					"../views/showVendors.fxml"));
 			Scene scene = new Scene(root);
 			Font.loadFont(
 					getClass().getResource(
@@ -23,7 +23,7 @@ public class Main extends Application {
 					getClass().getResource("../views/main.css")
 							.toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.initStyle(StageStyle.UNDECORATED);
+			//primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

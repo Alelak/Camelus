@@ -21,7 +21,7 @@
          <tooltip>
             <Tooltip text="Enter password" />
          </tooltip></TextField>
-		<Button fx:id="loginbtn" layoutX="257.0" layoutY="390.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Login">
+		<Button fx:id="loginbtn" styleClass="flat-btn" layoutX="257.0" layoutY="390.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Login">
          <tooltip>
             <Tooltip text="Click to login" />
          </tooltip></Button>

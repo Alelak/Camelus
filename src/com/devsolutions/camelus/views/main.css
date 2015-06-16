@@ -1,12 +1,4 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-.button {
-    -fx-padding: 5.0 22.0 5.0 22.0; 
-    -fx-background-radius: 0.0;
-    -fx-background-color: #1976D2;
-    -fx-text-fill: #FFFFFF;
-    -fx-border-radius: 0.0;
-    -fx-cursor: hand ;
-}
 /*
 .button:hover {
     -fx-background-color: #2196F3;
@@ -50,8 +42,29 @@
 .tbbtn{
 	-fx-border-color: #1976D2;
 	-fx-border-width: 1.0;
-	-fx-background-color: #2196F3;
+		 -fx-padding: 5.0 22.0 5.0 22.0; 
+    -fx-background-radius: 0.0;
+    -fx-background-color: #2196F3;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 0.0;
+    -fx-cursor: hand ;
 }
 .tbbtn:hover {
     -fx-background-color: #03A9F4;
+}
+
+.flat-btn{
+	 -fx-padding: 5.0 22.0 5.0 22.0; 
+    -fx-background-radius: 0.0;
+    -fx-background-color: #2196F3;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 0.0;
+    -fx-cursor: hand ;
+}
+.flat-btn:hover{
+	    -fx-background-color: #03A9F4;
+    -fx-effect: dropshadow( gaussian   , rgba(0.0, 0.0, 0.0,0.3) , 0.0,0.0,1.0,1.0); 
+}
+.flat-btn:pressed{
+  -fx-background-color:#BBDEFB ;
 }
