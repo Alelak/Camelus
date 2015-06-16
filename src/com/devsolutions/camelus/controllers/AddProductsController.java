@@ -29,7 +29,7 @@ import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 
-public class ShowProductsController implements Initializable {
+public class AddProductsController implements Initializable {
 
 	@FXML
 	private TextField upc;

@@ -23,15 +23,15 @@ import javafx.stage.Stage;
 public class ShowVendorsController implements Initializable {
 
 	@FXML
-	TableView<Vendor> vendorTableView;
+	private TableView<Vendor> vendorTableView;
 	@FXML
-	Button addButton;
+	private Button addButton;
 	@FXML
-	Button editButton;
+	private Button editButton;
 	@FXML
-	Button deleteButton;
+	private Button deleteButton;
 	@FXML
-	Button showButton;
+	private Button showButton;
 
 	private List<Vendor> vendorsList;
 	private ObservableList<Vendor> vendorsObservableList;

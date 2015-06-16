@@ -27,28 +27,28 @@ import javafx.stage.Stage;
 
 public class AddVendorController implements Initializable {
 	@FXML
-	TextField textUsername;
+	private TextField textUsername;
 	@FXML
-	TextField textPassword;
+	private TextField textPassword;
 	@FXML
-	TextField textFname;
+	private TextField textFname;
 	@FXML
-	TextField textLname;
+	private TextField textLname;
 	@FXML
-	DatePicker hireDate;
+	private DatePicker hireDate;
 	@FXML
-	TextField textSin;
+	private TextField textSin;
 	@FXML
-	ChoiceBox<Choice> commission;
+	private ChoiceBox<Choice> commission;
 	@FXML
-	Button btnAdd;
+	private Button btnAdd;
 	@FXML
-	Button btnCancel;
+	private Button btnCancel;
 
-	List<Commission> commissions;
-	ObservableList<Choice> commissionChoices;
+	private List<Commission> commissions;
+	private ObservableList<Choice> commissionChoices;
 
-	ShowVendorsController vendorTVConroller;
+	private ShowVendorsController vendorTVConroller;
 
 	private Stage stage;
 
@@ -107,7 +107,7 @@ public class AddVendorController implements Initializable {
 				vendor.setCommission_id(commission.getSelectionModel()
 						.getSelectedIndex());
 				vendor.setHire_date(date);
-                VendorManager.add(vendor);
+				VendorManager.add(vendor);
 				vendorTVConroller.addToTableView(vendor);
 				stage.close();
 
