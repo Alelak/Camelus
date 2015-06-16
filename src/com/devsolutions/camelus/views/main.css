@@ -1,70 +1,71 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-/*
-.button:hover {
-    -fx-background-color: #2196F3;
-    -fx-effect: dropshadow( gaussian   , rgba(0.0, 0.0, 0.0,0.3) , 0.0,0.0,1.0,1.0); 
-}
-*/
-/* 
-.button:pressed, .button:default:hover:pressed {
-  -fx-background-color:#BBDEFB ;
-  -fx-text-fill: #FFFFFF;
+.root {
+		
+	-fx-font-smoothing-type: gray;
+	-fx-background-color: #FFFFFF;
+	-fx-font-family: 'Roboto Medium';
+	
 }
 
-*/
-.root{
-	
-	-fx-background-color: #FFFFFF;
-	 -fx-font-family: 'Roboto Medium';
-}
-.text-input{
+.text-input {
 	-fx-background-radius: 0.0;
 	-fx-border-radius: 0.0;
 }
 
-.text-input:focused{
+.text-input:focused {
+	
 	-fx-border-color: #03A9F4;
 	-fx-border-style: none;
 	-fx-border-width: 2.0;
 	
 }
-#header{
+
+#header {
 	
 	-fx-background-color: #F5F5F5;
 }
-#footer{
+
+#footer {
+	
 	-fx-background-color: #F5F5F5;
-}
-#toolbar{
-	-fx-background-color: #F5F5F5;
+	
 }
 
-.tbbtn{
+#toolbar {
+	
+	-fx-background-color: #F5F5F5;
+	
+}
+
+.tbbtn {
 	-fx-border-color: #1976D2;
 	-fx-border-width: 1.0;
-		 -fx-padding: 5.0 22.0 5.0 22.0; 
+    -fx-padding: 5.0 22.0 5.0 22.0; 
     -fx-background-radius: 0.0;
     -fx-background-color: #2196F3;
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 0.0;
-    -fx-cursor: hand ;
+    -fx-cursor: hand;
 }
+
 .tbbtn:hover {
     -fx-background-color: #03A9F4;
 }
 
-.flat-btn{
-	 -fx-padding: 5.0 22.0 5.0 22.0; 
+.flat-btn {
+	-fx-padding: 5.0 22.0 5.0 22.0; 
     -fx-background-radius: 0.0;
     -fx-background-color: #2196F3;
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 0.0;
-    -fx-cursor: hand ;
+    -fx-cursor: hand;
 }
-.flat-btn:hover{
-	    -fx-background-color: #03A9F4;
-    -fx-effect: dropshadow( gaussian   , rgba(0.0, 0.0, 0.0,0.3) , 0.0,0.0,1.0,1.0); 
+
+.flat-btn:hover {
+	-fx-background-color: #03A9F4;
+    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0,0.3), 0.0,0.0,1.0,1.0); 
 }
-.flat-btn:pressed{
-  -fx-background-color:#BBDEFB ;
+
+.flat-btn:pressed {
+  -fx-background-color:#BBDEFB;
 }

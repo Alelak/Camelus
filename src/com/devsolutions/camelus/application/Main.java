@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(
-					"../views/showVendors.fxml"));
+					"../views/mainwindow.fxml"));
 			Scene scene = new Scene(root);
 			Font.loadFont(
 					getClass().getResource(

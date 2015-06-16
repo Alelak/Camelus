@@ -1,4 +1,4 @@
-package util;
+package com.devsolutions.camelus.utils;
 
 // On utilise cette class pour faciliter l'utilisation d'un ChoiceBox
 public class Choice {

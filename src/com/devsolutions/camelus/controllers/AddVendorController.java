@@ -7,13 +7,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import util.Choice;
-
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.CommissionManager;
-
 import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.Choice;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

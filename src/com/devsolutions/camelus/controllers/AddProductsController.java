@@ -20,14 +20,13 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 
-import util.Choice;
-
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
+import com.devsolutions.camelus.utils.Choice;
 
 public class AddProductsController implements Initializable {
 
