@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class VendorTableViewController implements Initializable {
+public class AddVendorsController implements Initializable {
 
 	@FXML
 	TableView<Vendor> vendorTableView;
@@ -41,11 +41,10 @@ public class VendorTableViewController implements Initializable {
 	private TableColumn<Vendor, String> vendorIdCol;
 	private TableColumn<Vendor, String> vendorLoginCol;
 
-	private Stage stage;
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		refreshTableView();
 		vendorTableView.getColumns().addAll(vendorIdCol, vendorFirstNameCol,
 				vendorFLastNameCol, vendorLoginCol);
@@ -62,8 +61,8 @@ public class VendorTableViewController implements Initializable {
 
 				newStage.setScene(scene);
 
-				VendoreSceneController controller = loader
-						.<VendoreSceneController> getController();
+				AddVendorController controller = loader
+						.<AddVendorController> getController();
 				controller.initData(this);
 
 				newStage.initModality(Modality.APPLICATION_MODAL);
@@ -85,10 +84,10 @@ public class VendorTableViewController implements Initializable {
 				VendorManager.delete(vendor.getId());
 				refreshTableView();
 			}
-					
+
 		});
 		editButton.setOnAction(e -> {
-			
+
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
 			if (vendor != null) {
@@ -98,27 +97,27 @@ public class VendorTableViewController implements Initializable {
 
 					Stage newStage = new Stage();
 					Scene scene;
-					
+
 					scene = new Scene(loader.load());
 					newStage.setScene(scene);
-					
-					VendorEditSceneController controller = loader
-							.<VendorEditSceneController> getController();
+
+					EditVendorController controller = loader
+							.<EditVendorController> getController();
 					controller.initData(this, vendor);
 
 					newStage.initModality(Modality.APPLICATION_MODAL);
 
 					newStage.show();
 
-					//refreshTableView();
+					// refreshTableView();
 
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}		
-		});
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+	})	;
 	}
 
 	public void refreshTableView() {
@@ -148,7 +147,7 @@ public class VendorTableViewController implements Initializable {
 		}
 
 		vendorTableView.setItems(vendorsObservableList);
-		
+
 	}
 
 }

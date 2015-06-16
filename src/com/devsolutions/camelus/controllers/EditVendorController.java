@@ -41,7 +41,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class VendorEditSceneController implements Initializable{
+public class EditVendorController implements Initializable{
 	@FXML
 	TextField textUsername;
 	@FXML
@@ -64,7 +64,7 @@ public class VendorEditSceneController implements Initializable{
 	List<Commission> commissions;
     ObservableList<Choice> commissionChoices;
     
-    VendorTableViewController vendorTVConroller;
+    AddVendorsController vendorTVConroller;
     
     private Stage stage;
     private Vendor vendorToUpdate;
@@ -156,7 +156,7 @@ public class VendorEditSceneController implements Initializable{
 		commission.getSelectionModel().select(vendorToUpdate.getCommission_id());
 	}
 	
-	public void initData(VendorTableViewController vendorTVConroller,Vendor vendorToUpdate){
+	public void initData(AddVendorsController vendorTVConroller,Vendor vendorToUpdate){
 		this.vendorTVConroller = vendorTVConroller;
 		this.vendorToUpdate = vendorToUpdate;
 		initForm();

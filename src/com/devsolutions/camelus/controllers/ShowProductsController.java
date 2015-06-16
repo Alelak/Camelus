@@ -1,14 +1,26 @@
 package com.devsolutions.camelus.controllers;
 
-import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+
+import util.Choice;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
@@ -17,28 +29,7 @@ import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-
-import javax.imageio.ImageIO;
-
-
-import util.Choice;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-public class ProductController implements Initializable {
+public class ShowProductsController implements Initializable {
 
 	@FXML
 	private TextField upc;
@@ -62,7 +53,6 @@ public class ProductController implements Initializable {
 	private ChoiceBox<Choice> unit;
 	private Stage stage;
 	private ByteArrayOutputStream baos = null;
-	private Desktop desktop = Desktop.getDesktop();
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
@@ -74,11 +64,9 @@ public class ProductController implements Initializable {
 		btnAddImg.setOnAction(e -> {
 			addPicture();
 		});
-		btnAddProduct.setOnAction(e->{
-			System.out.println("le produit "+addProduct());
+		btnAddProduct.setOnAction(e -> {
 			ProductManager.add(addProduct());
 		});
-	
 
 	}
 
@@ -86,7 +74,6 @@ public class ProductController implements Initializable {
 		List<Unit> unitList = UnitManager.getAll();
 		listChoiceUnit = FXCollections.observableArrayList();
 		listChoiceUnit.add(new Choice(0, "No Selection"));
-		// System.out.println(listChoiceUnit);
 		for (Unit unit : unitList) {
 			listChoiceUnit.add(new Choice(unit.getId(), unit.getDescription()));
 		}
@@ -98,7 +85,6 @@ public class ProductController implements Initializable {
 		List<Category> CategoryList = CategoryManager.getAll();
 		listChoiceCategory = FXCollections.observableArrayList();
 		listChoiceCategory.add(new Choice(0, "No Selection"));
-		// System.out.println(listChoiceUnit);
 		for (Category category : CategoryList) {
 			listChoiceCategory.add(new Choice(category.getId(), category
 					.getDescription()));
@@ -114,15 +100,16 @@ public class ProductController implements Initializable {
 	{
 
 		Product product = new Product();
-		
+
 		product.setUpc(Integer.parseInt(upc.getText()));
 		product.setName(name.getText());
 		product.setQuantity(Integer.parseInt(quantity.getText()));
 		product.setUnit_id(unit.getSelectionModel().getSelectedItem().getId());
-		product.setCategory_id(category.getSelectionModel().getSelectedItem().getId());
+		product.setCategory_id(category.getSelectionModel().getSelectedItem()
+				.getId());
 		product.setImg(imageInByte);
 		product.setDescription(description.getText());
-	
+
 		return product;
 
 	}
@@ -134,17 +121,13 @@ public class ProductController implements Initializable {
 				"All Images", "*.*");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
-		System.out.println(file);
 		try {
 			BufferedImage originalImage = ImageIO.read(file);
 			baos = new ByteArrayOutputStream();
 			ImageIO.write(originalImage, "jpg", baos);
 			baos.flush();
 			imageInByte = baos.toByteArray();
-			System.out.println(imageInByte);
-
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
