@@ -21,7 +21,7 @@ public interface ClientMapper {
 	List<Client> getByVendorId(int associated_vendor);
 
 	@Select("SELECT * FROM clients WHERE id = #{id} AND " + DELETED_CONDITION)
-	Client getById(int id);
+	Client getById(long id);
 
 	@Insert("INSERT INTO clients (associated_vendor, enterprise_name, contact_name, contact_tel, contact_email, address, description)"
 			+ " VALUES (#{associated_vendor}, #{enterprise_name}, #{contact_name}, #{contact_tel}, #{contact_email}, #{address}, #{description})")

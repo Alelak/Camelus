@@ -3,6 +3,7 @@ package test;
 import java.util.List;
 
 import com.devsolutions.camelus.entities.Order;
+import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.managers.OrderManager;
 
 public class OrderManagerTest {
@@ -17,9 +18,9 @@ public class OrderManagerTest {
 	}
 
 	public void getByVendorId() {
-		List<Order> orders = OrderManager.getByVendorId(1);
-		for (Order order : orders) {
-			System.out.println(order.getClient_id());
+		List<OrderTV> orders = OrderManager.getByVendorId(1);
+		for (OrderTV order : orders) {
+			System.out.println(order.getComment());
 		}
 	}
 

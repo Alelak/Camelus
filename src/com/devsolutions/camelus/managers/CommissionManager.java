@@ -15,7 +15,6 @@ public class CommissionManager {
 		session.getMapper(CommissionMapper.class).add(commission);
 		session.commit();
 		session.close();
-
 	}
 
 	public static List<Commission> getAll() {
@@ -24,7 +23,14 @@ public class CommissionManager {
 				.getMapper(CommissionMapper.class).getAll();
 		session.close();
 		return commissions;
-
+	}
+	
+	public static Commission getById(int id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		Commission commission = session
+				.getMapper(CommissionMapper.class).getById(id);
+		session.close();
+		return commission;
 	}
 
 }

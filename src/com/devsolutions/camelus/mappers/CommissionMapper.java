@@ -16,5 +16,8 @@ public interface CommissionMapper {
 
 	@Select("SELECT * FROM commissions")
 	List<Commission> getAll();
+	
+	@Select("SELECT * FROM commissions WHERE id = #{id}")
+	Commission getById(int id);
 
 }

@@ -3,6 +3,7 @@ package test;
 import java.util.List;
 
 import com.devsolutions.camelus.entities.OrderLine;
+import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.managers.OrderLineManager;
 
 public class OrderLineManagerTest {
@@ -19,8 +20,8 @@ public class OrderLineManagerTest {
 	}
 
 	public void getByOrderId() {
-		List<OrderLine> orderLines = OrderLineManager.getByOrderId(1);
-		for (OrderLine orderLine : orderLines) {
+		List<OrderLineTV> orderLines = OrderLineManager.getByOrderId(1);
+		for (OrderLineTV orderLine : orderLines) {
 			System.out.println(orderLine.getPrice());
 		}
 	}

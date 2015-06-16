@@ -25,7 +25,7 @@ public class ClientManager {
 		return clients;
 	}
 
-	public static Client getById(int id) {
+	public static Client getById(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Client client = session.getMapper(ClientMapper.class).getById(id);
 		session.close();
