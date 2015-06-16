@@ -32,47 +32,47 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private Label lblClose;
 	@FXML
-	private Label lblMinimiaze;
+	private Label lblMinimize;
 	@FXML
 	private Label lblHelp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tbacceuilbtn.setStyle("-fx-background-color: #03A9F4;");
+		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
 		tbacceuilbtn.setOnAction(e -> {
 			resetButtonColor();
-			tbacceuilbtn.setStyle("-fx-background-color: #03A9F4;");
+			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
 		});
 		tbclientsbtn.setOnAction(e -> {
 			resetButtonColor();
-			tbclientsbtn.setStyle("-fx-background-color: #03A9F4;");
+			tbclientsbtn.setStyle("-fx-background-color: #00A0DC;");
 		});
 		tbvendeursbtn.setOnAction(e -> {
 			resetButtonColor();
-			tbvendeursbtn.setStyle("-fx-background-color: #03A9F4;");
+			tbvendeursbtn.setStyle("-fx-background-color: #00A0DC;");
 		});
 
 		tbcommands.setOnAction(e -> {
 			resetButtonColor();
-			tbcommands.setStyle("-fx-background-color: #03A9F4;");
+			tbcommands.setStyle("-fx-background-color: #00A0DC;");
 		});
 		tbproduitsbtn.setOnAction(e -> {
 			resetButtonColor();
-			tbproduitsbtn.setStyle("-fx-background-color: #03A9F4;");
+			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
 		});
 		tbsettings.setOnAction(e -> {
 			resetButtonColor();
-			tbsettings.setStyle("-fx-background-color: #03A9F4;");
+			tbsettings.setStyle("-fx-background-color: #00A0DC;");
 		});
 	}
 
 	public void resetButtonColor() {
-		tbproduitsbtn.setStyle("-fx-background-color: #2196F3;");
-		tbcommands.setStyle("-fx-background-color: #2196F3;");
-		tbvendeursbtn.setStyle("-fx-background-color: #2196F3;");
-		tbclientsbtn.setStyle("-fx-background-color: #2196F3;");
-		tbacceuilbtn.setStyle("-fx-background-color: #2196F3;");
-		tbsettings.setStyle("-fx-background-color: #2196F3;");
+		tbproduitsbtn.setStyle("-fx-background-color: #0077B5;");
+		tbcommands.setStyle("-fx-background-color: #0077B5;");
+		tbvendeursbtn.setStyle("-fx-background-color: #0077B5;");
+		tbclientsbtn.setStyle("-fx-background-color: #0077B5;");
+		tbacceuilbtn.setStyle("-fx-background-color: #0077B5;");
+		tbsettings.setStyle("-fx-background-color: #0077B5;");
 	}
 
 	@FXML
