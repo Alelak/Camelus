@@ -15,28 +15,29 @@ public class VendorManager {
 		session.close();
 		return vendors;
 	}
-	
-	public static Vendor getByUserName(String login){
+
+	public static Vendor getByUserName(String login) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Vendor vendor = session.getMapper(VendorMapper.class).getByUserName(login);
+		Vendor vendor = session.getMapper(VendorMapper.class).getByUserName(
+				login);
 		session.close();
 		return vendor;
 	}
-	
+
 	public static void add(Vendor vendor) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).add(vendor);
 		session.commit();
 		session.close();
 	}
-	
+
 	public static void update(Vendor vendor) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).update(vendor);
 		session.commit();
 		session.close();
 	}
-	
+
 	public static void delete(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).delete(id);

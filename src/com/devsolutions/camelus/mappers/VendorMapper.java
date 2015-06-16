@@ -14,19 +14,20 @@ public interface VendorMapper {
 
 	@Select("SELECT * FROM vendors WHERE " + DELETED_CONDITION)
 	List<Vendor> getAll();
-	
-	@Select("SELECT * FROM vendors WHERE login = #{login} AND " + DELETED_CONDITION)
+
+	@Select("SELECT * FROM vendors WHERE login = #{login} AND "
+			+ DELETED_CONDITION)
 	Vendor getByUserName(String login);
-	
+
 	@Insert("INSERT INTO vendors (login, password, fname, lname, hire_date, sin, commission_id)"
 			+ " VALUES (#{login}, #{password}, #{fname}, #{lname}, #{hire_date}, #{sin}, #{commission_id})")
-	@Options(flushCache = true)
+	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id", flushCache = true)
 	void add(Vendor vendor);
-	
+
 	@Update("UPDATE vendors SET login = #{login}, password = #{password}, fname = #{fname}, lname = #{lname}, hire_date = #{hire_date}, sin = #{sin}, commission_id = #{commission_id}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void update(Vendor vendor);
-	
+
 	@Update("UPDATE  vendors SET deleted = 1 WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);

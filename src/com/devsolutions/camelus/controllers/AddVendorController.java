@@ -107,9 +107,8 @@ public class AddVendorController implements Initializable {
 				vendor.setCommission_id(commission.getSelectionModel()
 						.getSelectedIndex());
 				vendor.setHire_date(date);
-				VendorManager.add(vendor);
-
-				vendorTVConroller.refreshTableView();
+                VendorManager.add(vendor);
+				vendorTVConroller.addToTableView(vendor);
 				stage.close();
 
 			} else {

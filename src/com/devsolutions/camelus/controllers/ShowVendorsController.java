@@ -45,7 +45,7 @@ public class ShowVendorsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		refreshTableView();
+		initTableView();
 		vendorTableView.getColumns().addAll(vendorIdCol, vendorFirstNameCol,
 				vendorFLastNameCol, vendorLoginCol);
 
@@ -69,10 +69,7 @@ public class ShowVendorsController implements Initializable {
 
 				newStage.show();
 
-				refreshTableView();
-
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -82,7 +79,7 @@ public class ShowVendorsController implements Initializable {
 					.getSelectedItem();
 			if (vendor != null) {
 				VendorManager.delete(vendor.getId());
-				refreshTableView();
+				vendorTableView.getItems().remove(vendor);
 			}
 
 		});
@@ -90,10 +87,11 @@ public class ShowVendorsController implements Initializable {
 
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
+			int index = vendorTableView.getSelectionModel().getSelectedIndex();
 			if (vendor != null) {
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(
-							"../views/EdirVendor.fxml"));
+							"../views/EditVendor.fxml"));
 
 					Stage newStage = new Stage();
 					Scene scene;
@@ -103,24 +101,21 @@ public class ShowVendorsController implements Initializable {
 
 					EditVendorController controller = loader
 							.<EditVendorController> getController();
-					controller.initData(this, vendor);
+					controller.initData(this, vendor, index);
 
 					newStage.initModality(Modality.APPLICATION_MODAL);
 
 					newStage.show();
 
-					// refreshTableView();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
-
-		}
-	})	;
+		});
 	}
 
-	public void refreshTableView() {
+	public void initTableView() {
 		vendorsList = VendorManager.getAll();
 		vendorsObservableList = FXCollections.observableArrayList();
 
@@ -141,13 +136,20 @@ public class ShowVendorsController implements Initializable {
 		vendorLoginCol = new TableColumn<Vendor, String>("Nom d'utilisateur");
 		vendorLoginCol.setMinWidth(200);
 		vendorLoginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
-
-		for (Vendor vendor : vendorsList) {
-			vendorsObservableList.add(vendor);
-		}
-
+		vendorsObservableList.addAll(vendorsList);
 		vendorTableView.setItems(vendorsObservableList);
 
 	}
 
+	public void addToTableView(Vendor vendor) {
+		vendorTableView.getItems().add(vendor);
+	}
+
+	public void removeFromTableView(Vendor vendor) {
+		vendorTableView.getItems().remove(vendor);
+	}
+
+	public void updateTableView(int index, Vendor vendor) {
+		vendorTableView.getItems().set(index, vendor);
+	}
 }
