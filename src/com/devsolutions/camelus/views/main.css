@@ -69,3 +69,7 @@
 .flat-btn:pressed {
   -fx-background-color:#BBDEFB;
 }
+.font-awesome{
+	-fx-font-smoothing-type: gray;
+	-fx-font-size: 24.0px;
+}

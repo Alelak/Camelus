@@ -50,7 +50,8 @@
 
 					<Label fx:id="lblClose" onMouseClicked="#CloseWindow">
 						<graphic>
-							<FontAwesomeIconView id="test" icon="ICON_QUESTION" />
+							<FontAwesomeIconView styleClass="font-awesome"
+								icon="ICON_QUESTION" />
 						</graphic>
 					</Label>
 					<Label fx:id="lblMinimiaze">
@@ -58,12 +59,14 @@
 							<Insets bottom="0" left="0" right="0" top="3" />
 						</padding>
 						<graphic>
-							<FontAwesomeIconView icon="ICON_MINUS" />
+							<FontAwesomeIconView styleClass="font-awesome"
+								icon="ICON_MINUS" />
 						</graphic>
 					</Label>
 					<Label fx:id="lblHelp">
 						<graphic>
-							<FontAwesomeIconView icon="ICON_REMOVE" />
+							<FontAwesomeIconView styleClass="font-awesome"
+								icon="ICON_REMOVE" />
 						</graphic>
 					</Label>
 				</HBox>

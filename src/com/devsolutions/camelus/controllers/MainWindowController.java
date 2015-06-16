@@ -13,8 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class MainWindowController implements Initializable {
-	private double initialX;
-	private double initialY;
 	private Stage stage;
 
 	@FXML
@@ -40,7 +38,6 @@ public class MainWindowController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(header);
 		tbacceuilbtn.setStyle("-fx-background-color: #03A9F4;");
 		tbacceuilbtn.setOnAction(e -> {
 			resetButtonColor();
@@ -76,21 +73,6 @@ public class MainWindowController implements Initializable {
 		tbclientsbtn.setStyle("-fx-background-color: #2196F3;");
 		tbacceuilbtn.setStyle("-fx-background-color: #2196F3;");
 		tbsettings.setStyle("-fx-background-color: #2196F3;");
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 
 	@FXML
