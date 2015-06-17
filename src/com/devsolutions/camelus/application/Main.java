@@ -6,6 +6,7 @@ import javafx.stage.StageStyle;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Font;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,10 @@ public class Main extends Application {
 							.toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.setTitle("Camelus");
+			primaryStage.getIcons().add(
+					new Image(getClass().getResource(
+							"../../../../images/logo.png").toExternalForm()));
 			addDraggableNode(root);
 			primaryStage.show();
 		} catch (Exception e) {

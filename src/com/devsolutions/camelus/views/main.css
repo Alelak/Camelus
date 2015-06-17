@@ -1,7 +1,7 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .root {
 		
-	-fx-font-smoothing-type: gray;
+	-fx-font-smoothing-type: lcd;
 	-fx-background-color: #FFFFFF;
 	-fx-font-family: 'Roboto Medium';
 	
@@ -70,7 +70,6 @@
   -fx-background-color:#BBDEFB;
 }
 .font-awesome{
-	-fx-font-smoothing-type: gray;
 	-fx-font-size: 17.0px;
 }
 
@@ -91,17 +90,14 @@
 
 #lblClose:hover #closeFont{
 	-fx-text-fill: white;
-	-fx-font-smoothing-type: gray;
 }
 
 #lblMinimize:hover #minimizeFont{
 	-fx-text-fill: black;
-	-fx-font-smoothing-type: gray;
 }
 
 #lblHelp:hover #helpFont{
 	-fx-text-fill: black;
-	-fx-font-smoothing-type: gray;
 }
 
 
@@ -119,27 +115,22 @@
 
 #lblClose:pressed #closeFont{
 	-fx-text-fill: white;
-	-fx-font-smoothing-type: gray;
 }
 
 #lblMinimize:pressed #minimizeFont{
 	-fx-text-fill: white;
-	-fx-font-smoothing-type: gray;
 }
 
 #lblHelp:pressed #helpFont{
 	-fx-text-fill: white;
-	-fx-font-smoothing-type: gray;
 }
 
 #lblTitle{
 	-fx-text-fill: black;
-	-fx-font-smoothing-type: gray;
 	-fx-font-size: 16.0px;	
 }
 
 .footerFont{
-	-fx-font-smoothing-type: gray;
 	-fx-font-size: 14.0px;
 }
 
@@ -156,3 +147,10 @@
 	-fx-text-fill: #4099ff;
 }
 
+.custom-tooltip{
+	-fx-padding: 5.0,5.0,5.0,5.0;
+	-fx-background-radius: 0.0;
+	-fx-border-radius: 0.0;
+	-fx-background-color: #F5F5F5;
+	-fx-text-fill: #727272;
+}
