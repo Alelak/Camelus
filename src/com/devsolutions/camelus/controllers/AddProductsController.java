@@ -55,7 +55,7 @@ public class AddProductsController implements Initializable {
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
-
+	private ProductViewController productController;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listChoiceBoxUnit();
@@ -64,7 +64,17 @@ public class AddProductsController implements Initializable {
 			addPicture();
 		});
 		btnAddProduct.setOnAction(e -> {
-			ProductManager.add(addProduct());
+			if ((unit.getSelectionModel().getSelectedIndex() == 0)
+					|| (category.getSelectionModel().getSelectedIndex() == 0))
+				System.out.println("il faut choisir une unit ou une category");
+
+			if (!upc.getText().isEmpty() && !name.getText().isEmpty()
+					&& !quantity.getText().isEmpty() && imageInByte != null
+					&& !description.getText().isEmpty()) {
+				ProductManager.add(addProduct());
+			} else
+				System.out.println("tous les chams doivent etre remplis");
+		
 		});
 
 	}
@@ -108,7 +118,9 @@ public class AddProductsController implements Initializable {
 				.getId());
 		product.setImg(imageInByte);
 		product.setDescription(description.getText());
-
+		System.out.println("test table view"+product.getCategory_id());
+		
+		productController.addToTableView(product);
 		return product;
 
 	}
@@ -130,4 +142,9 @@ public class AddProductsController implements Initializable {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void initData(ProductViewController ProductController) {
+		this.productController = ProductController;
+	}
+
 }

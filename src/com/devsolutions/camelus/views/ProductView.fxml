@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="337.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ProductViewController">
+   <children>
+      <VBox prefHeight="337.0" prefWidth="476.0">
+         <children>
+            <HBox minHeight="80.0" prefHeight="80.0" prefWidth="476.0">
+               <children>
+                  <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Add Product">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="35.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnUpdateProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Update Product">
+                     <HBox.margin>
+                        <Insets right="10.0" top="35.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnDeleteProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Delete Product">
+                     <HBox.margin>
+                        <Insets right="10.0" top="35.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnShowAllProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Show All Product">
+                     <HBox.margin>
+                        <Insets right="10.0" top="35.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <AnchorPane prefHeight="53.0" prefWidth="476.0">
+               <children>
+                  <TextField layoutX="147.0" layoutY="3.0" minHeight="27.0" prefHeight="22.0" prefWidth="179.0" />
+                  <Button fx:id="btnSearchProduct" layoutX="333.0" layoutY="3.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false">
+               <graphic>
+        <ImageView fitHeight="20.0" fitWidth="20.0">
+          <image>
+            <Image url="@../../../../images/Search.png" />
+          </image>
+        </ImageView>
+      </graphic>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </AnchorPane>
+            <AnchorPane prefHeight="237.0" prefWidth="476.0">
+               <children>
+                  <TableView fx:id="tableViewProduct" layoutY="-1.0" prefHeight="237.0" prefWidth="476.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

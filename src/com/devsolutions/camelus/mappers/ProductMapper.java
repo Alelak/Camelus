@@ -19,7 +19,7 @@ public interface ProductMapper {
 
 	@Insert("INSERT INTO products (upc, name, quantity, unit_id, cost_price, selling_price, description, category_id, img)"
 			+ " VALUES (#{upc}, #{name}, #{quantity}, #{unit_id},#{cost_price},#{selling_price}, #{description}, #{category_id}, #{img})")
-	@Options(flushCache = true)
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Product product);
 
 	@Update("UPDATE products SET upc = #{upc}, name = #{name}, quantity = #{quantity}, unit_id = #{unit_id}, cost_price = #{cost_price}, selling_price = #{selling_price}, description = #{description}, category_id = #{category_id}, img = #{img}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
