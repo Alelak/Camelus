@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 
@@ -19,6 +20,12 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+	}
+
+	@FXML
+	private void CloseWindow() {
+		Stage stage = (Stage) loginbtn.getScene().getWindow();
+		stage.close();
 	}
 
 }

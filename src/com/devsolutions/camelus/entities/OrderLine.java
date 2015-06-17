@@ -4,7 +4,6 @@ public class OrderLine {
 	private long id;
 	private long product_id;
 	private long order_id;
-	private double price;
 	private double modified_price;
 	private int quantity;
 
@@ -30,14 +29,6 @@ public class OrderLine {
 
 	public void setOrder_id(long order_id) {
 		this.order_id = order_id;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 	public double getModified_price() {

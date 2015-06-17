@@ -70,7 +70,7 @@
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
 						fx:id="lblHelp">
 						<tooltip>
-							<Tooltip styleClass="custom-tooltip" text="Aide" />
+							<Tooltip text="Aide" />
 						</tooltip>
 						<graphic>
 							<FontAwesomeIconView id="helpFont"
@@ -80,7 +80,7 @@
 					<Label alignment="BOTTOM_CENTER" prefWidth="30" prefHeight="30"
 						fx:id="lblMinimize">
 						<tooltip>
-							<Tooltip styleClass="custom-tooltip" text="Minimiser" />
+							<Tooltip text="Minimiser" />
 						</tooltip>
 						<padding>
 							<Insets bottom="0" left="0" right="0" top="3" />
@@ -93,7 +93,7 @@
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
 						fx:id="lblClose" onMouseClicked="#CloseWindow">
 						<tooltip>
-							<Tooltip styleClass="custom-tooltip" text="Fermer" />
+							<Tooltip text="Fermer" />
 						</tooltip>
 						<graphic>
 							<FontAwesomeIconView id="closeFont"

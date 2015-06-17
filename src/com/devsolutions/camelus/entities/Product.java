@@ -9,6 +9,8 @@ public class Product {
 	private String name;
 	private int quantity;
 	private int unit_id;
+	private double cost_price;
+	private double selling_price;
 	private String description;
 	private int category_id;
 	private byte[] img;
@@ -54,6 +56,22 @@ public class Product {
 
 	public void setUnit_id(int unit_id) {
 		this.unit_id = unit_id;
+	}
+
+	public double getCost_price() {
+		return cost_price;
+	}
+
+	public void setCost_price(double cost_price) {
+		this.cost_price = cost_price;
+	}
+
+	public double getSelling_price() {
+		return selling_price;
+	}
+
+	public void setSelling_price(double selling_price) {
+		this.selling_price = selling_price;
 	}
 
 	public String getDescription() {

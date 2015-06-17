@@ -5,25 +5,77 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 
-<AnchorPane maxHeight="500.0" maxWidth="500.0" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.LoginController">
+<AnchorPane maxHeight="500.0" maxWidth="500.0" minHeight="500.0"
+	minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.LoginController">
 	<children>
-		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+		<HBox style="-fx-background-color: #F5F5F5;">
+			<padding>
+				<Insets left="410"></Insets>
+			</padding>
+			<Label alignment="CENTER" prefWidth="30" prefHeight="30" fx:id="lblHelp">
+				<tooltip>
+					<Tooltip text="Aide" />
+				</tooltip>
+				<graphic>
+					<FontAwesomeIconView id="helpFont" styleClass="font-awesome"
+						icon="ICON_QUESTION" />
+				</graphic>
+			</Label>
+			<Label alignment="BOTTOM_CENTER" prefWidth="30" prefHeight="30"
+				fx:id="lblMinimize">
+				<tooltip>
+					<Tooltip text="Minimiser" />
+				</tooltip>
+				<graphic>
+					<FontAwesomeIconView id="minimizeFont"
+						styleClass="font-awesome" icon="ICON_MINUS" />
+				</graphic>
+			</Label>
+			<Label alignment="CENTER" prefWidth="30" prefHeight="30" fx:id="lblClose"
+				onMouseClicked="#CloseWindow">
+				<tooltip>
+					<Tooltip text="Fermer" />
+				</tooltip>
+				<graphic>
+					<FontAwesomeIconView id="closeFont" styleClass="font-awesome"
+						icon="ICON_REMOVE" />
+				</graphic>
+			</Label>
+		</HBox>
+
+
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0"
+			layoutY="54.0" pickOnBounds="true" preserveRatio="true">
 			<image>
 				<Image url="@../../../../images/image_holder.png" />
 			</image>
 		</ImageView>
-		<TextField fx:id="usernametxt" layoutX="163.0" layoutY="250.0" promptText="Username">
-         <tooltip>
-            <Tooltip text="Enter username" />
-         </tooltip></TextField>
-		<TextField fx:id="passwordtxt" layoutX="163.0" layoutY="332.0" promptText="Password">
-         <tooltip>
-            <Tooltip text="Enter password" />
-         </tooltip></TextField>
-		<Button fx:id="loginbtn" styleClass="flat-btn" layoutX="257.0" layoutY="390.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Login">
-         <tooltip>
-            <Tooltip text="Click to login" />
-         </tooltip></Button>
+		<ChoiceBox layoutX="163.0" layoutY="200.0" fx:id="chooseAccountType"  prefWidth="180">
+		</ChoiceBox>
+		<TextField fx:id="usernametxt" layoutX="163.0" layoutY="250.0"
+			promptText="Username">
+			<tooltip>
+				<Tooltip text="Enter username" />
+			</tooltip>
+		</TextField>
+		<TextField fx:id="passwordtxt" layoutX="163.0" layoutY="332.0"
+			promptText="Password">
+			<tooltip>
+				<Tooltip text="Enter password" />
+			</tooltip>
+		</TextField>
+		<Button fx:id="loginbtn" styleClass="flat-btn" layoutX="257.0"
+			layoutY="390.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0"
+			text="Login">
+			<tooltip>
+				<Tooltip text="Click to login" />
+			</tooltip>
+		</Button>
 	</children>
 </AnchorPane>

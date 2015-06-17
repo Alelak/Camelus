@@ -15,6 +15,8 @@ public class ProductManagerTest {
 		product.setName("metal");
 		product.setQuantity(20);
 		product.setUnit_id(1);
+		product.setCost_price(100.00);
+		product.setSelling_price(110.00);
 		product.setDescription("du metal à vie!");
 		product.setCategory_id(1);
 		ProductManager.add(product);
@@ -28,6 +30,8 @@ public class ProductManagerTest {
 		product.setName("Metal");
 		product.setQuantity(50);
 		product.setUnit_id(1);
+		product.setCost_price(100.00);
+		product.setSelling_price(120.00);
 		product.setDescription("une excellente qualité de metal!");
 		product.setCategory_id(1);
 
@@ -49,6 +53,8 @@ public class ProductManagerTest {
 			System.out.println("name : " + product.getName());
 			System.out.println("quantity : " + product.getQuantity());
 			System.out.println("unit_id : " + product.getUnit_id());
+			System.out.println("selling_price : " + product.getCost_price());
+			System.out.println("cost_price : " + product.getSelling_price());
 			System.out.println("description : " + product.getDescription());
 			System.out.println("category : " + product.getCategory_id());
 			System.out.println("updated_at : " + product.getUpdated_at());
@@ -66,6 +72,8 @@ public class ProductManagerTest {
 		System.out.println("name : " + product.getName());
 		System.out.println("quantity : " + product.getQuantity());
 		System.out.println("unit_id : " + product.getUnit_id());
+		System.out.println("selling_price : " + product.getCost_price());
+		System.out.println("cost_price : " + product.getSelling_price());
 		System.out.println("description : " + product.getDescription());
 		System.out.println("category : " + product.getCategory_id());
 		System.out.println("updated_at : " + product.getUpdated_at());

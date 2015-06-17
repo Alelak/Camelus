@@ -17,12 +17,12 @@ public interface ProductMapper {
 	@Select("SELECT * FROM products WHERE id = #{id} ")
 	Product getById(long id);
 
-	@Insert("INSERT INTO products (upc, name, quantity, unit_id, description, category_id, img)"
-			+ " VALUES (#{upc}, #{name}, #{quantity}, #{unit_id}, #{description}, #{category_id}, #{img})")
+	@Insert("INSERT INTO products (upc, name, quantity, unit_id, cost_price, selling_price, description, category_id, img)"
+			+ " VALUES (#{upc}, #{name}, #{quantity}, #{unit_id},#{cost_price},#{selling_price}, #{description}, #{category_id}, #{img})")
 	@Options(flushCache = true)
 	void add(Product product);
 
-	@Update("UPDATE products SET upc = #{upc}, name = #{name}, quantity = #{quantity}, unit_id = #{unit_id}, description = #{description}, category_id = #{category_id}, img = #{img}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
+	@Update("UPDATE products SET upc = #{upc}, name = #{name}, quantity = #{quantity}, unit_id = #{unit_id}, cost_price = #{cost_price}, selling_price = #{selling_price}, description = #{description}, category_id = #{category_id}, img = #{img}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void update(Product product);
 
