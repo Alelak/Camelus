@@ -9,10 +9,14 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.devsolutions.camelus.entities.Product;
+import com.devsolutions.camelus.entities.ProductTableView;
 
 public interface ProductMapper {
 	@Select("SELECT * FROM products")
 	List<Product> getAll();
+
+	@Select("SELECT products.id,products.upc,products.name,products.quantity,products.selling_price,categories.description FROM products inner join categories ON products.category_id=categories.id ")
+	List<ProductTableView> getAllProductTableView();
 
 	@Select("SELECT * FROM products WHERE id = #{id} ")
 	Product getById(long id);
@@ -35,5 +39,7 @@ public interface ProductMapper {
 
 	@Update("UPDATE products SET quantity = quantity + #{quantity} AND id = #{id}")
 	void incrementQuantity(@Param("quantity") int quantity, @Param("id") long id);
+
+
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.devsolutions.camelus.entities.Product;
+import com.devsolutions.camelus.entities.ProductTableView;
 import com.devsolutions.camelus.mappers.ProductMapper;
 import com.devsolutions.camelus.services.DBConnection;
 
@@ -13,6 +14,14 @@ public class ProductManager {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		List<Product> products = session.getMapper(ProductMapper.class)
 				.getAll();
+		session.close();
+		return products;
+	}
+
+	public static List<ProductTableView> getAllProductTableView() {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<ProductTableView> products = session
+				.getMapper(ProductMapper.class).getAllProductTableView();
 		session.close();
 		return products;
 	}
@@ -45,13 +54,14 @@ public class ProductManager {
 		session.close();
 	}
 
-	public static void incrementQuantity(int quantity,long id) {
+	public static void incrementQuantity(int quantity, long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ProductMapper.class).incrementQuantity(quantity, id);
 		session.commit();
 		session.close();
 	}
-	public static void decrementQuantity(int quantity,long id) {
+
+	public static void decrementQuantity(int quantity, long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ProductMapper.class).decrementQuantity(quantity, id);
 		session.commit();
