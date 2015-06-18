@@ -1,7 +1,6 @@
 package com.devsolutions.camelus.application;
 
-
-import com.devsolutions.camelus.controllers.MainWindowController;
+import com.devsolutions.camelus.controllers.LoginController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -25,7 +24,7 @@ public class Main extends Application {
 							"../../../../fonts/fontawesome-webfont.ttf")
 							.toExternalForm(), 14);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(
-					"../views/mainwindow.fxml"));
+					"../views/login.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			Font.loadFont(
@@ -42,8 +41,7 @@ public class Main extends Application {
 					new Image(getClass().getResource(
 							"../../../../images/logo.png").toExternalForm()));
 			addDraggableNode(root);
-			MainWindowController mainwindow = loader.getController();
-			mainwindow.setMainApp(primaryStage);
+			LoginController loginController = loader.getController();
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
