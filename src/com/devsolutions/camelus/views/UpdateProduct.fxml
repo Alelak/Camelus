@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -9,10 +10,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.AddProductController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.UpdateProductController">
   <children>
-      <VBox layoutX="22.0" layoutY="13.0" prefHeight="463.0" prefWidth="352.0">
+      <VBox layoutX="6.0" prefHeight="463.0" prefWidth="352.0">
          <children>
+            <ImageView fx:id="imageProduct" fitHeight="63.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true" />
             <HBox prefHeight="34.0" prefWidth="352.0">
                <children>
                   <Label text="UPC : ">
@@ -110,7 +112,7 @@
                      </HBox.margin>
                   </Label>
                   
-                   <Button fx:id="btnAddImg" mnemonicParsing="false" prefHeight="22.0" prefWidth="140.0" text="Add image">
+                   <Button fx:id="btnAddImg" mnemonicParsing="false" prefHeight="22.0" prefWidth="140.0" text="Update Image">
                    </Button>
                </children>
                <VBox.margin>
@@ -124,7 +126,7 @@
                         <Insets right="47.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="costPrice"  prefHeight="22.0" prefWidth="140.0" />
+                  <TextField fx:id="costPrice" prefHeight="22.0" prefWidth="140.0" />
                   <Label text="\$">
                      <HBox.margin>
                         <Insets left="5.0" top="4.0" />
@@ -162,12 +164,12 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="22.0" prefWidth="58.0" text="Add">
+                  <Button fx:id="btnUpdateProduct" mnemonicParsing="false" prefHeight="22.0" prefWidth="74.0" text="Update">
                      <HBox.margin>
-                        <Insets left="200.0" right="50.0" top="30.0" />
+                        <Insets left="200.0" right="30.0" top="30.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnCancelProduct" mnemonicParsing="false" prefHeight="22.0" prefWidth="74.0" text="Cancel">
+                  <Button fx:id="btnCancelProduct" mnemonicParsing="false" prefHeight="22.0" prefWidth="64.0" text="Cancel">
                      <HBox.margin>
                         <Insets top="30.0" />
                      </HBox.margin>

@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.GridPane?>
 
 <GridPane id="parent" maxHeight="500.0" maxWidth="500.0"
 	minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
@@ -62,10 +63,13 @@
 
 
 		<HBox alignment="CENTER" GridPane.rowIndex="1">
+		<GridPane.margin>
+		<Insets top="30"></Insets>
+		</GridPane.margin>
 			<ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
 				preserveRatio="true">
 				<image>
-					<Image url="@../../../../images/image_holder.png" />
+					<Image url="@../../../../images/logo.png" />
 				</image>
 			</ImageView>
 		</HBox>
