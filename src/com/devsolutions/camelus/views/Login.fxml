@@ -8,13 +8,24 @@
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.PasswordField?>
 
-<AnchorPane maxHeight="500.0" maxWidth="500.0" minHeight="500.0"
-	minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
+<GridPane id="parent" maxHeight="500.0" maxWidth="500.0"
+	minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.LoginController">
+	<rowConstraints>
+		<RowConstraints percentHeight="6.2" />
+		<RowConstraints percentHeight="30.0" />
+		<RowConstraints percentHeight="63.8" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
 	<children>
-		<HBox style="-fx-background-color: #F5F5F5;">
+		<HBox alignment="BASELINE_CENTER" style="-fx-background-color: #F5F5F5;"
+			GridPane.rowIndex="0">
 			<padding>
 				<Insets left="410"></Insets>
 			</padding>
@@ -50,32 +61,38 @@
 		</HBox>
 
 
-		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0"
-			layoutY="54.0" pickOnBounds="true" preserveRatio="true">
-			<image>
-				<Image url="@../../../../images/image_holder.png" />
-			</image>
-		</ImageView>
-		<ChoiceBox layoutX="163.0" layoutY="200.0" fx:id="chooseAccountType"  prefWidth="180">
-		</ChoiceBox>
-		<TextField fx:id="usernametxt" layoutX="163.0" layoutY="250.0"
-			promptText="Username">
-			<tooltip>
-				<Tooltip text="Enter username" />
-			</tooltip>
-		</TextField>
-		<TextField fx:id="passwordtxt" layoutX="163.0" layoutY="332.0"
-			promptText="Password">
-			<tooltip>
-				<Tooltip text="Enter password" />
-			</tooltip>
-		</TextField>
-		<Button fx:id="loginbtn" styleClass="flat-btn" layoutX="257.0"
-			layoutY="390.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0"
-			text="Login">
-			<tooltip>
-				<Tooltip text="Click to login" />
-			</tooltip>
-		</Button>
+		<HBox alignment="CENTER" GridPane.rowIndex="1">
+			<ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+				preserveRatio="true">
+				<image>
+					<Image url="@../../../../images/image_holder.png" />
+				</image>
+			</ImageView>
+		</HBox>
+		<VBox spacing="20" alignment="CENTER" GridPane.rowIndex="2">
+			<ChoiceBox maxWidth="200" styleClass="flat-btn" fx:id="chooseAccountType">
+			</ChoiceBox>
+			<TextField maxWidth="200" fx:id="usernametxt" promptText="Username">
+				<tooltip>
+					<Tooltip text="Enter username" />
+				</tooltip>
+			</TextField>
+			<PasswordField maxWidth="200" fx:id="passwordtxt"
+				promptText="Password">
+				<tooltip>
+					<Tooltip text="Enter password" />
+				</tooltip>
+			</PasswordField>
+			<Button fx:id="loginbtn" styleClass="flat-btn"
+				mnemonicParsing="false" text="Login">
+				<VBox.margin>
+					<Insets left="110">
+					</Insets>
+				</VBox.margin>
+				<tooltip>
+					<Tooltip text="Click to login" />
+				</tooltip>
+			</Button>
+		</VBox>
 	</children>
-</AnchorPane>
+</GridPane>

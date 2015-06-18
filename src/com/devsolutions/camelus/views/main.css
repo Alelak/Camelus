@@ -19,7 +19,10 @@
 	-fx-border-width: 2.0;
 	
 }
-
+.text-input-error {
+	-fx-border-color: red;
+		-fx-border-width: 2.0;
+}
 #header {
 	
 	-fx-background-color: #F5F5F5;
@@ -148,11 +151,23 @@
 }
 .tooltip{
 	-fx-border-width: 1.0;
-	-fx-border-color: #727272;
+	-fx-border-color: gray;
 	-fx-font-size: 14.0;
 	-fx-padding: 5.0,5.0,5.0,5.0;
 	-fx-background-radius: 0.0;
 	-fx-border-radius: 0.0;
 	-fx-background-color: #F5F5F5;
 	-fx-text-fill: #727272;
+}
+#parent{
+	-fx-border-width: 1.0;
+	-fx-border-color: gray;
+}
+
+.flat-btn .context-menu .label{
+	-fx-text-fill: black;
+}
+.flat-btn  .label{
+	-fx-alignment: center ;
+	-fx-text-fill: white;
 }

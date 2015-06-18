@@ -28,7 +28,7 @@ import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.Choice;
 
-public class AddProductsController implements Initializable {
+public class AddProductController implements Initializable {
 
 	@FXML
 	private TextField upc;
@@ -55,7 +55,7 @@ public class AddProductsController implements Initializable {
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
-	private ProductViewController productController;
+	private ShowProductsController productController;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listChoiceBoxUnit();
@@ -143,7 +143,7 @@ public class AddProductsController implements Initializable {
 		}
 	}
 	
-	public void initData(ProductViewController ProductController) {
+	public void initData(ShowProductsController ProductController) {
 		this.productController = ProductController;
 	}
 

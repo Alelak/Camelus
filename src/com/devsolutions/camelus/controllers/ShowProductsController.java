@@ -22,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ProductViewController implements Initializable {
+public class ShowProductsController implements Initializable {
 	@FXML
 	private Button btnSearchProduct;
 	@FXML
@@ -64,8 +64,8 @@ public class ProductViewController implements Initializable {
 
 				newStage.setScene(scene);
 
-				AddProductsController controller = loader
-						.<AddProductsController> getController();
+				AddProductController controller = loader
+						.<AddProductController> getController();
 
 				controller.initData(this);
 				newStage.initModality(Modality.APPLICATION_MODAL);
