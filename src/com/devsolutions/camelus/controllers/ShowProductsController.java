@@ -4,12 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.ProductTableView;
-import com.devsolutions.camelus.entities.Vendor;
-import com.devsolutions.camelus.managers.ProductManager;
-import com.devsolutions.camelus.managers.VendorManager;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +16,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import com.devsolutions.camelus.entities.Product;
+import com.devsolutions.camelus.entities.ProductTableView;
+import com.devsolutions.camelus.managers.ProductManager;
 
 public class ShowProductsController implements Initializable {
 	@FXML
@@ -82,16 +80,14 @@ public class ShowProductsController implements Initializable {
 				.setOnAction(e -> {
 					int index = tableViewProduct.getSelectionModel()
 							.getSelectedIndex();
-					System.out.println("index selected table view = "
-							+ index);
+					System.out.println("index selected table view = " + index);
 					if (index > -1) {
 						ProductTableView productTableView = tableViewProduct
 								.getSelectionModel().getSelectedItem();
 
 						Product product = ProductManager
 								.getById(productTableView.getId());
-						
-					
+
 						if (product != null) {
 							try {
 								FXMLLoader loader = new FXMLLoader(getClass()

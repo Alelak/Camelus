@@ -4,25 +4,16 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
-import javax.imageio.ImageIO;
-
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,12 +21,12 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductTableView;
 import com.devsolutions.camelus.entities.Unit;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
@@ -76,7 +67,7 @@ public class UpdateProductController  implements Initializable{
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
-	private ProductViewController productController;
+	private ShowProductsController productController;
 	Product product;
 	Product productToUpdate;
 	int index;
@@ -203,7 +194,7 @@ public class UpdateProductController  implements Initializable{
 	    imageProduct.setImage(new Image(is));
 		
 	}
-	public void initData(ProductViewController ProductController,Product productToUpdate,int index) {
+	public void initData(ShowProductsController ProductController,Product productToUpdate,int index) {
 		this.productController = ProductController;
 		this.productToUpdate = productToUpdate;
 		this.index = index;
