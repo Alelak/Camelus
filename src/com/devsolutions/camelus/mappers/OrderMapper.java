@@ -19,7 +19,7 @@ public interface OrderMapper {
 	 * List<Order> getByVendorId(int vendor_id);
 	 */
 
-	@Select("SELECT orders.id, client_id, commission_id, fname, lname, contact_name, comment, ordered_at "
+	@Select("SELECT orders.id, client_id, commission_id, fname, lname, enterprise_name, comment, ordered_at "
 			+ "FROM vendors INNER JOIN orders ON  vendors.id = orders.vendor_id"
 			+ "     INNER JOIN clients ON orders.client_id = clients.id"
 			+ " WHERE vendor_id = #{vendor_id}")
@@ -32,6 +32,6 @@ public interface OrderMapper {
 	Order getById(long id);
 
 	@Insert("INSERT INTO orders (vendor_id,client_id,comment) VALUES (#{vendor_id},#{client_id},#{comment})")
-	@Options(flushCache = true)
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Order order);
 }

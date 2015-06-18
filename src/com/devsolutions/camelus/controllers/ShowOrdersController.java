@@ -17,12 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import com.devsolutions.camelus.entities.Client;
-import com.devsolutions.camelus.entities.Order;
 import com.devsolutions.camelus.entities.OrderTV;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.OrderManager;
-import com.devsolutions.camelus.managers.VendorManager;
 
 public class ShowOrdersController implements Initializable {
 
@@ -51,8 +47,6 @@ public class ShowOrdersController implements Initializable {
 		
 		
 		showOrderBtn.setOnAction(e -> {
-			
-			
 			OrderTV orderTV = orderTableView.getSelectionModel()
 					.getSelectedItem();
 			if (orderTV != null) {
@@ -93,7 +87,7 @@ public class ShowOrdersController implements Initializable {
 		clientNameCol = new TableColumn<OrderTV, String>("Nom du Client");
 		clientNameCol.setMinWidth(100);
 		clientNameCol.setCellValueFactory(new PropertyValueFactory<>(
-				"contact_name"));
+				"enterprise_name"));
 
 		commentCol = new TableColumn<OrderTV, String>("Commentaire");
 		commentCol.setMinWidth(100);

@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ProductManager;
-import com.devsolutions.camelus.managers.VendorManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

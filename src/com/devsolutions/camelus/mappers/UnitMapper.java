@@ -12,6 +12,9 @@ public interface UnitMapper {
 
 	@Select("SELECT * FROM units")
 	List<Unit> getAll();
+	
+	@Select("SELECT * FROM units WHERE id = #{id}")
+	Unit getById(int id);
 
 	@Insert("INSERT INTO units (description) VALUE (#{description})")
 	@Options(flushCache = true)

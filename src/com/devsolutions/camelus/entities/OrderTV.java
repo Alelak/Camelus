@@ -8,7 +8,7 @@ public class OrderTV {
 	private int commission_id;
 	private String fname; // prénom du vendeur
 	private String lname; // nom du vendeur
-	private String contact_name; // le nom complet de la personne qui représente le client(la compagnie)
+	private String enterprise_name;
 	private String comment;
 	private Date ordered_at;
 	
@@ -42,11 +42,11 @@ public class OrderTV {
 	public void setLname(String lname) {
 		this.lname = lname;
 	}
-	public String getContact_name() {
-		return contact_name;
+	public String getEnterprise_name() {
+		return enterprise_name;
 	}
-	public void setContact_name(String contact_name) {
-		this.contact_name = contact_name;
+	public void setEnterprise_name(String enterprise_name) {
+		this.enterprise_name = enterprise_name;
 	}
 	public String getComment() {
 		return comment;

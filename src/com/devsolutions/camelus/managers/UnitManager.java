@@ -15,7 +15,13 @@ public class UnitManager {
 		List<Unit> units = session.getMapper(UnitMapper.class).getAll();
 		session.close();
 		return units;
-
+	}
+	
+	public static Unit getById(int id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		Unit unit = session.getMapper(UnitMapper.class).getById(id);
+		session.close();
+		return unit;
 	}
 
 	public static void add(String description) {

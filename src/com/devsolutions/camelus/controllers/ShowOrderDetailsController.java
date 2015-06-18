@@ -18,14 +18,11 @@ import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Commission;
-import com.devsolutions.camelus.entities.Order;
 import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
-import com.devsolutions.camelus.managers.VendorManager;
 
 public class ShowOrderDetailsController implements Initializable{
 	@FXML
@@ -76,7 +73,9 @@ public class ShowOrderDetailsController implements Initializable{
 	private Commission commission;
 	
 	private Stage stage;
-
+	
+	private long product_id;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
@@ -91,9 +90,7 @@ public class ShowOrderDetailsController implements Initializable{
 	}
 	
 	public void initTableView() {
-		orderLinesList = OrderLineManager.getByOrderId(2);
 		orderLinesObservableList = FXCollections.observableArrayList();
-
 		productUpcCol = new TableColumn<OrderLineTV, String>("UPC");
 		productUpcCol.setMinWidth(100);
 		productUpcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));
@@ -121,15 +118,17 @@ public class ShowOrderDetailsController implements Initializable{
 		totalCol.setMinWidth(100);
 		totalCol.setCellValueFactory(new PropertyValueFactory<>(
 				"total"));
-
-		orderLinesObservableList.addAll(orderLinesList);
-
-		orderLinesTableView.setItems(orderLinesObservableList);
 	}
 	
 	
 	public void initData(OrderTV orderTV)
 	{
+		orderLinesList = OrderLineManager.getByOrderId(orderTV.getId());
+
+		orderLinesObservableList.addAll(orderLinesList);
+
+		orderLinesTableView.setItems(orderLinesObservableList);
+		
 		double total = 0;
 		double vendorCommission = 0;
 		

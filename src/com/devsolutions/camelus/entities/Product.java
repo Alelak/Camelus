@@ -121,4 +121,6 @@ public class Product {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
+	
+	@Override public String toString() { return name; }
 }
