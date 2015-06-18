@@ -30,8 +30,7 @@
 	</columnConstraints>
 	<children>
 
-		<GridPane fx:id="header" gridLinesVisible="false"
-			GridPane.rowIndex="0">
+		<GridPane fx:id="header" gridLinesVisible="false" GridPane.rowIndex="0">
 
 			<rowConstraints>
 				<RowConstraints percentHeight="100.0" />
@@ -104,23 +103,7 @@
 			</children>
 		</GridPane>
 
-
-
-
-		<Separator prefWidth="100.0" GridPane.rowIndex="4">
-			<padding>
-				<Insets bottom="-3" />
-			</padding>
-		</Separator>
-
-		<Separator prefWidth="100.0" GridPane.rowIndex="2">
-			<padding>
-				<Insets top="0" />
-			</padding>
-		</Separator>
-
-		<HBox id="toolbar" alignment="CENTER" prefHeight="60"
-			GridPane.rowIndex="1">
+		<HBox id="toolbar" alignment="CENTER" prefHeight="60" GridPane.rowIndex="1">
 			<ToolBar id="toolbar">
 
 				<items>
@@ -144,9 +127,28 @@
 			</ToolBar>
 		</HBox>
 
+		<Separator prefWidth="100.0" GridPane.rowIndex="2">
+			<padding>
+				<Insets top="0" />
+			</padding>
+		</Separator>
 
-		<GridPane fx:id="footer" gridLinesVisible="false"
-			GridPane.rowIndex="5">
+
+		<HBox alignment="CENTER" prefWidth="1224.0"  fx:id="content"  GridPane.rowIndex="3">
+
+		</HBox>
+
+		<Separator prefWidth="100.0" GridPane.rowIndex="4">
+			<padding>
+				<Insets bottom="-3" />
+			</padding>
+		</Separator>
+
+
+
+
+
+		<GridPane id="footer" gridLinesVisible="false" GridPane.rowIndex="5">
 			<rowConstraints>
 				<RowConstraints percentHeight="100.0" />
 			</rowConstraints>

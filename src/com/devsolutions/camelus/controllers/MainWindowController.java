@@ -1,17 +1,21 @@
 package com.devsolutions.camelus.controllers;
 
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.application.CustomDialogBox;
@@ -43,6 +47,8 @@ public class MainWindowController implements Initializable {
 	private Label lblMinimize;
 	@FXML
 	private Label lblHelp;
+	@FXML 
+	private HBox content;
 	private Admin admin;
 	private Vendor vendor;
 
@@ -51,31 +57,17 @@ public class MainWindowController implements Initializable {
 
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
 		tbacceuilbtn.setOnAction(e -> {
+			
 			resetButtonColor();
 			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-
+			
+			FXMLLoader loader = new FXMLLoader( getClass().getResource( "../views/Home.fxml" ));
 			try {
-				CustomDialogBox cdb = new CustomDialogBox(stage, "hello",
-						"oui", "non");
-				cdb.positiveButton.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-						System.out.println("bbbb");
-					}
-				});
-
-				cdb.negativeButton.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-						System.out.println("bbbb");
-					}
-				});
-
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+				content.getChildren().setAll(loader.load());
+			} catch (IOException j) {
+				// TODO Auto-generated catch block
+				j.printStackTrace();
+			}			
 		});
 
 		tbclientsbtn.setOnAction(e -> {

@@ -21,7 +21,7 @@ public class OrderLineManagerTest {
 	public void getByOrderId() {
 		List<OrderLineTV> orderLines = OrderLineManager.getByOrderId(1);
 		for (OrderLineTV orderLine : orderLines) {
-			System.out.println(orderLine.getPrice());
+			System.out.println(orderLine.getSelling_price());
 		}
 	}
 
