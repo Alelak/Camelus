@@ -1,0 +1,72 @@
+.root {
+		
+	-fx-font-smoothing-type: gray;
+	-fx-background-color: #FFFFFF;
+	-fx-font-family: 'Roboto Medium';
+	
+}
+
+
+.flat-btn {
+	-fx-padding: 5.0 22.0 5.0 22.0; 
+    -fx-background-radius: 0.0;
+    -fx-background-color: #0077B5;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 0.0;
+    -fx-cursor: hand;
+}
+
+.flat-btn:hover {
+	-fx-background-color: #03A9F4;
+    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0,0.3), 0.0,0.0,1.0,1.0); 
+}
+
+.flat-btn:pressed {
+  -fx-background-color:#BBDEFB;
+}
+.font-awesome{
+	-fx-font-smoothing-type: gray;
+	-fx-font-size: 17.0px;
+}
+
+#lblClose:hover{
+	-fx-background-color: #c13636;
+}
+
+
+#lblClose:hover #closeFont{
+	-fx-text-fill: white;
+	-fx-font-smoothing-type: gray;
+}
+
+#lblClose:pressed{
+	-fx-background-color: #9e2929;
+}
+
+#lblClose:pressed #closeFont{
+	-fx-text-fill: white;
+	-fx-font-smoothing-type: gray;
+}
+
+.flat-btn {
+	-fx-padding: 5.0 22.0 5.0 22.0; 
+    -fx-background-radius: 0.0;
+    -fx-background-color: #0077B5;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 0.0;
+    -fx-cursor: hand;
+}
+
+.flat-btn:hover {
+	-fx-background-color: #03A9F4;
+    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0,0.3), 0.0,0.0,1.0,1.0); 
+}
+
+.flat-btn:pressed {
+  -fx-background-color:#BBDEFB;
+}
+
+#gridPane{
+	-fx-border-color: #46474c;
+	-fx-border-width: 2.0px;
+}

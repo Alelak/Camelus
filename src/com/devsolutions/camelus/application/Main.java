@@ -1,5 +1,7 @@
 package com.devsolutions.camelus.application;
 
+
+import com.devsolutions.camelus.controllers.MainWindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -22,8 +24,9 @@ public class Main extends Application {
 					Main.class.getResource(
 							"../../../../fonts/fontawesome-webfont.ttf")
 							.toExternalForm(), 14);
-			Parent root = FXMLLoader.load(getClass().getResource(
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(
 					"../views/mainwindow.fxml"));
+			Parent root = loader.load();
 			Scene scene = new Scene(root);
 			Font.loadFont(
 					getClass().getResource(
@@ -39,6 +42,8 @@ public class Main extends Application {
 					new Image(getClass().getResource(
 							"../../../../images/logo.png").toExternalForm()));
 			addDraggableNode(root);
+			MainWindowController mainwindow = loader.getController();
+			mainwindow.setMainApp(primaryStage);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
