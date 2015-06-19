@@ -97,7 +97,7 @@ public class UpdateProductController  implements Initializable{
 				productTable.setUpc(product.getUpc());
 				productTable.setSelling_price(product.getSelling_price());
 				productTable.setDescriptionCategory(category.getValue().toString());
-				//productController.updateTableView(index,productTable);
+				productController.updateTableView(index,productTable);
 				stage = (Stage) btnUpdateProduct.getScene().getWindow();
 				stage.close();
 			} else
@@ -162,6 +162,9 @@ public class UpdateProductController  implements Initializable{
 				"All Images", "*.*");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
+		if (file!=null) {
+			
+		
 		try {
 			BufferedImage originalImage = ImageIO.read(file);
 			baos = new ByteArrayOutputStream();
@@ -170,6 +173,7 @@ public class UpdateProductController  implements Initializable{
 			imageInByte = baos.toByteArray();
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		}
 		}
 	}
 	private void initForm() {

@@ -148,7 +148,7 @@ public void addProductToTableView(){
 	productTableView.setSelling_price(product.getSelling_price());
 	productTableView.setDescriptionCategory(category.getSelectionModel().getSelectedItem().toString());
 	System.out.println("la valeur de choice box category = "+ productTableView.getDescriptionCategory());
-	//productController.addToTableView(productTableView);
+	productController.addToTableView(productTableView);
 	
 }
 	public void addPicture() {
