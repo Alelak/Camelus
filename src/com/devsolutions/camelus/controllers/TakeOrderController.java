@@ -12,7 +12,9 @@ import com.devsolutions.camelus.entities.OrderLine;
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductToOrderTV;
 import com.devsolutions.camelus.entities.Unit;
+import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.CategoryManager;
+import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.ProductManager;
@@ -39,6 +41,9 @@ public class TakeOrderController implements Initializable {
 
 	@FXML
 	private ComboBox productComboBox;
+	
+	@FXML
+	private ComboBox clientComboBox;
 
 	@FXML
 	private Label upcLabel;
@@ -81,6 +86,9 @@ public class TakeOrderController implements Initializable {
 
 	private ObservableList<Product> productObservableList;
 	private List<Product> products;
+	
+	private ObservableList<Client> clientObservableList;
+	private List<Client> clients;
 
 	private ObservableList<ProductToOrderTV> productToOrderObservableList;
 
@@ -94,6 +102,7 @@ public class TakeOrderController implements Initializable {
 	private ProductToOrderTV currentProductToOrderTV;
 
 	private Client currentClient;
+	private Vendor currentVendor;
 	private Stage stage;
 
 	@Override
@@ -101,16 +110,25 @@ public class TakeOrderController implements Initializable {
 		initTableView();
 		orderLinesTableView.getColumns().addAll(upcCol, productNameCol,
 				priceCol, quantityCol, modifiedPriceCol);
+		
+		currentVendor = new Vendor();
+		currentVendor.setId(1);
 
 		products = ProductManager.getAll();
+		clients = ClientManager.getByVendorId(1);
 		
 		productObservableList = FXCollections.observableArrayList();
 		productObservableList.addAll(products);
 		
+		clientObservableList = FXCollections.observableArrayList();
+		clientObservableList.addAll(clients);
+		
 		productComboBox.setItems(productObservableList);
+		clientComboBox.setItems(clientObservableList);
 
-		// on ajoute l'autocomplete
+		// on ajoute les autocompletes
 		new AutoCompleteComboBoxListener<>(productComboBox);
+		new AutoCompleteComboBoxListener<>(clientComboBox);
 
 		addOrderLineBtn
 				.setOnAction(e -> {
@@ -150,7 +168,6 @@ public class TakeOrderController implements Initializable {
 			quantityField.setText("" + productToOrderTV.getQuantity());
 			modifiedPriceField.setText(""
 					+ productToOrderTV.getModified_price());
-
 		});
 
 		removeBtn.setOnAction(e -> {
@@ -158,30 +175,40 @@ public class TakeOrderController implements Initializable {
 					orderLinesTableView.getSelectionModel().getSelectedItem());
 			initForm();
 		});
+		
+		resetBtn.setOnAction(e -> {
+			orderLinesTableView.getItems().removeAll(orderLinesTableView.getItems());
+			initForm();
+		});
 
 		takeOrderBtn.setOnAction(e -> {
-			Order order = new Order();
-			order.setVendor_id(1);
-			order.setClient_id(currentClient.getId());
-			order.setComment(commentTextArea.getText());
-
-			OrderManager.add(order);
-			System.out.println(order.getId());
-			productToOrderObservableList = orderLinesTableView.getItems();
-			for (int i = 0; i < productToOrderObservableList.size(); i++) {
-				OrderLine orderLine = new OrderLine();
-				orderLine.setProduct_id(productToOrderObservableList.get(i)
-						.getId());
-				orderLine.setOrder_id(order.getId());
-				orderLine.setModified_price(productToOrderObservableList.get(i)
-						.getModified_price());
-				orderLine.setQuantity(productToOrderObservableList.get(i)
-						.getQuantity());
-				OrderLineManager.add(orderLine);
+			if(currentClient != null && !orderLinesTableView.getItems().isEmpty()){
+			
+				Order order = new Order();
+				order.setVendor_id(currentVendor.getId());
+				order.setClient_id(currentClient.getId());
+				order.setComment(commentTextArea.getText());
+	
+				OrderManager.add(order);
+	
+				productToOrderObservableList = orderLinesTableView.getItems();
+				for (int i = 0; i < productToOrderObservableList.size(); i++) {
+					OrderLine orderLine = new OrderLine();
+					orderLine.setProduct_id(productToOrderObservableList.get(i)
+							.getId());
+					orderLine.setOrder_id(order.getId());
+					orderLine.setModified_price(productToOrderObservableList.get(i)
+							.getModified_price());
+					orderLine.setQuantity(productToOrderObservableList.get(i)
+							.getQuantity());
+					OrderLineManager.add(orderLine);
+				}
+	
+				stage = (Stage) takeOrderBtn.getScene().getWindow();
+				stage.close();
 			}
-
-			stage = (Stage) takeOrderBtn.getScene().getWindow();
-			stage.close();
+			else 
+				System.out.println("you must choose a client and add a commande line");
 		});
 
 		orderLinesTableView.getSelectionModel().selectedItemProperty()
@@ -297,8 +324,17 @@ public class TakeOrderController implements Initializable {
 	public void addToTableView(ProductToOrderTV productToOrderTV) {
 		orderLinesTableView.getItems().add(productToOrderTV);
 	}
-
-	public void initData(Client currentClient) {
-		this.currentClient = currentClient;
+	
+	public void initData(Vendor currentVendor)
+	{
+		this.currentVendor = currentVendor;
+	}
+	
+	public void comboboxClientAction(){
+		if (clientComboBox.getSelectionModel().getSelectedIndex() > -1) {
+			int index = clientComboBox.getSelectionModel().getSelectedIndex();
+			currentClient = new Client();
+			currentClient = clients.get(index);
+		}
 	}
 }

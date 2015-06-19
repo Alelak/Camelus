@@ -57,10 +57,6 @@ public class ShowClientsController implements Initializable{
 
 					newStage.setScene(scene);
 
-					TakeOrderController controller = loader
-							.<TakeOrderController> getController();
-					controller.initData(client);
-
 					newStage.initModality(Modality.APPLICATION_MODAL);
 
 					newStage.show();

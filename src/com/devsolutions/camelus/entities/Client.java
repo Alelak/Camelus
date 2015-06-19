@@ -103,4 +103,5 @@ public class Client {
 		this.deleted = deleted;
 	}
 
+	@Override public String toString() { return enterprise_name; }
 }
