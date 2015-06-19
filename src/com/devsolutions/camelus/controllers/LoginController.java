@@ -3,33 +3,25 @@ package com.devsolutions.camelus.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-
-import com.devsolutions.camelus.entities.AccountTypes;
-import com.devsolutions.camelus.entities.Admin;
-import com.devsolutions.camelus.entities.Vendor;
-import com.devsolutions.camelus.managers.AdminManager;
-import com.devsolutions.camelus.managers.VendorManager;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+
+import com.devsolutions.camelus.entities.Admin;
+import com.devsolutions.camelus.entities.Vendor;
+import com.devsolutions.camelus.managers.AdminManager;
+import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.services.Session;
 
 public class LoginController implements Initializable {
-	private double initialX;
-	private double initialY;
 	@FXML
 	private Button loginbtn;
 	@FXML
@@ -67,6 +59,7 @@ public class LoginController implements Initializable {
 					if (admin != null) {
 
 						if (admin.getPassword().equals(password)) {
+							Session.admin = admin;
 							FXMLLoader loader = new FXMLLoader(getClass()
 									.getResource("../views/mainwindow.fxml"));
 							Parent root = null;
@@ -86,15 +79,10 @@ public class LoginController implements Initializable {
 									getClass().getResource("../views/main.css")
 											.toExternalForm());
 							stage.setScene(scene);
-					
 							if (admin.getSuper_admin() == 1) {
-								mainWindowController.initData(
-										AccountTypes.SUPERADMIN, admin);
 								stage.show();
 								stage.centerOnScreen();
 							} else {
-								mainWindowController.initData(
-										AccountTypes.ADMIN, admin);
 								stage.show();
 								stage.centerOnScreen();
 							}
@@ -113,6 +101,7 @@ public class LoginController implements Initializable {
 					Vendor vendor = VendorManager.getByUserName(username);
 					if (vendor != null) {
 						if (vendor.getPassword().equals(password)) {
+							Session.vendor = vendor;
 							FXMLLoader loader = new FXMLLoader(getClass()
 									.getResource("../views/mainwindow.fxml"));
 							Parent root = null;
@@ -132,8 +121,6 @@ public class LoginController implements Initializable {
 									getClass().getResource("../views/main.css")
 											.toExternalForm());
 							stage.setScene(scene);
-							mainWindowController.initData(AccountTypes.VENDOR,
-									vendor);
 							stage.show();
 							stage.centerOnScreen();
 						} else {

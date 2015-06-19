@@ -19,9 +19,7 @@ import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductTableView;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ProductManager;
-import com.devsolutions.camelus.managers.VendorManager;
 
 public class ShowProductsController implements Initializable {
 	@FXML
@@ -82,7 +80,6 @@ public class ShowProductsController implements Initializable {
 				.setOnAction(e -> {
 					int index = tableViewProduct.getSelectionModel()
 							.getSelectedIndex();
-					System.out.println("index selected table view = " + index);
 					if (index > -1) {
 						ProductTableView productTableView = tableViewProduct
 								.getSelectionModel().getSelectedItem();
@@ -119,51 +116,50 @@ public class ShowProductsController implements Initializable {
 					}
 				});
 		btnShowAllProduct
-		.setOnAction(e -> {
-			int index = tableViewProduct.getSelectionModel()
-					.getSelectedIndex();
-			System.out.println("index selected table view = " + index);
-			if (index > -1) {
-				ProductTableView productTableView = tableViewProduct
-						.getSelectionModel().getSelectedItem();
+				.setOnAction(e -> {
+					int index = tableViewProduct.getSelectionModel()
+							.getSelectedIndex();
+					if (index > -1) {
+						ProductTableView productTableView = tableViewProduct
+								.getSelectionModel().getSelectedItem();
 
-				Product product = ProductManager
-						.getById(productTableView.getId());
+						Product product = ProductManager
+								.getById(productTableView.getId());
 
-				if (product != null) {
-					try {
-						FXMLLoader loader = new FXMLLoader(getClass()
-								.getResource(
-										"../views/ShowProduct.fxml"));
+						if (product != null) {
+							try {
+								FXMLLoader loader = new FXMLLoader(getClass()
+										.getResource(
+												"../views/ShowProduct.fxml"));
 
-						Stage newStage = new Stage();
-						Scene scene;
+								Stage newStage = new Stage();
+								Scene scene;
 
-						scene = new Scene(loader.load());
+								scene = new Scene(loader.load());
 
-						newStage.setScene(scene);
+								newStage.setScene(scene);
 
-						ShowProductController controller = loader
-								.<ShowProductController> getController();
-						controller.initData(this, product, index);
+								ShowProductController controller = loader
+										.<ShowProductController> getController();
+								controller.initData(this, product, index);
 
-						newStage.initModality(Modality.APPLICATION_MODAL);
+								newStage.initModality(Modality.APPLICATION_MODAL);
 
-						newStage.show();
+								newStage.show();
 
-					} catch (Exception e1) {
-						e1.printStackTrace();
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+
+						}
 					}
-
-				}
-			}
-		});
+				});
 		btnDeleteProduct.setOnAction(e -> {
-			ProductTableView productTable = tableViewProduct.getSelectionModel()
-					.getSelectedItem();
+			ProductTableView productTable = tableViewProduct
+					.getSelectionModel().getSelectedItem();
 			if (productTable != null) {
 				ProductManager.delete(productTable.getId());
-			
+
 				tableViewProduct.getItems().remove(productTable);
 			}
 
@@ -179,7 +175,6 @@ public class ShowProductsController implements Initializable {
 		idCol = new TableColumn<ProductTableView, String>("Id");
 		idCol.setMinWidth(50);
 		idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-		System.out.println("test colId ==" + idCol);
 		upcCol = new TableColumn<ProductTableView, String>("UPC");
 		upcCol.setMinWidth(100);
 		upcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));
@@ -204,17 +199,11 @@ public class ShowProductsController implements Initializable {
 		productsObservableList.addAll(productsList);
 
 		tableViewProduct.setItems(productsObservableList);
-		System.out.println("test vqleur col id == "
-				+ productsObservableList.size());
-		System.out.println(tableViewProduct);
 
 	}
 
 	public void addToTableView(ProductTableView product) {
-		System.out.println("test add to table view == ");
-
 		tableViewProduct.getItems().add(product);
-
 	}
 
 	public void removeFromTableView(ProductTableView product) {

@@ -24,10 +24,10 @@ public class ShowOrdersController implements Initializable {
 
 	@FXML
 	private TableView<OrderTV> orderTableView;
-	
+
 	@FXML
 	private Button takeOrderBtn;
-	
+
 	@FXML
 	private Button showOrderBtn;
 
@@ -39,13 +39,13 @@ public class ShowOrdersController implements Initializable {
 	private TableColumn<OrderTV, String> commentCol;
 	private TableColumn<OrderTV, String> orderedAtCol;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
 		orderTableView.getColumns().addAll(orderIdCol, clientNameCol,
 				commentCol, orderedAtCol);
-		
-		
+
 		showOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = orderTableView.getSelectionModel()
 					.getSelectedItem();
@@ -72,6 +72,26 @@ public class ShowOrdersController implements Initializable {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+			}
+		});
+		takeOrderBtn.setOnAction(e -> {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(
+						"../views/TakeOrderView.fxml"));
+
+				Stage newStage = new Stage();
+				Scene scene;
+
+				scene = new Scene(loader.load());
+
+				newStage.setScene(scene);
+
+				newStage.initModality(Modality.APPLICATION_MODAL);
+
+				newStage.show();
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 	}

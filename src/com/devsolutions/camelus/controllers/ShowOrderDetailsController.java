@@ -24,40 +24,40 @@ import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 
-public class ShowOrderDetailsController implements Initializable{
+public class ShowOrderDetailsController implements Initializable {
 	@FXML
 	private TableView<OrderLineTV> orderLinesTableView;
-	
+
 	@FXML
 	private Label orderNumberLabel;
-	
+
 	@FXML
 	private Label orderedAtLabel;
-	
+
 	@FXML
 	private Label entrepriseNameLabel;
-	
+
 	@FXML
 	private Label contactNameLabel;
-	
+
 	@FXML
 	private Label contactTelLabel;
-	
+
 	@FXML
 	private Label contactEmailLabel;
-	
+
 	@FXML
 	private Label orderTotalLabel;
-	
+
 	@FXML
 	private Label vendorCommissionLabel;
-	
+
 	@FXML
 	private TextArea orderCommentTextArea;
-	
+
 	@FXML
-	private Button doneBtn;	
-	
+	private Button doneBtn;
+
 	private List<OrderLineTV> orderLinesList;
 	private ObservableList<OrderLineTV> orderLinesObservableList;
 
@@ -67,28 +67,25 @@ public class ShowOrderDetailsController implements Initializable{
 	private TableColumn<OrderLineTV, String> modifiedPriceCol;
 	private TableColumn<OrderLineTV, String> quantityCol;
 	private TableColumn<OrderLineTV, String> totalCol;
-	
+
 	private Client currentClient;
-	private OrderTV orderTV;
 	private Commission commission;
-	
+
 	private Stage stage;
-	
-	private long product_id;
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
 		orderLinesTableView.getColumns().addAll(productUpcCol, productNameCol,
 				priceCol, modifiedPriceCol, quantityCol, totalCol);
-		
-		
+
 		doneBtn.setOnAction(e -> {
 			stage = (Stage) doneBtn.getScene().getWindow();
 			stage.close();
 		});
 	}
-	
+
 	public void initTableView() {
 		orderLinesObservableList = FXCollections.observableArrayList();
 		productUpcCol = new TableColumn<OrderLineTV, String>("UPC");
@@ -97,8 +94,7 @@ public class ShowOrderDetailsController implements Initializable{
 
 		productNameCol = new TableColumn<OrderLineTV, String>("Nom du produit");
 		productNameCol.setMinWidth(100);
-		productNameCol.setCellValueFactory(new PropertyValueFactory<>(
-				"name"));
+		productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		priceCol = new TableColumn<OrderLineTV, String>("Prix unitaire");
 		priceCol.setMinWidth(100);
@@ -108,60 +104,55 @@ public class ShowOrderDetailsController implements Initializable{
 		modifiedPriceCol.setMinWidth(100);
 		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
 				"modified_price"));
-		
+
 		quantityCol = new TableColumn<OrderLineTV, String>("Quantité");
 		quantityCol.setMinWidth(100);
-		quantityCol.setCellValueFactory(new PropertyValueFactory<>(
-				"quantity"));
-		
+		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
 		totalCol = new TableColumn<OrderLineTV, String>("Total");
 		totalCol.setMinWidth(100);
-		totalCol.setCellValueFactory(new PropertyValueFactory<>(
-				"total"));
+		totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
 	}
-	
-	
-	public void initData(OrderTV orderTV)
-	{
+
+	public void initData(OrderTV orderTV) {
 		orderLinesList = OrderLineManager.getByOrderId(orderTV.getId());
 
 		orderLinesObservableList.addAll(orderLinesList);
 
 		orderLinesTableView.setItems(orderLinesObservableList);
-		
+
 		double total = 0;
 		double vendorCommission = 0;
-		
-		this.orderTV = orderTV;
-		
-		currentClient = ClientManager.getById(orderTV.getClient_id());		
+
+		currentClient = ClientManager.getById(orderTV.getClient_id());
 		commission = CommissionManager.getById(orderTV.getCommission_id());
-		
-		for(OrderLineTV orderLineTV : orderLinesList)
-		{
+
+		for (OrderLineTV orderLineTV : orderLinesList) {
 			total += orderLineTV.getTotal();
 		}
-		
-		if(commission.getType() == 0)
-		{
+
+		if (commission.getType() == 0) {
 			double rate = (double) commission.getRate() / 100;
-			System.out.println(""+ (total * rate));
+			System.out.println("" + (total * rate));
 			vendorCommission = total * rate;
-		}
-		else if(total >= commission.getMcondition())
-		{
+		} else if (total >= commission.getMcondition()) {
 			System.out.println("fixe");
 			vendorCommission = commission.getRate();
-		}		
-		
+		}
+
 		orderCommentTextArea.setText(orderTV.getComment());
-		vendorCommissionLabel.setText("Commission du vendeur : " + vendorCommission + " $");
+		vendorCommissionLabel.setText("Commission du vendeur : "
+				+ vendorCommission + " $");
 		orderTotalLabel.setText("Total de la commande : " + total + " $");
-		contactEmailLabel.setText("Email du contact : " + currentClient.getContact_email());
+		contactEmailLabel.setText("Email du contact : "
+				+ currentClient.getContact_email());
 		orderNumberLabel.setText("Commande No : " + orderTV.getId());
-		orderedAtLabel.setText("Commande effectuer le : " + orderTV.getOrdered_at().toString());
-		contactNameLabel.setText("Nom du contact : " + currentClient.getContact_name());
-		contactTelLabel.setText("Téléphone du contact : " + currentClient.getContact_tel());
+		orderedAtLabel.setText("Commande effectuer le : "
+				+ orderTV.getOrdered_at().toString());
+		contactNameLabel.setText("Nom du contact : "
+				+ currentClient.getContact_name());
+		contactTelLabel.setText("Téléphone du contact : "
+				+ currentClient.getContact_tel());
 		entrepriseNameLabel.setText(currentClient.getEnterprise_name());
 	}
 }

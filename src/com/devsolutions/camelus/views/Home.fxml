@@ -16,7 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <GridPane id="test" gridLinesVisible="false"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.HomeController">
 	<rowConstraints>
 		<RowConstraints percentHeight="60" />
 		<RowConstraints percentHeight="40" />
@@ -31,12 +32,12 @@
 			</ImageView>
 		</HBox>
 		<VBox GridPane.rowIndex="1" alignment="TOP_CENTER">
-		<VBox >
-		<VBox.margin>
-		<Insets top="-50" />
-		</VBox.margin>
-		</VBox>
-			<Label fx:id="welcomeMessage"  style="-fx-font-size: 26; -fx-text-fill: #003367" fx:id="welcomeMsg" Text="Bienvenue Monsieur X" />
+			<VBox>
+				<VBox.margin>
+					<Insets top="-50" />
+				</VBox.margin>
+			</VBox>
+			<Label fx:id="welcomeMessage" style="-fx-font-size: 26; -fx-text-fill: #003367" />
 		</VBox>
 	</children>
 </GridPane>

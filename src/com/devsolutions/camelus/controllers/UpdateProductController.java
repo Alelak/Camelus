@@ -127,7 +127,6 @@ public class UpdateProductController  implements Initializable{
 		product.setDescription(description.getText());
 		product.setCost_price(Double.parseDouble(costPrice.getText()));
 		product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
-		System.out.println("test table view"+product.getCategory_id());
 		
 		return product;
 	}

@@ -1,12 +1,8 @@
 package com.devsolutions.camelus.controllers;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,11 +13,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import com.devsolutions.camelus.application.CustomDialogBox;
-import com.devsolutions.camelus.entities.AccountTypes;
-import com.devsolutions.camelus.entities.Admin;
-import com.devsolutions.camelus.entities.Vendor;
 
 public class MainWindowController implements Initializable {
 	private Stage stage;
@@ -47,45 +38,41 @@ public class MainWindowController implements Initializable {
 	private Label lblMinimize;
 	@FXML
 	private Label lblHelp;
-	@FXML 
+	@FXML
 	private HBox content;
-	private Admin admin;
-	private Vendor vendor;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
+		switchScenes("home");
 		tbacceuilbtn.setOnAction(e -> {
-			
+
 			resetButtonColor();
 			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-			
-			FXMLLoader loader = new FXMLLoader( getClass().getResource( "../views/Home.fxml" ));
-			try {
-				content.getChildren().setAll(loader.load());
-			} catch (IOException j) {
-				// TODO Auto-generated catch block
-				j.printStackTrace();
-			}			
+			switchScenes("home");
+
 		});
 
 		tbclientsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbclientsbtn.setStyle("-fx-background-color: #00A0DC;");
+			switchScenes("showclients");
 		});
 		tbvendeursbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbvendeursbtn.setStyle("-fx-background-color: #00A0DC;");
+			switchScenes("showvendors");
 		});
 
 		tbcommands.setOnAction(e -> {
 			resetButtonColor();
 			tbcommands.setStyle("-fx-background-color: #00A0DC;");
+			switchScenes("showorders");
 		});
 		tbproduitsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
+			switchScenes("showproducts");
 		});
 		tbsettings.setOnAction(e -> {
 			resetButtonColor();
@@ -127,18 +114,14 @@ public class MainWindowController implements Initializable {
 		});
 	}
 
-	public void initData(AccountTypes type, Object obj) {
-		switch (type) {
-		case ADMIN:
-			admin = (Admin) obj;
-			break;
-		case SUPERADMIN:
-			admin = (Admin) obj;
-			break;
-		case VENDOR:
-			vendor = (Vendor) obj;
-			break;
+	public void switchScenes(final String filename) {
+		FXMLLoader vendorloader = new FXMLLoader(getClass().getResource(
+				"../views/" + filename + ".fxml"));
+		try {
+			content.getChildren().setAll(vendorloader.load());
+		} catch (IOException j) {
+			// TODO Auto-generated catch block
+			j.printStackTrace();
 		}
-
 	}
 }

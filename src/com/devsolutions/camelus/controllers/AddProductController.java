@@ -64,6 +64,7 @@ public class AddProductController implements Initializable {
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
 	private ShowProductsController productController;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listChoiceBoxUnit();
@@ -78,14 +79,16 @@ public class AddProductController implements Initializable {
 
 			if (!upc.getText().isEmpty() && !name.getText().isEmpty()
 					&& !quantity.getText().isEmpty() && imageInByte != null
-					&& !description.getText().isEmpty()&& !sellingPrice.getText().isEmpty()&& !costPrice.getText().isEmpty()) {
+					&& !description.getText().isEmpty()
+					&& !sellingPrice.getText().isEmpty()
+					&& !costPrice.getText().isEmpty()) {
 				ProductManager.add(addProduct());
 				addProductToTableView();
 				stage = (Stage) btnAddProduct.getScene().getWindow();
 				stage.close();
 			} else
 				System.out.println("tous les chams doivent etre remplis");
-		
+
 		});
 		btnCancelProduct.setOnAction(e -> {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
@@ -135,22 +138,26 @@ public class AddProductController implements Initializable {
 		product.setDescription(description.getText());
 		product.setCost_price(Double.parseDouble(costPrice.getText()));
 		product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
-		System.out.println("test table view"+product.getCategory_id());
-		
+		System.out.println("test table view" + product.getCategory_id());
+
 		return product;
 	}
-public void addProductToTableView(){
-	ProductTableView productTableView=new ProductTableView();
-	productTableView.setId(product.getId());
-	productTableView.setUpc(product.getUpc());
-	productTableView.setName(product.getName());
-	productTableView.setQuantity(product.getQuantity());
-	productTableView.setSelling_price(product.getSelling_price());
-	productTableView.setDescriptionCategory(category.getSelectionModel().getSelectedItem().toString());
-	System.out.println("la valeur de choice box category = "+ productTableView.getDescriptionCategory());
-	productController.addToTableView(productTableView);
-	
-}
+
+	public void addProductToTableView() {
+		ProductTableView productTableView = new ProductTableView();
+		productTableView.setId(product.getId());
+		productTableView.setUpc(product.getUpc());
+		productTableView.setName(product.getName());
+		productTableView.setQuantity(product.getQuantity());
+		productTableView.setSelling_price(product.getSelling_price());
+		productTableView.setDescriptionCategory(category.getSelectionModel()
+				.getSelectedItem().toString());
+		System.out.println("la valeur de choice box category = "
+				+ productTableView.getDescriptionCategory());
+		productController.addToTableView(productTableView);
+
+	}
+
 	public void addPicture() {
 
 		FileChooser fileChooser = new FileChooser();
@@ -158,17 +165,19 @@ public void addProductToTableView(){
 				"All Images", "*.*");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
-		try {
-			BufferedImage originalImage = ImageIO.read(file);
-			baos = new ByteArrayOutputStream();
-			ImageIO.write(originalImage, "jpg", baos);
-			baos.flush();
-			imageInByte = baos.toByteArray();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		if (file != null) {
+			try {
+				BufferedImage originalImage = ImageIO.read(file);
+				baos = new ByteArrayOutputStream();
+				ImageIO.write(originalImage, "jpg", baos);
+				baos.flush();
+				imageInByte = baos.toByteArray();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
-	
+
 	public void initData(ShowProductsController ProductController) {
 		this.productController = ProductController;
 	}
