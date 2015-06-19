@@ -118,6 +118,46 @@ public class ShowProductsController implements Initializable {
 						}
 					}
 				});
+		btnShowAllProduct
+		.setOnAction(e -> {
+			int index = tableViewProduct.getSelectionModel()
+					.getSelectedIndex();
+			System.out.println("index selected table view = " + index);
+			if (index > -1) {
+				ProductTableView productTableView = tableViewProduct
+						.getSelectionModel().getSelectedItem();
+
+				Product product = ProductManager
+						.getById(productTableView.getId());
+
+				if (product != null) {
+					try {
+						FXMLLoader loader = new FXMLLoader(getClass()
+								.getResource(
+										"../views/ShowProduct.fxml"));
+
+						Stage newStage = new Stage();
+						Scene scene;
+
+						scene = new Scene(loader.load());
+
+						newStage.setScene(scene);
+
+						ShowProductController controller = loader
+								.<ShowProductController> getController();
+						controller.initData(this, product, index);
+
+						newStage.initModality(Modality.APPLICATION_MODAL);
+
+						newStage.show();
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+
+				}
+			}
+		});
 		btnDeleteProduct.setOnAction(e -> {
 			ProductTableView productTable = tableViewProduct.getSelectionModel()
 					.getSelectedItem();
