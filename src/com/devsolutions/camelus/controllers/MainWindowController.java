@@ -104,7 +104,7 @@ public class MainWindowController implements Initializable {
 
 	@FXML
 	private void CloseWindow() {
-
+		stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
 	}
 

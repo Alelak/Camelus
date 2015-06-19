@@ -3,6 +3,8 @@ package com.devsolutions.camelus.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+
 import com.devsolutions.camelus.entities.AccountTypes;
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Vendor;
@@ -84,6 +86,7 @@ public class LoginController implements Initializable {
 									getClass().getResource("../views/main.css")
 											.toExternalForm());
 							stage.setScene(scene);
+					
 							if (admin.getSuper_admin() == 1) {
 								mainWindowController.initData(
 										AccountTypes.SUPERADMIN, admin);

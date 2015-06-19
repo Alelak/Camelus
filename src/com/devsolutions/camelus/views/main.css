@@ -70,6 +70,11 @@
 .flat-btn:pressed {
   -fx-background-color:#BBDEFB;
 }
+
+
+#loginbtn{
+	
+}
 .font-awesome{
 	-fx-font-size: 17.0px;
 }
@@ -91,6 +96,8 @@
 
 #lblClose:hover #closeFont{
 	-fx-text-fill: white;
+	-fx-font-size: 20;
+	-fx-font-weight: bold;
 }
 
 #lblMinimize:hover #minimizeFont{
@@ -158,8 +165,7 @@
 	-fx-text-fill: #727272;
 }
 #parent{
-	-fx-border-width: 1.0;
-	-fx-border-color: gray;
+	
 }
 
 .flat-btn .context-menu .label{

@@ -17,19 +17,45 @@
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.LoginController">
 	<rowConstraints>
-		<RowConstraints percentHeight="6.2" />
-		<RowConstraints percentHeight="30.0" />
-		<RowConstraints percentHeight="63.8" />
+		<RowConstraints percentHeight="6" />
+		
+		<RowConstraints percentHeight="94" />
 	</rowConstraints>
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
+	
 	<children>
-		<HBox alignment="BASELINE_CENTER" style="-fx-background-color: #F5F5F5;"
-			GridPane.rowIndex="0">
-			<padding>
-				<Insets left="410"></Insets>
-			</padding>
+	
+	
+	<GridPane style="-fx-background-color: #F5F5F5" GridPane.rowIndex="0">
+	
+	
+	<rowConstraints>
+		<RowConstraints percentHeight="100" />
+	</rowConstraints>
+	
+	<columnConstraints>
+		<ColumnConstraints percentWidth="50" />
+		<ColumnConstraints percentWidth="50" />
+	</columnConstraints>
+	
+	<children>
+	
+	<ImageView preserveRatio="true" GridPane.columnIndex="0"
+					fitHeight="20" fitWidth="20">
+					<GridPane.margin>
+						<Insets bottom="0" left="8" right="0" top="0" />
+					</GridPane.margin>
+					<image>
+						<Image url="@../../../../images/logo_icon.png" />
+					</image>
+				</ImageView>
+	
+	
+	<HBox  GridPane.columnIndex="1" alignment="CENTER_RIGHT" >
+			
+			
 			<Label alignment="CENTER" prefWidth="30" prefHeight="30" fx:id="lblHelp">
 				<tooltip>
 					<Tooltip text="Aide" />
@@ -51,6 +77,7 @@
 			</Label>
 			<Label alignment="CENTER" prefWidth="30" prefHeight="30" fx:id="lblClose"
 				onMouseClicked="#CloseWindow">
+				
 				<tooltip>
 					<Tooltip text="Fermer" />
 				</tooltip>
@@ -60,41 +87,59 @@
 				</graphic>
 			</Label>
 		</HBox>
+		
+		
+		
+	</children>
+	
+	</GridPane>
+	
+	
+		
 
 
-		<HBox alignment="CENTER" GridPane.rowIndex="1">
-		<GridPane.margin>
-		<Insets top="30"></Insets>
-		</GridPane.margin>
-			<ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
-				preserveRatio="true">
-				<image>
-					<Image url="@../../../../images/logo.png" />
-				</image>
-			</ImageView>
-		</HBox>
-		<VBox spacing="20" alignment="CENTER" GridPane.rowIndex="2">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<VBox  spacing="20" alignment="CENTER" GridPane.rowIndex="1">
+		
+				<padding>
+				<Insets top="-50"></Insets>
+			</padding>
+		<Label id="lblTitle" alignment="TOP_CENTER" text="Camelus" style="-fx-font-size: 25;
+	-fx-font-weight: bold;"/>
 			<ChoiceBox maxWidth="200" styleClass="flat-btn" fx:id="chooseAccountType">
 			</ChoiceBox>
-			<TextField maxWidth="200" fx:id="usernametxt" promptText="Username">
+			<TextField maxWidth="200" fx:id="usernametxt" promptText="Nom d'utilisateur">
 				<tooltip>
-					<Tooltip text="Enter username" />
+					<Tooltip text="Entrer votre nom"/>
 				</tooltip>
 			</TextField>
 			<PasswordField maxWidth="200" fx:id="passwordtxt"
-				promptText="Password">
+				promptText="Mot de passe">
 				<tooltip>
-					<Tooltip text="Enter password" />
+					<Tooltip text="Entrer votre mot de passe" />
 				</tooltip>
 			</PasswordField>
-			<Button fx:id="loginbtn" styleClass="flat-btn"
-				mnemonicParsing="false" text="Login">
-				<VBox.margin>
-					<Insets left="110">
-					</Insets>
-				</VBox.margin>
+			<Button prefHeight="20" prefWidth="200" fx:id="loginbtn" styleClass="flat-btn"
+				mnemonicParsing="false" text="Se connecter">
+				
 				<tooltip>
-					<Tooltip text="Click to login" />
+					<Tooltip text="Cliquer pour se connecter" />
 				</tooltip>
 			</Button>
 		</VBox>
