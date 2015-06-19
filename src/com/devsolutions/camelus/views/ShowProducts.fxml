@@ -28,7 +28,7 @@
                         <Insets right="10.0" top="35.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnShowAllProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Show All Product">
+                  <Button fx:id="btnShowAllProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Show Product">
                      <HBox.margin>
                         <Insets right="10.0" top="35.0" />
                      </HBox.margin>
