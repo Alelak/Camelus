@@ -154,7 +154,8 @@
 	-fx-text-fill: #727272;
 }
 #parent{
-	
+	-fx-border-width: 2;
+	-fx-border-color: #9b9b9b;
 }
 
 .flat-btn .context-menu .label{
