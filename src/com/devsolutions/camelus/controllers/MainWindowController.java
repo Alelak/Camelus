@@ -3,9 +3,6 @@ package com.devsolutions.camelus.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,13 +13,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class MainWindowController implements Initializable {
 	private Stage stage;
 	private double initialX;
 	private double initialY;
-	private FadeTransition fadeTransition;
 	@FXML
 	private Button tbacceuilbtn;
 	@FXML
@@ -49,13 +44,13 @@ public class MainWindowController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-		fadeTransition = new FadeTransition(Duration.millis(2000), content);
 		switchScene("home");
-			
 		tbacceuilbtn.setOnAction(e -> {
+
 			resetButtonColor();
 			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("Home");
+			switchScene("home");
+
 		});
 
 		tbclientsbtn.setOnAction(e -> {
@@ -63,7 +58,6 @@ public class MainWindowController implements Initializable {
 			tbclientsbtn.setStyle("-fx-background-color: #00A0DC;");
 			switchScene("showclients");
 		});
-		
 		tbvendeursbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbvendeursbtn.setStyle("-fx-background-color: #00A0DC;");
@@ -75,13 +69,11 @@ public class MainWindowController implements Initializable {
 			tbcommands.setStyle("-fx-background-color: #00A0DC;");
 			switchScene("showorders");
 		});
-		
 		tbproduitsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
 			switchScene("showproducts");
 		});
-		
 		tbsettings.setOnAction(e -> {
 			resetButtonColor();
 			tbsettings.setStyle("-fx-background-color: #00A0DC;");
@@ -101,12 +93,6 @@ public class MainWindowController implements Initializable {
 	private void CloseWindow() {
 		stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
-	}
-	
-	@FXML
-	public void MinimizeWindow() {
-		stage = (Stage) lblMinimize.getScene().getWindow();
-		stage.setIconified(true);
 	}
 
 	public void setMainApp(Stage stage) {
@@ -129,28 +115,12 @@ public class MainWindowController implements Initializable {
 	}
 
 	public void switchScene(final String filename) {
-		fadeTransition.stop();
-		Duration dr = new Duration(500);
-		fadeTransition.setDuration(dr);
-		fadeTransition.setFromValue(1.);
-		fadeTransition.setToValue(0.);
-		fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				FXMLLoader loader = new FXMLLoader(getClass()
-						.getResource("../views/" + filename + ".fxml"));
-				try {
-					content.getChildren().setAll(loader.load());
-				} catch (IOException j) {
-					j.printStackTrace();
-				}
-				fadeTransition = new FadeTransition(Duration.millis(500),
-						content);
-				fadeTransition.setFromValue(0.);
-				fadeTransition.setToValue(1.);
-				fadeTransition.play();
-			}
-		});
-		fadeTransition.play();
+		FXMLLoader vendorloader = new FXMLLoader(getClass().getResource(
+				"../views/" + filename + ".fxml"));
+		try {
+			content.getChildren().setAll(vendorloader.load());
+		} catch (IOException j) {
+			j.printStackTrace();
+		}
 	}
 }

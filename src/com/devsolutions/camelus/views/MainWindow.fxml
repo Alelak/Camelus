@@ -78,7 +78,7 @@
 						</graphic>
 					</Label>
 					<Label alignment="BOTTOM_CENTER" prefWidth="30" prefHeight="30"
-						fx:id="lblMinimize" onMouseClicked="#MinimizeWindow">
+						fx:id="lblMinimize">
 						<tooltip>
 							<Tooltip text="Minimiser" />
 						</tooltip>
@@ -87,7 +87,7 @@
 						</padding>
 						<graphic>
 							<FontAwesomeIconView id="minimizeFont"
-								styleClass="font-awesome" icon="ICON_MINUS"  />
+								styleClass="font-awesome" icon="ICON_MINUS" />
 						</graphic>
 					</Label>
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"

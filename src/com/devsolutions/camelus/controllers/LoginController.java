@@ -36,6 +36,10 @@ public class LoginController implements Initializable {
 	private ObservableList<String> accountTypes;
 	private Stage stage;
 
+	public LoginController() {
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		accountTypes = FXCollections.observableArrayList();
@@ -75,6 +79,7 @@ public class LoginController implements Initializable {
 							mainWindowController.setMainApp(stage);
 							mainWindowController.addDraggableNode(root);
 							Scene scene = new Scene(root);
+
 							scene.getStylesheets().add(
 									getClass().getResource("../views/main.css")
 											.toExternalForm());
@@ -153,11 +158,4 @@ public class LoginController implements Initializable {
 		stage = (Stage) loginbtn.getScene().getWindow();
 		stage.close();
 	}
-	
-	@FXML
-	private void MinimizeWindow() {
-		stage = (Stage) loginbtn.getScene().getWindow();
-		stage.setIconified(true);
-	}
-	
 }
