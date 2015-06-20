@@ -30,7 +30,8 @@
 	</columnConstraints>
 	<children>
 
-		<GridPane fx:id="header" gridLinesVisible="false" GridPane.rowIndex="0">
+		<GridPane fx:id="header" gridLinesVisible="false"
+			GridPane.rowIndex="0">
 
 			<rowConstraints>
 				<RowConstraints percentHeight="100.0" />
@@ -103,7 +104,8 @@
 			</children>
 		</GridPane>
 
-		<HBox id="toolbar" alignment="CENTER" prefHeight="60" GridPane.rowIndex="1">
+		<HBox id="toolbar" alignment="CENTER" prefHeight="60"
+			GridPane.rowIndex="1">
 			<ToolBar id="toolbar">
 
 				<items>
@@ -121,6 +123,12 @@
 								styleClass="tbbtn" text="Commandes" />
 							<Button prefHeight="20" prefWidth="125" fx:id="tbsettings"
 								styleClass="tbbtn" text="Paramètres" />
+							<Label alignment="CENTER" prefWidth="30" prefHeight="30">
+								<graphic>
+									<FontAwesomeIconView id="settings-font"
+										icon="ICON_COGS" />
+								</graphic>
+							</Label>
 						</children>
 					</HBox>
 				</items>
@@ -134,7 +142,8 @@
 		</Separator>
 
 
-		<HBox alignment="CENTER" prefWidth="1224.0"  fx:id="content"  GridPane.rowIndex="3">
+		<HBox alignment="CENTER" prefWidth="1224.0" fx:id="content"
+			GridPane.rowIndex="3">
 
 		</HBox>
 
@@ -148,7 +157,8 @@
 
 
 
-		<GridPane id="footer" gridLinesVisible="false" GridPane.rowIndex="5">
+		<GridPane id="footer" gridLinesVisible="false"
+			GridPane.rowIndex="5">
 			<rowConstraints>
 				<RowConstraints percentHeight="100.0" />
 			</rowConstraints>

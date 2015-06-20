@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -30,6 +31,8 @@ public class LoginController implements Initializable {
 	private TextField passwordtxt;
 	@FXML
 	private ChoiceBox<String> chooseAccountType;
+	@FXML
+	private ProgressIndicator progressIndicator;
 	private ObservableList<String> accountTypes;
 	private Stage stage;
 
@@ -39,12 +42,15 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		accountTypes = FXCollections.observableArrayList();
 		accountTypes.addAll("Type de Compte", "Admin", "Vendeur");
 		chooseAccountType.setItems(accountTypes);
+		progressIndicator.visibleProperty().bind(loginbtn.armedProperty());
+		// test
+		chooseAccountType.getSelectionModel().select(1);
+		usernametxt.setText("admin");
+		passwordtxt.setText("1234");
 
-		chooseAccountType.getSelectionModel().selectFirst();
 		loginbtn.setOnAction(e -> {
 			stage = (Stage) loginbtn.getScene().getWindow();
 			String username = usernametxt.getText().trim();
@@ -66,7 +72,6 @@ public class LoginController implements Initializable {
 							try {
 								root = loader.load();
 							} catch (Exception e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 							MainWindowController mainWindowController = loader
@@ -86,6 +91,7 @@ public class LoginController implements Initializable {
 								stage.show();
 								stage.centerOnScreen();
 							}
+
 						} else {
 							usernametxt.getStyleClass().add("text-input-error");
 							passwordtxt.getStyleClass().add("text-input-error");
@@ -108,7 +114,6 @@ public class LoginController implements Initializable {
 							try {
 								root = loader.load();
 							} catch (Exception e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 							MainWindowController mainWindowController = loader
@@ -139,12 +144,12 @@ public class LoginController implements Initializable {
 				if (password.isEmpty()) {
 					passwordtxt.getStyleClass().add("text-input-error");
 				}
+
 				if (accountType == 0) {
 					chooseAccountType.getStyleClass().add("text-input-error");
 				}
 
 			}
-
 		});
 	}
 

@@ -44,35 +44,35 @@ public class MainWindowController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-		switchScenes("home");
+		switchScene("home");
 		tbacceuilbtn.setOnAction(e -> {
 
 			resetButtonColor();
 			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScenes("home");
+			switchScene("home");
 
 		});
 
 		tbclientsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbclientsbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScenes("showclients");
+			switchScene("showclients");
 		});
 		tbvendeursbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbvendeursbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScenes("showvendors");
+			switchScene("showvendors");
 		});
 
 		tbcommands.setOnAction(e -> {
 			resetButtonColor();
 			tbcommands.setStyle("-fx-background-color: #00A0DC;");
-			switchScenes("showorders");
+			switchScene("showorders");
 		});
 		tbproduitsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScenes("showproducts");
+			switchScene("showproducts");
 		});
 		tbsettings.setOnAction(e -> {
 			resetButtonColor();
@@ -81,12 +81,12 @@ public class MainWindowController implements Initializable {
 	}
 
 	public void resetButtonColor() {
-		tbproduitsbtn.setStyle("-fx-background-color: #0077B5;");
-		tbcommands.setStyle("-fx-background-color: #0077B5;");
-		tbvendeursbtn.setStyle("-fx-background-color: #0077B5;");
-		tbclientsbtn.setStyle("-fx-background-color: #0077B5;");
-		tbacceuilbtn.setStyle("-fx-background-color: #0077B5;");
-		tbsettings.setStyle("-fx-background-color: #0077B5;");
+		tbproduitsbtn.setStyle("-fx-background-color: -camelus-blue;");
+		tbcommands.setStyle("-fx-background-color: -camelus-blue;");
+		tbvendeursbtn.setStyle("-fx-background-color: -camelus-blue;");
+		tbclientsbtn.setStyle("-fx-background-color: -camelus-blue;");
+		tbacceuilbtn.setStyle("-fx-background-color: -camelus-blue;");
+		tbsettings.setStyle("-fx-background-color: -camelus-blue;");
 	}
 
 	@FXML
@@ -114,13 +114,12 @@ public class MainWindowController implements Initializable {
 		});
 	}
 
-	public void switchScenes(final String filename) {
+	public void switchScene(final String filename) {
 		FXMLLoader vendorloader = new FXMLLoader(getClass().getResource(
 				"../views/" + filename + ".fxml"));
 		try {
 			content.getChildren().setAll(vendorloader.load());
 		} catch (IOException j) {
-			// TODO Auto-generated catch block
 			j.printStackTrace();
 		}
 	}

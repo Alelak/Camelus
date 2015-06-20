@@ -4,24 +4,20 @@
 	-fx-font-smoothing-type: gray;
 	-fx-background-color: #FFFFFF;
 	-fx-font-family: 'Roboto Medium';
-	
+	-camelus-blue : #0077B5;
 }
 
 .text-input {
 	-fx-background-radius: 0.0;
 	-fx-border-radius: 0.0;
 }
-
 .text-input:focused {
-	
 	-fx-border-color: #03A9F4;
 	-fx-border-style: none;
 	-fx-border-width: 2.0;
-	
 }
 .text-input-error {
 	-fx-border-color: red;
-		-fx-border-width: 2.0;
 }
 #header {
 	
@@ -43,38 +39,31 @@
 	-fx-border-width: 1.0;
     -fx-padding: 5.0 22.0 5.0 22.0; 
     -fx-background-radius: 0.0;
-    -fx-background-color: #0077B5;
+    -fx-background-color: -camelus-blue;
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 0.0;
     -fx-cursor: hand;
 }
 
-.tbbtn:hover {
-    -fx-background-color: #00A0DC;
-}
-
 .flat-btn {
-	-fx-padding: 5.0 22.0 5.0 22.0; 
     -fx-background-radius: 0.0;
-    -fx-background-color: #0077B5;
+    -fx-background-color: -camelus-blue;
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 0.0;
+    -fx-border-width: 0.0;
+    -fx-padding: 0.7em;
     -fx-cursor: hand;
 }
 
 .flat-btn:hover {
-	-fx-background-color: #03A9F4;
+	-fx-background-color: derive(-camelus-blue ,20.0%);
     -fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0,0.3), 0.0,0.0,1.0,1.0); 
 }
 
 .flat-btn:pressed {
-  -fx-background-color:#BBDEFB;
+  -fx-background-color: derive(-camelus-blue ,50.0%);
 }
 
-
-#loginbtn{
-	
-}
 .font-awesome{
 	-fx-font-size: 17.0px;
 }
@@ -96,7 +85,7 @@
 
 #lblClose:hover #closeFont{
 	-fx-text-fill: white;
-	-fx-font-size: 20;
+	-fx-font-size: 20.0;
 	-fx-font-weight: bold;
 }
 
@@ -114,11 +103,11 @@
 }
 
 #lblMinimize:pressed{
-	-fx-background-color: #0077B5;
+	-fx-background-color: -camelus-blue;
 }
 
 #lblHelp:pressed{
-	-fx-background-color: #0077B5;
+	-fx-background-color: -camelus-blue;
 }
 
 #lblClose:pressed #closeFont{
@@ -147,7 +136,7 @@
 }
 
 #linkedinFont:hover{
-	-fx-text-fill: #0077B5;
+	-fx-text-fill: -camelus-blue;
 }
 
 #twitterFont:hover{
@@ -172,6 +161,16 @@
 	-fx-text-fill: black;
 }
 .flat-btn  .label{
-	-fx-alignment: center ;
+	-fx-alignment: center;
 	-fx-text-fill: white;
+}
+
+
+#settings-font{
+	-fx-font-size: 24.0;
+	-fx-cursor: hand;
+}
+
+#settings-font:hover{
+	-fx-text-fill: -camelus-blue;
 }
