@@ -12,9 +12,10 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Label?>
 
-<GridPane id="parent" maxHeight="500.0" maxWidth="500.0"
-	minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
+<GridPane id="parent" maxHeight="470.0" maxWidth="500.0"
+	minHeight="470.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.LoginController">
 	<rowConstraints>
@@ -57,7 +58,7 @@
 						</graphic>
 					</Label>
 					<Label alignment="BOTTOM_CENTER" prefWidth="30" prefHeight="30"
-						fx:id="lblMinimize">
+						fx:id="lblMinimize" onMouseClicked="#MinimizeWindow">
 						<tooltip>
 							<Tooltip text="Minimiser" />
 						</tooltip>
@@ -80,9 +81,7 @@
 			</children>
 		</GridPane>
 		<VBox spacing="20" alignment="CENTER" GridPane.rowIndex="1">
-			<padding>
-				<Insets top="-50"></Insets>
-			</padding>
+		
 			<Label id="lblTitle" alignment="TOP_CENTER" text="Camelus"
 				style="-fx-font-size: 25; -fx-font-weight: bold;" />
 			<ChoiceBox maxWidth="200" styleClass="flat-btn" fx:id="chooseAccountType">
