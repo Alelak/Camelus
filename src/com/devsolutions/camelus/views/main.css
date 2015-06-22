@@ -167,11 +167,11 @@
 }
 
 
-#settings-font{
+.settings-font{
 	-fx-font-size: 24.0;
 	-fx-cursor: hand;
 }
 
-#settings-font:hover{
+.settings-font:hover{
 	-fx-text-fill: -camelus-blue;
 }

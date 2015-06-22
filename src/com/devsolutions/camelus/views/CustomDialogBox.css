@@ -29,10 +29,18 @@
 	-fx-font-size: 17.0px;
 }
 
+#lblClose{
+	-fx-background-color: #0077B5;
+}
+
 #lblClose:hover{
 	-fx-background-color: #c13636;
 }
 
+#closeFont{
+	-fx-text-fill: white;
+	-fx-font-smoothing-type: gray;
+}
 
 #lblClose:hover #closeFont{
 	-fx-text-fill: white;

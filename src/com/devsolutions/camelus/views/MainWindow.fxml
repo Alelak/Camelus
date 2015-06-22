@@ -62,11 +62,6 @@
 				</Label>
 
 				<HBox alignment="TOP_RIGHT" GridPane.columnIndex="2">
-					<GridPane.margin>
-						<Insets bottom="0" left="0" right="-1" top="0" />
-					</GridPane.margin>
-
-
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
 						fx:id="lblHelp">
 						<tooltip>
@@ -87,7 +82,7 @@
 						</padding>
 						<graphic>
 							<FontAwesomeIconView id="minimizeFont"
-								styleClass="font-awesome" icon="ICON_MINUS"  />
+								styleClass="font-awesome" icon="ICON_MINUS" />
 						</graphic>
 					</Label>
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
@@ -104,36 +99,72 @@
 			</children>
 		</GridPane>
 
-		<HBox id="toolbar" alignment="CENTER" prefHeight="60"
-			GridPane.rowIndex="1">
-			<ToolBar id="toolbar">
 
-				<items>
-					<HBox>
-						<children>
-							<Button prefHeight="20" prefWidth="125" fx:id="tbacceuilbtn"
-								styleClass="tbbtn" text="Acceuil" />
-							<Button prefHeight="20" prefWidth="125" fx:id="tbclientsbtn"
-								styleClass="tbbtn" text="Clients" />
-							<Button prefHeight="20" prefWidth="125" fx:id="tbvendeursbtn"
-								styleClass="tbbtn" text="Vendeurs" />
-							<Button prefHeight="20" prefWidth="125" fx:id="tbproduitsbtn"
-								styleClass="tbbtn" text="Produits" />
-							<Button prefHeight="20" prefWidth="125" fx:id="tbcommands"
-								styleClass="tbbtn" text="Commandes" />
-							<Button prefHeight="20" prefWidth="125" fx:id="tbsettings"
-								styleClass="tbbtn" text="Paramètres" />
-							<Label alignment="CENTER" prefWidth="30" prefHeight="30">
-								<graphic>
-									<FontAwesomeIconView id="settings-font"
-										icon="ICON_COGS" />
-								</graphic>
-							</Label>
-						</children>
-					</HBox>
-				</items>
-			</ToolBar>
-		</HBox>
+
+
+		<GridPane GridPane.rowIndex="1">
+			<rowConstraints>
+				<RowConstraints percentHeight="100.0" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="81.5" />
+				<ColumnConstraints percentWidth="18.5" />
+			</columnConstraints>
+
+			<children>
+
+				<HBox GridPane.columnIndex="0" id="toolbar" alignment="CENTER_RIGHT"
+					prefHeight="60">
+					<ToolBar id="toolbar">
+
+						<items>
+							<HBox>
+								<children>
+									<Button prefHeight="20" prefWidth="125" fx:id="tbacceuilbtn"
+										styleClass="tbbtn" text="Acceuil" />
+									<Button prefHeight="20" prefWidth="125" fx:id="tbclientsbtn"
+										styleClass="tbbtn" text="Clients" />
+									<Button prefHeight="20" prefWidth="125" fx:id="tbvendeursbtn"
+										styleClass="tbbtn" text="Vendeurs" />
+									<Button prefHeight="20" prefWidth="125" fx:id="tbproduitsbtn"
+										styleClass="tbbtn" text="Produits" />
+									<Button prefHeight="20" prefWidth="125" fx:id="tbcommands"
+										styleClass="tbbtn" text="Commandes" />
+									<Button prefHeight="20" prefWidth="125" fx:id="tbsettings"
+										styleClass="tbbtn" text="Paramètres" />
+
+								</children>
+							</HBox>
+						</items>
+					</ToolBar>
+				</HBox>
+				<HBox spacing="2" GridPane.columnIndex="1"
+					style="-fx-background-color: #F5F5F5;" alignment="CENTER_RIGHT">
+					<Label prefWidth="30" prefHeight="30">
+						<HBox.margin>
+							<Insets bottom="0" left="0" right="0" top="-5" />
+						</HBox.margin>
+						<graphic>
+							<FontAwesomeIconView styleClass="settings-font"
+								icon="ICON_COGS" />
+						</graphic>
+					</Label>
+
+					<Label prefWidth="30" prefHeight="30">
+						<HBox.margin>
+							<Insets bottom="0" left="0" right="0" top="-5" />
+						</HBox.margin>
+						<graphic>
+							<FontAwesomeIconView styleClass="settings-font"
+								icon="ICON_SIGNOUT" />
+						</graphic>
+					</Label>
+				</HBox>
+			</children>
+		</GridPane>
+
+
+
 
 		<Separator prefWidth="100.0" GridPane.rowIndex="2">
 			<padding>
