@@ -9,7 +9,9 @@ public class DBConfig implements Serializable {
 	private static final long serialVersionUID = 1888419375037894340L;
 	private String username;
 	private String password;
-	private String url;
+	private String ip;
+	private String port;
+	private String schema;
 
 	public String getUsername() {
 		return username;
@@ -27,12 +29,28 @@ public class DBConfig implements Serializable {
 		this.password = password;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getIp() {
+		return ip;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public String getSchema() {
+		return schema;
+	}
+
+	public void setSchema(String schema) {
+		this.schema = schema;
 	}
 
 }

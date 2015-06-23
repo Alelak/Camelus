@@ -1,7 +1,7 @@
 package com.devsolutions.camelus.services;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.util.Properties;
 
@@ -25,7 +25,8 @@ public class DBConnection {
 			Properties properties = new Properties();
 			properties.setProperty("username", dbConfig.getUsername());
 			properties.setProperty("password", dbConfig.getPassword());
-			properties.setProperty("url", dbConfig.getUrl());
+			properties.setProperty("url", "jdbc:mysql://" + dbConfig.getIp()
+					+ ":" + dbConfig.getPort() + "/" + dbConfig.getSchema());
 			Reader reader = Resources.getResourceAsReader(ressource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader,
 					properties);
@@ -42,16 +43,9 @@ public class DBConnection {
 		return sqlSessionFactory;
 	}
 
-	public static DBConfig getDBConfig() {
-		DBConfig dbConfig = null;
-		try {
-			FileReader fileReader = new FileReader("DBConfig.json");
-			JsonReader jsonReader = new JsonReader(fileReader);
-			Gson gson = new Gson();
-			dbConfig = gson.fromJson(jsonReader, DBConfig.class);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return dbConfig;
+	public static DBConfig getDBConfig() throws FileNotFoundException {
+		JsonReader jsonReader = new JsonReader(new FileReader("DBConfig.json"));
+		Gson gson = new Gson();
+		return gson.fromJson(jsonReader, DBConfig.class);
 	}
 }
