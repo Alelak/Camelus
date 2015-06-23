@@ -128,7 +128,7 @@ public class AddProductController implements Initializable {
 
 		product = new Product();
 
-		product.setUpc(Integer.parseInt(upc.getText()));
+		product.setUpc(upc.getText());
 		product.setName(name.getText());
 		product.setQuantity(Integer.parseInt(quantity.getText()));
 		product.setUnit_id(unit.getSelectionModel().getSelectedItem().getId());

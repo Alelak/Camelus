@@ -5,7 +5,7 @@ import java.util.Date;
 public class Product {
 
 	private long id;
-	private long upc;
+	private String upc;
 	private String name;
 	private int quantity;
 	private int unit_id;
@@ -26,11 +26,11 @@ public class Product {
 		this.id = id;
 	}
 
-	public long getUpc() {
+	public String getUpc() {
 		return upc;
 	}
 
-	public void setUpc(long upc) {
+	public void setUpc(String upc) {
 		this.upc = upc;
 	}
 
@@ -121,6 +121,9 @@ public class Product {
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
 	}
-	
-	@Override public String toString() { return name; }
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

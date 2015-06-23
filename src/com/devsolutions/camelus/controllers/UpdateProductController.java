@@ -32,7 +32,7 @@ import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.Choice;
 
-public class UpdateProductController  implements Initializable{
+public class UpdateProductController implements Initializable {
 	@FXML
 	private TextField upc;
 	@FXML
@@ -62,7 +62,7 @@ public class UpdateProductController  implements Initializable{
 	@FXML
 	private ChoiceBox<Choice> unit;
 	private Stage stage;
-	
+
 	private ByteArrayOutputStream baos = null;
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
@@ -71,10 +71,10 @@ public class UpdateProductController  implements Initializable{
 	Product product;
 	Product productToUpdate;
 	int index;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		btnAddImg.setOnAction(e -> {
 			System.out.println(category.getValue().toString());
 			addPicture();
@@ -87,37 +87,40 @@ public class UpdateProductController  implements Initializable{
 
 			if (!upc.getText().isEmpty() && !name.getText().isEmpty()
 					&& !quantity.getText().isEmpty() && imageInByte != null
-					&& !description.getText().isEmpty()&& !sellingPrice.getText().isEmpty()&& !costPrice.getText().isEmpty()) {
+					&& !description.getText().isEmpty()
+					&& !sellingPrice.getText().isEmpty()
+					&& !costPrice.getText().isEmpty()) {
 				ProductManager.update(updateProduct());
-				ProductTableView productTable= new ProductTableView();
+				ProductTableView productTable = new ProductTableView();
 				productTable.setId(product.getId());
-				System.out.println("valeur produit`=="+product.getId());
+				System.out.println("valeur produit`==" + product.getId());
 				productTable.setName(product.getName());
 				productTable.setQuantity(product.getQuantity());
 				productTable.setUpc(product.getUpc());
 				productTable.setSelling_price(product.getSelling_price());
-				productTable.setDescriptionCategory(category.getValue().toString());
-				productController.updateTableView(index,productTable);
+				productTable.setDescriptionCategory(category.getValue()
+						.toString());
+				productController.updateTableView(index, productTable);
 				stage = (Stage) btnUpdateProduct.getScene().getWindow();
 				stage.close();
 			} else
 				System.out.println("tous les chams doivent etre remplis");
-		
+
 		});
 		btnCancelProduct.setOnAction(e -> {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
 			stage.close();
 		});
-		
+
 	}
-	
+
 	public Product updateProduct()
 
 	{
 
 		product = new Product();
 		product.setId(productToUpdate.getId());
-		product.setUpc(Integer.parseInt(upc.getText()));
+		product.setUpc(upc.getText());
 		product.setName(name.getText());
 		product.setQuantity(Integer.parseInt(quantity.getText()));
 		product.setUnit_id(unit.getSelectionModel().getSelectedItem().getId());
@@ -127,9 +130,10 @@ public class UpdateProductController  implements Initializable{
 		product.setDescription(description.getText());
 		product.setCost_price(Double.parseDouble(costPrice.getText()));
 		product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
-		
+
 		return product;
 	}
+
 	public void listChoiceBoxUnit(int index) {
 		List<Unit> unitList = UnitManager.getAll();
 		listChoiceUnit = FXCollections.observableArrayList();
@@ -154,6 +158,7 @@ public class UpdateProductController  implements Initializable{
 		category.getSelectionModel().select(index);
 
 	}
+
 	public void addPicture() {
 
 		FileChooser fileChooser = new FileChooser();
@@ -161,48 +166,48 @@ public class UpdateProductController  implements Initializable{
 				"All Images", "*.*");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
-		if (file!=null) {
-			
-		
-		try {
-			BufferedImage originalImage = ImageIO.read(file);
-			baos = new ByteArrayOutputStream();
-			ImageIO.write(originalImage, "jpg", baos);
-			baos.flush();
-			imageInByte = baos.toByteArray();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		if (file != null) {
+
+			try {
+				BufferedImage originalImage = ImageIO.read(file);
+				baos = new ByteArrayOutputStream();
+				ImageIO.write(originalImage, "jpg", baos);
+				baos.flush();
+				imageInByte = baos.toByteArray();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
+
 	private void initForm() {
-		upc.setText(""+productToUpdate.getUpc());
+		upc.setText("" + productToUpdate.getUpc());
 		name.setText(productToUpdate.getName());
-		quantity.setText(""+productToUpdate.getQuantity());
-		costPrice.setText(""+productToUpdate.getCost_price());
-		sellingPrice.setText(""+productToUpdate.getSelling_price());
+		quantity.setText("" + productToUpdate.getQuantity());
+		costPrice.setText("" + productToUpdate.getCost_price());
+		sellingPrice.setText("" + productToUpdate.getSelling_price());
 		description.setText(productToUpdate.getDescription());
-	    imageInByte=productToUpdate.getImg();
-	    Showimage();
-	  
-		
-		
+		imageInByte = productToUpdate.getImg();
+		Showimage();
+
 		System.out.println(imageInByte);
 		listChoiceBoxUnit(productToUpdate.getUnit_id());
 		listChoiceBoxCategory(productToUpdate.getCategory_id());
-		
+
 	}
-	private void Showimage(){
-		ByteArrayInputStream is=new ByteArrayInputStream(imageInByte);
-	    imageProduct.setImage(new Image(is));
-		
+
+	private void Showimage() {
+		ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
+		imageProduct.setImage(new Image(is));
+
 	}
-	public void initData(ShowProductsController ProductController,Product productToUpdate,int index) {
+
+	public void initData(ShowProductsController ProductController,
+			Product productToUpdate, int index) {
 		this.productController = ProductController;
 		this.productToUpdate = productToUpdate;
 		this.index = index;
 		initForm();
 	}
 
-	
 }

@@ -11,7 +11,7 @@ public class ProductManagerTest {
 
 		Product product = new Product();
 
-		product.setUpc(1234567890);
+		product.setUpc("1234567890");
 		product.setName("metal");
 		product.setQuantity(20);
 		product.setUnit_id(1);
@@ -26,7 +26,7 @@ public class ProductManagerTest {
 	public void update() {
 		Product product = new Product();
 		product.setId(1);
-		product.setUpc(1234567899);
+		product.setUpc("1234567899");
 		product.setName("Metal");
 		product.setQuantity(50);
 		product.setUnit_id(1);
