@@ -1,16 +1,15 @@
 package com.devsolutions.camelus.application;
 
-import com.devsolutions.camelus.controllers.LoginController;
 import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Font;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	private double initialX;
@@ -41,7 +40,6 @@ public class Main extends Application {
 					new Image(getClass().getResource(
 							"../../../../images/logo.png").toExternalForm()));
 			addDraggableNode(root);
-			LoginController loginController = loader.getController();
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

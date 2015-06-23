@@ -51,7 +51,7 @@
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 0.0;
     -fx-border-width: 0.0;
-    -fx-padding: 0.7em;
+    -fx-padding: 0.6em;
     -fx-cursor: hand;
 }
 
@@ -154,7 +154,7 @@
 	-fx-text-fill: #727272;
 }
 #parent{
-	-fx-border-width: 2;
+	-fx-border-width: 2.0;
 	-fx-border-color: #9b9b9b;
 }
 

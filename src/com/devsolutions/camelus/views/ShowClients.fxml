@@ -5,16 +5,20 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
 
 
 <AnchorPane prefHeight="347.0" prefWidth="406.0"
 	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
 	fx:controller="com.devsolutions.camelus.controllers.ShowClientsController">
+	<HBox.margin>
+		<Insets top="100"></Insets>
+	</HBox.margin>
 	<children>
-		<VBox prefHeight="347.0" prefWidth="406.0">
+		<VBox prefHeight="500" prefWidth="500">
 			<children>
-				<TableView fx:id="clientsTableView" prefHeight="328.0"
-					prefWidth="406.0">
+				<TableView fx:id="clientsTableView">
 				</TableView>
 			</children>
 		</VBox>

@@ -79,14 +79,12 @@ public class LoginController implements Initializable {
 									getClass().getResource("../views/main.css")
 											.toExternalForm());
 							stage.setScene(scene);
-							if (admin.getSuper_admin() == 1) {
-								stage.show();
-								stage.centerOnScreen();
-							} else {
-								stage.show();
-								stage.centerOnScreen();
-							}
-
+							stage.centerOnScreen();
+							/*
+							 * if (admin.getSuper_admin() == 1) {
+							 * 
+							 * } else { }
+							 */
 						} else {
 							usernametxt.getStyleClass().add("text-input-error");
 							passwordtxt.getStyleClass().add("text-input-error");
@@ -121,7 +119,6 @@ public class LoginController implements Initializable {
 									getClass().getResource("../views/main.css")
 											.toExternalForm());
 							stage.setScene(scene);
-							stage.show();
 							stage.centerOnScreen();
 						} else {
 							usernametxt.getStyleClass().add("text-input-error");
@@ -153,11 +150,11 @@ public class LoginController implements Initializable {
 		stage = (Stage) loginbtn.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	@FXML
 	private void MinimizeWindow() {
 		stage = (Stage) loginbtn.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	
+
 }

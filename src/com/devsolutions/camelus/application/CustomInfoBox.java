@@ -2,7 +2,6 @@ package com.devsolutions.camelus.application;
 
 import java.io.IOException;
 
-import com.devsolutions.camelus.controllers.CustomDialogBoxController;
 import com.devsolutions.camelus.controllers.CustomInfoBoxController;
 
 import javafx.fxml.FXMLLoader;
@@ -19,7 +18,7 @@ public class CustomInfoBox {
 	private Stage MainStage;
 	public Button btn;
 
-	public CustomInfoBox(Stage stage, String message,String btnText)
+	public CustomInfoBox(Stage stage, String message, String btnText)
 			throws IOException {
 		MainStage = stage;
 		stage = new Stage();
@@ -33,10 +32,10 @@ public class CustomInfoBox {
 		CustomInfoBoxController infoBoxController = loader
 				.<CustomInfoBoxController> getController();
 		btn = infoBoxController.btn;
-	
+
 		infoBoxController.setMessage(message);
 		infoBoxController.setBtnText(btnText);
-		
+
 		scene = new Scene(root);
 		scene.getStylesheets().add(
 				getClass().getResource("../views/CustomDialogBox.css")

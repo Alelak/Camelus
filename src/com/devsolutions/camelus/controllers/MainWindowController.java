@@ -3,6 +3,7 @@ package com.devsolutions.camelus.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
@@ -17,7 +20,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import com.devsolutions.camelus.application.*;
+import com.devsolutions.camelus.utils.FontAwesomeIconView;
 
 public class MainWindowController implements Initializable {
 	private Stage stage;
@@ -46,6 +51,8 @@ public class MainWindowController implements Initializable {
 	private Label lblHelp;
 	@FXML
 	private HBox content;
+	@FXML
+	private FontAwesomeIconView logoutbtn;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -53,6 +60,38 @@ public class MainWindowController implements Initializable {
 		fadeTransition = new FadeTransition(Duration.millis(2000), content);
 		switchScene("home");
 
+		logoutbtn.setOnMouseClicked(e -> {
+			try {
+				CustomDialogBox customDialogBox = new CustomDialogBox(stage,
+						"Voulez vous vraiment se deconnecter?", "Oui", "Non");
+				customDialogBox.positiveButton
+						.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								FXMLLoader loader = new FXMLLoader(getClass()
+										.getResource("../views/login.fxml"));
+								Parent root = null;
+								try {
+									root = loader.load();
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+								Scene scene = new Scene(root);
+								addDraggableNode(root);
+								scene.getStylesheets().add(
+										getClass().getResource(
+												"../views/main.css")
+												.toExternalForm());
+								stage.setScene(scene);
+								stage.centerOnScreen();
+								customDialogBox.stage.close();
+							}
+						});
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+		});
 		tbacceuilbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
@@ -98,9 +137,10 @@ public class MainWindowController implements Initializable {
 
 							@Override
 							public void handle(ActionEvent event) {
-							Stage boxStage = (Stage) cdb.btn.getScene().getWindow();
-							boxStage.close();
-						
+								Stage boxStage = (Stage) cdb.btn.getScene()
+										.getWindow();
+								boxStage.close();
+
 							}
 						});
 

@@ -150,12 +150,12 @@
 						</graphic>
 					</Label>
 
-					<Label prefWidth="30" prefHeight="30">
+					<Label  prefWidth="30" prefHeight="30">
 						<HBox.margin>
 							<Insets bottom="0" left="0" right="0" top="-5" />
 						</HBox.margin>
 						<graphic>
-							<FontAwesomeIconView styleClass="settings-font"
+							<FontAwesomeIconView fx:id="logoutbtn" styleClass="settings-font"
 								icon="ICON_SIGNOUT" />
 						</graphic>
 					</Label>

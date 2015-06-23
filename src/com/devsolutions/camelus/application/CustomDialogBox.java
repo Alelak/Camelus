@@ -15,22 +15,17 @@ import javafx.stage.StageStyle;
 public class CustomDialogBox {
 	private Parent root;
 	private Scene scene;
-	private Stage MainStage;
 	public Button positiveButton;
 	public Button negativeButton;
+	public Stage stage;
 
-	public CustomDialogBox(Stage stage, String message,
+	public CustomDialogBox(Stage mainStage, String message,
 			String positiveButtonText, String negativeButtonText)
 			throws IOException {
-		MainStage = stage;
-		stage = new Stage();
+		this.stage = new Stage();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(
 				"../views/CustomDialogBox.fxml"));
-		try {
-			root = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		root = loader.load();
 		CustomDialogBoxController dialogBoxController = loader
 				.<CustomDialogBoxController> getController();
 		positiveButton = dialogBoxController.positiveButton;
@@ -38,6 +33,7 @@ public class CustomDialogBox {
 		dialogBoxController.setMessage(message);
 		dialogBoxController.setPositiveButtonText(positiveButtonText);
 		dialogBoxController.setNegativeButtonText(negativeButtonText);
+		negativeButton.setOnAction(e -> stage.close());
 		scene = new Scene(root);
 		scene.getStylesheets().add(
 				getClass().getResource("../views/CustomDialogBox.css")
@@ -45,7 +41,7 @@ public class CustomDialogBox {
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initOwner(MainStage);
+		stage.initOwner(mainStage);
 		stage.show();
 	}
 
