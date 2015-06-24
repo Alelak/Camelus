@@ -19,7 +19,7 @@
 .text-input-error {
 	-fx-border-color: red;
 }
-#header {
+.header {
 	
 	-fx-background-color: #F5F5F5;
 }

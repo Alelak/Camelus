@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,6 +35,7 @@ public class ShowClientsController implements Initializable {
 		initTableView();
 		clientsTableView.getColumns().addAll(clientIdCol, enterpriseNameCol,
 				contactNameCol, contactTelCol, contactEmailCol);
+		clientsTableView.setPlaceholder(new Label("Pas de Client"));
 	}
 
 	public void initTableView() {

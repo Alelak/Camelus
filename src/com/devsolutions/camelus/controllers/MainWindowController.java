@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import com.devsolutions.camelus.application.*;
+import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.FontAwesomeIconView;
 
 public class MainWindowController implements Initializable {
@@ -40,9 +42,7 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private Button tbcommands;
 	@FXML
-	private Button tbsettings;
-	@FXML
-	private GridPane header;
+	private Button tbadminsbtn;
 	@FXML
 	private Label lblClose;
 	@FXML
@@ -53,9 +53,26 @@ public class MainWindowController implements Initializable {
 	private HBox content;
 	@FXML
 	private FontAwesomeIconView logoutbtn;
+	@FXML
+	private HBox innerToolbarHbox;
+	@FXML
+	private HBox outerToolbarHbox;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		if (Session.vendor != null) {
+			GridPane.setMargin(outerToolbarHbox, new Insets(0, 130, 0, 0));
+			innerToolbarHbox.getChildren()
+					.removeAll(tbvendeursbtn, tbadminsbtn);
+		} else if (!innerToolbarHbox.getChildren().contains(tbvendeursbtn)
+				&& !innerToolbarHbox.getChildren().contains(tbadminsbtn)) {
+			{
+				innerToolbarHbox.getChildren().addAll(tbvendeursbtn,
+						tbadminsbtn);
+			}
+		}
+
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
 		fadeTransition = new FadeTransition(Duration.millis(2000), content);
 		switchScene("home");
@@ -86,6 +103,11 @@ public class MainWindowController implements Initializable {
 								stage.setScene(scene);
 								stage.centerOnScreen();
 								customDialogBox.stage.close();
+								if (Session.admin != null) {
+									Session.admin = null;
+								} else {
+									Session.vendor = null;
+								}
 							}
 						});
 			} catch (IOException e2) {
@@ -121,33 +143,6 @@ public class MainWindowController implements Initializable {
 			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
 			switchScene("showproducts");
 		});
-
-		tbsettings
-				.setOnAction(e -> {
-					resetButtonColor();
-					tbsettings.setStyle("-fx-background-color: #00A0DC;");
-
-					try {
-
-						CustomInfoBox cdb = new CustomInfoBox(
-								stage,
-								"Salut \nLe Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500?",
-								"OK");
-						cdb.btn.setOnAction(new EventHandler<ActionEvent>() {
-
-							@Override
-							public void handle(ActionEvent event) {
-								Stage boxStage = (Stage) cdb.btn.getScene()
-										.getWindow();
-								boxStage.close();
-
-							}
-						});
-
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				});
 	}
 
 	public void resetButtonColor() {
@@ -156,7 +151,7 @@ public class MainWindowController implements Initializable {
 		tbvendeursbtn.setStyle("-fx-background-color: -camelus-blue;");
 		tbclientsbtn.setStyle("-fx-background-color: -camelus-blue;");
 		tbacceuilbtn.setStyle("-fx-background-color: -camelus-blue;");
-		tbsettings.setStyle("-fx-background-color: -camelus-blue;");
+		tbadminsbtn.setStyle("-fx-background-color: -camelus-blue;");
 	}
 
 	@FXML
