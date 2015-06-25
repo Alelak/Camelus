@@ -52,7 +52,7 @@ public class ShowVendorsController implements Initializable {
 		addButton.setOnAction(e -> {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(
-						"../views/AddVendor.fxml"));
+						"../views/addupdatevendor.fxml"));
 
 				Stage newStage = new Stage();
 				Scene scene;
@@ -61,9 +61,9 @@ public class ShowVendorsController implements Initializable {
 
 				newStage.setScene(scene);
 
-				AddVendorController controller = loader
-						.<AddVendorController> getController();
-				controller.initData(this);
+				AddUpdateVendorController controller = loader
+						.<AddUpdateVendorController> getController();
+				controller.initData(this, "Ajouter", null, -1);
 
 				newStage.initModality(Modality.APPLICATION_MODAL);
 
@@ -83,6 +83,7 @@ public class ShowVendorsController implements Initializable {
 			}
 
 		});
+
 		editButton.setOnAction(e -> {
 
 			Vendor vendor = vendorTableView.getSelectionModel()
@@ -91,17 +92,17 @@ public class ShowVendorsController implements Initializable {
 			if (vendor != null) {
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(
-							"../views/EditVendor.fxml"));
+							"../views/addupdatevendor.fxml"));
 
 					Stage newStage = new Stage();
 					Scene scene;
 
 					scene = new Scene(loader.load());
 					newStage.setScene(scene);
-
-					EditVendorController controller = loader
-							.<EditVendorController> getController();
-					controller.initData(this, vendor, index);
+					
+					AddUpdateVendorController controller = loader
+							.<AddUpdateVendorController> getController();
+					controller.initData(this, "Modifier", vendor, index);
 
 					newStage.initModality(Modality.APPLICATION_MODAL);
 
@@ -113,7 +114,7 @@ public class ShowVendorsController implements Initializable {
 
 			}
 		});
-		
+
 		showButton.setOnAction(e -> {
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
@@ -140,10 +141,21 @@ public class ShowVendorsController implements Initializable {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-
 			}
 		});
-		
+
+		vendorTableView.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
+						deleteButton.setDisable(false);
+						editButton.setDisable(false);
+						showButton.setDisable(false);
+					} else {
+						deleteButton.setDisable(true);
+						editButton.setDisable(true);
+						showButton.setDisable(true);
+					}
+				});
 	}
 
 	public void initTableView() {
@@ -182,5 +194,11 @@ public class ShowVendorsController implements Initializable {
 
 	public void updateTableView(int index, Vendor vendor) {
 		vendorTableView.getItems().set(index, vendor);
+	}
+	
+	public TableView<Vendor> getTable()
+	{
+		TableView<Vendor> table = vendorTableView;
+		return table;
 	}
 }

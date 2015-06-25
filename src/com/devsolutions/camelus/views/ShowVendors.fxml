@@ -17,17 +17,17 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="editButton" mnemonicParsing="false" text="Modifier Vendeur">
+                  <Button fx:id="editButton" disable="true" mnemonicParsing="false" text="Modifier Vendeur">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" text="Supprimer Vendeur">
+                  <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" text="Supprimer Vendeur">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="showButton" mnemonicParsing="false" text="Consulter Vendeur">
+                  <Button fx:id="showButton" disable="true" mnemonicParsing="false" text="Consulter Vendeur">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>

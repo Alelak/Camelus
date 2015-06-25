@@ -4,14 +4,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.PasswordField?>
 
-<AnchorPane prefHeight="600" prefWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.AddVendorController">
+<AnchorPane prefHeight="600" prefWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.AddUpdateVendorController">
    <children>
-      <Label layoutX="84.0" layoutY="73.0" text="Username :" />
+      <Label layoutX="84.0" layoutY="73.0" text="Nom d'utilisateur :" />
       <TextField fx:id="textUsername" layoutX="217.0" layoutY="69.0" />
       
-      <Label layoutX="86.0" layoutY="117.0" text="Password :" />
-      <TextField fx:id="textPassword" layoutX="217.0" layoutY="113.0" />
+      <Label layoutX="86.0" layoutY="117.0" text="Mot de pass :" />
+      <PasswordField fx:id="textPassword" layoutX="217.0" layoutY="113.0" />
       
       <Label layoutX="96.0" layoutY="160.0" prefHeight="17.0" prefWidth="50.0" text="Prénom :" />
       <TextField fx:id="textFname" layoutX="217.0" layoutY="156.0" />
@@ -28,7 +29,7 @@
       <Label layoutX="98.0" layoutY="346.0" text="Commission" />      
       <ChoiceBox fx:id="commission" layoutX="217.0" layoutY="342.0" prefHeight="25.0" prefWidth="149.0" />
       
-      <Button fx:id="btnAdd" layoutX="300.0" layoutY="471.0" mnemonicParsing="false" text="Ajouter" />
+      <Button fx:id="btn" layoutX="300.0" layoutY="471.0" mnemonicParsing="false" text="btn" />
       <Button fx:id="btnCancel" layoutX="396.0" layoutY="471.0" mnemonicParsing="false" text="Annuler" />
    </children>
 </AnchorPane>
