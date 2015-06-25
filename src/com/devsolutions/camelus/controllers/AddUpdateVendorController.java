@@ -10,29 +10,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.devsolutions.camelus.application.CustomDialogBox;
-import com.devsolutions.camelus.application.CustomInfoBox;
-import com.devsolutions.camelus.entities.Commission;
-import com.devsolutions.camelus.entities.Vendor;
-import com.devsolutions.camelus.managers.CommissionManager;
-import com.devsolutions.camelus.managers.VendorManager;
-import com.devsolutions.camelus.services.Session;
-import com.devsolutions.camelus.utils.Choice;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import com.devsolutions.camelus.entities.Commission;
+import com.devsolutions.camelus.entities.Vendor;
+import com.devsolutions.camelus.managers.CommissionManager;
+import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.Choice;
+import com.devsolutions.camelus.utils.CustomInfoBox;
 
 public class AddUpdateVendorController implements Initializable {
 	@FXML
@@ -60,8 +55,6 @@ public class AddUpdateVendorController implements Initializable {
 	private ShowVendorsController vendorTVConroller;
 
 	private Stage stage;
-
-	private String btnName;
 	private int index;
 
 	private Vendor vendorToUpdate;
@@ -88,44 +81,43 @@ public class AddUpdateVendorController implements Initializable {
 		commission.getSelectionModel().select(0);
 
 		btn.setOnAction(e -> {
+			String username = textUsername.getText().trim();
+			String password = textPassword.getText().trim();
+			String sin = textSin.getText().trim();
+			String fname = textFname.getText().trim();
+			String lname = textLname.getText().trim();
+
 			String invalidFields = "";
 			boolean validfields = true;
-			boolean passWordValid = textPassword
-					.getText()
-					.matches(
-							"[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][A-Z][a-z]");
 
 			for (Vendor vendor : vendorTVConroller.getTable().getItems()) {
 				if (vendorToUpdate != null) {
-					if (vendor.getLogin().equals(textUsername.getText()) && !vendor.getLogin().equals(vendorToUpdate.getLogin())) {
+					if (vendor.getLogin().equals(username)
+							&& !vendor.getLogin().equals(
+									vendorToUpdate.getLogin())) {
 						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur est déjà utilisé par une autre personne \n";
+						invalidFields += " - Ce nom d'utilisateur a etait déjà choisie \n";
 					}
-				}
-				else
-				{
-					if (vendor.getLogin().equals(textUsername.getText())) {
+				} else {
+					if (vendor.getLogin().equals(username)) {
 						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur est déjà utilisé par une autre personne \n";
+						invalidFields += " - Ce nom d'utilisateur a etait déjà choisie \n";
 					}
 				}
 			}
 
-			if (!passWordValid) {
-				invalidFields += " - Votre mot de passe est invalide : Le mot de passe doit être constituer de 10 charactère. \n";
-				invalidFields += " - Les 8 premier caractères du mot de passe doivent être soit des lettre ou des chiffres suivis d'une majuscule et en fin une miniscule. \n";
+			if (password.length() < 8) {
+				invalidFields += " - Mot de passe de 8 caractères et plus \n";
+				validfields = false;
 			}
 
-			if (!textSin.getText().matches(
-					"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+			if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 				invalidFields += " - Le NAS doit être un nombre de 9 chiffres \n";
 				validfields = false;
 			}
 
-			if (textFname.getText().isEmpty() || textLname.getText().isEmpty()
-					|| textUsername.getText().isEmpty()
-					|| textSin.getText().isEmpty()
-					|| textPassword.getText().isEmpty()) {
+			if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
+					|| sin.isEmpty() || password.isEmpty()) {
 				invalidFields += " - Tous les champs doivent être remplis \n";
 				validfields = false;
 			}
@@ -154,13 +146,13 @@ public class AddUpdateVendorController implements Initializable {
 
 				Vendor vendor = new Vendor();
 
-				vendor.setLogin(textUsername.getText());
-				vendor.setPassword(textPassword.getText());
-				vendor.setFname(textFname.getText());
-				vendor.setLname(textLname.getText());
-				vendor.setSin(textSin.getText());
+				vendor.setLogin(username);
+				vendor.setPassword(password);
+				vendor.setFname(fname);
+				vendor.setLname(lname);
+				vendor.setSin(sin);
 				vendor.setCommission_id(commission.getSelectionModel()
-						.getSelectedIndex());
+						.getSelectedItem().getId());
 				vendor.setHire_date(date);
 
 				if (vendorToUpdate == null) {
@@ -177,7 +169,7 @@ public class AddUpdateVendorController implements Initializable {
 			} else {
 				try {
 					CustomInfoBox customDialogBox = new CustomInfoBox(stage,
-							invalidFields, "Ok");
+							invalidFields, "Ok", "#ff0000");
 					customDialogBox.btn
 							.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
@@ -203,7 +195,6 @@ public class AddUpdateVendorController implements Initializable {
 	public void initData(ShowVendorsController vendorTVConroller,
 			String btnName, Vendor vendorToUpdate, int index) {
 		this.vendorTVConroller = vendorTVConroller;
-		this.btnName = btnName;
 		btn.setText(btnName);
 		this.index = index;
 		this.vendorToUpdate = vendorToUpdate;

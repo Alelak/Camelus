@@ -1,4 +1,4 @@
-package com.devsolutions.camelus.application;
+package com.devsolutions.camelus.utils;
 
 import java.io.IOException;
 
@@ -18,8 +18,8 @@ public class CustomInfoBox {
 	private Stage MainStage;
 	public Button btn;
 
-	public CustomInfoBox(Stage stage, String message, String btnText)
-			throws IOException {
+	public CustomInfoBox(Stage stage, String message, String btnText,
+			String color) throws IOException {
 		MainStage = stage;
 		stage = new Stage();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -35,6 +35,7 @@ public class CustomInfoBox {
 
 		infoBoxController.setMessage(message);
 		infoBoxController.setBtnText(btnText);
+		infoBoxController.setTextColor(color);
 
 		scene = new Scene(root);
 		scene.getStylesheets().add(
@@ -47,4 +48,7 @@ public class CustomInfoBox {
 		stage.show();
 	}
 
+	public CustomInfoBox(Stage stage, String message, String btnText) throws IOException {
+		this(stage, message, btnText, "#000000");
+	}
 }

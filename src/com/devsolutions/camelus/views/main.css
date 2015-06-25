@@ -7,16 +7,16 @@
 	-camelus-blue : #0077B5;
 }
 
-.text-input {
+.text-field {
 	-fx-background-radius: 0.0;
 	-fx-border-radius: 0.0;
 }
-.text-input:focused {
+.text-field:focused {
 	-fx-border-color: #03A9F4;
 	-fx-border-style: none;
 	-fx-border-width: 2.0;
 }
-.text-input-error {
+.text-field-error {
 	-fx-border-color: red;
 }
 .header {

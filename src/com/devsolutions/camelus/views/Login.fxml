@@ -81,9 +81,9 @@
 			</children>
 		</GridPane>
 		<VBox spacing="20" alignment="CENTER" GridPane.rowIndex="1">
-		
+
 			<Label id="lblTitle" alignment="TOP_CENTER" text="Camelus"
-				style="-fx-font-size: 25; -fx-font-weight: bold;" />
+				style="-fx-font-size: 40; -fx-font-weight: bold;" />
 			<ChoiceBox maxWidth="200" styleClass="flat-btn" fx:id="chooseAccountType">
 			</ChoiceBox>
 			<TextField maxWidth="200" fx:id="usernametxt" promptText="Nom d'utilisateur">
@@ -103,7 +103,8 @@
 					<Tooltip text="Cliquer pour se connecter" />
 				</tooltip>
 			</Button>
-			<ProgressIndicator fx:id="progressIndicator" visible="false"></ProgressIndicator>
+			<ProgressIndicator fx:id="progressIndicator"
+				visible="false"></ProgressIndicator>
 		</VBox>
 	</children>
 </GridPane>

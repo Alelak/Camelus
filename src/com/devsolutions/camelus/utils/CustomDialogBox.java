@@ -1,4 +1,4 @@
-package com.devsolutions.camelus.application;
+package com.devsolutions.camelus.utils;
 
 import java.io.IOException;
 

@@ -22,8 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import com.devsolutions.camelus.application.*;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.CustomDialogBox;
 import com.devsolutions.camelus.utils.FontAwesomeIconView;
 
 public class MainWindowController implements Initializable {

@@ -121,24 +121,24 @@ public class LoginController implements Initializable {
 							stage.setScene(scene);
 							stage.centerOnScreen();
 						} else {
-							usernametxt.getStyleClass().add("text-input-error");
-							passwordtxt.getStyleClass().add("text-input-error");
+							usernametxt.getStyleClass().add("text-field-error");
+							passwordtxt.getStyleClass().add("text-field-error");
 						}
 					} else {
-						usernametxt.getStyleClass().add("text-input-error");
-						passwordtxt.getStyleClass().add("text-input-error");
+						usernametxt.getStyleClass().add("text-field-error");
+						passwordtxt.getStyleClass().add("text-field-error");
 					}
 				}
 			} else {
 				if (username.isEmpty()) {
-					usernametxt.getStyleClass().add("text-input-error");
+					usernametxt.getStyleClass().add("text-field-error");
 				}
 				if (password.isEmpty()) {
-					passwordtxt.getStyleClass().add("text-input-error");
+					usernametxt.getStyleClass().add("text-field-error");
 				}
 
 				if (accountType == 0) {
-					chooseAccountType.getStyleClass().add("text-input-error");
+					chooseAccountType.getStyleClass().add("text-field-error");
 				}
 
 			}

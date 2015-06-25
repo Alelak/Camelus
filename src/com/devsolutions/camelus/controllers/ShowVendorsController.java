@@ -99,7 +99,7 @@ public class ShowVendorsController implements Initializable {
 
 					scene = new Scene(loader.load());
 					newStage.setScene(scene);
-					
+
 					AddUpdateVendorController controller = loader
 							.<AddUpdateVendorController> getController();
 					controller.initData(this, "Modifier", vendor, index);
@@ -118,7 +118,6 @@ public class ShowVendorsController implements Initializable {
 		showButton.setOnAction(e -> {
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
-			int index = vendorTableView.getSelectionModel().getSelectedIndex();
 			if (vendor != null) {
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -195,9 +194,8 @@ public class ShowVendorsController implements Initializable {
 	public void updateTableView(int index, Vendor vendor) {
 		vendorTableView.getItems().set(index, vendor);
 	}
-	
-	public TableView<Vendor> getTable()
-	{
+
+	public TableView<Vendor> getTable() {
 		TableView<Vendor> table = vendorTableView;
 		return table;
 	}
