@@ -9,7 +9,7 @@ public class Vendor {
 	private String fname;
 	private String lname;
 	private Date hire_date;
-	private int sin;
+	private String sin;
 	private int commission_id;
 	private Date created_at;
 	private Date updated_at;
@@ -71,11 +71,11 @@ public class Vendor {
 		this.commission_id = commission_id;
 	}
 
-	public int getSin() {
+	public String getSin() {
 		return sin;
 	}
 
-	public void setSin(int sin) {
+	public void setSin(String sin) {
 		this.sin = sin;
 	}
 

@@ -73,10 +73,12 @@ public class AddVendorController implements Initializable {
 
 		btnAdd.setOnAction(e -> {
 			int sin = -1;
-
+			
 			if (textSin.getText().matches(
 					"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"))
+			{
 				sin = Integer.parseInt(textSin.getText());
+			}
 			stage = (Stage) btnCancel.getScene().getWindow();
 
 			if (!textUsername.getText().isEmpty()
@@ -101,7 +103,7 @@ public class AddVendorController implements Initializable {
 				vendor.setPassword(textPassword.getText());
 				vendor.setFname(textFname.getText());
 				vendor.setLname(textLname.getText());
-				vendor.setSin(sin);
+				vendor.setSin(textSin.getText());
 				vendor.setCommission_id(commission.getSelectionModel()
 						.getSelectedIndex());
 				vendor.setHire_date(date);

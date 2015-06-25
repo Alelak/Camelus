@@ -17,7 +17,7 @@ public class VendorManagerTest {
 		vendor.setPassword("1234");
 		vendor.setFname("massi");
 		vendor.setLname("aberbache");
-		vendor.setSin(123456789);
+		vendor.setSin("123456789");
 		vendor.setCommission_id(1);
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 		
@@ -43,7 +43,7 @@ public class VendorManagerTest {
 		vendor.setPassword("123456");
 		vendor.setFname("massinissa");
 		vendor.setLname("Aberbache");
-		vendor.setSin(1234567890);
+		vendor.setSin("1234567890");
 		vendor.setCommission_id(1);
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 		

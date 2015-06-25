@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="412.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowVendorDetailsController">
+	<children>
+      <VBox prefHeight="412.0" prefWidth="341.0">
+         <children>
+      		<BorderPane prefHeight="412.0" prefWidth="341.0">
+      			<center>
+      				<VBox prefHeight="301.0" prefWidth="281.0" BorderPane.alignment="CENTER">
+      					<children>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox BorderPane.alignment="CENTER">
+      									<children>
+      										<Label contentDisplay="TOP" prefWidth="125.0" text="Nom d'utilisateur : ">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      										</Label>
+      										<Label fx:id="usernameLabel" text="megasi">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefHeight="200.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox BorderPane.alignment="CENTER">
+      									<children>
+      										<Label prefWidth="125.0" text="Prénom : ">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      										</Label>
+      										<Label fx:id="fnameLabel" text="Massi">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+      
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox BorderPane.alignment="CENTER">
+      									<children>
+      										<Label prefWidth="125.0" text="Nom : ">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      										</Label>
+      										<Label fx:id="lnameLabel" text="Aberbache">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+      
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefHeight="200.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox BorderPane.alignment="CENTER">
+      									<children>
+      										<Label prefWidth="125.0" text="Date d'ambauche : ">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      										</Label>
+      										<Label fx:id="hiredateLabel" text="01-01-2005">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+      
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefHeight="200.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox BorderPane.alignment="CENTER">
+      									<children>
+      										<Label prefWidth="125.0" text="NAS : ">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      										</Label>
+      										<Label fx:id="sinLabel" text="123456789">
+      											<HBox.margin>
+      												<Insets top="7.0" />
+      											</HBox.margin>
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+      
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefWidth="40.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      									<children>
+      										<Label prefWidth="125.0" text="Type de commission : ">
+                                       <HBox.margin>
+                                          <Insets top="7.0" />
+                                       </HBox.margin>
+                                    </Label>
+      										<Label fx:id="commissionLabel" text="Pourcentage">
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+                                       <HBox.margin>
+                                          <Insets top="7.0" />
+                                       </HBox.margin>
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefWidth="40.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      									<children>
+      										<Label prefWidth="125.0" text="Condition (&gt;=) : ">
+                                       <HBox.margin>
+                                          <Insets top="7.0" />
+                                       </HBox.margin>
+                                    </Label>
+      										<Label fx:id="conditionLabel" text="1000 $">
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+                                       <HBox.margin>
+                                          <Insets top="7.0" />
+                                       </HBox.margin>
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+      						<BorderPane prefHeight="35.0">
+      							<center>
+      								<HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      									<children>
+      										<Label fx:id="bonusTxtLabel" prefWidth="125.0" text="Bonus fixe : ">
+                                       <HBox.margin>
+                                          <Insets top="7.0" />
+                                       </HBox.margin>
+                                    </Label>
+      										<Label fx:id="bonusLabel" text="20$">
+      											<font>
+      												<Font name="System Bold" size="12.0" />
+      											</font>
+                                       <HBox.margin>
+                                          <Insets top="7.0" />
+                                       </HBox.margin>
+      										</Label>
+      									</children>
+      								</HBox>
+      							</center>
+      							<left>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</left>
+      							<right>
+      								<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      							</right>
+      						</BorderPane>
+                        <BorderPane prefHeight="50.0" />
+      					</children>
+      				</VBox>
+      			</center>
+      			<top>
+      				<Pane prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      			</top>
+      			<left>
+      				<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      			</left>
+      			<right>
+      				<Pane prefHeight="200.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+      			</right>
+      		</BorderPane>
+            <BorderPane prefHeight="100.0" prefWidth="200.0">
+               <right>
+                  <Button fx:id="endBtn" mnemonicParsing="false" text="Terminer" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </right>
+            </BorderPane>
+         </children>
+      </VBox>
+	</children>
+</AnchorPane>

@@ -113,6 +113,37 @@ public class ShowVendorsController implements Initializable {
 
 			}
 		});
+		
+		showButton.setOnAction(e -> {
+			Vendor vendor = vendorTableView.getSelectionModel()
+					.getSelectedItem();
+			int index = vendorTableView.getSelectionModel().getSelectedIndex();
+			if (vendor != null) {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(
+							"../views/showvendordetails.fxml"));
+
+					Stage newStage = new Stage();
+					Scene scene;
+
+					scene = new Scene(loader.load());
+					newStage.setScene(scene);
+
+					ShowVendorDetailsController controller = loader
+							.<ShowVendorDetailsController> getController();
+					controller.initData(vendor);
+
+					newStage.initModality(Modality.APPLICATION_MODAL);
+
+					newStage.show();
+
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		
 	}
 
 	public void initTableView() {
