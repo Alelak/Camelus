@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import com.devsolutions.camelus.entities.OrderTV;
+import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.OrderManager;
 
 public class ShowOrdersController implements Initializable {
@@ -88,6 +89,10 @@ public class ShowOrdersController implements Initializable {
 				scene = new Scene(loader.load());
 
 				newStage.setScene(scene);
+				
+				TakeOrderController controller = loader
+						.<TakeOrderController> getController();
+				controller.initData(this);
 
 				newStage.initModality(Modality.APPLICATION_MODAL);
 
@@ -137,5 +142,9 @@ public class ShowOrdersController implements Initializable {
 		ordersObservableList.addAll(ordersList);
 
 		orderTableView.setItems(ordersObservableList);
+	}
+	
+	public void addToTableView(OrderTV orderTV) {
+		orderTableView.getItems().add(orderTV);
 	}
 }
