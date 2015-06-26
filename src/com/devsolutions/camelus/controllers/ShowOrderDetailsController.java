@@ -1,6 +1,7 @@
 package com.devsolutions.camelus.controllers;
 
 import java.net.URL;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -98,7 +99,7 @@ public class ShowOrderDetailsController implements Initializable {
 
 		priceCol = new TableColumn<OrderLineTV, String>("Prix unitaire");
 		priceCol.setMinWidth(100);
-		priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
 
 		modifiedPriceCol = new TableColumn<OrderLineTV, String>("Prix ajusté");
 		modifiedPriceCol.setMinWidth(100);
@@ -139,20 +140,23 @@ public class ShowOrderDetailsController implements Initializable {
 			System.out.println("fixe");
 			vendorCommission = commission.getRate();
 		}
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(orderTV.getOrdered_at());
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
 
 		orderCommentTextArea.setText(orderTV.getComment());
 		vendorCommissionLabel.setText("Commission du vendeur : "
 				+ vendorCommission + " $");
 		orderTotalLabel.setText("Total de la commande : " + total + " $");
-		contactEmailLabel.setText("Email du contact : "
-				+ currentClient.getContact_email());
-		orderNumberLabel.setText("Commande No : " + orderTV.getId());
-		orderedAtLabel.setText("Commande effectuer le : "
-				+ orderTV.getOrdered_at().toString());
-		contactNameLabel.setText("Nom du contact : "
-				+ currentClient.getContact_name());
-		contactTelLabel.setText("Téléphone du contact : "
-				+ currentClient.getContact_tel());
+		contactEmailLabel.setText(currentClient.getContact_email());
+		orderNumberLabel.setText("" +orderTV.getId());
+		
+		orderedAtLabel.setText( day + "-" + month + "-" + year);
+		contactNameLabel.setText(currentClient.getContact_name());
+		contactTelLabel.setText(currentClient.getContact_tel());
 		entrepriseNameLabel.setText(currentClient.getEnterprise_name());
 	}
 }
