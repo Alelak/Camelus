@@ -32,6 +32,14 @@ public class OrderManager {
 		session.close();
 		return orders;
 	}
+	
+	public static List<OrderTV> getAllTV() {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<OrderTV> orders = session.getMapper(OrderMapper.class)
+				.getAllTV();
+		session.close();
+		return orders;
+	}
 
 	public static List<Order> getByClientId(long client_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();

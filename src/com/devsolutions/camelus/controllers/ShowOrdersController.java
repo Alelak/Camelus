@@ -23,6 +23,7 @@ import javafx.util.Callback;
 import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.OrderManager;
+import com.devsolutions.camelus.services.Session;
 
 public class ShowOrdersController implements Initializable {
 
@@ -116,7 +117,12 @@ public class ShowOrdersController implements Initializable {
 	}
 
 	public void initTableView() {
-		ordersList = OrderManager.getByVendorId(1);
+		
+		if (Session.vendor != null) 
+			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
+		else
+			ordersList = OrderManager.getAllTV();
+		
 		ordersObservableList = FXCollections.observableArrayList();
 
 		orderIdCol = new TableColumn<OrderTV, String>("Id");

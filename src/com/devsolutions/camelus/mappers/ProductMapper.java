@@ -34,12 +34,9 @@ public interface ProductMapper {
 	@Options(flushCache = true)
 	void delete(long id);
 
-	@Update("UPDATE products SET quantity = quantity - #{quantity} AND id = #{id}")
+	@Update("UPDATE products SET quantity = quantity - #{quantity} WHERE id = #{id}")
 	void decrementQuantity(@Param("quantity") int quantity, @Param("id") long id);
 
-	@Update("UPDATE products SET quantity = quantity + #{quantity} AND id = #{id}")
+	@Update("UPDATE products SET quantity = quantity + #{quantity} WHERE id = #{id}")
 	void incrementQuantity(@Param("quantity") int quantity, @Param("id") long id);
-
-
-
 }

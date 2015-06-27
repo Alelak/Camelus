@@ -7,11 +7,6 @@ public class OrderLineTV {
 	private double modified_price;
 	private int quantity;
 	private double total;
-	
-	public OrderLineTV()
-	{
-		modified_price = -1;		
-	}
 
 	public long getUpc() {
 		return upc;

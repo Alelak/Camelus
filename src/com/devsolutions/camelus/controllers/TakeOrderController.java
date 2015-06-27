@@ -11,6 +11,7 @@ import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Order;
 import com.devsolutions.camelus.entities.OrderLine;
+import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductToOrderTV;
@@ -147,24 +148,40 @@ public class TakeOrderController implements Initializable {
 					String invalidFields = "";
 					boolean validfields = true;
 					
-					if (quantityField.getText().isEmpty())
+					if (isInteger(quantityField.getText()) && quantityField.getText().isEmpty())
 					{
 						invalidFields += " - La quantité est un champ obligatoire. \n";
 						validfields = false;
 					}
 					
-					if (!isInteger(quantityField.getText()) || Integer.parseInt(quantityField.getText()) <= 0)
+					if (isInteger(quantityField.getText()) && Integer.parseInt(quantityField.getText()) <= 0)
 					{
 						invalidFields += " - La quantité doit être un nombre strictement positif. \n";
 						validfields = false;
+					}	
+					
+					if (!isInteger(quantityField.getText()))
+					{
+						invalidFields += " - Veillez  saisir un nombre strictement positif pour le champ (Quantité). \n";
+						validfields = false;
+					}	
+					
+					if(isInteger(quantityField.getText()) && Integer.parseInt(quantityField.getText()) > currentProduct.getQuantity() ){
+						invalidFields += " - La quantité disponible ne peut satisfaire votre demande! \n";
+						validfields = false;
 					}
 					
-					if ((!isDouble(modifiedPriceField.getText()) || Double.parseDouble(modifiedPriceField.getText()) <= 0) && !modifiedPriceField.getText().isEmpty())
+					if (isDouble(modifiedPriceField.getText()) && Double.parseDouble(modifiedPriceField.getText()) <= 0 && !modifiedPriceField.getText().isEmpty())
 					{
 						invalidFields += " - Le prix ajusté doit être un nombre décimal strictement positif. \n";
 						validfields = false;
 					}
 					
+					if (!isDouble(modifiedPriceField.getText()) && !modifiedPriceField.getText().isEmpty())
+					{
+						invalidFields += " - Veillez  saisir un nombre décimal strictement positif pour le champ (Prix ajusté). \n";
+						validfields = false;
+					}
 					if (orderLinesTableView.getItems().contains(currentProductToOrderTV) && !addOrderLineBtn.getText().equals("Modifier"))
 					{
 						invalidFields += " - Ce produit existe déjà dans la liste. Veillez le modifier ou le supprimmer \n";
@@ -173,12 +190,14 @@ public class TakeOrderController implements Initializable {
 
 					if (validfields) {
 						currentProductToOrderTV.setQuantity(Integer.parseInt(quantityField.getText()));
+						
 						if(!modifiedPriceField.getText().isEmpty())
 							currentProductToOrderTV.setModified_price(Double.parseDouble(modifiedPriceField.getText()));
 						else
-							currentProductToOrderTV.setModified_price(-1);
+							currentProductToOrderTV.setModified_price(0);
 						
 						int index = orderLinesTableView.getSelectionModel().getSelectedIndex();
+						
 						if(addOrderLineBtn.getText().equals("Modifier"))
 						{
 							addOrderLineBtn.setText("Ajouter");
@@ -245,7 +264,7 @@ public class TakeOrderController implements Initializable {
 						invalidFields += " - Il faut ajouter au moins un produit à la liste de commandes. \n";
 						validfields = false;
 					}
-					
+
 					if (validfields) {
 						OrderTV orderTV = new OrderTV();
 						
@@ -280,6 +299,11 @@ public class TakeOrderController implements Initializable {
 						orderTV.setFname(currentVendor.getFname());
 						orderTV.setLname(currentVendor.getLname());
 						orderTV.setOrdered_at(new Date());
+						
+						for(ProductToOrderTV productToOrderTV : orderLinesTableView.getItems())
+						{
+							ProductManager.decrementQuantity(productToOrderTV.getQuantity(), productToOrderTV.getId());
+						}
 						
 						showOrdersController.addToTableView(orderTV);
 						

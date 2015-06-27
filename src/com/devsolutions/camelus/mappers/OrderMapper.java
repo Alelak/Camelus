@@ -24,6 +24,11 @@ public interface OrderMapper {
 			+ "     INNER JOIN clients ON orders.client_id = clients.id"
 			+ " WHERE vendor_id = #{vendor_id}")
 	List<OrderTV> getByVendorId(int vendor_id);
+	
+	@Select("SELECT orders.id, client_id, commission_id, fname, lname, enterprise_name, comment, ordered_at "
+			+ "FROM vendors INNER JOIN orders ON  vendors.id = orders.vendor_id"
+			+ "     INNER JOIN clients ON orders.client_id = clients.id")
+	List<OrderTV> getAllTV();
 
 	@Select("SELECT * FROM orders WHERE client_id = #{client_id}")
 	List<Order> getByClientId(long client_id);
