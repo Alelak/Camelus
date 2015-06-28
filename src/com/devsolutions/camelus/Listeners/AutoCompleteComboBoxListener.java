@@ -1,4 +1,4 @@
-package com.devsolutions.camelus.listeners;
+package com.devsolutions.camelus.Listeners;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

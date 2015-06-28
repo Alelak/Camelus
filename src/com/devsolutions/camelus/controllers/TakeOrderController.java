@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Order;
@@ -34,7 +35,6 @@ import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductToOrderTV;
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.entities.Vendor;
-import com.devsolutions.camelus.listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
