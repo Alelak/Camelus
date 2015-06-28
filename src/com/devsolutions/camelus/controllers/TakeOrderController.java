@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Order;
@@ -34,7 +34,6 @@ import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductToOrderTV;
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.entities.Vendor;
-import com.devsolutions.camelus.listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
@@ -149,8 +148,9 @@ public class TakeOrderController implements Initializable {
 		productComboBox.setItems(productObservableList);
 		clientComboBox.setItems(clientObservableList);
 
-		new AutoCompleteComboBoxListener<Product>(productComboBox);
-		new AutoCompleteComboBoxListener<Client>(clientComboBox);
+		// on ajoute les autocompletes
+		new AutoCompleteComboBoxListener<>(productComboBox);
+		new AutoCompleteComboBoxListener<>(clientComboBox);
 
 		addOrderLineBtn
 				.setOnAction(e -> {
