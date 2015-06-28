@@ -5,27 +5,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
-import com.devsolutions.camelus.entities.Category;
-import com.devsolutions.camelus.entities.Client;
-import com.devsolutions.camelus.entities.Order;
-import com.devsolutions.camelus.entities.OrderLine;
-import com.devsolutions.camelus.entities.OrderLineTV;
-import com.devsolutions.camelus.entities.OrderTV;
-import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.ProductToOrderTV;
-import com.devsolutions.camelus.entities.Unit;
-import com.devsolutions.camelus.entities.Vendor;
-import com.devsolutions.camelus.managers.CategoryManager;
-import com.devsolutions.camelus.managers.ClientManager;
-import com.devsolutions.camelus.managers.OrderLineManager;
-import com.devsolutions.camelus.managers.OrderManager;
-import com.devsolutions.camelus.managers.ProductManager;
-import com.devsolutions.camelus.managers.UnitManager;
-import com.devsolutions.camelus.services.Session;
-import com.devsolutions.camelus.utils.CustomInfoBox;
-
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -43,6 +23,26 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
+import com.devsolutions.camelus.entities.Category;
+import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.entities.Order;
+import com.devsolutions.camelus.entities.OrderLine;
+import com.devsolutions.camelus.entities.OrderTV;
+import com.devsolutions.camelus.entities.Product;
+import com.devsolutions.camelus.entities.ProductToOrderTV;
+import com.devsolutions.camelus.entities.Unit;
+import com.devsolutions.camelus.entities.Vendor;
+import com.devsolutions.camelus.managers.CategoryManager;
+import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.managers.OrderLineManager;
+import com.devsolutions.camelus.managers.OrderManager;
+import com.devsolutions.camelus.managers.ProductManager;
+import com.devsolutions.camelus.managers.UnitManager;
+import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.StringUtils;
 
 public class TakeOrderController implements Initializable {
 
@@ -114,20 +114,30 @@ public class TakeOrderController implements Initializable {
 	private Product currentProduct;
 	private Vendor currentVendor;
 	private Stage stage;
-	
+
 	private ShowOrdersController showOrdersController;
+	private SimpleBooleanProperty productfound;
+	private SimpleBooleanProperty clientfound;
+	private List<Category> categories;
+	private List<Unit> unites;
+	private ProductToOrderTV selectedProductToModifie;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
+		productfound = new SimpleBooleanProperty();
+		clientfound = new SimpleBooleanProperty();
+		categories = CategoryManager.getAll();
+		unites = UnitManager.getAll();
+
 		orderLinesTableView.getColumns().addAll(upcCol, productNameCol,
 				priceCol, quantityCol, modifiedPriceCol);
 
 		currentVendor = Session.vendor;
 
 		products = ProductManager.getAll();
-		clients = ClientManager.getByVendorId(1);
+		clients = ClientManager.getByVendorId(currentVendor.getId());
 
 		productObservableList = FXCollections.observableArrayList();
 		productObservableList.addAll(products);
@@ -144,75 +154,97 @@ public class TakeOrderController implements Initializable {
 
 		addOrderLineBtn
 				.setOnAction(e -> {
-
+					int index = 0;
+					if (addOrderLineBtn.getText().equals("Modifier")) {
+						index = orderLinesTableView.getSelectionModel()
+								.getSelectedIndex();
+					}
 					String invalidFields = "";
 					boolean validfields = true;
-					
-					if (isInteger(quantityField.getText()) && quantityField.getText().isEmpty())
-					{
-						invalidFields += " - La quantité est un champ obligatoire. \n";
+					String quantity = quantityField.getText().trim();
+					String modifiedPrice = modifiedPriceField.getText().trim();
+					if (!StringUtils.isInteger(quantity)) {
+						invalidFields += " - Veuillez saisir une quantite valide. \n";
+						validfields = false;
+					} else if (Integer.parseInt(quantity) <= 0) {
+						invalidFields += " - Veuillez saisir une quantite valide. \n";
+						validfields = false;
+					} else if (Integer.parseInt(quantity) > currentProduct
+							.getQuantity()) {
+						invalidFields += " - La quantitï¿½ disponible ne peut satisfaire votre demande! \n";
 						validfields = false;
 					}
-					
-					if (isInteger(quantityField.getText()) && Integer.parseInt(quantityField.getText()) <= 0)
-					{
-						invalidFields += " - La quantité doit être un nombre strictement positif. \n";
-						validfields = false;
-					}	
-					
-					if (!isInteger(quantityField.getText()))
-					{
-						invalidFields += " - Veillez  saisir un nombre strictement positif pour le champ (Quantité). \n";
-						validfields = false;
-					}	
-					
-					if(isInteger(quantityField.getText()) && Integer.parseInt(quantityField.getText()) > currentProduct.getQuantity() ){
-						invalidFields += " - La quantité disponible ne peut satisfaire votre demande! \n";
-						validfields = false;
+
+					if (!modifiedPrice.isEmpty()) {
+						if (!StringUtils.isDouble(modifiedPrice)) {
+							invalidFields += " - Veuillez saisir un prix valide \n";
+							validfields = false;
+						} else if (Double.parseDouble(modifiedPriceField
+								.getText()) <= 0) {
+							invalidFields += " - Veuillez saisir un prix valide \n";
+							validfields = false;
+						}
 					}
-					
-					if (isDouble(modifiedPriceField.getText()) && Double.parseDouble(modifiedPriceField.getText()) <= 0 && !modifiedPriceField.getText().isEmpty())
-					{
-						invalidFields += " - Le prix ajusté doit être un nombre décimal strictement positif. \n";
-						validfields = false;
-					}
-					
-					if (!isDouble(modifiedPriceField.getText()) && !modifiedPriceField.getText().isEmpty())
-					{
-						invalidFields += " - Veillez  saisir un nombre décimal strictement positif pour le champ (Prix ajusté). \n";
-						validfields = false;
-					}
-					if (orderLinesTableView.getItems().contains(currentProductToOrderTV) && !addOrderLineBtn.getText().equals("Modifier"))
-					{
-						invalidFields += " - Ce produit existe déjà dans la liste. Veillez le modifier ou le supprimmer \n";
-						validfields = false;
+
+					if (addOrderLineBtn.getText().equals("Ajouter"))
+						for (ProductToOrderTV productToOrderTV : orderLinesTableView
+								.getItems()) {
+							if (productToOrderTV.getId() == currentProduct
+									.getId()) {
+								invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veillez le modifier ou le supprimmer  \n";
+								validfields = false;
+							}
+						}
+
+					if (addOrderLineBtn.getText().equals("Modifier")) {
+						for (ProductToOrderTV productToOrderTV : orderLinesTableView
+								.getItems()) {
+
+							if (productToOrderTV.getId() == currentProduct
+									.getId()) {
+								if (currentProduct.getId() != selectedProductToModifie
+										.getId()) {
+									invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veillez le modifier ou le supprimmer  \n";
+									validfields = false;
+
+								}
+							}
+						}
 					}
 
 					if (validfields) {
-						currentProductToOrderTV.setQuantity(Integer.parseInt(quantityField.getText()));
-						
-						if(!modifiedPriceField.getText().isEmpty())
-							currentProductToOrderTV.setModified_price(Double.parseDouble(modifiedPriceField.getText()));
+						if (!clientComboBox.isDisabled()) {
+							clientComboBox.setDisable(true);
+						}
+						currentProductToOrderTV = new ProductToOrderTV();
+						currentProductToOrderTV.setQuantity(Integer
+								.parseInt(quantity));
+						currentProductToOrderTV.setId(currentProduct.getId());
+						currentProductToOrderTV.setUpc(currentProduct.getUpc());
+						currentProductToOrderTV.setName(currentProduct
+								.getName());
+						currentProductToOrderTV.setSelling_price(currentProduct
+								.getSelling_price());
+						if (!modifiedPrice.isEmpty())
+							currentProductToOrderTV.setModified_price(Double
+									.parseDouble(modifiedPrice));
 						else
 							currentProductToOrderTV.setModified_price(0);
-						
-						int index = orderLinesTableView.getSelectionModel().getSelectedIndex();
-						
-						if(addOrderLineBtn.getText().equals("Modifier"))
-						{
-							addOrderLineBtn.setText("Ajouter");
+
+						if (addOrderLineBtn.getText().equals("Modifier")) {
 							updateTableView(index, currentProductToOrderTV);
-							initForm();
-						}
-						else
-						{
+						} else {
 							addToTableView(currentProductToOrderTV);
-							initForm();
 						}
-					} else{
+						initForm();
+						currentProduct = new Product();
+						productComboBox.getSelectionModel().clearSelection();
+						takeOrderBtn.setDisable(false);
+
+					} else {
 						try {
-							CustomInfoBox customDialogBox = new CustomInfoBox(stage,
-									invalidFields, "Ok", "#ff0000");
+							CustomInfoBox customDialogBox = new CustomInfoBox(
+									stage, invalidFields, "Ok", "#ff0000");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
 										@Override
@@ -229,183 +261,174 @@ public class TakeOrderController implements Initializable {
 				});
 
 		editBtn.setOnAction(e -> {
-			ProductToOrderTV productToOrderTV = orderLinesTableView
-					.getSelectionModel().getSelectedItem();
+			selectedProductToModifie = orderLinesTableView.getSelectionModel()
+					.getSelectedItem();
+			editBtn.setDisable(true);
+			for (Product product : productComboBox.getItems()) {
+				if (product.getId() == selectedProductToModifie.getId()) {
+					productComboBox.getSelectionModel().select(product);
+				}
+			}
 
-			productComboBox.getSelectionModel().select(
-					ProductManager.getById(productToOrderTV.getId()));
-
-			quantityField.setText("" + productToOrderTV.getQuantity());
-			modifiedPriceField.setText(""
-					+ productToOrderTV.getModified_price());
+			quantityField.setText("" + selectedProductToModifie.getQuantity());
+			if (selectedProductToModifie.getModified_price() > 0) {
+				modifiedPriceField.setText(""
+						+ selectedProductToModifie.getModified_price());
+			}
+			takeOrderBtn.setDisable(true);
 			addOrderLineBtn.setText("Modifier");
+			if (orderLinesTableView.getItems().size() == 1) {
+				clientComboBox.setDisable(false);
+			}
+
 		});
 
 		removeBtn.setOnAction(e -> {
-			orderLinesTableView.getItems().remove(
-					orderLinesTableView.getSelectionModel().getSelectedItem());
+			ProductToOrderTV productToOrderTV = orderLinesTableView
+					.getSelectionModel().getSelectedItem();
+			orderLinesTableView.getItems().remove(productToOrderTV);
 			initForm();
+			if (addOrderLineBtn.getText().equals("Modifier")) {
+				addOrderLineBtn.setText("Ajouter");
+			}
+			if (orderLinesTableView.getItems().size() == 0) {
+				takeOrderBtn.setDisable(true);
+				clientComboBox.setDisable(false);
+			}
 		});
 
 		resetBtn.setOnAction(e -> {
 			orderLinesTableView.getItems().removeAll(
 					orderLinesTableView.getItems());
+			productComboBox.getSelectionModel().clearSelection();
 			initForm();
+			takeOrderBtn.setDisable(true);
+			clientComboBox.setDisable(false);
 		});
 
-		takeOrderBtn
-				.setOnAction(e -> {
-					
-					String invalidFields = "";
-					boolean validfields = true;
-					
-					if (orderLinesTableView.getItems().isEmpty())
-					{
-						invalidFields += " - Il faut ajouter au moins un produit à la liste de commandes. \n";
-						validfields = false;
-					}
+		takeOrderBtn.setOnAction(e -> {
+			OrderTV orderTV = new OrderTV();
 
-					if (validfields) {
-						OrderTV orderTV = new OrderTV();
-						
-						Order order = new Order();
-						order.setVendor_id(currentVendor.getId());
-						order.setClient_id(currentClient.getId());
-						order.setComment(commentTextArea.getText());
+			Order order = new Order();
+			order.setVendor_id(currentVendor.getId());
+			order.setClient_id(currentClient.getId());
+			order.setComment(commentTextArea.getText());
 
-						OrderManager.add(order);
+			OrderManager.add(order);
 
-						productToOrderObservableList = orderLinesTableView
-								.getItems();
-						for (int i = 0; i < productToOrderObservableList.size(); i++) {
-							OrderLine orderLine = new OrderLine();
-							orderLine
-									.setProduct_id(productToOrderObservableList
-											.get(i).getId());
-							orderLine.setOrder_id(order.getId());
-							orderLine
-									.setModified_price(productToOrderObservableList
-											.get(i).getModified_price());
-							orderLine.setQuantity(productToOrderObservableList
-									.get(i).getQuantity());
-							OrderLineManager.add(orderLine);
-						}
-						
-						orderTV.setClient_id(order.getClient_id());
-						orderTV.setId(order.getId());
-						orderTV.setComment(order.getComment());
-						orderTV.setCommission_id(currentVendor.getCommission_id());
-						orderTV.setEnterprise_name(currentClient.getEnterprise_name());
-						orderTV.setFname(currentVendor.getFname());
-						orderTV.setLname(currentVendor.getLname());
-						orderTV.setOrdered_at(new Date());
-						
-						for(ProductToOrderTV productToOrderTV : orderLinesTableView.getItems())
-						{
-							ProductManager.decrementQuantity(productToOrderTV.getQuantity(), productToOrderTV.getId());
-						}
-						
-						showOrdersController.addToTableView(orderTV);
-						
-						stage = (Stage) takeOrderBtn.getScene().getWindow();
-						stage.close();
-					} else{
-						try {
-							CustomInfoBox customDialogBox = new CustomInfoBox(stage,
-									invalidFields, "Ok", "#ff0000");
-							customDialogBox.btn
-									.setOnAction(new EventHandler<ActionEvent>() {
-										@Override
-										public void handle(ActionEvent event) {
-											stage = (Stage) customDialogBox.btn
-													.getScene().getWindow();
-											stage.close();
-										}
-									});
-						} catch (IOException e2) {
-							e2.printStackTrace();
-						}
-					}	
-				});
+			productToOrderObservableList = orderLinesTableView.getItems();
+			for (int i = 0; i < productToOrderObservableList.size(); i++) {
+				OrderLine orderLine = new OrderLine();
+				orderLine.setProduct_id(productToOrderObservableList.get(i)
+						.getId());
+				orderLine.setOrder_id(order.getId());
+				orderLine.setModified_price(productToOrderObservableList.get(i)
+						.getModified_price());
+				orderLine.setQuantity(productToOrderObservableList.get(i)
+						.getQuantity());
+				OrderLineManager.add(orderLine);
+			}
+
+			orderTV.setClient_id(order.getClient_id());
+			orderTV.setId(order.getId());
+			orderTV.setComment(order.getComment());
+			orderTV.setCommission_id(currentVendor.getCommission_id());
+			orderTV.setEnterprise_name(currentClient.getEnterprise_name());
+			orderTV.setFname(currentVendor.getFname());
+			orderTV.setLname(currentVendor.getLname());
+			orderTV.setOrdered_at(new Date());
+
+			for (ProductToOrderTV productToOrderTV : orderLinesTableView
+					.getItems()) {
+				ProductManager.decrementQuantity(
+						productToOrderTV.getQuantity(),
+						productToOrderTV.getId());
+			}
+
+			showOrdersController.addToTableView(orderTV);
+
+			stage = (Stage) takeOrderBtn.getScene().getWindow();
+			stage.close();
+		});
 
 		orderLinesTableView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
-						editBtn.setDisable(false);
-						removeBtn.setDisable(false);
+						if (!addOrderLineBtn.getText().equals("Modifier")) {
+							editBtn.setDisable(false);
+							removeBtn.setDisable(false);
+						}
 					} else {
 						editBtn.setDisable(true);
 						removeBtn.setDisable(true);
 						addOrderLineBtn.setText("Ajouter");
 					}
 				});
+		productfound.addListener(new ChangeListener<Boolean>() {
 
-		productComboBox.getEditor().textProperty()
-				.addListener(new ChangeListener<String>() {
-					@Override
-					public void changed(
-							ObservableValue<? extends String> observable,
-							String oldValue, String newValue) {
-						if (checkProductClientSelection()) {
-							takeOrderBtn.setDisable(false);
-						} else {
-							takeOrderBtn.setDisable(true);
-						}
-					}
-				});
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				if (newValue.booleanValue() == true
+						&& clientfound.get() == true) {
+					addOrderLineBtn.setDisable(false);
+				} else {
+					addOrderLineBtn.setDisable(true);
+				}
 
-		clientComboBox.getEditor().textProperty()
-				.addListener(new ChangeListener<String>() {
-					@Override
-					public void changed(
-							ObservableValue<? extends String> observable,
-							String oldValue, String newValue) {
-						if (checkProductClientSelection()) {
-							takeOrderBtn.setDisable(false);
-
-						} else {
-							takeOrderBtn.setDisable(true);
-						}
-					}
-				});
-	}
-	
-	private boolean checkProductClientSelection() {
-		boolean bothFound = false;
-		
-		boolean productFound = false;
-		boolean clientFound = false;
-		
-		for(Product product : productComboBox.getItems()){
-			if(product.getName().equals(productComboBox.getEditor().getText()))
-			{
-				productFound = true;
-				currentProduct = product;
-				productComboBox.getSelectionModel().select(product);
-				addOrderLineBtn.setDisable(false);
 			}
-		}
-		
-		for(Client client : clientComboBox.getItems()){
-			if(client.getEnterprise_name().equals(clientComboBox.getEditor().getText()))
-			{
-				clientFound = true;
-				currentClient = client;
-				clientComboBox.getSelectionModel().select(client);
+
+		});
+		clientfound.addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				if (newValue.booleanValue() == true
+						&& productfound.get() == true) {
+
+					addOrderLineBtn.setDisable(false);
+				} else {
+					addOrderLineBtn.setDisable(true);
+				}
+
 			}
-		}
-		
-		if(clientFound && productFound)
-		{
-			bothFound = true;
-			
-		}else if(!productFound)
-		{
-			initForm();
-			addOrderLineBtn.setDisable(true);
-		}
-		
-		return bothFound;
+
+		});
+		productComboBox.setOnAction(e -> {
+
+			if (productComboBox.getSelectionModel().getSelectedIndex() > -1) {
+				int index = productComboBox.getSelectionModel()
+						.getSelectedIndex();
+				currentProduct = productComboBox.getItems().get(index);
+				for (Unit unit : unites) {
+					if (unit.getId() == currentProduct.getUnit_id()) {
+						unitLabel.setText("" + unit.getDescription());
+					}
+				}
+				for (Category category : categories) {
+					if (category.getId() == currentProduct.getCategory_id()) {
+						unitLabel.setText("" + category.getDescription());
+					}
+				}
+				upcLabel.setText("" + currentProduct.getUpc());
+				quantityLabel.setText("" + currentProduct.getQuantity());
+				priceLabel.setText(currentProduct.getSelling_price() + " $");
+				productfound.set(true);
+			} else {
+				productfound.set(false);
+			}
+		});
+		clientComboBox.setOnAction(e -> {
+			if (clientComboBox.getSelectionModel().getSelectedIndex() > -1) {
+				int index = clientComboBox.getSelectionModel()
+						.getSelectedIndex();
+				currentClient = clientComboBox.getItems().get(index);
+				clientfound.set(true);
+			} else {
+				clientfound.set(false);
+			}
+		});
 	}
 
 	private void initForm() {
@@ -417,59 +440,6 @@ public class TakeOrderController implements Initializable {
 
 		quantityField.setText("");
 		modifiedPriceField.setText("");
-	}
-
-	private boolean isInteger(String input) {
-		boolean valid = false;
-		try {
-			Integer.parseInt(input);
-			valid = true;
-		} catch (NumberFormatException e) {
-			// on fait rien ici
-		}
-
-		return valid;
-	}
-
-	private boolean isDouble(String input) {
-		boolean valid = false;
-		try {
-			Double.parseDouble(input);
-			valid = true;
-		} catch (NumberFormatException e) {
-			// on fait rien ici
-		}
-
-		return valid;
-	}
-
-	// onAction Listner call back
-	public void comboboxAction() {
-		
-		if (productComboBox.getSelectionModel().getSelectedIndex() > -1) {
-			int index = productComboBox.getSelectionModel().getSelectedIndex();
-			currentProduct = new Product();
-			currentProduct = products.get(index);
-
-			Category category = CategoryManager.getById(currentProduct
-					.getCategory_id());
-
-			Unit unit = UnitManager.getById(currentProduct.getUnit_id());
-
-			upcLabel.setText("" + currentProduct.getUpc());
-			quantityLabel.setText("" + currentProduct.getQuantity());
-			unitLabel.setText("" + unit.getDescription());
-			priceLabel.setText(currentProduct.getSelling_price() + " $");
-			categoryLabel.setText("" + category.getDescription());
-
-			currentProductToOrderTV = new ProductToOrderTV();
-
-			currentProductToOrderTV.setId(currentProduct.getId());
-			currentProductToOrderTV.setUpc(currentProduct.getUpc());
-			currentProductToOrderTV.setName(currentProduct.getName());
-			currentProductToOrderTV.setSelling_price(currentProduct
-					.getSelling_price());
-		}
 	}
 
 	public void initTableView() {
@@ -488,12 +458,12 @@ public class TakeOrderController implements Initializable {
 		priceCol.setMinWidth(100);
 		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
 
-		quantityCol = new TableColumn<ProductToOrderTV, String>("Quantité");
+		quantityCol = new TableColumn<ProductToOrderTV, String>("Quantitï¿½");
 		quantityCol.setMinWidth(100);
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
 		modifiedPriceCol = new TableColumn<ProductToOrderTV, String>(
-				"Prix ajusté ($)");
+				"Prix ajustï¿½ ($)");
 		modifiedPriceCol.setMinWidth(100);
 		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
 				"modified_price"));
@@ -504,7 +474,7 @@ public class TakeOrderController implements Initializable {
 	public void addToTableView(ProductToOrderTV productToOrderTV) {
 		orderLinesTableView.getItems().add(productToOrderTV);
 	}
-	
+
 	public void updateTableView(int index, ProductToOrderTV productToOrderTV) {
 		orderLinesTableView.getItems().set(index, productToOrderTV);
 	}
@@ -513,14 +483,6 @@ public class TakeOrderController implements Initializable {
 		this.currentVendor = currentVendor;
 	}
 
-	public void comboboxClientAction() {
-		if (clientComboBox.getSelectionModel().getSelectedIndex() > -1) {
-			int index = clientComboBox.getSelectionModel().getSelectedIndex();
-			currentClient = new Client();
-			currentClient = clients.get(index);
-		}
-	}
-	
 	public void initData(ShowOrdersController showOrdersController) {
 		this.showOrdersController = showOrdersController;
 	}

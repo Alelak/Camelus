@@ -101,12 +101,12 @@ public class ShowOrderDetailsController implements Initializable {
 		priceCol.setMinWidth(100);
 		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
 
-		modifiedPriceCol = new TableColumn<OrderLineTV, String>("Prix ajusté");
+		modifiedPriceCol = new TableColumn<OrderLineTV, String>("Prix ajustï¿½");
 		modifiedPriceCol.setMinWidth(100);
 		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
 				"modified_price"));
 
-		quantityCol = new TableColumn<OrderLineTV, String>("Quantité");
+		quantityCol = new TableColumn<OrderLineTV, String>("Quantitï¿½");
 		quantityCol.setMinWidth(100);
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
@@ -140,7 +140,7 @@ public class ShowOrderDetailsController implements Initializable {
 			System.out.println("fixe");
 			vendorCommission = commission.getRate();
 		}
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(orderTV.getOrdered_at());
 		int year = cal.get(Calendar.YEAR);
@@ -152,9 +152,9 @@ public class ShowOrderDetailsController implements Initializable {
 				+ vendorCommission + " $");
 		orderTotalLabel.setText("Total de la commande : " + total + " $");
 		contactEmailLabel.setText(currentClient.getContact_email());
-		orderNumberLabel.setText("" +orderTV.getId());
-		
-		orderedAtLabel.setText( day + "-" + month + "-" + year);
+		orderNumberLabel.setText("" + orderTV.getId());
+
+		orderedAtLabel.setText(day + "-" + (month + 1) + "-" + year);
 		contactNameLabel.setText(currentClient.getContact_name());
 		contactTelLabel.setText(currentClient.getContact_tel());
 		entrepriseNameLabel.setText(currentClient.getEnterprise_name());

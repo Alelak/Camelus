@@ -9,19 +9,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import com.devsolutions.camelus.entities.OrderTV;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.services.Session;
 
@@ -50,7 +46,10 @@ public class ShowOrdersController implements Initializable {
 		initTableView();
 		orderTableView.getColumns().addAll(orderIdCol, clientNameCol,
 				commentCol, orderedAtCol);
-
+		if(Session.vendor == null){
+			takeOrderBtn.setDisable(true);
+		}
+		
 		showOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = orderTableView.getSelectionModel()
 					.getSelectedItem();
@@ -90,7 +89,7 @@ public class ShowOrdersController implements Initializable {
 				scene = new Scene(loader.load());
 
 				newStage.setScene(scene);
-				
+
 				TakeOrderController controller = loader
 						.<TakeOrderController> getController();
 				controller.initData(this);
@@ -103,26 +102,25 @@ public class ShowOrdersController implements Initializable {
 				e1.printStackTrace();
 			}
 		});
-		
+
 		orderTableView.getSelectionModel().selectedItemProperty()
-		.addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				showOrderBtn.setDisable(false);
-			} else {
-				showOrderBtn.setDisable(true);
-			}
-		});
-		
-		
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
+						showOrderBtn.setDisable(false);
+					} else {
+						showOrderBtn.setDisable(true);
+					}
+				});
+
 	}
 
 	public void initTableView() {
-		
-		if (Session.vendor != null) 
+
+		if (Session.vendor != null)
 			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
 		else
 			ordersList = OrderManager.getAllTV();
-		
+
 		ordersObservableList = FXCollections.observableArrayList();
 
 		orderIdCol = new TableColumn<OrderTV, String>("Id");
@@ -142,14 +140,12 @@ public class ShowOrdersController implements Initializable {
 		orderedAtCol.setMinWidth(200);
 		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>(
 				"ordered_at_formated"));
-		
-		
 
 		ordersObservableList.addAll(ordersList);
 
 		orderTableView.setItems(ordersObservableList);
 	}
-	
+
 	public void addToTableView(OrderTV orderTV) {
 		orderTableView.getItems().add(orderTV);
 	}

@@ -41,7 +41,7 @@
 																				<Insets top="13.0" />
 																			</HBox.margin>
 																		</Label>
-																		<ComboBox fx:id="clientComboBox" editable="true" onAction="#comboboxClientAction" prefWidth="100.0">
+																		<ComboBox fx:id="clientComboBox" editable="true"  prefWidth="100.0">
 																			<HBox.margin>
 																				<Insets bottom="10.0" left="10.0" top="10.0" />
 																			</HBox.margin>
@@ -57,7 +57,7 @@
 																				<Insets bottom="10.0" top="13.0" />
 																			</HBox.margin>
 																		</Label>
-																		<ComboBox fx:id="productComboBox" editable="true" onAction="#comboboxAction" prefWidth="100.0">
+																		<ComboBox fx:id="productComboBox" editable="true"  prefWidth="100.0">
 																			<HBox.margin>
 																				<Insets bottom="10.0" left="10.0" top="10.0" />
 																			</HBox.margin>

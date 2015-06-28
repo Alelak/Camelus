@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.services.Session;
 
 public class ShowClientsController implements Initializable {
 	@FXML
@@ -39,7 +40,11 @@ public class ShowClientsController implements Initializable {
 	}
 
 	public void initTableView() {
-		clientsList = ClientManager.getByVendorId(1);
+		if (Session.vendor != null) {
+			clientsList = ClientManager.getByVendorId(Session.vendor.getId());
+		} else {
+			clientsList = ClientManager.getAll();
+		}
 		clientsObservableList = FXCollections.observableArrayList();
 
 		clientIdCol = new TableColumn<Client, String>("Id");
@@ -56,7 +61,7 @@ public class ShowClientsController implements Initializable {
 		contactNameCol.setCellValueFactory(new PropertyValueFactory<>(
 				"contact_name"));
 
-		contactTelCol = new TableColumn<Client, String>("Téléphone");
+		contactTelCol = new TableColumn<Client, String>("Tï¿½lï¿½phone");
 		contactTelCol.setMinWidth(200);
 		contactTelCol.setCellValueFactory(new PropertyValueFactory<>(
 				"contact_tel"));

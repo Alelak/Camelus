@@ -66,7 +66,7 @@ public class ShowVendorDetailsController implements Initializable {
 		usernameLabel.setText(currentVendor.getLogin());
 		fnameLabel.setText(currentVendor.getFname());
 		lnameLabel.setText(currentVendor.getLname());
-		hiredateLabel.setText(year + "-" + month + "-" + day);
+		hiredateLabel.setText(year + "-" + (month + 1) + "-" + day);
 		sinLabel.setText(currentVendor.getSin());
 
 		Commission commission = CommissionManager.getById(currentVendor
