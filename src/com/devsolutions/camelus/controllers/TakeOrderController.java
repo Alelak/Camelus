@@ -24,7 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
+import com.devsolutions.camelus.listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Order;
@@ -148,9 +148,8 @@ public class TakeOrderController implements Initializable {
 		productComboBox.setItems(productObservableList);
 		clientComboBox.setItems(clientObservableList);
 
-		// on ajoute les autocompletes
-		new AutoCompleteComboBoxListener<>(productComboBox);
-		new AutoCompleteComboBoxListener<>(clientComboBox);
+		new AutoCompleteComboBoxListener<Product>(productComboBox);
+		new AutoCompleteComboBoxListener<Client>(clientComboBox);
 
 		addOrderLineBtn
 				.setOnAction(e -> {
