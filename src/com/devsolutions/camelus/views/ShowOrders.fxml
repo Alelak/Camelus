@@ -42,10 +42,10 @@
                   </HBox>
                </center>
                <left>
-                  <Pane prefWidth="300.0" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="leftSearchPane" prefWidth="300.0" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Pane prefWidth="300.0" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="rightSearchPane" prefWidth="300.0" BorderPane.alignment="CENTER" />
                </right>
                <top>
                   <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />

@@ -36,6 +36,25 @@
                   <Insets />
                </VBox.margin>
             </HBox>
+            
+            <BorderPane>
+               <left>
+                  <Pane fx:id="leftSearchPane" prefWidth="150.0" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane fx:id="rightSearchPane" prefWidth="150.0" BorderPane.alignment="CENTER" />
+               </right>
+               <top>
+                  <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+               </bottom>
+               <center>
+                  <TextField fx:id="searchField" prefWidth="200.0" promptText="Recherche" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            
             <TableView fx:id="vendorTableView" prefHeight="454.0" prefWidth="572.0">
             	<columns>
 	            	<TableColumn fx:id="vendorIdCol" prefWidth="100.0" text="Id" />

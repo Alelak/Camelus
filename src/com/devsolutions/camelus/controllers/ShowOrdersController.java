@@ -39,6 +39,10 @@ public class ShowOrdersController implements Initializable {
 	private Pane leftPane;
 	@FXML
 	private Pane rightPane;
+	@FXML
+	private Pane rightSearchPane;
+	@FXML
+	private Pane leftSearchPane;
 	
 	@FXML
 	private TextField searchField;
@@ -99,6 +103,9 @@ public class ShowOrdersController implements Initializable {
 		{
 			leftPane.setPrefSize(100, 0);
 			rightPane.setPrefSize(100, 0);
+			leftSearchPane.setPrefSize(150, 0);
+			rightSearchPane.setPrefSize(150, 0);
+			
 		}
 		
 		showOrderBtn.setOnAction(e -> {
