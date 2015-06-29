@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="484.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowVendorsController">
    <children>
@@ -38,9 +37,13 @@
                </VBox.margin>
             </HBox>
             <TableView fx:id="vendorTableView" prefHeight="454.0" prefWidth="572.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></TableView>
+            	<columns>
+	            	<TableColumn fx:id="vendorIdCol" prefWidth="100.0" text="Id" />
+					<TableColumn fx:id="vendorFirstNameCol" prefWidth="100.0" text="Prénom" />
+					<TableColumn fx:id="vendorFLastNameCol" prefWidth="100.0" text="Nom" />
+					<TableColumn fx:id="vendorLoginCol" prefWidth="200.0" text="Nom d'utilisateur" />
+				</columns>
+			</TableView>
          </children>
       </VBox>
    </children>

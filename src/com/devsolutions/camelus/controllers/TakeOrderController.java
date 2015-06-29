@@ -52,48 +52,48 @@ public class TakeOrderController implements Initializable {
 
 	@FXML
 	private ComboBox<Product> productComboBox;
-
 	@FXML
 	private ComboBox<Client> clientComboBox;
 
 	@FXML
 	private Label upcLabel;
-
 	@FXML
 	private Label quantityLabel;
-
 	@FXML
 	private Label unitLabel;
-
 	@FXML
 	private Label priceLabel;
-
 	@FXML
 	private Label categoryLabel;
-
+	
 	@FXML
 	private TextField modifiedPriceField;
-
 	@FXML
 	private TextField quantityField;
-
 	@FXML
 	private TextArea commentTextArea;
 
 	@FXML
 	private Button addOrderLineBtn;
-
 	@FXML
 	private Button takeOrderBtn;
-
 	@FXML
 	private Button resetBtn;
-
 	@FXML
 	private Button removeBtn;
-
 	@FXML
 	private Button editBtn;
+	
+	@FXML
+	private TableColumn<ProductToOrderTV, String> upcCol;
+	@FXML
+	private TableColumn<ProductToOrderTV, String> productNameCol;
+	@FXML
+	private TableColumn<ProductToOrderTV, String> priceCol;
+	@FXML
+	private TableColumn<ProductToOrderTV, String> quantityCol;
+	@FXML
+	private TableColumn<ProductToOrderTV, String> modifiedPriceCol;
 
 	private ObservableList<Product> productObservableList;
 	private List<Product> products;
@@ -101,13 +101,7 @@ public class TakeOrderController implements Initializable {
 	private ObservableList<Client> clientObservableList;
 	private List<Client> clients;
 
-	private ObservableList<ProductToOrderTV> productToOrderObservableList;
-
-	private TableColumn<ProductToOrderTV, String> upcCol;
-	private TableColumn<ProductToOrderTV, String> productNameCol;
-	private TableColumn<ProductToOrderTV, String> priceCol;
-	private TableColumn<ProductToOrderTV, String> quantityCol;
-	private TableColumn<ProductToOrderTV, String> modifiedPriceCol;
+	private ObservableList<ProductToOrderTV> productToOrderObservableList;	
 
 	private ProductToOrderTV currentProductToOrderTV;
 
@@ -131,9 +125,6 @@ public class TakeOrderController implements Initializable {
 		clientfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
 		unites = UnitManager.getAll();
-
-		orderLinesTableView.getColumns().addAll(upcCol, productNameCol,
-				priceCol, quantityCol, modifiedPriceCol);
 
 		currentVendor = Session.vendor;
 
@@ -445,28 +436,11 @@ public class TakeOrderController implements Initializable {
 	public void initTableView() {
 		productToOrderObservableList = FXCollections.observableArrayList();
 
-		upcCol = new TableColumn<ProductToOrderTV, String>("Upc");
-		upcCol.setMinWidth(100);
 		upcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));
-
-		productNameCol = new TableColumn<ProductToOrderTV, String>("Nom");
-		productNameCol.setMinWidth(100);
 		productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-		priceCol = new TableColumn<ProductToOrderTV, String>(
-				"Prix unitaire ($)");
-		priceCol.setMinWidth(100);
 		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
-
-		quantityCol = new TableColumn<ProductToOrderTV, String>("Quantit�");
-		quantityCol.setMinWidth(100);
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
-		modifiedPriceCol = new TableColumn<ProductToOrderTV, String>(
-				"Prix ajust� ($)");
-		modifiedPriceCol.setMinWidth(100);
-		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
-				"modified_price"));
+		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>("modified_price"));
 
 		orderLinesTableView.setItems(productToOrderObservableList);
 	}

@@ -32,22 +32,25 @@ public class ShowVendorsController implements Initializable {
 	private Button deleteButton;
 	@FXML
 	private Button showButton;
+	
+	@FXML
+	private TableColumn<Vendor, String> vendorFirstNameCol;
+	@FXML
+	private TableColumn<Vendor, String> vendorFLastNameCol;
+	@FXML
+	private TableColumn<Vendor, String> vendorIdCol;
+	@FXML
+	private TableColumn<Vendor, String> vendorLoginCol;
 
 	private List<Vendor> vendorsList;
 	private ObservableList<Vendor> vendorsObservableList;
-
-	private TableColumn<Vendor, String> vendorFirstNameCol;
-	private TableColumn<Vendor, String> vendorFLastNameCol;
-	private TableColumn<Vendor, String> vendorIdCol;
-	private TableColumn<Vendor, String> vendorLoginCol;
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		initTableView();
-		vendorTableView.getColumns().addAll(vendorIdCol, vendorFirstNameCol,
-				vendorFLastNameCol, vendorLoginCol);
 
 		addButton.setOnAction(e -> {
 			try {
@@ -161,26 +164,13 @@ public class ShowVendorsController implements Initializable {
 		vendorsList = VendorManager.getAll();
 		vendorsObservableList = FXCollections.observableArrayList();
 
-		vendorIdCol = new TableColumn<Vendor, String>("Id");
-		vendorIdCol.setMinWidth(100);
 		vendorIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-		vendorFirstNameCol = new TableColumn<Vendor, String>("Prénom");
-		vendorFirstNameCol.setMinWidth(100);
-		vendorFirstNameCol.setCellValueFactory(new PropertyValueFactory<>(
-				"fname"));
-
-		vendorFLastNameCol = new TableColumn<Vendor, String>("Nom");
-		vendorFLastNameCol.setMinWidth(100);
-		vendorFLastNameCol.setCellValueFactory(new PropertyValueFactory<>(
-				"lname"));
-
-		vendorLoginCol = new TableColumn<Vendor, String>("Nom d'utilisateur");
-		vendorLoginCol.setMinWidth(200);
+		vendorFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("fname"));
+		vendorFLastNameCol.setCellValueFactory(new PropertyValueFactory<>("lname"));
 		vendorLoginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
+		
 		vendorsObservableList.addAll(vendorsList);
 		vendorTableView.setItems(vendorsObservableList);
-
 	}
 
 	public void addToTableView(Vendor vendor) {

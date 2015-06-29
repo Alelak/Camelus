@@ -69,12 +69,12 @@ public class AddUpdateVendorController implements Initializable {
 
 		for (Commission commission : commissions) {
 			if (commission.getType() == 0)
-				commissionChoices.add(new Choice(commission.getId(), commission
+				commissionChoices.add(new Choice(commission.getId(),"Poucentage : " + commission
 						.getRate() + "%"));
 			else
 				commissionChoices.add(new Choice(commission.getId(), "Fixe : "
-						+ commission.getRate() + "(>="
-						+ commission.getMcondition() + ")"));
+						+ commission.getRate() + "$ (>="
+						+ commission.getMcondition() + "$)"));
 		}
 
 		commission.setItems(commissionChoices);
@@ -96,14 +96,26 @@ public class AddUpdateVendorController implements Initializable {
 							&& !vendor.getLogin().equals(
 									vendorToUpdate.getLogin())) {
 						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur a etait déjà choisie \n";
+						invalidFields += " - Ce nom d'utilisateur a était déjà choisie \n";
+					}
+					
+					if (vendor.getSin().equals(sin) && !vendor.getSin().equals(
+							vendorToUpdate.getSin())) {
+						validfields = false;
+						invalidFields += " - Ce NAS existe déjà, veillez saisir un NAS valide. \n";
 					}
 				} else {
 					if (vendor.getLogin().equals(username)) {
 						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur a etait déjà choisie \n";
+						invalidFields += " - Ce nom d'utilisateur a était déjà choisie \n";
+					}
+					
+					if (vendor.getSin().equals(sin)) {
+						validfields = false;
+						invalidFields += " - Ce NAS existe déjà, veillez saisir un NAS valide. \n";
 					}
 				}
+				
 			}
 
 			if (password.length() < 8) {

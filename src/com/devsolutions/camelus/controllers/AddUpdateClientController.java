@@ -46,7 +46,6 @@ public class AddUpdateClientController implements Initializable {
 			stage = (Stage) endBtn.getScene().getWindow();
 			stage.close();
 		});
-		
 	}
 
 }
