@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.AddUpdateClientController">
+   <children>
+      <VBox>
+         <children>
+            <SplitPane dividerPositions="0.5" prefHeight="313.0" prefWidth="669.0">
+               <items>
+                  <BorderPane prefHeight="313.0" prefWidth="281.0">
+                     <center>
+                        <VBox BorderPane.alignment="CENTER">
+                           <children>
+                              <BorderPane prefHeight="34.0" prefWidth="291.0">
+                                 <center>
+                                    <Label text="Informations sur l'entreprise" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane>
+                                 <top>
+                                    <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+                                 </top>
+                                 <bottom>
+                                    <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+                                 </bottom>
+                                 <left>
+                                    <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <right>
+                                    <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                 </right>
+                                 <center>
+                                    <TextField fx:id="enterpriseNameField" promptText="Nom de l'entreprise" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                              <BorderPane>
+                                 <bottom>
+                                    <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+                                 </bottom>
+                                 <right>
+                                    <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                 </right>
+                                 <left>
+                                    <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <center>
+                                    <TextField fx:id="addressField" promptText="Adress" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </VBox>
+                     </center>
+                     <top>
+                        <Pane prefHeight="60.0" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <Pane prefHeight="80.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                     <right>
+                        <Pane prefWidth="35.0" BorderPane.alignment="CENTER" />
+                     </right>
+                     <left>
+                        <Pane prefWidth="35.0" BorderPane.alignment="CENTER" />
+                     </left>
+                  </BorderPane>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <BorderPane prefHeight="312.0" prefWidth="282.0">
+                           <top>
+                              <Pane prefHeight="60.0" BorderPane.alignment="CENTER" />
+                           </top>
+                           <bottom>
+                              <Pane prefHeight="30.0" BorderPane.alignment="CENTER" />
+                           </bottom>
+                           <right>
+                              <Pane prefWidth="30.0" BorderPane.alignment="CENTER" />
+                           </right>
+                           <left>
+                              <Pane prefWidth="30.0" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <BorderPane>
+                                       <center>
+                                          <Label text="Informations sur le contact" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                       <left>
+                                          <Pane prefWidth="20.0" BorderPane.alignment="CENTER" />
+                                       </left>
+                                       <right>
+                                          <Pane prefWidth="20.0" BorderPane.alignment="CENTER" />
+                                       </right>
+                                    </BorderPane>
+                                    <BorderPane>
+                                       <top>
+                                          <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+                                       </top>
+                                       <bottom>
+                                          <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+                                       </bottom>
+                                       <left>
+                                          <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                       </left>
+                                       <right>
+                                          <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                       </right>
+                                       <center>
+                                          <TextField fx:id="contactNameField" promptText="Nom" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane>
+                                       <center>
+                                          <TextField fx:id="contactPhoneField" promptText="Téléphone" BorderPane.alignment="CENTER" />
+                                       </center>
+                                       <left>
+                                          <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                       </left>
+                                       <bottom>
+                                          <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+                                       </bottom>
+                                       <right>
+                                          <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                       </right>
+                                    </BorderPane>
+                                    <BorderPane>
+                                       <left>
+                                          <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                       </left>
+                                       <right>
+                                          <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+                                       </right>
+                                       <center>
+                                          <TextField fx:id="contactEmailField" promptText="Email" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </VBox>
+               </items>
+            </SplitPane>
+            <BorderPane>
+               <right>
+                  <HBox BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="btn" mnemonicParsing="false" prefWidth="80.0" text="Ajouter">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="endBtn" mnemonicParsing="false" prefWidth="80.0" text="Terminer">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </right>
+               <top>
+                  <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+               </top>
+               <bottom>
+                  <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -8,16 +8,53 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 
-
-<AnchorPane prefHeight="347.0" prefWidth="406.0"
-	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-	fx:controller="com.devsolutions.camelus.controllers.ShowClientsController">
+<AnchorPane prefHeight="347.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowClientsController">
 	<HBox.margin>
-		<Insets top="100"></Insets>
+		<Insets top="100" />
 	</HBox.margin>
 	<children>
 		<VBox prefHeight="500" prefWidth="500">
 			<children>
+            <BorderPane>
+               <center>
+                  <HBox BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="addBtn" mnemonicParsing="false" text="Ajouter Client">
+                           <HBox.margin>
+                              <Insets left="5.0" right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="editBtn" disable="true" mnemonicParsing="false" text="Modifier Client">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="deleteBtn" disable="true" mnemonicParsing="false" text="Supprimer Client">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="showBtn" disable="true" mnemonicParsing="false" text="Consulter Client">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </center>
+               <top>
+                  <Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
+               </top>
+               <left>
+                  <Pane prefWidth="20.0" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefWidth="20.0" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
 				<TableView fx:id="clientsTableView">
 				</TableView>
 			</children>

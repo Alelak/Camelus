@@ -7,11 +7,16 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
@@ -20,6 +25,18 @@ import com.devsolutions.camelus.services.Session;
 public class ShowClientsController implements Initializable {
 	@FXML
 	private TableView<Client> clientsTableView;
+	
+	@FXML
+	private Button addBtn;
+	
+	@FXML
+	private Button editBtn;
+	
+	@FXML
+	private Button deleteBtn;
+	
+	@FXML
+	private Button showBtn;
 
 	private List<Client> clientsList;
 	private ObservableList<Client> clientsObservableList;
@@ -37,6 +54,71 @@ public class ShowClientsController implements Initializable {
 		clientsTableView.getColumns().addAll(clientIdCol, enterpriseNameCol,
 				contactNameCol, contactTelCol, contactEmailCol);
 		clientsTableView.setPlaceholder(new Label("Pas de Client"));
+		
+		clientsTableView.getSelectionModel().selectedItemProperty()
+		.addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				showBtn.setDisable(false);
+				deleteBtn.setDisable(false);
+				editBtn.setDisable(false);
+			} else {
+				showBtn.setDisable(true);
+				deleteBtn.setDisable(true);
+				editBtn.setDisable(true);
+			}
+		});
+		
+		
+		addBtn.setOnAction(e -> {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(
+						"../views/addupdateclient.fxml"));
+
+				Stage newStage = new Stage();
+				Scene scene;
+
+				scene = new Scene(loader.load());
+
+				newStage.setScene(scene);
+
+				/*AddUpdateVendorController controller = loader
+						.<AddUpdateVendorController> getController();
+				controller.initData(this, "Ajouter", null, -1);*/
+
+				newStage.initModality(Modality.APPLICATION_MODAL);
+
+				newStage.show();
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+		
+		editBtn.setOnAction(e -> {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(
+						"../views/addupdateclient.fxml"));
+
+				Stage newStage = new Stage();
+				Scene scene;
+
+				scene = new Scene(loader.load());
+
+				newStage.setScene(scene);
+
+				/*AddUpdateVendorController controller = loader
+						.<AddUpdateVendorController> getController();
+				controller.initData(this, "Ajouter", null, -1);*/
+
+				newStage.initModality(Modality.APPLICATION_MODAL);
+
+				newStage.show();
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 	}
 
 	public void initTableView() {
