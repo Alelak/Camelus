@@ -29,7 +29,6 @@
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
 	<children>
-
 		<GridPane styleClass="header" gridLinesVisible="false"
 			GridPane.rowIndex="0">
 
@@ -42,8 +41,6 @@
 				<ColumnConstraints percentWidth="20" />
 			</columnConstraints>
 			<children>
-
-
 				<ImageView preserveRatio="true" GridPane.columnIndex="0"
 					fitHeight="20" fitWidth="20">
 					<GridPane.margin>
@@ -53,14 +50,13 @@
 						<Image url="@../../../../images/logo_icon.png" />
 					</image>
 				</ImageView>
-
-				<Label id="lblTitle" style="-fx-font-size: 25; -fx-font-weight: bold;"
+				<Label id="lblTitle"
+					style="-fx-font-size: 16; -fx-font-family: 'Roboto Bold'; -fx-text-fill: #2b2a2a ;-fx-font-smoothing-type: gray;"
 					alignment="TOP_CENTER" text="Camelus" GridPane.columnIndex="1">
 					<GridPane.margin>
 						<Insets bottom="0" left="-34" right="0" top="-15" />
 					</GridPane.margin>
 				</Label>
-
 				<HBox alignment="TOP_RIGHT" GridPane.columnIndex="2">
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
 						fx:id="lblHelp">
@@ -98,24 +94,20 @@
 				</HBox>
 			</children>
 		</GridPane>
-
-
-
-
 		<GridPane styleClass="header" GridPane.rowIndex="1">
 			<rowConstraints>
 				<RowConstraints percentHeight="100.0" />
 			</rowConstraints>
 			<columnConstraints>
-				<ColumnConstraints percentWidth="81.5" />
-				<ColumnConstraints percentWidth="18.5" />
+				<ColumnConstraints percentWidth="81" />
+				<ColumnConstraints percentWidth="19" />
 			</columnConstraints>
-
 			<children>
-
 				<HBox GridPane.columnIndex="0" fx:id="outerToolbarHbox"
 					alignment="CENTER_RIGHT">
-
+					<padding>
+						<Insets top="6" />
+					</padding>
 					<HBox fx:id="innerToolbarHbox">
 						<children>
 							<Button prefHeight="20" prefWidth="125" fx:id="tbacceuilbtn"
@@ -145,7 +137,6 @@
 								icon="ICON_COGS" />
 						</graphic>
 					</Label>
-
 					<Label prefWidth="30" prefHeight="30">
 						<HBox.margin>
 							<Insets bottom="0" left="0" right="0" top="-5" />
@@ -158,32 +149,19 @@
 				</HBox>
 			</children>
 		</GridPane>
-
-
-
-
 		<Separator prefWidth="100.0" GridPane.rowIndex="2">
 			<padding>
 				<Insets top="0" />
 			</padding>
 		</Separator>
-
-
 		<HBox alignment="CENTER" prefWidth="1224.0" fx:id="content"
 			GridPane.rowIndex="3">
-
 		</HBox>
-
 		<Separator prefWidth="100.0" GridPane.rowIndex="4">
 			<padding>
 				<Insets bottom="-3" />
 			</padding>
 		</Separator>
-
-
-
-
-
 		<GridPane id="footer" gridLinesVisible="false"
 			GridPane.rowIndex="5">
 			<rowConstraints>
@@ -194,7 +172,6 @@
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
 			<children>
-
 				<HBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
 					<GridPane.margin>
 						<Insets bottom="0" left="0" right="0" top="0" />
@@ -221,7 +198,6 @@
 						</graphic>
 					</Label>
 				</HBox>
-
 				<HBox spacing="2" alignment="CENTER_RIGHT"
 					GridPane.columnIndex="1">
 
@@ -239,13 +215,8 @@
 							<Image url="@../../../../images/dev-solution-logo.png" />
 						</image>
 					</ImageView>
-
-
 				</HBox>
-
-
 			</children>
 		</GridPane>
-
 	</children>
 </GridPane>

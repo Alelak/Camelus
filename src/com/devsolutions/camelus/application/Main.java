@@ -30,6 +30,10 @@ public class Main extends Application {
 					getClass().getResource(
 							"../../../../fonts/Roboto-Medium.ttf")
 							.toExternalForm(), 10);
+			Font.loadFont(
+					getClass().getResource(
+							"../../../../fonts/Roboto-Bold.ttf")
+							.toExternalForm(), 10);
 			scene.getStylesheets().add(
 					getClass().getResource("../views/main.css")
 							.toExternalForm());

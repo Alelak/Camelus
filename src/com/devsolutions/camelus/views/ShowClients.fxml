@@ -1,63 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 
-<AnchorPane prefHeight="347.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowClientsController">
-	<HBox.margin>
-		<Insets top="100" />
-	</HBox.margin>
+
+
+<GridPane fx:id="motherGrid" prefWidth="900"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.ShowClientsController">
+	<rowConstraints>
+		<RowConstraints percentHeight="90" />
+		<RowConstraints percentHeight="10" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
 	<children>
-		<VBox prefHeight="500" prefWidth="500">
+		<GridPane fx:id="content" GridPane.rowIndex="0"
+			gridLinesVisible="False">
+			<rowConstraints>
+				<RowConstraints fx:id="rowOne" />
+				<RowConstraints fx:id="rowTwo" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="100" />
+			</columnConstraints>
 			<children>
-            <BorderPane>
-               <center>
-                  <HBox BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="addBtn" mnemonicParsing="false" text="Ajouter Client">
-                           <HBox.margin>
-                              <Insets left="5.0" right="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="editBtn" disable="true" mnemonicParsing="false" text="Modifier Client">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="deleteBtn" disable="true" mnemonicParsing="false" text="Supprimer Client">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="showBtn" disable="true" mnemonicParsing="false" text="Consulter Client">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </center>
-               <top>
-                  <Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
-               </top>
-               <left>
-                  <Pane prefWidth="20.0" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Pane prefWidth="20.0" BorderPane.alignment="CENTER" />
-               </right>
-               <bottom>
-                  <Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
-               </bottom>
-            </BorderPane>
-				<TableView fx:id="clientsTableView">
-				</TableView>
+				<VBox spacing="0" alignment="TOP_CENTER" fx:id="gridRowOne"
+					GridPane.rowIndex="0">
+					<padding>
+						<Insets top="150.0" />
+					</padding>
+					<Label fx:id="message1" text="La base de données est vide." />
+					<Label fx:id="message2" text="Ajouter maintenant un client." />
+				</VBox>
+				<GridPane fx:id="gridRowTwo" GridPane.rowIndex="1"
+					gridLinesVisible="false">
+					<padding>
+						<Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+					</padding>
+					<rowConstraints>
+						<RowConstraints percentHeight="10" />
+						<RowConstraints percentHeight="90" />
+					</rowConstraints>
+					<columnConstraints>
+						<ColumnConstraints percentWidth="50" />
+						<ColumnConstraints percentWidth="50" />
+					</columnConstraints>
+					<children>
+						<HBox spacing="5" alignment="BOTTOM_LEFT" GridPane.rowIndex="0"
+							GridPane.columnIndex="0">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<TextField fx:id="textFieldSearch" minWidth="180"
+								promptText="Recherche rapide.."></TextField>
+							<Button fx:id="btnSearch" prefWidth="120" styleClass="flat-btn"
+								text="Recherche">
+								<graphic>
+									<FontAwesomeIconView icon="ICON_SEARCH" />
+								</graphic>
+							</Button>
+						</HBox>
+						<HBox alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
+							GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<Button fx:id="btnRefresh" prefWidth="120" styleClass="flat-btn"
+								text="Actualiser">
+								<graphic>
+									<FontAwesomeIconView icon="ICON_REFRESH" />
+								</graphic>
+							</Button>
+						</HBox>
+						<TableView fx:id="tableView" GridPane.rowIndex="1"
+							GridPane.columnIndex="0" GridPane.columnSpan="2">
+						</TableView>
+					</children>
+				</GridPane>
 			</children>
-		</VBox>
+		</GridPane>
+		<HBox alignment="TOP_CENTER" spacing="5" id="footer"
+			GridPane.rowIndex="1">
+
+			<Button fx:id="btnAdd" prefWidth="120" styleClass="flat-btn"
+				text="Ajouter">
+				<graphic>
+					<FontAwesomeIconView icon="ICON_PLUS" />
+				</graphic>
+			</Button>
+			<Button fx:id="btnUpdate" prefWidth="120" styleClass="flat-btn"
+				text="Modifer">
+				<graphic>
+					<FontAwesomeIconView icon="ICON_PENCIL" />
+				</graphic>
+			</Button>
+			<Button fx:id="btnDelete" prefWidth="120" styleClass="flat-btn"
+				text="Supprimer">
+				<graphic>
+					<FontAwesomeIconView icon="ICON_MINUS" />
+				</graphic>
+			</Button>
+			<Button fx:id="btnConsult" prefWidth="120" styleClass="flat-btn"
+				text="Consulter">
+				<graphic>
+					<FontAwesomeIconView icon="ICON_EYE_OPEN" />
+				</graphic>
+			</Button>
+		</HBox>
 	</children>
-</AnchorPane>
+	<stylesheets>
+		<URL value="@Content.css"/>
+	</stylesheets>
+</GridPane>
