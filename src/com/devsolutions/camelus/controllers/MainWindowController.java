@@ -60,7 +60,7 @@ public class MainWindowController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		fadeTransition = new FadeTransition();
 		if (Session.vendor != null) {
 			GridPane.setMargin(outerToolbarHbox, new Insets(0, 130, 0, 0));
 			innerToolbarHbox.getChildren()
@@ -74,7 +74,6 @@ public class MainWindowController implements Initializable {
 		}
 
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-		fadeTransition = new FadeTransition(Duration.millis(2000), content);
 		switchScene("home");
 
 		logoutbtn.setOnMouseClicked(e -> {
@@ -143,6 +142,11 @@ public class MainWindowController implements Initializable {
 			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
 			switchScene("showproducts");
 		});
+		tbadminsbtn.setOnAction(e -> {
+			resetButtonColor();
+			tbadminsbtn.setStyle("-fx-background-color: #00A0DC;");
+			switchScene("showadmins");
+		});
 	}
 
 	public void resetButtonColor() {
@@ -187,10 +191,8 @@ public class MainWindowController implements Initializable {
 
 	public void switchScene(final String filename) {
 		fadeTransition.stop();
-		Duration dr = new Duration(500);
-		fadeTransition.setDuration(dr);
-		fadeTransition.setFromValue(1.);
-		fadeTransition.setToValue(0.);
+		fadeTransition.setFromValue(1);
+		fadeTransition.setToValue(0);
 		fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -201,10 +203,10 @@ public class MainWindowController implements Initializable {
 				} catch (IOException j) {
 					j.printStackTrace();
 				}
-				fadeTransition = new FadeTransition(Duration.millis(500),
+				fadeTransition = new FadeTransition(Duration.millis(200),
 						content);
-				fadeTransition.setFromValue(0.);
-				fadeTransition.setToValue(1.);
+				fadeTransition.setFromValue(0);
+				fadeTransition.setToValue(1);
 				fadeTransition.play();
 			}
 		});
