@@ -2,13 +2,24 @@
 
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
 	fx:controller="com.devsolutions.camelus.controllers.ShowAdminsController">
 
 
 	<children>
-		<Label  text="hello"></Label>
+		<TableView fx:id="adminsTableView">
+			<columns>
+				<TableColumn fx:id="idColumn" text="Id" />
+				<TableColumn fx:id="loginColumn" text="Login" />
+				<TableColumn fx:id="fnameColumn" text="First Name" />
+				<TableColumn fx:id="lnameColumn" text="Last Name" />
+				<TableColumn fx:id="hireDateColumn" text="Hire Date" />
+			</columns>
+
+		</TableView>
 
 	</children>
 
