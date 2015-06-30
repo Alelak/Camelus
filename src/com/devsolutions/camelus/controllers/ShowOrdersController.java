@@ -29,12 +29,12 @@ public class ShowOrdersController implements Initializable {
 
 	@FXML
 	private TableView<OrderTV> orderTableView;
-	
+
 	@FXML
 	private Button takeOrderBtn;
 	@FXML
 	private Button showOrderBtn;
-	
+
 	@FXML
 	private Pane leftPane;
 	@FXML
@@ -43,10 +43,10 @@ public class ShowOrdersController implements Initializable {
 	private Pane rightSearchPane;
 	@FXML
 	private Pane leftSearchPane;
-	
+
 	@FXML
 	private TextField searchField;
-	
+
 	@FXML
 	private TableColumn<OrderTV, String> orderIdCol;
 	@FXML
@@ -64,13 +64,12 @@ public class ShowOrdersController implements Initializable {
 	private ObservableList<OrderTV> ordersObservableList;
 	private SortedList<OrderTV> sortedData;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
-		
-		FilteredList<OrderTV> filteredData = new FilteredList<>(ordersObservableList,
-				p -> true);
+
+		FilteredList<OrderTV> filteredData = new FilteredList<>(
+				ordersObservableList, p -> true);
 
 		searchField.textProperty().addListener(
 				(observable, oldValue, newValue) -> {
@@ -78,7 +77,7 @@ public class ShowOrdersController implements Initializable {
 						if (newValue == null || newValue.isEmpty()) {
 							return true;
 						}
-						
+
 						String lowerCaseFilter = newValue.toLowerCase();
 						String id = orderTV.getId() + "";
 						if (orderTV.getEnterprise_name().toLowerCase()
@@ -92,22 +91,21 @@ public class ShowOrdersController implements Initializable {
 				});
 		sortedData = new SortedList<>(filteredData);
 
-		sortedData.comparatorProperty().bind(orderTableView.comparatorProperty());
+		sortedData.comparatorProperty().bind(
+				orderTableView.comparatorProperty());
 
 		orderTableView.setItems(sortedData);
 
-		if(Session.vendor == null){
+		if (Session.vendor == null) {
 			takeOrderBtn.setDisable(true);
-		}
-		else
-		{
+		} else {
 			leftPane.setPrefSize(100, 0);
 			rightPane.setPrefSize(100, 0);
 			leftSearchPane.setPrefSize(150, 0);
 			rightSearchPane.setPrefSize(150, 0);
-			
+
 		}
-		
+
 		showOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = orderTableView.getSelectionModel()
 					.getSelectedItem();
@@ -181,29 +179,28 @@ public class ShowOrdersController implements Initializable {
 		ordersObservableList = FXCollections.observableArrayList();
 
 		orderIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-		
-		if(Session.admin != null){
-			vendorFNameCol.setCellValueFactory(new PropertyValueFactory<>("fname"));
-			vendorLNameCol.setCellValueFactory(new PropertyValueFactory<>("lname"));
-		}
-		else
-		{
+
+		if (Session.admin != null) {
+			vendorFNameCol.setCellValueFactory(new PropertyValueFactory<>(
+					"fname"));
+			vendorLNameCol.setCellValueFactory(new PropertyValueFactory<>(
+					"lname"));
+		} else {
 			orderTableView.getColumns().remove(vendorFNameCol);
 			orderTableView.getColumns().remove(vendorLNameCol);
 		}
-		
+
 		clientNameCol.setCellValueFactory(new PropertyValueFactory<>(
 				"enterprise_name"));
 		commentCol.setCellValueFactory(new PropertyValueFactory<>("comment"));
-		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>("ordered_at_formated"));
+		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>(
+				"ordered_at_formated"));
 
 		ordersObservableList.addAll(ordersList);
-
-		//orderTableView.setItems(ordersObservableList);
 	}
 
 	public void addToTableView(OrderTV orderTV) {
-		
+
 		ordersObservableList.add(orderTV);
 	}
 }

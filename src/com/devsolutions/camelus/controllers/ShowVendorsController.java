@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.VendorManager;
 
@@ -37,16 +36,15 @@ public class ShowVendorsController implements Initializable {
 	private Button deleteButton;
 	@FXML
 	private Button showButton;
-	
-	
+
 	@FXML
 	private Pane rightSearchPane;
 	@FXML
 	private Pane leftSearchPane;
-	
+
 	@FXML
 	private TextField searchField;
-	
+
 	@FXML
 	private TableColumn<Vendor, String> vendorFirstNameCol;
 	@FXML
@@ -59,17 +57,14 @@ public class ShowVendorsController implements Initializable {
 	private List<Vendor> vendorsList;
 	private ObservableList<Vendor> vendorsObservableList;
 	private SortedList<Vendor> sortedData;
-	
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		initTableView();
-		
-		
-		FilteredList<Vendor> filteredData = new FilteredList<>(vendorsObservableList,
-				p -> true);
+
+		FilteredList<Vendor> filteredData = new FilteredList<>(
+				vendorsObservableList, p -> true);
 
 		searchField.textProperty().addListener(
 				(observable, oldValue, newValue) -> {
@@ -77,30 +72,31 @@ public class ShowVendorsController implements Initializable {
 						if (newValue == null || newValue.isEmpty()) {
 							return true;
 						}
-						
+
 						String lowerCaseFilter = newValue.toLowerCase();
 						String id = vendor.getId() + "";
-						
+
 						if (vendor.getFname().toLowerCase()
 								.contains(lowerCaseFilter)) {
 							return true;
 						} else if (vendor.getLname().toLowerCase()
 								.contains(lowerCaseFilter)) {
 							return true;
-						}else if (vendor.getLogin().toLowerCase()
+						} else if (vendor.getLogin().toLowerCase()
 								.contains(lowerCaseFilter)) {
 							return true;
-						}else if (id.contains(lowerCaseFilter)) {
+						} else if (id.contains(lowerCaseFilter)) {
 							return true;
 						}
-						
+
 						return false;
 					});
 				});
-		
+
 		sortedData = new SortedList<>(filteredData);
 
-		sortedData.comparatorProperty().bind(vendorTableView.comparatorProperty());
+		sortedData.comparatorProperty().bind(
+				vendorTableView.comparatorProperty());
 
 		vendorTableView.setItems(sortedData);
 
@@ -217,10 +213,12 @@ public class ShowVendorsController implements Initializable {
 		vendorsObservableList = FXCollections.observableArrayList();
 
 		vendorIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-		vendorFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("fname"));
-		vendorFLastNameCol.setCellValueFactory(new PropertyValueFactory<>("lname"));
+		vendorFirstNameCol.setCellValueFactory(new PropertyValueFactory<>(
+				"fname"));
+		vendorFLastNameCol.setCellValueFactory(new PropertyValueFactory<>(
+				"lname"));
 		vendorLoginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
-		
+
 		vendorsObservableList.addAll(vendorsList);
 	}
 

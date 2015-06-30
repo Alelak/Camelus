@@ -19,6 +19,9 @@ public interface VendorMapper {
 			+ DELETED_CONDITION)
 	Vendor getByUserName(String login);
 
+	@Select("SELECT * FROM vendors WHERE sin = #{sin} AND " + DELETED_CONDITION)
+	Vendor getBySin(String sin);
+
 	@Insert("INSERT INTO vendors (login, password, fname, lname, hire_date, sin, commission_id)"
 			+ " VALUES (#{login}, #{password}, #{fname}, #{lname}, #{hire_date}, #{sin}, #{commission_id})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id", flushCache = true)

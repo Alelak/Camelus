@@ -24,6 +24,13 @@ public class VendorManager {
 		return vendor;
 	}
 
+	public static Vendor getBySin(String sin) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		Vendor vendor = session.getMapper(VendorMapper.class).getBySin(sin);
+		session.close();
+		return vendor;
+	}
+
 	public static void add(Vendor vendor) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).add(vendor);

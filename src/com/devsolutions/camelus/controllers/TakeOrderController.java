@@ -65,7 +65,7 @@ public class TakeOrderController implements Initializable {
 	private Label priceLabel;
 	@FXML
 	private Label categoryLabel;
-	
+
 	@FXML
 	private TextField modifiedPriceField;
 	@FXML
@@ -83,7 +83,7 @@ public class TakeOrderController implements Initializable {
 	private Button removeBtn;
 	@FXML
 	private Button editBtn;
-	
+
 	@FXML
 	private TableColumn<ProductToOrderTV, String> upcCol;
 	@FXML
@@ -101,7 +101,7 @@ public class TakeOrderController implements Initializable {
 	private ObservableList<Client> clientObservableList;
 	private List<Client> clients;
 
-	private ObservableList<ProductToOrderTV> productToOrderObservableList;	
+	private ObservableList<ProductToOrderTV> productToOrderObservableList;
 
 	private ProductToOrderTV currentProductToOrderTV;
 
@@ -117,7 +117,6 @@ public class TakeOrderController implements Initializable {
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
@@ -440,7 +439,8 @@ public class TakeOrderController implements Initializable {
 		productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>("modified_price"));
+		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
+				"modified_price"));
 
 		orderLinesTableView.setItems(productToOrderObservableList);
 	}

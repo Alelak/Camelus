@@ -65,14 +65,10 @@ public class MainWindowController implements Initializable {
 			GridPane.setMargin(outerToolbarHbox, new Insets(0, 130, 0, 0));
 			innerToolbarHbox.getChildren()
 					.removeAll(tbvendeursbtn, tbadminsbtn);
-		} else if (!innerToolbarHbox.getChildren().contains(tbvendeursbtn)
-				&& !innerToolbarHbox.getChildren().contains(tbadminsbtn)) {
-			{
-				innerToolbarHbox.getChildren().addAll(tbvendeursbtn,
-						tbadminsbtn);
-			}
+		} else if (Session.admin.getSuper_admin() == 0) {
+			GridPane.setMargin(outerToolbarHbox, new Insets(0, 60, 0, 0));
+			innerToolbarHbox.getChildren().remove(tbadminsbtn);
 		}
-
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
 		switchScene("home");
 

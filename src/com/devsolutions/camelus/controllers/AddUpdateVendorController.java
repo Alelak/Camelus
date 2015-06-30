@@ -22,8 +22,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.entities.Vendor;
+import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.utils.Choice;
@@ -69,8 +71,8 @@ public class AddUpdateVendorController implements Initializable {
 
 		for (Commission commission : commissions) {
 			if (commission.getType() == 0)
-				commissionChoices.add(new Choice(commission.getId(),"Poucentage : " + commission
-						.getRate() + "%"));
+				commissionChoices.add(new Choice(commission.getId(),
+						"Poucentage : " + commission.getRate() + "%"));
 			else
 				commissionChoices.add(new Choice(commission.getId(), "Fixe : "
 						+ commission.getRate() + "$ (>="
@@ -89,48 +91,22 @@ public class AddUpdateVendorController implements Initializable {
 
 			String invalidFields = "";
 			boolean validfields = true;
-
-			for (Vendor vendor : vendorTVConroller.getTable().getItems()) {
-				if (vendorToUpdate != null) {
-					if (vendor.getLogin().equals(username)
-							&& !vendor.getLogin().equals(
-									vendorToUpdate.getLogin())) {
-						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur a était déjà choisie \n";
-					}
-					
-					if (vendor.getSin().equals(sin) && !vendor.getSin().equals(
-							vendorToUpdate.getSin())) {
-						validfields = false;
-						invalidFields += " - Ce NAS existe déjà, veillez saisir un NAS valide. \n";
-					}
-				} else {
-					if (vendor.getLogin().equals(username)) {
-						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur a était déjà choisie \n";
-					}
-					
-					if (vendor.getSin().equals(sin)) {
-						validfields = false;
-						invalidFields += " - Ce NAS existe déjà, veillez saisir un NAS valide. \n";
-					}
-				}
-				
+			Vendor vendorByLogin = VendorManager.getByUserName(username);
+			Vendor vendorBySin = VendorManager.getBySin(sin);
+			Admin adminBySin = AdminManager.getBySin(sin);
+			if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
+					|| sin.isEmpty() || password.isEmpty()) {
+				invalidFields += " - Tous les champs doivent ï¿½tre remplis \n";
+				validfields = false;
 			}
 
 			if (password.length() < 8) {
-				invalidFields += " - Mot de passe de 8 caractères et plus \n";
+				invalidFields += " - Mot de passe de 8 caractï¿½res et plus \n";
 				validfields = false;
 			}
 
 			if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-				invalidFields += " - Le NAS doit être un nombre de 9 chiffres \n";
-				validfields = false;
-			}
-
-			if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
-					|| sin.isEmpty() || password.isEmpty()) {
-				invalidFields += " - Tous les champs doivent être remplis \n";
+				invalidFields += " - Le NAS doit ï¿½tre un nombre de 9 chiffres \n";
 				validfields = false;
 			}
 
@@ -142,6 +118,32 @@ public class AddUpdateVendorController implements Initializable {
 			if (commission.getSelectionModel().getSelectedIndex() == 0) {
 				invalidFields += " - Vous devez choisir une commission \n";
 				validfields = false;
+			}
+
+			if (vendorToUpdate != null) {
+				if (vendorByLogin != null
+						&& !vendorByLogin.getLogin().equals(
+								vendorToUpdate.getLogin())) {
+					validfields = false;
+					invalidFields += " - Ce nom d'utilisateur a ï¿½tait dï¿½jï¿½ choisie \n";
+				}
+
+				if (vendorBySin != null
+						&& !vendorBySin.getSin()
+								.equals(vendorToUpdate.getSin())) {
+					validfields = false;
+					invalidFields += " - Ce NAS existe dï¿½jï¿½, veuillez saisir un NAS valide. \n";
+				}
+			} else {
+				if (vendorByLogin != null) {
+					validfields = false;
+					invalidFields += " - Ce nom d'utilisateur a ï¿½tait dï¿½jï¿½ choisie \n";
+				}
+
+				if (vendorByLogin != null && adminBySin != null) {
+					validfields = false;
+					invalidFields += " - Ce NAS existe dï¿½jï¿½, veuillez saisir un NAS valide. \n";
+				}
 			}
 
 			stage = (Stage) btnCancel.getScene().getWindow();

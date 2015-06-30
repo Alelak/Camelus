@@ -13,28 +13,35 @@ public class AdminManager {
 		session.close();
 		return admins;
 	}
-	
-	public static Admin getByUserName(String login){
+
+	public static Admin getByUserName(String login) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Admin admin = session.getMapper(AdminMapper.class).getByUserName(login);
 		session.close();
 		return admin;
 	}
-	
+
+	public static Admin getBySin(String sin) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		Admin admin = session.getMapper(AdminMapper.class).getBySin(sin);
+		session.close();
+		return admin;
+	}
+
 	public static void add(Admin admin) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(AdminMapper.class).add(admin);
 		session.commit();
 		session.close();
 	}
-	
+
 	public static void update(Admin admin) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(AdminMapper.class).update(admin);
 		session.commit();
 		session.close();
 	}
-	
+
 	public static void delete(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(AdminMapper.class).delete(id);
