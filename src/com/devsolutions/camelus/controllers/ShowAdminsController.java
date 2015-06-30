@@ -77,16 +77,22 @@ public class ShowAdminsController implements Initializable {
 			showAddUpdateWindow(null, -1, CRUD.CREATE);
 		});
 
-		adminsTableView.getSelectionModel().selectedIndexProperty()
-				.addListener(new ChangeListener<Number>() {
+		adminsTableView.getSelectionModel().selectedItemProperty()
+				.addListener(new ChangeListener<Admin>() {
 
 					@Override
 					public void changed(
-							ObservableValue<? extends Number> observable,
-							Number oldValue, Number newValue) {
-						updateBtn.setDisable(false);
-						deleteBtn.setDisable(false);
-						showDetailsBtn.setDisable(false);
+							ObservableValue<? extends Admin> observable,
+							Admin oldValue, Admin newValue) {
+						if (newValue != null) {
+							updateBtn.setDisable(false);
+							deleteBtn.setDisable(false);
+							showDetailsBtn.setDisable(false);
+						} else {
+							updateBtn.setDisable(true);
+							deleteBtn.setDisable(true);
+							showDetailsBtn.setDisable(true);
+						}
 					}
 
 				});
