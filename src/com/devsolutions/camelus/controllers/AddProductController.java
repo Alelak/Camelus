@@ -164,13 +164,21 @@ public class AddProductController implements Initializable {
 				"All Images", "*.*");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
+
 		if (file != null) {
 			try {
+				double mb = file.length() / 1048576;
+				System.out.println(mb);
+				if(mb <1)
+				{
 				BufferedImage originalImage = ImageIO.read(file);
 				baos = new ByteArrayOutputStream();
 				ImageIO.write(originalImage, "jpg", baos);
 				baos.flush();
 				imageInByte = baos.toByteArray();
+				}
+				else
+					System.out.println(mb);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

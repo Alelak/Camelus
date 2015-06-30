@@ -42,22 +42,25 @@ public class ShowProductsController implements Initializable {
 	private TableView<ProductTableView> tableViewProduct;
 	private List<ProductTableView> productsList;
 	private ObservableList<ProductTableView> productsObservableList;
-
+	@FXML
 	private TableColumn<ProductTableView, String> idCol;
+	@FXML
 	private TableColumn<ProductTableView, String> upcCol;
+	@FXML
 	private TableColumn<ProductTableView, String> nameCol;
+	@FXML
 	private TableColumn<ProductTableView, String> quantityCol;
+	@FXML
 	private TableColumn<ProductTableView, String> categoryCol;
+	@FXML
 	private TableColumn<ProductTableView, String> priceSellingcol;
+	@FXML
 	private SortedList<ProductTableView> sortedData;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		initTableView();
-		tableViewProduct.getColumns().addAll(idCol, upcCol, nameCol,
-				quantityCol, categoryCol, priceSellingcol);
 
 		FilteredList<ProductTableView> filteredData = new FilteredList<>(
 				productsObservableList, p -> true);
@@ -229,27 +232,17 @@ public class ShowProductsController implements Initializable {
 
 		productsObservableList = FXCollections.observableArrayList();
 
-		idCol = new TableColumn<ProductTableView, String>("Id");
-		idCol.setMinWidth(50);
 		idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-		upcCol = new TableColumn<ProductTableView, String>("UPC");
-		upcCol.setMinWidth(100);
+
 		upcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));
 
-		nameCol = new TableColumn<ProductTableView, String>("Name");
-		nameCol.setMinWidth(100);
 		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		quantityCol = new TableColumn<ProductTableView, String>("Quantity");
-		quantityCol.setMinWidth(50);
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-		categoryCol = new TableColumn<ProductTableView, String>("Category");
-		categoryCol.setMinWidth(100);
 		categoryCol.setCellValueFactory(new PropertyValueFactory<>(
 				"descriptionCategory"));
-		priceSellingcol = new TableColumn<ProductTableView, String>("Price ($)");
-		priceSellingcol.setMinWidth(50);
+
 		priceSellingcol.setCellValueFactory(new PropertyValueFactory<>(
 				"selling_price"));
 

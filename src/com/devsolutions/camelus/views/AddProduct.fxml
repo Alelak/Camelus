@@ -59,7 +59,7 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="quantity" prefHeight="22.0" prefWidth="200.0" />
+                  <TextField fx:id="quantity" prefHeight="22.0" prefWidth="200.0" text="1" />
                </children>
                <VBox.margin>
                   <Insets top="10.0" />

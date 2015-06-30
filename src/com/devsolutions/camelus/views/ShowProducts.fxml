@@ -58,7 +58,16 @@
             </AnchorPane>
             <AnchorPane prefHeight="237.0" prefWidth="476.0">
                <children>
-                  <TableView fx:id="tableViewProduct" layoutY="-1.0" prefHeight="237.0" prefWidth="476.0" />
+                  <TableView fx:id="tableViewProduct" layoutY="-1.0" prefHeight="237.0" prefWidth="476.0" >
+                  <columns>
+	            	<TableColumn fx:id="idCol" prefWidth="50.0" text="Id" />
+					<TableColumn fx:id="upcCol" prefWidth="100.0" text="UPC" />
+					<TableColumn fx:id="nameCol" prefWidth="100.0" text="Nom" />
+					<TableColumn fx:id="quantityCol" prefWidth="50.0" text="Quantite" />
+					<TableColumn fx:id="categoryCol" prefWidth="100.0" text="Categories" />
+					<TableColumn fx:id="priceSellingcol" prefWidth="50.0" text="Prix ($)" />	
+				</columns>
+				</TableView>
                </children>
             </AnchorPane>
          </children>
