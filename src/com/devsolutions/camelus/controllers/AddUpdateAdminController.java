@@ -57,8 +57,6 @@ public class AddUpdateAdminController implements Initializable {
 	private Label titleWindow;
 	private ShowAdminsController showAdminsController;
 	private Admin adminToUpdate;
-
-	private Admin adminToShow;
 	private int index;
 	private Stage stage;
 	private double initialX;
@@ -211,20 +209,6 @@ public class AddUpdateAdminController implements Initializable {
 		switch (type) {
 		case CREATE:
 			titleWindow.setText("Ajouter Admin");
-			break;
-		case READ:
-			titleWindow.setText("Consulter Admin");
-			btnAddUpdate.setVisible(false);
-			btnCancel.setText("Quitter");
-			this.adminToShow = admin;
-			this.index = index;
-			setData(adminToShow);
-			logintxt.setEditable(false);
-			passwordtxt.setEditable(false);
-			lnametxt.setEditable(false);
-			fnametxt.setEditable(false);
-			sintxt.setEditable(false);
-			hiredatetxt.setEditable(false);
 			break;
 		case UPDATE:
 			titleWindow.setText("Modifier Admin");

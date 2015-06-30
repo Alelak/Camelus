@@ -104,9 +104,24 @@ public class ShowAdminsController implements Initializable {
 
 		});
 		showDetailsBtn.setOnAction(e -> {
-			showAddUpdateWindow(adminsTableView.getSelectionModel()
-					.getSelectedItem(), adminsTableView.getSelectionModel()
-					.getSelectedIndex(), CRUD.READ);
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource(
+						"../views/showadmindetails.fxml"));
+
+				Stage newStage = new Stage();
+				Scene scene = new Scene(loader.load());
+				ShowAdminController showAdminController = loader
+						.<ShowAdminController> getController();
+				showAdminController.initData(adminsTableView
+						.getSelectionModel().getSelectedItem());
+				newStage.setScene(scene);
+				newStage.initStyle(StageStyle.UNDECORATED);
+				newStage.initOwner(addBtn.getScene().getWindow());
+				newStage.initModality(Modality.APPLICATION_MODAL);
+				newStage.show();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		});
 
 	}
