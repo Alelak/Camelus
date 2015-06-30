@@ -1,5 +1,7 @@
 package com.devsolutions.camelus.controllers;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,9 +23,23 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
+import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.services.Session;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class ShowOrdersController implements Initializable {
 
@@ -34,6 +50,9 @@ public class ShowOrdersController implements Initializable {
 	private Button takeOrderBtn;
 	@FXML
 	private Button showOrderBtn;
+
+	@FXML
+	private Button pdfBtn;
 
 	@FXML
 	private Pane leftPane;
@@ -63,6 +82,8 @@ public class ShowOrdersController implements Initializable {
 	private List<OrderTV> ordersList;
 	private ObservableList<OrderTV> ordersObservableList;
 	private SortedList<OrderTV> sortedData;
+
+	private List<OrderLineTV> orderLinesList;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -159,6 +180,70 @@ public class ShowOrdersController implements Initializable {
 			}
 		});
 
+		pdfBtn.setOnAction(e -> {
+			Document document = new Document();
+			OrderTV orderTV = orderTableView.getSelectionModel()
+					.getSelectedItem();
+			Client client = ClientManager.getById(orderTV.getClient_id());
+			try {
+				PdfWriter.getInstance(document, new FileOutputStream(
+						"Facture-No " + orderTV.getId() + ".pdf"));
+				document.setPageSize(PageSize.A4);
+				document.setMargins(0, 0, 10, 0);
+				document.open();
+
+				PdfPTable table = new PdfPTable(6);
+
+				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
+						Font.BOLD);
+
+				Paragraph p1 = new Paragraph();
+				p1.setIndentationLeft(20f);
+				p1.add(new Phrase(new Phrase("Entreprise : ")));
+				p1.add(new Phrase(client.getEnterprise_name() + "\n", boldFont));
+
+				p1.add(new Phrase(new Phrase("Adress : ")));
+				p1.add(new Phrase(client.getAddress(), boldFont));
+
+				p1.setSpacingBefore(10f);
+				p1.setSpacingAfter(10f);
+
+				document.add(p1);
+
+				Paragraph p2 = new Paragraph();
+				p2.setIndentationLeft(20f);
+				p2.add(new Phrase(new Phrase("Email : ")));
+				p2.add(new Phrase(client.getContact_email() + "       ",
+						boldFont));
+
+				p2.add(new Phrase(new Phrase("Tel : ")));
+				p2.add(new Phrase(client.getContact_tel() + "       ", boldFont));
+
+				p2.add(new Phrase(new Phrase("Date : ")));
+				p2.add(new Phrase(orderTV.getOrdered_at_formated(), boldFont));
+
+				p2.setSpacingBefore(10f);
+				p2.setSpacingAfter(10f);
+
+				document.add(p2);
+
+				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f,
+						40f };
+				table.setWidths(columnWidths);
+
+				table.setHeaderRows(1);
+				// table.se
+				creatTablePDF(table, orderTV);
+
+				document.add(table);
+
+				document.close();
+
+			} catch (DocumentException | FileNotFoundException ex) {
+				ex.printStackTrace();
+			}
+		});
+
 		orderTableView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
@@ -167,6 +252,62 @@ public class ShowOrdersController implements Initializable {
 						showOrderBtn.setDisable(true);
 					}
 				});
+	}
+
+	private void creatTablePDF(PdfPTable table, OrderTV orderTV) {
+		orderLinesList = OrderLineManager.getByOrderId(orderTV.getId());
+		Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+
+		PdfPCell c1 = new PdfPCell(new Phrase("UPC", boldFont));
+		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(c1);
+
+		c1 = new PdfPCell(new Phrase("Produit", boldFont));
+		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(c1);
+
+		c1 = new PdfPCell(new Phrase("Prix ($)", boldFont));
+		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(c1);
+
+		c1 = new PdfPCell(new Phrase("Prix ajusté ($)", boldFont));
+		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(c1);
+
+		c1 = new PdfPCell(new Phrase("Quantité", boldFont));
+		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(c1);
+
+		c1 = new PdfPCell(new Phrase("Total ($)", boldFont));
+		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(c1);
+
+		for (OrderLineTV orderLineTV : orderLinesList) {
+			c1 = new PdfPCell(new Phrase("" + orderLineTV.getUpc()));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+
+			c1 = new PdfPCell(new Phrase(orderLineTV.getName()));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+
+			c1 = new PdfPCell(new Phrase("" + orderLineTV.getSelling_price()));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+
+			c1 = new PdfPCell(new Phrase("" + orderLineTV.getModified_price()));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+
+			c1 = new PdfPCell(new Phrase("" + orderLineTV.getQuantity()));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+
+			c1 = new PdfPCell(new Phrase("" + orderLineTV.getTotal()));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+		}
+
 	}
 
 	public void initTableView() {
