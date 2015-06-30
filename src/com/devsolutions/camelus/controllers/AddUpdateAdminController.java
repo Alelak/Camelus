@@ -3,12 +3,15 @@ package com.devsolutions.camelus.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Admin;
+import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomInfoBox;
 
 import javafx.event.ActionEvent;
@@ -50,7 +53,13 @@ public class AddUpdateAdminController implements Initializable {
 	private TextField sintxt;
 	@FXML
 	private DatePicker hiredatetxt;
+	@FXML
+	private Label titleWindow;
 	private ShowAdminsController showAdminsController;
+	private Admin adminToUpdate;
+
+	private Admin adminToShow;
+	private int index;
 	private Stage stage;
 	private double initialX;
 	private double initialY;
@@ -78,6 +87,9 @@ public class AddUpdateAdminController implements Initializable {
 					String fname = fnametxt.getText().trim();
 					String sin = sintxt.getText().trim();
 					String date = null;
+					Admin adminByLogin = AdminManager.getByUserName(login);
+					Vendor vendorBySin = VendorManager.getBySin(sin);
+					Admin adminBySin = AdminManager.getBySin(sin);
 					if (hiredatetxt.getValue() != null) {
 						date = hiredatetxt.getValue().toString();
 					}
@@ -87,23 +99,49 @@ public class AddUpdateAdminController implements Initializable {
 						valid = false;
 						feedbackmsg += "Tous les champs avec une etoile sont requis.\n";
 					}
-
-					if (AdminManager.getByUserName(login) != null) {
-						feedbackmsg += "Ce nom d'utilisateur a etait deja choisie. \n";
-						valid = false;
-					}
 					if (password.length() < 8) {
 						valid = false;
 						feedbackmsg += "Mot de passe de 8 caracteres et plus. \n";
 					}
-					if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-						valid = false;
+					if (adminToUpdate != null) {
+						if (login.isEmpty()) {
+							valid = false;
+						} else if (adminByLogin != null
+								&& !adminByLogin.getLogin().equals(
+										adminToUpdate.getLogin())) {
+							feedbackmsg += "Ce nom d'utilisateur a etait deja choisie. \n";
+							valid = false;
+						}
+						if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+							valid = false;
 
-						feedbackmsg += "Le NAS doit etre un nombre de 9 chiffres. \n";
-					} else if (AdminManager.getBySin(sin) != null
-							&& VendorManager.getBySin(sin) != null) {
-						valid = false;
-						feedbackmsg += "Ce NAS existe deja, veuillez saisir un NAS valide.\n";
+							feedbackmsg += "Le NAS doit etre un nombre de 9 chiffres. \n";
+						} else if (adminBySin != null
+								&& vendorBySin != null
+								&& !adminBySin.getSin().equals(
+										adminToUpdate.getSin())
+								&& !vendorBySin.getSin().equals(
+										adminToUpdate.getSin())) {
+							feedbackmsg += "Ce NAS existe deja, veuillez saisir un NAS valide. \n";
+							valid = false;
+
+						}
+					} else {
+						if (login.isEmpty()) {
+							valid = false;
+						} else if (adminByLogin != null) {
+							feedbackmsg += "Ce nom d'utilisateur a etait deja choisie. \n";
+							valid = false;
+						}
+						if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+							valid = false;
+
+							feedbackmsg += "Le NAS doit etre un nombre de 9 chiffres. \n";
+						} else if (adminBySin != null && vendorBySin != null) {
+							feedbackmsg += "Ce NAS existe deja, veuillez saisir un NAS valide. \n";
+							valid = false;
+
+						}
 					}
 					if (valid) {
 						SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
@@ -123,8 +161,14 @@ public class AddUpdateAdminController implements Initializable {
 						} else {
 							admin.setHire_date(new Date());
 						}
-						AdminManager.add(admin);
-						showAdminsController.addToTable(admin);
+						if (adminToUpdate != null) {
+							admin.setId(adminToUpdate.getId());
+							AdminManager.update(admin);
+							showAdminsController.updateTable(index, admin);
+						} else {
+							AdminManager.add(admin);
+							showAdminsController.addToTable(admin);
+						}
 						stage.close();
 					} else {
 						try {
@@ -161,7 +205,47 @@ public class AddUpdateAdminController implements Initializable {
 		});
 	}
 
-	public void initStageAndData(ShowAdminsController showAdminsController) {
+	public void initStageAndData(ShowAdminsController showAdminsController,
+			Admin admin, int index, CRUD type) {
 		this.showAdminsController = showAdminsController;
+		switch (type) {
+		case CREATE:
+			titleWindow.setText("Ajouter Admin");
+			break;
+		case READ:
+			titleWindow.setText("Consulter Admin");
+			btnAddUpdate.setVisible(false);
+			btnCancel.setText("Quitter");
+			this.adminToShow = admin;
+			this.index = index;
+			setData(adminToShow);
+			logintxt.setEditable(false);
+			passwordtxt.setEditable(false);
+			lnametxt.setEditable(false);
+			fnametxt.setEditable(false);
+			sintxt.setEditable(false);
+			hiredatetxt.setEditable(false);
+			break;
+		case UPDATE:
+			titleWindow.setText("Modifier Admin");
+			btnAddUpdate.setText("Modifier");
+			this.adminToUpdate = admin;
+			this.index = index;
+			setData(adminToUpdate);
+			break;
+		default:
+			titleWindow.setText("Default");
+			break;
+		}
+	}
+
+	private void setData(Admin admin) {
+		logintxt.setText(admin.getLogin());
+		passwordtxt.setText(admin.getPassword());
+		lnametxt.setText(admin.getLname());
+		fnametxt.setText(admin.getFname());
+		sintxt.setText(admin.getSin());
+		hiredatetxt.setValue(admin.getHire_date().toInstant()
+				.atZone(ZoneId.systemDefault()).toLocalDate());
 	}
 }

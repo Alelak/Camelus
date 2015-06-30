@@ -27,9 +27,10 @@
 			</GridPane.margin>
 			<children>
 				<Button fx:id="addBtn" text="Ajouter"></Button>
-				<Button fx:id="updateBtn" text="Modifier"></Button>
-				<Button fx:id="deleteBtn" text="Supprimer"></Button>
-				<Button fx:id="showDetailsBtn" text="Consulter"></Button>
+				<Button disable="true" fx:id="updateBtn" text="Modifier"></Button>
+				<Button disable="true" fx:id="showDetailsBtn" text="Consulter"></Button>
+				<Button disable="true" fx:id="deleteBtn" text="Supprimer"></Button>
+
 			</children>
 		</HBox>
 		<TableView prefWidth="1000" fx:id="adminsTableView"

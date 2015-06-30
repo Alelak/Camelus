@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.managers.AdminManager;
+import com.devsolutions.camelus.utils.CRUD;
 
 public class ShowAdminsController implements Initializable {
 
@@ -71,32 +74,69 @@ public class ShowAdminsController implements Initializable {
 		adminsOb = FXCollections.observableArrayList(AdminManager.getAll());
 		adminsTableView.setItems(adminsOb);
 		addBtn.setOnAction(e -> {
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource(
-						"../views/addupdateadmin.fxml"));
-
-				Stage newStage = new Stage();
-				Scene scene = new Scene(loader.load());
-				AddUpdateAdminController addUpdateAdminController = loader
-						.<AddUpdateAdminController> getController();
-				addUpdateAdminController.initStageAndData(this);
-				newStage.setScene(scene);
-				newStage.initStyle(StageStyle.UNDECORATED);
-				newStage.initOwner(addBtn.getScene().getWindow());
-				newStage.initModality(Modality.APPLICATION_MODAL);
-				newStage.setTitle("Ajouter Admin");
-				newStage.show();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			showAddUpdateWindow(null, -1, CRUD.CREATE);
 		});
+
+		adminsTableView.getSelectionModel().selectedIndexProperty()
+				.addListener(new ChangeListener<Number>() {
+
+					@Override
+					public void changed(
+							ObservableValue<? extends Number> observable,
+							Number oldValue, Number newValue) {
+						updateBtn.setDisable(false);
+						deleteBtn.setDisable(false);
+						showDetailsBtn.setDisable(false);
+					}
+
+				});
+
+		updateBtn.setOnAction(e -> {
+			showAddUpdateWindow(adminsTableView.getSelectionModel()
+					.getSelectedItem(), adminsTableView.getSelectionModel()
+					.getSelectedIndex(), CRUD.UPDATE);
+		});
+		deleteBtn.setOnAction(e -> {
+			Admin adminTodelete = adminsTableView.getSelectionModel()
+					.getSelectedItem();
+			adminsOb.remove(adminTodelete);
+			AdminManager.delete(adminTodelete.getId());
+
+		});
+		showDetailsBtn.setOnAction(e -> {
+			showAddUpdateWindow(adminsTableView.getSelectionModel()
+					.getSelectedItem(), adminsTableView.getSelectionModel()
+					.getSelectedIndex(), CRUD.READ);
+		});
+
 	}
 
 	public void addToTable(Admin admin) {
 		adminsOb.add(admin);
 	}
 
-	public void updateTable(int index , Admin admin){
+	public void updateTable(int index, Admin admin) {
 		adminsOb.set(index, admin);
+	}
+
+	private void showAddUpdateWindow(Admin adminToupdate, int index, CRUD type) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(
+					"../views/addupdateadmin.fxml"));
+
+			Stage newStage = new Stage();
+			Scene scene = new Scene(loader.load());
+			AddUpdateAdminController addUpdateAdminController = loader
+					.<AddUpdateAdminController> getController();
+			addUpdateAdminController.initStageAndData(this, adminToupdate,
+					index, type);
+			newStage.setScene(scene);
+			newStage.initStyle(StageStyle.UNDECORATED);
+			newStage.initOwner(addBtn.getScene().getWindow());
+			newStage.initModality(Modality.APPLICATION_MODAL);
+			newStage.show();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }

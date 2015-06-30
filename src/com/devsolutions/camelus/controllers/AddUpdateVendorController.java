@@ -128,9 +128,11 @@ public class AddUpdateVendorController implements Initializable {
 					invalidFields += " - Ce nom d'utilisateur a �tait d�j� choisie \n";
 				}
 
-				if (vendorBySin != null
+				if (adminBySin != null
+						&& vendorBySin != null
 						&& !vendorBySin.getSin()
-								.equals(vendorToUpdate.getSin())) {
+								.equals(vendorToUpdate.getSin())
+						&& !adminBySin.getSin().equals(vendorToUpdate.getSin())) {
 					validfields = false;
 					invalidFields += " - Ce NAS existe d�j�, veuillez saisir un NAS valide. \n";
 				}

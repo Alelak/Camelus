@@ -39,7 +39,7 @@
 
 			<children>
 
-				<Label text="Ajouter Admin" GridPane.ColumnIndex="0" id="titleWindow">
+				<Label  GridPane.ColumnIndex="0" fx:id="titleWindow">
 					<padding>
 						<Insets left="7" />
 					</padding>
