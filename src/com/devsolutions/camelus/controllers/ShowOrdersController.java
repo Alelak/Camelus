@@ -1,6 +1,7 @@
 package com.devsolutions.camelus.controllers;
 
 import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.List;
@@ -34,12 +35,15 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 
 public class ShowOrdersController implements Initializable {
 
@@ -196,46 +200,100 @@ public class ShowOrdersController implements Initializable {
 
 				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
 						Font.BOLD);
+				
+				LineSeparator ls = new LineSeparator();
 
 				Paragraph p1 = new Paragraph();
-				p1.setIndentationLeft(20f);
-				p1.add(new Phrase(new Phrase("Entreprise : ")));
-				p1.add(new Phrase(client.getEnterprise_name() + "\n", boldFont));
+				p1.add(ls);
+				p1.setSpacingAfter(25f);
+				p1.setSpacingBefore(25f);
 
-				p1.add(new Phrase(new Phrase("Adress : ")));
-				p1.add(new Phrase(client.getAddress(), boldFont));
+				try {
+					Font boldFontHeaderFields = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+					//Font boldFontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.);
+					Image image = Image.getInstance("src/images/logo-gfc.png");
+					PdfPTable tabHeader = new PdfPTable(2);
+					tabHeader.setWidthPercentage(100);
+					
+				    PdfPCell cell1 = new PdfPCell(image, true);
+				    cell1.setBorder(Rectangle.NO_BORDER);
+				    tabHeader.addCell(cell1);
+				    
+				    PdfPCell cell2 = new PdfPCell();
+				    
+				    Paragraph p = new Paragraph(new Phrase("Numéro de commande : " + orderTV.getId() +"\n",boldFontHeaderFields));
+				    p.add(new Phrase("Numéro du client          : " + orderTV.getClient_id() +"\n",boldFontHeaderFields));
+				    p.add(new Phrase("Numéro du vendeur     : " + orderTV.getAssociated_vendor(),boldFontHeaderFields));
+				    
+				    p.setIndentationLeft(50f);
+				    cell2.addElement(p);
+				    cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				    cell2.setBorder(Rectangle.NO_BORDER);
+				    tabHeader.addCell(cell2);
+				    document.add(tabHeader);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 
-				p1.setSpacingBefore(10f);
-				p1.setSpacingAfter(10f);
-
+				
+				Font boldFontTitle = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
+				Paragraph p = new Paragraph("Bon de commande",boldFontTitle);
+				p.setIndentationLeft(200f);
+				document.add(p);
+				
 				document.add(p1);
-
+				
 				Paragraph p2 = new Paragraph();
 				p2.setIndentationLeft(20f);
-				p2.add(new Phrase(new Phrase("Email : ")));
-				p2.add(new Phrase(client.getContact_email() + "       ",
-						boldFont));
+				p2.add(new Phrase("Entreprise : "));
+				p2.add(new Phrase(client.getEnterprise_name() + "\n", boldFont));
 
-				p2.add(new Phrase(new Phrase("Tel : ")));
-				p2.add(new Phrase(client.getContact_tel() + "       ", boldFont));
-
-				p2.add(new Phrase(new Phrase("Date : ")));
-				p2.add(new Phrase(orderTV.getOrdered_at_formated(), boldFont));
+				p2.add(new Phrase("Adress     : "));
+				p2.add(new Phrase(client.getAddress(), boldFont));
 
 				p2.setSpacingBefore(10f);
 				p2.setSpacingAfter(10f);
 
 				document.add(p2);
 
+				Paragraph p3 = new Paragraph();
+				p3.setIndentationLeft(20f);
+				p3.add(new Phrase("Email : "));
+				p3.add(new Phrase(client.getContact_email() + "       ",
+						boldFont));
+
+				p3.add(new Phrase("Tel : "));
+				p3.add(new Phrase(client.getContact_tel() + "       ", boldFont));
+
+				p3.add(new Phrase("Date : "));
+				p3.add(new Phrase(orderTV.getOrdered_at_formated(), boldFont));
+
+				p3.setSpacingBefore(10f);
+				p3.setSpacingAfter(10f);
+
+				document.add(p3);
+
+				document.add(p3);
+
 				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f,
 						40f };
 				table.setWidths(columnWidths);
 
 				table.setHeaderRows(1);
-				// table.se
-				creatTablePDF(table, orderTV);
 
-				document.add(table);
+				creatTablePDF(table, orderTV);
+				
+				Font boldFontDetails = new Font(Font.FontFamily.HELVETICA, 18,
+						Font.BOLD);
+				Paragraph p4 = new Paragraph(new Phrase("Détails : ",boldFontDetails));
+				p4.setIndentationLeft(20f);
+				p4.setSpacingAfter(50f);
+				document.add(p4);
+				
+				Paragraph p5 = new Paragraph();
+				p5.setSpacingAfter(20f);
+				p5.add(table);
+				document.add(p5);
 
 				document.close();
 

@@ -6,6 +6,7 @@ import java.util.Date;
 public class OrderTV {
 	private long id;
 	private long client_id;
+	private int associated_vendor;
 	private int commission_id;
 	private String fname; // prenom du vendeur
 	private String lname; // nom du vendeur
@@ -76,6 +77,14 @@ public class OrderTV {
 
 	public void setOrdered_at(Date ordered_at) {
 		this.ordered_at = ordered_at;
+	}
+
+	public int getAssociated_vendor() {
+		return associated_vendor;
+	}
+
+	public void setAssociated_vendor(int associated_vendor) {
+		this.associated_vendor = associated_vendor;
 	}
 
 	public String getOrdered_at_formated() {
