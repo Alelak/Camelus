@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,17 +15,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductTableView;
+
 import com.devsolutions.camelus.managers.ProductManager;
 
 public class ShowProductsController implements Initializable {
 	@FXML
 	private Button btnSearchProduct;
+	@FXML
+	private TextField txtFiledSearch;
 	@FXML
 	private Button btnAddProduct;
 	@FXML
@@ -31,7 +37,7 @@ public class ShowProductsController implements Initializable {
 	@FXML
 	private Button btnDeleteProduct;
 	@FXML
-	private Button btnShowAllProduct;
+	private Button btnShowProduct;
 	@FXML
 	private TableView<ProductTableView> tableViewProduct;
 	private List<ProductTableView> productsList;
@@ -43,6 +49,7 @@ public class ShowProductsController implements Initializable {
 	private TableColumn<ProductTableView, String> quantityCol;
 	private TableColumn<ProductTableView, String> categoryCol;
 	private TableColumn<ProductTableView, String> priceSellingcol;
+	private SortedList<ProductTableView> sortedData;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -51,6 +58,44 @@ public class ShowProductsController implements Initializable {
 		initTableView();
 		tableViewProduct.getColumns().addAll(idCol, upcCol, nameCol,
 				quantityCol, categoryCol, priceSellingcol);
+
+		FilteredList<ProductTableView> filteredData = new FilteredList<>(
+				productsObservableList, p -> true);
+
+		txtFiledSearch.textProperty().addListener(
+				(observable, oldValue, newValue) -> {
+					filteredData.setPredicate(ProductTableView -> {
+						if (newValue == null || newValue.isEmpty()) {
+							return true;
+						}
+
+						String lowerCaseFilter = newValue.toLowerCase();
+						String id = ProductTableView.getId() + "";
+
+						if (ProductTableView.getUpc().toLowerCase()
+								.contains(lowerCaseFilter)) {
+							return true;
+						} else if (ProductTableView.getName().toLowerCase()
+								.contains(lowerCaseFilter)) {
+							return true;
+						} else if (ProductTableView.getDescriptionCategory()
+								.toLowerCase().contains(lowerCaseFilter)) {
+							return true;
+						} else if (id.contains(lowerCaseFilter)) {
+							return true;
+						}
+
+						return false;
+					});
+				});
+
+		sortedData = new SortedList<>(filteredData);
+
+		sortedData.comparatorProperty().bind(
+				tableViewProduct.comparatorProperty());
+
+		tableViewProduct.setItems(sortedData);
+
 		btnAddProduct.setOnAction(e -> {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -115,7 +160,7 @@ public class ShowProductsController implements Initializable {
 						}
 					}
 				});
-		btnShowAllProduct
+		btnShowProduct
 				.setOnAction(e -> {
 					int index = tableViewProduct.getSelectionModel()
 							.getSelectedIndex();
@@ -160,10 +205,22 @@ public class ShowProductsController implements Initializable {
 			if (productTable != null) {
 				ProductManager.delete(productTable.getId());
 
-				tableViewProduct.getItems().remove(productTable);
+				productsObservableList.remove(productTable);
 			}
 
 		});
+		tableViewProduct.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
+						btnDeleteProduct.setDisable(false);
+						btnShowProduct.setDisable(false);
+						btnUpdateProduct.setDisable(false);
+					} else {
+						btnDeleteProduct.setDisable(true);
+						btnShowProduct.setDisable(true);
+						btnUpdateProduct.setDisable(true);
+					}
+				});
 	}
 
 	public void initTableView() {
@@ -198,19 +255,13 @@ public class ShowProductsController implements Initializable {
 
 		productsObservableList.addAll(productsList);
 
-		tableViewProduct.setItems(productsObservableList);
-
 	}
 
 	public void addToTableView(ProductTableView product) {
-		tableViewProduct.getItems().add(product);
-	}
-
-	public void removeFromTableView(ProductTableView product) {
-		tableViewProduct.getItems().remove(product);
+		productsObservableList.add(product);
 	}
 
 	public void updateTableView(int index, ProductTableView product) {
-		tableViewProduct.getItems().set(index, product);
+		productsObservableList.set(index, product);
 	}
 }

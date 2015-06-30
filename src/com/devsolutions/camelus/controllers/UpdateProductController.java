@@ -76,7 +76,7 @@ public class UpdateProductController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		btnAddImg.setOnAction(e -> {
-			System.out.println(category.getValue().toString());
+
 			addPicture();
 			Showimage();
 		});
@@ -93,7 +93,7 @@ public class UpdateProductController implements Initializable {
 				ProductManager.update(updateProduct());
 				ProductTableView productTable = new ProductTableView();
 				productTable.setId(product.getId());
-				System.out.println("valeur produit`==" + product.getId());
+
 				productTable.setName(product.getName());
 				productTable.setQuantity(product.getQuantity());
 				productTable.setUpc(product.getUpc());
@@ -190,7 +190,6 @@ public class UpdateProductController implements Initializable {
 		imageInByte = productToUpdate.getImg();
 		Showimage();
 
-		System.out.println(imageInByte);
 		listChoiceBoxUnit(productToUpdate.getUnit_id());
 		listChoiceBoxCategory(productToUpdate.getCategory_id());
 

@@ -10,129 +10,132 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowProductController">
-  <children>
-      <VBox layoutX="6.0" prefHeight="463.0" prefWidth="352.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <ImageView fx:id="imageProduct" fitHeight="114.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true" />
-                  <VBox prefHeight="114.0" prefWidth="192.0">
-                     <children>
-                        <Label text="Name : " />
-                        <Label fx:id="name" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="34.0" prefWidth="352.0">
-               <children>
-                  <Label text="UPC : ">
-                     <HBox.margin>
-                        <Insets right="62.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="upc" />
-                  <VBox prefHeight="34.0" prefWidth="200.0" />
-                  <Label prefHeight="14.0" prefWidth="20.0" text="(*)" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="39.0" prefWidth="352.0">
-               <children>
-                  <Label text="Quantity : ">
-                     <HBox.margin>
-                        <Insets right="50.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="quantity" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="36.0" prefWidth="352.0">
-               <children>
-                  <Label text="Unit : ">
-                     <HBox.margin>
-                        <Insets right="73.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label text="Label" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="37.0" prefWidth="352.0">
-               <children>
-                  <Label text="Category : ">
-                     <HBox.margin>
-                        <Insets right="50.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label text="Label" />
-               
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="33.0" prefWidth="352.0">
-               <children>
-                  <Label text="Cost Price : ">
-                     <HBox.margin>
-                        <Insets right="47.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label text="Label" />
-                  <Label text="\$">
-                     <HBox.margin>
-                        <Insets left="5.0" top="4.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="33.0" prefWidth="352.0">
-               <children>
-                  <Label text="Selling Price : ">
-                     <HBox.margin>
-                        <Insets right="37.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label text="Label" />
-                  <Label text="\$">
-                     <HBox.margin>
-                        <Insets left="5.0" top="4.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="14.0" prefWidth="79.0" text="Description : ">
-                     <HBox.margin>
-                        <Insets right="40.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextArea fx:id="description" disable="true" prefHeight="46.0" prefWidth="200.0" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="btnCancelProduct" mnemonicParsing="false" prefHeight="22.0" prefWidth="64.0" text="Terminer">
-                     <HBox.margin>
-                        <Insets top="30.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>	
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.ShowProductController">
+	<children>
+		<VBox layoutX="6.0" prefHeight="463.0" prefWidth="352.0">
+			<children>
+				<HBox prefHeight="100.0" prefWidth="200.0">
+					<children>
+						<ImageView fx:id="imageProduct" fitHeight="114.0"
+							fitWidth="163.0" pickOnBounds="true" preserveRatio="true" />
+						<VBox prefHeight="114.0" prefWidth="192.0">
+							<children>
+								<Label text="Name : " />
+								<Label fx:id="name" />
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+				<HBox prefHeight="34.0" prefWidth="352.0">
+					<children>
+						<Label text="UPC : ">
+							<HBox.margin>
+								<Insets right="62.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="upc" />
+						<VBox prefHeight="34.0" prefWidth="200.0" />
+
+					</children>
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</HBox>
+				<HBox prefHeight="39.0" prefWidth="352.0">
+					<children>
+						<Label text="Quantity : ">
+							<HBox.margin>
+								<Insets right="50.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="quantity" />
+					</children>
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</HBox>
+				<HBox prefHeight="36.0" prefWidth="352.0">
+					<children>
+						<Label text="Unit : ">
+							<HBox.margin>
+								<Insets right="73.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="unit" />
+					</children>
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</HBox>
+				<HBox prefHeight="37.0" prefWidth="352.0">
+					<children>
+						<Label text="Category : ">
+							<HBox.margin>
+								<Insets right="50.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="category" />
+
+					</children>
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</HBox>
+				<HBox prefHeight="33.0" prefWidth="352.0">
+					<children>
+						<Label text="Cost Price : ">
+							<HBox.margin>
+								<Insets right="47.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="costPrice" />
+						<Label text="\$">
+							<HBox.margin>
+								<Insets left="5.0" top="4.0" />
+							</HBox.margin>
+						</Label>
+					</children>
+				</HBox>
+				<HBox prefHeight="33.0" prefWidth="352.0">
+					<children>
+						<Label text="Selling Price : ">
+							<HBox.margin>
+								<Insets right="37.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="sellingPrice" />
+						<Label text="\$">
+							<HBox.margin>
+								<Insets left="5.0" top="4.0" />
+							</HBox.margin>
+						</Label>
+					</children>
+				</HBox>
+				<HBox prefHeight="100.0" prefWidth="200.0">
+					<children>
+						<Label prefHeight="14.0" prefWidth="79.0" text="Description : ">
+							<HBox.margin>
+								<Insets right="40.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="description" />
+					</children>
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</HBox>
+				<HBox prefHeight="100.0" prefWidth="200.0">
+					<children>
+						<Button fx:id="btnCancelProduct" mnemonicParsing="false"
+							prefHeight="22.0" prefWidth="64.0" text="Terminer">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+						</Button>
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</children>
 </AnchorPane>
