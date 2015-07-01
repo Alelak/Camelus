@@ -12,6 +12,9 @@
 <?import javafx.scene.image.*?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 
 <GridPane id="parent" gridLinesVisible="false" maxHeight="-Infinity"
 	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
@@ -128,7 +131,7 @@
 				</HBox>
 				<HBox spacing="2" GridPane.columnIndex="1"
 					style="-fx-background-color: #F5F5F5;" alignment="CENTER_RIGHT">
-					<Label prefWidth="30" prefHeight="30">
+					<MenuButton fx:id="settingsmenubutton">
 						<HBox.margin>
 							<Insets bottom="0" left="0" right="0" top="-5" />
 						</HBox.margin>
@@ -136,7 +139,12 @@
 							<FontAwesomeIconView styleClass="settings-font"
 								icon="ICON_COGS" />
 						</graphic>
-					</Label>
+						<items>
+							<MenuItem text="item 1"></MenuItem>
+							<MenuItem text="item 2"></MenuItem>
+							<MenuItem text="item 3"></MenuItem>
+						</items>
+					</MenuButton>
 					<Label prefWidth="30" prefHeight="30">
 						<HBox.margin>
 							<Insets bottom="0" left="0" right="0" top="-5" />
