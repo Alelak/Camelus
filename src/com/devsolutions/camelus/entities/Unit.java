@@ -7,6 +7,7 @@ public class Unit {
 	private String description;
 	private Date created_at;
 	private Date updated_at;
+	private int deleted;
 
 	public int getId() {
 		return id;
@@ -22,6 +23,14 @@ public class Unit {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
 	}
 
 	public Date getCreated_at() {

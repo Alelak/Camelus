@@ -20,10 +20,15 @@ public class UnitManagerTest {
 		}
 	}
 
+	public void delete() {
+		UnitManager.delete(1);
+	}
+
 	public static void main(String[] args) {
 		UnitManagerTest unitManagerTest = new UnitManagerTest();
 		unitManagerTest.insert();
 		unitManagerTest.getAll();
+		unitManagerTest.delete();
 
 	}
 

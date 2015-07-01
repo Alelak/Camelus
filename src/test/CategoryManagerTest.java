@@ -24,11 +24,16 @@ public class CategoryManagerTest {
 		System.out.println(CategoryManager.getById(1).getDescription());
 	}
 
+	public void delete() {
+		CategoryManager.delete(1);
+	}
+
 	public static void main(String args[]) {
 		CategoryManagerTest categoryManagerTest = new CategoryManagerTest();
 		categoryManagerTest.add();
 		categoryManagerTest.getById();
 		categoryManagerTest.getAll();
+		categoryManagerTest.delete();
 	}
 
 }

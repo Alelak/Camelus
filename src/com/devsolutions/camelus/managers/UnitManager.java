@@ -16,7 +16,7 @@ public class UnitManager {
 		session.close();
 		return units;
 	}
-	
+
 	public static Unit getById(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Unit unit = session.getMapper(UnitMapper.class).getById(id);
@@ -27,6 +27,13 @@ public class UnitManager {
 	public static void add(String description) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(UnitMapper.class).add(description);
+		session.commit();
+		session.close();
+	}
+
+	public static void delete(int id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(UnitMapper.class).delete(id);
 		session.commit();
 		session.close();
 	}

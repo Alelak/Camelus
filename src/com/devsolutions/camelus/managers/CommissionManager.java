@@ -24,13 +24,19 @@ public class CommissionManager {
 		session.close();
 		return commissions;
 	}
-	
+
 	public static Commission getById(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Commission commission = session
-				.getMapper(CommissionMapper.class).getById(id);
+		Commission commission = session.getMapper(CommissionMapper.class)
+				.getById(id);
 		session.close();
 		return commission;
 	}
 
+	public static void delete(int id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(CommissionMapper.class).delete(id);
+		session.commit();
+		session.close();
+	}
 }

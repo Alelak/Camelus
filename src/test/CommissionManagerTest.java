@@ -24,10 +24,15 @@ public class CommissionManagerTest {
 		}
 	}
 
+	public void delete() {
+		CommissionManager.delete(1);
+	}
+
 	public static void main(String[] args) {
 		CommissionManagerTest commissionManagerTest = new CommissionManagerTest();
 		commissionManagerTest.insert();
 		commissionManagerTest.getAll();
+		commissionManagerTest.delete();
 	}
 
 }

@@ -8,6 +8,7 @@ public class Category {
 	private String description;
 	private Date updated_at;
 	private Date created_at;
+	private int deleted;
 
 	public int getId() {
 		return id;
@@ -23,6 +24,14 @@ public class Category {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
 	}
 
 	public Date getUpdated_at() {

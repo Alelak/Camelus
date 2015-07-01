@@ -32,11 +32,10 @@ public class OrderManager {
 		session.close();
 		return orders;
 	}
-	
+
 	public static List<OrderTV> getAllTV() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<OrderTV> orders = session.getMapper(OrderMapper.class)
-				.getAllTV();
+		List<OrderTV> orders = session.getMapper(OrderMapper.class).getAllTV();
 		session.close();
 		return orders;
 	}
@@ -54,5 +53,12 @@ public class OrderManager {
 		Order order = session.getMapper(OrderMapper.class).getById(id);
 		session.close();
 		return order;
+	}
+
+	public static void cancel(long id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(OrderMapper.class).cancel(id);
+		session.commit();
+		session.close();
 	}
 }

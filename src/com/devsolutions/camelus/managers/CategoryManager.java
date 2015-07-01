@@ -33,4 +33,11 @@ public class CategoryManager {
 		session.commit();
 		session.close();
 	}
+
+	public static void delete(int id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(CategoryMapper.class).delete(id);
+		session.commit();
+		session.close();
+	}
 }
