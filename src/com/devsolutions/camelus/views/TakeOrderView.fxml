@@ -149,10 +149,22 @@
 																								<Insets bottom="5.0" left="5.0" right="5.0" />
 																							</VBox.margin>
 																						</HBox>
+                                                                  <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Label prefWidth="90.0" text="Prix coutant : " />
+                                                                        <Label fx:id="costPriceLabel">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="12.0" />
+                                                                           </font></Label>
+                                                                     </children>
+                                                                     <VBox.margin>
+                                                                        <Insets left="5.0" right="5.0" />
+                                                                     </VBox.margin>
+                                                                  </HBox>
 																						<HBox prefHeight="8.0" prefWidth="178.0">
 																							<children>
 																								<Label prefWidth="90.0" text="Prix vendant : " />
-																								<Label fx:id="priceLabel">
+																								<Label fx:id="sellingPriceLabel">
 																									<font>
 																										<Font name="System Bold" size="12.0" />
 																									</font>

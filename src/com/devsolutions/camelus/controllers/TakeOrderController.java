@@ -62,7 +62,9 @@ public class TakeOrderController implements Initializable {
 	@FXML
 	private Label unitLabel;
 	@FXML
-	private Label priceLabel;
+	private Label costPriceLabel;
+	@FXML
+	private Label sellingPriceLabel;
 	@FXML
 	private Label categoryLabel;
 
@@ -124,7 +126,7 @@ public class TakeOrderController implements Initializable {
 		clientfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
 		unites = UnitManager.getAll();
-
+		
 		currentVendor = Session.vendor;
 
 		products = ProductManager.getAll();
@@ -153,15 +155,17 @@ public class TakeOrderController implements Initializable {
 					boolean validfields = true;
 					String quantity = quantityField.getText().trim();
 					String modifiedPrice = modifiedPriceField.getText().trim();
+					double minModifiedPrice = currentProduct.getCost_price()+ (currentProduct.getCost_price()*10)/100;
+
 					if (!StringUtils.isInteger(quantity)) {
-						invalidFields += " - Veuillez saisir une quantite valide. \n";
+						invalidFields += " - Veuillez saisir une quantité valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) <= 0) {
-						invalidFields += " - Veuillez saisir une quantite valide. \n";
+						invalidFields += " - Veuillez saisir une quantité valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) > currentProduct
 							.getQuantity()) {
-						invalidFields += " - La quantitï¿½ disponible ne peut satisfaire votre demande! \n";
+						invalidFields += " - La quantité disponible ne peut satisfaire votre demande! \n";
 						validfields = false;
 					}
 
@@ -173,6 +177,11 @@ public class TakeOrderController implements Initializable {
 								.getText()) <= 0) {
 							invalidFields += " - Veuillez saisir un prix valide \n";
 							validfields = false;
+						}else if(Double.parseDouble(modifiedPriceField
+								.getText()) < minModifiedPrice)
+						{
+							invalidFields += " - Le prix ajusté ne peut être plus petit que : "+minModifiedPrice+ " $.\n";
+							validfields = false;
 						}
 					}
 
@@ -181,7 +190,7 @@ public class TakeOrderController implements Initializable {
 								.getItems()) {
 							if (productToOrderTV.getId() == currentProduct
 									.getId()) {
-								invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veillez le modifier ou le supprimmer  \n";
+								invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimmer  \n";
 								validfields = false;
 							}
 						}
@@ -194,7 +203,7 @@ public class TakeOrderController implements Initializable {
 									.getId()) {
 								if (currentProduct.getId() != selectedProductToModifie
 										.getId()) {
-									invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veillez le modifier ou le supprimmer  \n";
+									invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimmer  \n";
 									validfields = false;
 
 								}
@@ -322,6 +331,7 @@ public class TakeOrderController implements Initializable {
 			orderTV.setClient_id(order.getClient_id());
 			orderTV.setId(order.getId());
 			orderTV.setComment(order.getComment());
+			orderTV.setAssociated_vendor(Session.vendor.getId());
 			orderTV.setCommission_id(currentVendor.getCommission_id());
 			orderTV.setEnterprise_name(currentClient.getEnterprise_name());
 			orderTV.setFname(currentVendor.getFname());
@@ -398,12 +408,13 @@ public class TakeOrderController implements Initializable {
 				}
 				for (Category category : categories) {
 					if (category.getId() == currentProduct.getCategory_id()) {
-						unitLabel.setText("" + category.getDescription());
+						categoryLabel.setText("" + category.getDescription());
 					}
 				}
 				upcLabel.setText("" + currentProduct.getUpc());
 				quantityLabel.setText("" + currentProduct.getQuantity());
-				priceLabel.setText(currentProduct.getSelling_price() + " $");
+				costPriceLabel.setText(currentProduct.getCost_price() + " $");
+				sellingPriceLabel.setText(currentProduct.getSelling_price() + " $");
 				productfound.set(true);
 			} else {
 				productfound.set(false);
@@ -425,7 +436,8 @@ public class TakeOrderController implements Initializable {
 		upcLabel.setText("");
 		quantityLabel.setText("");
 		unitLabel.setText("");
-		priceLabel.setText("");
+		costPriceLabel.setText("");
+		sellingPriceLabel.setText("");
 		categoryLabel.setText("");
 
 		quantityField.setText("");

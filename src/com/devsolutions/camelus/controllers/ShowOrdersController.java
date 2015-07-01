@@ -191,7 +191,7 @@ public class ShowOrdersController implements Initializable {
 			Client client = ClientManager.getById(orderTV.getClient_id());
 			try {
 				PdfWriter.getInstance(document, new FileOutputStream(
-						"Facture-No " + orderTV.getId() + ".pdf"));
+						"Commande-No " + orderTV.getId() + ".pdf"));
 				document.setPageSize(PageSize.A4);
 				document.setMargins(0, 0, 10, 0);
 				document.open();
@@ -248,7 +248,7 @@ public class ShowOrdersController implements Initializable {
 				p2.add(new Phrase("Entreprise : "));
 				p2.add(new Phrase(client.getEnterprise_name() + "\n", boldFont));
 
-				p2.add(new Phrase("Adress     : "));
+				p2.add(new Phrase("Adress      : "));
 				p2.add(new Phrase(client.getAddress(), boldFont));
 
 				p2.setSpacingBefore(10f);
@@ -273,8 +273,6 @@ public class ShowOrdersController implements Initializable {
 
 				document.add(p3);
 
-				document.add(p3);
-
 				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f,
 						40f };
 				table.setWidths(columnWidths);
@@ -294,7 +292,30 @@ public class ShowOrdersController implements Initializable {
 				p5.setSpacingAfter(20f);
 				p5.add(table);
 				document.add(p5);
-
+				
+				Font boldFontTotal = new Font(Font.FontFamily.HELVETICA, 14,
+						Font.BOLD);
+				
+				double total = 0;
+				for (OrderLineTV orderLineTV : orderLinesList) {
+				
+					total += orderLineTV.getTotal();
+				}
+				
+				Paragraph p6 = new Paragraph();
+				p6.setAlignment(Element.ALIGN_RIGHT);
+				p6.setIndentationRight(60f);
+				p6.setSpacingBefore(10f);
+				p6.add(new Phrase("Total de la commande : " + total + " $",boldFontTotal));
+				document.add(p6);
+				
+				Paragraph p7 = new Paragraph();
+				p7.setIndentationLeft(60f);
+				p7.setSpacingBefore(50f);
+				p7.setSpacingAfter(30f);
+				p7.add(new Phrase("Le : " + orderTV.getOrdered_at_formated() + "                                                  Signature : ",boldFontTotal));
+				document.add(p7);
+				
 				document.close();
 
 			} catch (DocumentException | FileNotFoundException ex) {
