@@ -65,7 +65,7 @@
 							<Button fx:id="btnSearch" prefWidth="120" styleClass="flat-btn"
 								text="Recherche">
 								<graphic>
-									<FontAwesomeIconView icon="ICON_SEARCH" />
+									<FontAwesomeIconView styleClass="whiteFont" icon="ICON_SEARCH" />
 								</graphic>
 							</Button>
 						</HBox>
@@ -77,12 +77,19 @@
 							<Button fx:id="btnRefresh" prefWidth="120" styleClass="flat-btn"
 								text="Actualiser">
 								<graphic>
-									<FontAwesomeIconView icon="ICON_REFRESH" />
+									<FontAwesomeIconView styleClass="whiteFont" icon="ICON_REFRESH" />
 								</graphic>
 							</Button>
 						</HBox>
-						<TableView fx:id="tableView" GridPane.rowIndex="1"
+						<TableView fx:id="clientTableView" GridPane.rowIndex="1"
 							GridPane.columnIndex="0" GridPane.columnSpan="2">
+							<columns>
+								<TableColumn fx:id="idColumn" text="Id" />
+								<TableColumn fx:id="enterprise_name_Column" text="Nom de l'entreprise"/>
+								<TableColumn fx:id="contact_name_Column" text="Nom et pénom" />
+								<TableColumn fx:id="contact_tel_Column" text="Numéro de téléphone" />
+								
+							</columns>
 						</TableView>
 					</children>
 				</GridPane>
@@ -94,30 +101,30 @@
 			<Button fx:id="btnAdd" prefWidth="120" styleClass="flat-btn"
 				text="Ajouter">
 				<graphic>
-					<FontAwesomeIconView icon="ICON_PLUS" />
+					<FontAwesomeIconView styleClass="whiteFont"  icon="ICON_PLUS" />
 				</graphic>
 			</Button>
-			<Button fx:id="btnUpdate" prefWidth="120" styleClass="flat-btn"
+			<Button   disable="true" fx:id="btnUpdate" prefWidth="120" styleClass="flat-btn"
 				text="Modifer">
 				<graphic>
-					<FontAwesomeIconView icon="ICON_PENCIL" />
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_PENCIL" />
 				</graphic>
 			</Button>
-			<Button fx:id="btnDelete" prefWidth="120" styleClass="flat-btn"
+			<Button disable="true" fx:id="btnDelete" prefWidth="120" styleClass="flat-btn"
 				text="Supprimer">
 				<graphic>
-					<FontAwesomeIconView icon="ICON_MINUS" />
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_MINUS" />
 				</graphic>
 			</Button>
-			<Button fx:id="btnConsult" prefWidth="120" styleClass="flat-btn"
+			<Button disable="true" fx:id="btnConsult" prefWidth="120" styleClass="flat-btn"
 				text="Consulter">
 				<graphic>
-					<FontAwesomeIconView icon="ICON_EYE_OPEN" />
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
 		</HBox>
 	</children>
 	<stylesheets>
-		<URL value="@Content.css"/>
+		<URL value="@Content.css" />
 	</stylesheets>
 </GridPane>

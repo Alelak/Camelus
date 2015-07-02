@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import com.devsolutions.camelus.entities.Client;
 
 public interface ClientMapper {
@@ -22,6 +21,9 @@ public interface ClientMapper {
 
 	@Select("SELECT * FROM clients WHERE id = #{id} AND " + DELETED_CONDITION)
 	Client getById(long id);
+	
+	@Select("SELECT * FROM clients WHERE enterprise_name = #{enterprise_name} AND contact_name = #{contact_name} AND " + DELETED_CONDITION)
+	Client getByEntrepriseAndClientName(Client client);
 
 	@Insert("INSERT INTO clients (associated_vendor, enterprise_name, contact_name, contact_tel, contact_email, address, description)"
 			+ " VALUES (#{associated_vendor}, #{enterprise_name}, #{contact_name}, #{contact_tel}, #{contact_email}, #{address}, #{description})")
@@ -34,6 +36,6 @@ public interface ClientMapper {
 
 	@Update("UPDATE  clients SET deleted = 1 WHERE id = #{id}")
 	@Options(flushCache = true)
-	void delete(int id);
+	void delete(long id);
 
 }

@@ -35,7 +35,9 @@
 }
 
 
-
+.whiteFont{
+	 -fx-text-fill: #FFFFFF;
+}
 .flat-btn {
 	-fx-font-family: 'Roboto Medium';
     -fx-background-radius: 0.0;

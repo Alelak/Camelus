@@ -31,6 +31,14 @@ public class ClientManager {
 		session.close();
 		return client;
 	}
+	
+	public static Client getByEntrepriseAndClientName(Client client) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		Client theClient = session.getMapper(ClientMapper.class).getByEntrepriseAndClientName(client);
+		session.close();
+		return theClient;
+	}
+	
 
 	public static void update(Client client) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
@@ -46,7 +54,7 @@ public class ClientManager {
 		session.close();
 	}
 
-	public static void delete(int id) {
+	public static void delete(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ClientMapper.class).delete(id);
 		session.commit();
