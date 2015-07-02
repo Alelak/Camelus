@@ -2,21 +2,18 @@ package com.devsolutions.camelus.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.ResourceBundle;
-
+import java.util.regex.Pattern;
 import com.devsolutions.camelus.entities.Client;
-
 import com.devsolutions.camelus.managers.ClientManager;
-
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomInfoBox;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -30,6 +27,10 @@ import javafx.stage.Stage;
 public class AddUpdateClientController implements Initializable {
 	private double initialX;
 	private double initialY;
+	private Client clientToUpdate;
+	private int index;
+	private Stage stage;
+	
 	private ShowClientsController showClientsController;
 	@FXML
 	private GridPane titleBar;
@@ -41,7 +42,6 @@ public class AddUpdateClientController implements Initializable {
 	private Button btnCancel;
 	@FXML
 	private Label titleWindow;
-
 	@FXML
 	private TextField enterprise_nameTxt;
 	@FXML
@@ -54,15 +54,77 @@ public class AddUpdateClientController implements Initializable {
 	private TextField addressTxt;
 	@FXML
 	private TextArea descriptionTxt;
-	private Client clientToUpdate;
-	private int index;
-	private Stage stage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addDraggableNode(titleBar);
-		btnAddUpdate.setOnAction(e -> {
 
+		contact_telTxt
+				.setOnKeyReleased(e -> {
+					if (validatePhoneNumber(contact_telTxt.getText().trim())) {
+						contact_telTxt
+								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+
+					} else {
+						contact_telTxt
+								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+					}
+				});
+
+		contact_telTxt.focusedProperty().addListener(
+				new ChangeListener<Boolean>() {
+					@Override
+					public void changed(
+							ObservableValue<? extends Boolean> arg0,
+							Boolean oldPropertyValue, Boolean newPropertyValue) {
+						if (!newPropertyValue) {
+							if (contact_telTxt.getText().isEmpty())
+								contact_telTxt.setStyle("-fx-border-width: 0;");
+							if (validatePhoneNumber(contact_telTxt.getText())) {
+								contact_telTxt.setStyle("-fx-border-width: 0;");
+								contact_telTxt.setText(String.format(
+										"(%s) %s-%s",
+										contact_telTxt.getText()
+												.substring(0, 3),
+										contact_telTxt.getText()
+												.substring(3, 6),
+										contact_telTxt.getText().substring(6,
+												10)));
+							}
+						}
+					}
+				});
+
+		contact_emailTxt
+				.setOnKeyReleased(e -> {
+					if (validateEmail(contact_emailTxt.getText().trim())) {
+						contact_emailTxt
+								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+					} else {
+						contact_emailTxt
+								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+					}
+				});
+
+		contact_emailTxt.focusedProperty().addListener(
+				new ChangeListener<Boolean>() {
+					@Override
+					public void changed(
+							ObservableValue<? extends Boolean> arg0,
+							Boolean oldPropertyValue, Boolean newPropertyValue) {
+						if (!newPropertyValue) {
+							if (contact_emailTxt.getText().isEmpty())
+								contact_emailTxt
+										.setStyle("-fx-border-width: 0;");
+							if (validateEmail(contact_emailTxt.getText())) {
+								contact_emailTxt
+										.setStyle("-fx-border-width: 0;");
+							}
+						}
+					}
+				});
+
+		btnAddUpdate.setOnAction(e -> {
 			stage = (Stage) btnAddUpdate.getScene().getWindow();
 			stage.close();
 		});
@@ -72,113 +134,100 @@ public class AddUpdateClientController implements Initializable {
 			stage.close();
 		});
 
-		btnAddUpdate.setOnAction(e -> {
-			stage = (Stage) btnAddUpdate.getScene().getWindow();
-			boolean valid = true;
-			String feedbackmsg = "";
-			String enterprise = enterprise_nameTxt.getText().trim();
-			String name = contact_nameTxt.getText().trim();
-			String email = contact_emailTxt.getText().trim();
-			String phoneNumber = contact_telTxt.getText().trim();
-			String address = addressTxt.getText().trim();
-			String description = descriptionTxt.getText().trim();
+		btnAddUpdate
+				.setOnAction(e -> {
+					stage = (Stage) btnAddUpdate.getScene().getWindow();
+					boolean valid = true;
+					String feedbackmsg = "";
+					String enterprise = enterprise_nameTxt.getText().trim();
+					String name = contact_nameTxt.getText().trim();
+					String email = contact_emailTxt.getText().trim();
+					String phoneNumber = contact_telTxt.getText().trim();
+					String address = addressTxt.getText().trim();
+					String description = descriptionTxt.getText().trim();
 
-			Client client = new Client();
-			client.setEnterprise_name(enterprise);
-			client.setContact_name(name);
-			client.setContact_tel(phoneNumber);
-			client.setContact_email(email);
-			client.setAddress(address);
-			client.setDescription(description);
-			client.setAssociated_vendor(Session.vendor.getId());
-			Client ClientByEntrepriseAndClientName = ClientManager
-					.getByEntrepriseAndClientName(client);
+					Client client = new Client();
+					client.setEnterprise_name(enterprise);
+					client.setContact_name(name);
+					client.setContact_tel(phoneNumber);
+					client.setContact_email(email);
+					client.setAddress(address);
+					client.setDescription(description);
+					client.setAssociated_vendor(Session.vendor.getId());
+					Client ClientByEntrepriseAndClientName = ClientManager
+							.getByEntrepriseAndClientName(client);
 
-			// Admin adminByLogin = AdminManager.getByUserName(login);
-				// Vendor vendorBySin = VendorManager.getBySin(sin);
-				// Admin adminBySin = AdminManager.getBySin(sin);
+					if (enterprise.isEmpty() || name.isEmpty()
+							|| address.isEmpty() || email.isEmpty()) {
+						valid = false;
+						feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
+					}
 
-				if (enterprise.isEmpty() || name.isEmpty() || address.isEmpty()
-						|| email.isEmpty()) {
-					valid = false;
-					feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
-				}
+					if (ClientByEntrepriseAndClientName != null) {
+						feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe déjà. \n";
+						valid = false;
+					}
 
-				if (ClientByEntrepriseAndClientName != null) {
-					feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe déjà. \n";
-					valid = false;
-				}
+					if (!validatePhoneNumber(phoneNumber)) {
+						feedbackmsg += "Le numéro de téléphone est incorrect. \n";
+						valid = false;
+					}
 
-				if (!validatePhoneNumber(phoneNumber)) {
-					feedbackmsg += "Le numéro de téléphone est incorrect. \n";
-					valid = false;
-				}
+					if (!validateEmail(email)) {
+						feedbackmsg += "L'adresse email est incorrecte. \n";
+						valid = false;
+					}
 
-				if (!validateEmail(email)) {
-					feedbackmsg += "L'adresse email est incorrecte. \n";
-					valid = false;
-				}
+					if (valid) {
 
-				if (valid) {
-
-					if (clientToUpdate != null) {
-						client.setId(clientToUpdate.getId());
-						ClientManager.update(client);
-
-						showClientsController.updateTable(index, client);
-						showClientsController.showTableView();
+						if (clientToUpdate != null) {
+							client.setId(clientToUpdate.getId());
+							ClientManager.update(client);
+							showClientsController.updateTable(index, client);
+							showClientsController.showTableView();
+						} else {
+							ClientManager.add(client);
+							showClientsController.addToTable(client);
+							showClientsController.showTableView();
+						}
+						stage.close();
 					} else {
-						ClientManager.add(client);
-						showClientsController.addToTable(client);
-						showClientsController.showTableView();
+						try {
+							CustomInfoBox customDialogBox = new CustomInfoBox(
+									stage, feedbackmsg, "Ok", "#ff0000");
+							customDialogBox.btn
+									.setOnAction(new EventHandler<ActionEvent>() {
+										@Override
+										public void handle(ActionEvent event) {
+											stage = (Stage) customDialogBox.btn
+													.getScene().getWindow();
+											stage.close();
+										}
+									});
+						} catch (IOException ex) {
+							ex.printStackTrace();
+						}
 					}
-					stage.close();
-				} else {
-					try {
-						CustomInfoBox customDialogBox = new CustomInfoBox(
-								stage, feedbackmsg, "Ok", "#ff0000");
-						customDialogBox.btn
-								.setOnAction(new EventHandler<ActionEvent>() {
-									@Override
-									public void handle(ActionEvent event) {
-										stage = (Stage) customDialogBox.btn
-												.getScene().getWindow();
-										stage.close();
-									}
-								});
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-				}
-			});
-
+				});
 	}
 
-	private static boolean validatePhoneNumber(String phoneNo) {
-		// validate phone numbers of format "1234567890"
-		if (phoneNo.matches("\\d{10}"))
-			return true;
-		// validating phone number with -, . or spaces
-		else if (phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}"))
-			return true;
-		// validating phone number with extension length from 3 to 5
-		else if (phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}"))
-			return true;
-		// validating phone number where area code is in braces ()
-		else if (phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}"))
-			return true;
-		// return false if nothing matches the input
-		else
+	public boolean isNumeric(String str) {
+		try {
+			double d = Double.parseDouble(str);
+		} catch (NumberFormatException nfe) {
 			return false;
-
+		}
+		return true;
 	}
 
-	private boolean validateEmail(final String email) {
-		if (email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))
-			return true;
-		else
-			return false;
+	private boolean validatePhoneNumber(String phoneNo) {
+		return (isNumeric(phoneNo) && phoneNo.length() == 10) ? true : false;
+	}
+
+	private boolean validateEmail(String email) {
+		Pattern ptr = Pattern
+				.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
+		return (ptr.matcher(email).matches()) ? true : false;
 	}
 
 	@FXML
@@ -229,6 +278,6 @@ public class AddUpdateClientController implements Initializable {
 		contact_emailTxt.setText(client.getContact_email());
 		addressTxt.setText(client.getAddress());
 		descriptionTxt.setText(client.getDescription());
-
 	}
+
 }
