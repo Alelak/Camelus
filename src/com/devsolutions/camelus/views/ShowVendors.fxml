@@ -5,44 +5,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="484.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowVendorsController">
+<AnchorPane prefHeight="484.0" prefWidth="563.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowVendorsController">
    <children>
       <VBox alignment="CENTER" layoutX="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="484.0" prefWidth="498.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="0.0" prefWidth="533.0">
-               <children>
-                  <Button fx:id="addButton" mnemonicParsing="false" text="Ajouter Vendeur">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="editButton" disable="true" mnemonicParsing="false" text="Modifier Vendeur">
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" text="Supprimer Vendeur">
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="showButton" disable="true" mnemonicParsing="false" text="Consulter Vendeur">
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
+            <BorderPane>
+               <center>
+                  <HBox prefHeight="0.0" prefWidth="533.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="addButton" mnemonicParsing="false" text="Ajouter">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="10.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" text="Modifier">
+                           <HBox.margin>
+                              <Insets left="10.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" text="Supprimer">
+                           <HBox.margin>
+                              <Insets left="10.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="showButton" disable="true" mnemonicParsing="false" text="Consulter">
+                           <HBox.margin>
+                              <Insets left="10.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="commissionBtn" disable="true" mnemonicParsing="false" text="Rapport Commission">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </center>
+               <left>
+                  <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
             
             <BorderPane>
                <left>
-                  <Pane fx:id="leftSearchPane" prefWidth="150.0" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="leftSearchPane" prefWidth="20.0" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Pane fx:id="rightSearchPane" prefWidth="150.0" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="rightSearchPane" prefWidth="20.0" BorderPane.alignment="CENTER" />
                </right>
                <top>
                   <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
@@ -51,15 +63,33 @@
                   <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
                </bottom>
                <center>
-                  <TextField fx:id="searchField" prefWidth="200.0" promptText="Recherche" BorderPane.alignment="CENTER" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextField fx:id="searchField" prefWidth="150.0" promptText="Recherche">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <ComboBox fx:id="monthComboBox" disable="true" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="yearComboBox" disable="true" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                  </HBox>
                </center>
             </BorderPane>
             
             <TableView fx:id="vendorTableView" prefHeight="454.0" prefWidth="572.0">
             	<columns>
-	            	<TableColumn fx:id="vendorIdCol" prefWidth="100.0" text="Id" />
-					<TableColumn fx:id="vendorFirstNameCol" prefWidth="100.0" text="Prénom" />
-					<TableColumn fx:id="vendorFLastNameCol" prefWidth="100.0" text="Nom" />
+	            	<TableColumn fx:id="vendorIdCol" prefWidth="100.0" text="No" />
+					<TableColumn fx:id="vendorFirstNameCol" prefWidth="140.0" text="Prénom" />
+					<TableColumn fx:id="vendorFLastNameCol" prefWidth="125.0" text="Nom" />
 					<TableColumn fx:id="vendorLoginCol" prefWidth="200.0" text="Nom d'utilisateur" />
 				</columns>
 			</TableView>
