@@ -64,6 +64,8 @@ public class AddProductController implements Initializable {
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
 	private ShowProductsController productController;
+	private boolean verifUpc = false;
+	private boolean error=false;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -72,24 +74,72 @@ public class AddProductController implements Initializable {
 		btnAddImg.setOnAction(e -> {
 			addPicture();
 		});
-		btnAddProduct.setOnAction(e -> {
-			if ((unit.getSelectionModel().getSelectedIndex() == 0)
-					|| (category.getSelectionModel().getSelectedIndex() == 0))
-				System.out.println("il faut choisir une unit ou une category");
+		btnAddProduct
+				.setOnAction(e -> {
+					/*if ((unit.getSelectionModel().getSelectedIndex() == 0)
+							|| (category.getSelectionModel().getSelectedIndex() == 0))
+						System.out
+								.println("il faut choisir une unit ou une category");
+								*/
 
-			if (!upc.getText().isEmpty() && !name.getText().isEmpty()
-					&& !quantity.getText().isEmpty() && imageInByte != null
-					&& !description.getText().isEmpty()
-					&& !sellingPrice.getText().isEmpty()
-					&& !costPrice.getText().isEmpty()) {
-				ProductManager.add(addProduct());
-				addProductToTableView();
-				stage = (Stage) btnAddProduct.getScene().getWindow();
-				stage.close();
-			} else
-				System.out.println("tous les chams doivent etre remplis");
+					for (ProductTableView b : productController
+							.getProductsList()) {
+						System.out.println("verification UpC avant");
+						if (b.getUpc().equals(upc.getText()))
+							verifUpc = true;
+						System.out.println("verification UpC");
 
-		});
+					}
+
+					if (!(!upc.getText().isEmpty() && !name.getText().isEmpty()
+							&& !quantity.getText().isEmpty() && !costPrice
+							.getText().isEmpty())) {
+						System.out
+								.println("il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP");
+						error=true;
+					} 
+					if (!upc.getText().matches(
+									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						System.out.println("le UPC doit avoir 12 chiffres ");
+						error=true;
+					}
+					if(verifUpc==true)
+					{
+						System.out.println("le UPC existe deja veillez entrer un nouveau upc svp");
+						error=true;
+					}
+					if(name.getText().equals(""))
+					{
+						System.out.println("Veillez saisire le nom de produit SVP");
+						error=true;
+					}
+					if(!isNumeric(quantity.getText()))
+					{
+						System.out.println("entrer une Quantiter valide");
+						error=true;
+					}
+					else 
+						if(Integer.parseInt(quantity.getText())<0){
+						System.out.println("Veuillez entrez une qunatiter Posetive SVP");
+						error=true;
+						}
+					if (!isNumber(costPrice.getText())) {
+						System.out.println("saisie un prix valide Svp");
+						error=true;
+					} else if(Double.parseDouble(costPrice.getText())<0) {
+						System.out.println("saisie un prix Posetive Svp");
+						error=true;
+					}
+					if(error==false)
+					{
+					
+						ProductManager.add(addProduct());
+						addProductToTableView();
+						stage = (Stage) btnAddProduct.getScene().getWindow();
+						stage.close();
+					}
+
+				});
 		btnCancelProduct.setOnAction(e -> {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
 			stage.close();
@@ -97,6 +147,30 @@ public class AddProductController implements Initializable {
 
 	}
 
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    Integer.parseInt(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
+	public static boolean isNumber(String str)  
+	{  
+	  try  
+	  {  
+	  Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
 	public void listChoiceBoxUnit() {
 		List<Unit> unitList = UnitManager.getAll();
 		listChoiceUnit = FXCollections.observableArrayList();
@@ -138,7 +212,6 @@ public class AddProductController implements Initializable {
 		product.setDescription(description.getText());
 		product.setCost_price(Double.parseDouble(costPrice.getText()));
 		product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
-	
 
 		return product;
 	}
@@ -152,7 +225,7 @@ public class AddProductController implements Initializable {
 		productTableView.setSelling_price(product.getSelling_price());
 		productTableView.setDescriptionCategory(category.getSelectionModel()
 				.getSelectedItem().toString());
-		
+
 		productController.addToTableView(productTableView);
 
 	}
@@ -168,16 +241,14 @@ public class AddProductController implements Initializable {
 		if (file != null) {
 			try {
 				double mb = file.length() / 1048576;
-				System.out.println(mb);
-				if(mb <1)
-				{
-				BufferedImage originalImage = ImageIO.read(file);
-				baos = new ByteArrayOutputStream();
-				ImageIO.write(originalImage, "jpg", baos);
-				baos.flush();
-				imageInByte = baos.toByteArray();
-				}
-				else
+
+				if (mb < 1) {
+					BufferedImage originalImage = ImageIO.read(file);
+					baos = new ByteArrayOutputStream();
+					ImageIO.write(originalImage, "jpg", baos);
+					baos.flush();
+					imageInByte = baos.toByteArray();
+				} else
 					System.out.println(mb);
 			} catch (Exception e1) {
 				e1.printStackTrace();

@@ -26,6 +26,10 @@ import com.devsolutions.camelus.entities.ProductTableView;
 import com.devsolutions.camelus.managers.ProductManager;
 
 public class ShowProductsController implements Initializable {
+	public List<ProductTableView> getProductsList() {
+		return productsList;
+	}
+
 	@FXML
 	private Button btnSearchProduct;
 	@FXML
