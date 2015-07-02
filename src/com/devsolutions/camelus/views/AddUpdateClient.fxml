@@ -57,7 +57,7 @@
 			</children>
 		</GridPane>
 
-		<GridPane GridPane.rowIndex="1">
+		<GridPane gridLinesVisible="true" GridPane.rowIndex="1">
 			<rowConstraints>
 				<RowConstraints valignment="CENTER" percentHeight="11.5" />
 				<RowConstraints percentHeight="10.3" />
