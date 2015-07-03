@@ -1,6 +1,6 @@
 package com.devsolutions.camelus.entities;
 
-public class CommissionTV {
+public class VendorReport {
 	private long client_id;
 	private String entreprise_name;
 	private double total_sale;

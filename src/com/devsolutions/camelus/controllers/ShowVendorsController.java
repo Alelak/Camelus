@@ -28,7 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Commission;
-import com.devsolutions.camelus.entities.CommissionTV;
+import com.devsolutions.camelus.entities.VendorReport;
 import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.entities.Vendor;
@@ -91,7 +91,7 @@ public class ShowVendorsController implements Initializable {
 	private List<Vendor> vendorsList;
 	private ObservableList<Vendor> vendorsObservableList;
 	private SortedList<Vendor> sortedData;
-	private List<CommissionTV> currentCommissionTVList;
+	private List<VendorReport> currentCommissionTVList;
 
 	private MainWindowController mainWindowController;
 
@@ -140,7 +140,7 @@ public class ShowVendorsController implements Initializable {
 		resetComboBox();
 		initMonthComboBox();
 
-		currentCommissionTVList = new ArrayList<CommissionTV>();
+		currentCommissionTVList = new ArrayList<VendorReport>();
 
 		addButton.setOnAction(e -> {
 			try {
@@ -308,7 +308,7 @@ public class ShowVendorsController implements Initializable {
 						double totaSales = 0;
 						double totalCommission = 0;
 
-						for (CommissionTV commissionTV : currentCommissionTVList) {
+						for (VendorReport commissionTV : currentCommissionTVList) {
 							totaSales += commissionTV.getTotal_sale();
 							totalCommission += commissionTV
 									.getTotal_commission();
@@ -359,9 +359,12 @@ public class ShowVendorsController implements Initializable {
 				.addListener(
 						(obs, oldSelection, newSelection) -> {
 
-							int selectedYearId = yearComboBox
+							int selectedYearId = 0;
+							if(!yearComboBoxIsEmpty())
+									yearComboBox
 									.getSelectionModel().getSelectedItem()
 									.getId();
+							
 							if (newSelection != null
 									&& newSelection.getId() > 0
 									&& selectedYearId > 0) {
@@ -386,7 +389,9 @@ public class ShowVendorsController implements Initializable {
 							} else {
 								commissionBtn.setDisable(true);
 							}
+							initMonthComboBox();
 						});
+
 	}
 
 	private void creatTablePDF(PdfPTable table, double totaSales,
@@ -418,7 +423,7 @@ public class ShowVendorsController implements Initializable {
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		for (CommissionTV commissionTV : currentCommissionTVList) {
+		for (VendorReport commissionTV : currentCommissionTVList) {
 			c1 = new PdfPCell(new Phrase("" + commissionTV.getClient_id()));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(c1);
@@ -487,7 +492,7 @@ public class ShowVendorsController implements Initializable {
 		}
 
 		List<OrderLineTV> orderLinesTVNeeded = new ArrayList<OrderLineTV>();
-		List<CommissionTV> commissionTVList = new ArrayList<CommissionTV>();
+		List<VendorReport> commissionTVList = new ArrayList<VendorReport>();
 		Commission commission = CommissionManager.getById(vendor
 				.getCommission_id());
 		for (OrderTV orderTV : ordersNeeded) {
@@ -512,7 +517,7 @@ public class ShowVendorsController implements Initializable {
 					commissionAmount = commission.getRate();
 			}
 
-			CommissionTV commissionTV = new CommissionTV();
+			VendorReport commissionTV = new VendorReport();
 			commissionTV.setClient_id(orderTV.getClient_id());
 			commissionTV.setEntreprise_name(orderTV.getEnterprise_name());
 			commissionTV.setTotal_sale(totalSale);
@@ -533,14 +538,39 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
+	
+	private boolean yearComboBoxIsEmpty()
+	{
+		boolean yes = true;
+		if (yearComboBox.getItems().size() > 0) 
+			yes = false;
+		
+		return yes;
+	}
 
 	private void initMonthComboBox() {
-
+		monthComboBox.getItems().clear();
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		int selectedYearId = 0;
+		if (yearComboBox.getItems().size() > 0) 
+			selectedYearId = yearComboBox.getSelectionModel().getSelectedItem().getId();
+		
 		ObservableList<Choice> monthObservableList = FXCollections
 				.observableArrayList();
 		monthObservableList.add(new Choice(0, "Mois"));
 		for (int i = 1; i <= 12; i++) {
-			monthObservableList.add(new Choice(i, "" + i));
+			if (selectedYearId == year && selectedYearId != 0) {
+				if (i <= month + 1)
+					monthObservableList.add(new Choice(i, ""
+							+ StringUtils.monthName(i)));
+			} else {
+				monthObservableList.add(new Choice(i, ""
+						+ StringUtils.monthName(i)));
+			}
 		}
 		monthComboBox.setItems(monthObservableList);
 		monthComboBox.getSelectionModel().select(0);
