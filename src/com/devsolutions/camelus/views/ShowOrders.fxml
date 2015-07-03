@@ -70,7 +70,7 @@
 				<TableView fx:id="orderTableView">
 					<columns>
 						<TableColumn fx:id="orderIdCol" prefWidth="100.0"
-							text="Id" />
+							text="No" />
 						<TableColumn fx:id="vendorFNameCol" prefWidth="150.0"
 							text="Prénom du Vendeur" />
 						<TableColumn fx:id="vendorLNameCol" prefWidth="150.0"

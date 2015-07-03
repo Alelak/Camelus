@@ -89,17 +89,16 @@ public class OrderTV {
 
 	public String getOrdered_at_formated() {
 		Calendar cal = Calendar.getInstance();
-	    cal.setTime(ordered_at);
-	    int year = cal.get(Calendar.YEAR);
-	    int month = cal.get(Calendar.MONTH);
-	    int day = cal.get(Calendar.DAY_OF_MONTH);
-		ordered_at_formated = day + "-"+ month + "-" + year;
+		cal.setTime(ordered_at);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		ordered_at_formated = day + "-" + month + "-" + year;
 		return ordered_at_formated;
 	}
 
 	public void setOrdered_at_formated(String ordered_at_formated) {
 		this.ordered_at_formated = ordered_at_formated;
 	}
-	
-	
+
 }

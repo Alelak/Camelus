@@ -1,7 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
 import java.io.FileNotFoundException;
-
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.List;
@@ -27,6 +26,7 @@ import javafx.stage.Stage;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
+import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
@@ -104,11 +104,15 @@ public class ShowOrdersController implements Initializable {
 						}
 
 						String lowerCaseFilter = newValue.toLowerCase();
-						String id = orderTV.getId() + "";
+						String idOrder = orderTV.getId() + "";
+						String fullName = (orderTV.getFname() + " " + orderTV
+								.getLname()).toLowerCase();
 						if (orderTV.getEnterprise_name().toLowerCase()
 								.contains(lowerCaseFilter)) {
 							return true;
-						} else if (id.contains(lowerCaseFilter)) {
+						} else if (fullName.contains(lowerCaseFilter)) {
+							return true;
+						} else if (idOrder.contains(lowerCaseFilter)) {
 							return true;
 						}
 						return false;
@@ -200,7 +204,7 @@ public class ShowOrdersController implements Initializable {
 
 				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
 						Font.BOLD);
-				
+
 				LineSeparator ls = new LineSeparator();
 
 				Paragraph p1 = new Paragraph();
@@ -209,40 +213,48 @@ public class ShowOrdersController implements Initializable {
 				p1.setSpacingBefore(25f);
 
 				try {
-					Font boldFontHeaderFields = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-					//Font boldFontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.);
+					Font boldFontHeaderFields = new Font(
+							Font.FontFamily.HELVETICA, 12, Font.BOLD);
+					// Font boldFontHeader = new Font(Font.FontFamily.HELVETICA,
+					// 12, Font.);
 					Image image = Image.getInstance("src/images/logo-gfc.png");
 					PdfPTable tabHeader = new PdfPTable(2);
 					tabHeader.setWidthPercentage(100);
-					
-				    PdfPCell cell1 = new PdfPCell(image, true);
-				    cell1.setBorder(Rectangle.NO_BORDER);
-				    tabHeader.addCell(cell1);
-				    
-				    PdfPCell cell2 = new PdfPCell();
-				    
-				    Paragraph p = new Paragraph(new Phrase("Numéro de commande : " + orderTV.getId() +"\n",boldFontHeaderFields));
-				    p.add(new Phrase("Numéro du client          : " + orderTV.getClient_id() +"\n",boldFontHeaderFields));
-				    p.add(new Phrase("Numéro du vendeur     : " + orderTV.getAssociated_vendor(),boldFontHeaderFields));
-				    
-				    p.setIndentationLeft(50f);
-				    cell2.addElement(p);
-				    cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				    cell2.setBorder(Rectangle.NO_BORDER);
-				    tabHeader.addCell(cell2);
-				    document.add(tabHeader);
+
+					PdfPCell cell1 = new PdfPCell(image, true);
+					cell1.setBorder(Rectangle.NO_BORDER);
+					tabHeader.addCell(cell1);
+
+					PdfPCell cell2 = new PdfPCell();
+
+					Paragraph p = new Paragraph(new Phrase(
+							"Numéro de commande : " + orderTV.getId() + "\n",
+							boldFontHeaderFields));
+					p.add(new Phrase("Numéro du client          : "
+							+ orderTV.getClient_id() + "\n",
+							boldFontHeaderFields));
+					p.add(new Phrase("Numéro du vendeur     : "
+							+ orderTV.getAssociated_vendor(),
+							boldFontHeaderFields));
+
+					p.setIndentationLeft(50f);
+					cell2.addElement(p);
+					cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell2.setBorder(Rectangle.NO_BORDER);
+					tabHeader.addCell(cell2);
+					document.add(tabHeader);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 
-				
-				Font boldFontTitle = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
-				Paragraph p = new Paragraph("Bon de commande",boldFontTitle);
+				Font boldFontTitle = new Font(Font.FontFamily.HELVETICA, 20,
+						Font.BOLD);
+				Paragraph p = new Paragraph("Bon de commande", boldFontTitle);
 				p.setIndentationLeft(200f);
 				document.add(p);
-				
+
 				document.add(p1);
-				
+
 				Paragraph p2 = new Paragraph();
 				p2.setIndentationLeft(20f);
 				p2.add(new Phrase("Entreprise : "));
@@ -280,42 +292,48 @@ public class ShowOrdersController implements Initializable {
 				table.setHeaderRows(1);
 
 				creatTablePDF(table, orderTV);
-				
+
 				Font boldFontDetails = new Font(Font.FontFamily.HELVETICA, 18,
 						Font.BOLD);
-				Paragraph p4 = new Paragraph(new Phrase("Détails : ",boldFontDetails));
+				Paragraph p4 = new Paragraph(new Phrase("Détails : ",
+						boldFontDetails));
 				p4.setIndentationLeft(20f);
 				p4.setSpacingAfter(50f);
 				document.add(p4);
-				
+
 				Paragraph p5 = new Paragraph();
 				p5.setSpacingAfter(20f);
 				p5.add(table);
 				document.add(p5);
-				
+
 				Font boldFontTotal = new Font(Font.FontFamily.HELVETICA, 14,
 						Font.BOLD);
-				
+
 				double total = 0;
 				for (OrderLineTV orderLineTV : orderLinesList) {
-				
+
 					total += orderLineTV.getTotal();
 				}
-				
+
 				Paragraph p6 = new Paragraph();
 				p6.setAlignment(Element.ALIGN_RIGHT);
 				p6.setIndentationRight(60f);
 				p6.setSpacingBefore(10f);
-				p6.add(new Phrase("Total de la commande : " + total + " $",boldFontTotal));
+				p6.add(new Phrase("Total de la commande : " + total + " $",
+						boldFontTotal));
 				document.add(p6);
-				
+
 				Paragraph p7 = new Paragraph();
 				p7.setIndentationLeft(60f);
 				p7.setSpacingBefore(50f);
 				p7.setSpacingAfter(30f);
-				p7.add(new Phrase("Le : " + orderTV.getOrdered_at_formated() + "                                                  Signature : ",boldFontTotal));
+				p7.add(new Phrase(
+						"Le : "
+								+ orderTV.getOrdered_at_formated()
+								+ "                                                  Signature : ",
+						boldFontTotal));
 				document.add(p7);
-				
+
 				document.close();
 
 			} catch (DocumentException | FileNotFoundException ex) {
@@ -422,5 +440,11 @@ public class ShowOrdersController implements Initializable {
 	public void addToTableView(OrderTV orderTV) {
 
 		ordersObservableList.add(orderTV);
+	}
+
+	public void initData(Vendor selectedVendor) {
+		// this.selectedVendor = selectedVendor;
+		searchField.setText(selectedVendor.getFname() + " "
+				+ selectedVendor.getLname());
 	}
 }
