@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import com.devsolutions.camelus.entities.Category;
 
 public interface CategoryMapper {
@@ -18,10 +17,14 @@ public interface CategoryMapper {
 	Category getById(int id);
 
 	@Insert("INSERT INTO categories (description) VALUE (#{description})")
-	@Options(flushCache = true)
-	void add(String description);
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
+	void add(Category category);
 
 	@Update("UPDATE categories SET deleted = 1 WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);
+
+	@Update("UPDATE categories SET description = #{description} WHERE id = #{id}")
+	@Options(flushCache = true)
+	void update(Category category);
 }

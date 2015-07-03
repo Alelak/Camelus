@@ -208,3 +208,6 @@
 #settingsmenubutton .context-menu .menu-item:focused {
     -fx-background-color: #03A9F4;
 }
+#progressIndicator{
+	-fx-progress-color: #03A9F4;
+}

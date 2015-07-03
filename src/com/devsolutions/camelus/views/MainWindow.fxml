@@ -140,9 +140,9 @@
 								icon="ICON_COGS" />
 						</graphic>
 						<items>
-							<MenuItem text="item 1"></MenuItem>
-							<MenuItem text="item 2"></MenuItem>
-							<MenuItem text="item 3"></MenuItem>
+							<MenuItem text="Categories" onAction="#categoriesmihandler"></MenuItem>
+							<MenuItem text="Commissions"  onAction="#commissionsmihandler"></MenuItem>
+							<MenuItem text="Unites" onAction="#unitesmihandler"></MenuItem>
 						</items>
 					</MenuButton>
 					<Label prefWidth="30" prefHeight="30">

@@ -78,3 +78,7 @@ TitledPane
 .flat-btn:pressed {
   -fx-background-color: derive(#016699 ,50.0%);
 }
+#categorielist{
+	-fx-border-color: -camelus-blue;
+	-fx-border-width: 2.0;
+}

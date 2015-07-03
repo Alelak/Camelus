@@ -10,6 +10,14 @@ public class Category {
 	private Date created_at;
 	private int deleted;
 
+	public Category(String description) {
+		this.description = description;
+	}
+
+	public Category() {
+
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -48,6 +56,11 @@ public class Category {
 
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
+	}
+
+	@Override
+	public String toString() {
+		return this.description;
 	}
 
 }

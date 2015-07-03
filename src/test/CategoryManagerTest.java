@@ -8,7 +8,7 @@ import com.devsolutions.camelus.managers.CategoryManager;
 public class CategoryManagerTest {
 
 	public void add() {
-		CategoryManager.add("Electronics");
+		CategoryManager.add(new Category("Electronics"));
 		System.out.println("Record inserted");
 	}
 

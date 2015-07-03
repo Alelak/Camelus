@@ -105,8 +105,10 @@ public class ShowAdminsController implements Initializable {
 		deleteBtn.setOnAction(e -> {
 			Admin adminTodelete = adminsTableView.getSelectionModel()
 					.getSelectedItem();
-			adminsOb.remove(adminTodelete);
-			AdminManager.delete(adminTodelete.getId());
+			if (adminTodelete.getSuper_admin() == 0) {
+				adminsOb.remove(adminTodelete);
+				AdminManager.delete(adminTodelete.getId());
+			}
 
 		});
 		showDetailsBtn.setOnAction(e -> {

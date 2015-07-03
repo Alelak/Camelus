@@ -27,9 +27,9 @@ public class CategoryManager {
 
 	}
 
-	public static void add(String description) {
+	public static void add(Category category) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		session.getMapper(CategoryMapper.class).add(description);
+		session.getMapper(CategoryMapper.class).add(category);
 		session.commit();
 		session.close();
 	}
@@ -37,6 +37,13 @@ public class CategoryManager {
 	public static void delete(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(CategoryMapper.class).delete(id);
+		session.commit();
+		session.close();
+	}
+
+	public static void update(Category category) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(CategoryMapper.class).update(category);
 		session.commit();
 		session.close();
 	}

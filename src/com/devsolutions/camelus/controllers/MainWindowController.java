@@ -16,10 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import com.devsolutions.camelus.entities.Vendor;
@@ -58,6 +61,8 @@ public class MainWindowController implements Initializable {
 	private HBox innerToolbarHbox;
 	@FXML
 	private HBox outerToolbarHbox;
+	@FXML
+	private MenuButton settingsmenubutton;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -192,7 +197,7 @@ public class MainWindowController implements Initializable {
 		switchScene(filename, selectedVendor);
 	}
 
-	public void switchScene(final String filename, Vendor selectedVendor) {
+	private void switchScene(final String filename, Vendor selectedVendor) {
 		MainWindowController c = this;
 		fadeTransition.stop();
 		fadeTransition.setFromValue(1);
@@ -228,5 +233,38 @@ public class MainWindowController implements Initializable {
 			}
 		});
 		fadeTransition.play();
+	}
+
+	@FXML
+	public void categoriesmihandler() {
+		openMenuWindows("categories");
+	}
+
+	@FXML
+	public void commissionsmihandler() {
+
+	}
+
+	@FXML
+	public void unitesmihandler() {
+
+	}
+	
+	private void openMenuWindows(String filename){
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(
+					"../views/"+filename+".fxml"));
+
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(settingsmenubutton.getScene().getWindow());
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
