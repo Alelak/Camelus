@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -23,9 +24,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
+import com.devsolutions.camelus.application.Main;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Order;
@@ -97,6 +101,9 @@ public class TakeOrderController implements Initializable {
 	@FXML
 	private TableColumn<ProductToOrderTV, String> modifiedPriceCol;
 
+	@FXML
+	private ImageView productImage;
+
 	private ObservableList<Product> productObservableList;
 	private List<Product> products;
 
@@ -118,15 +125,19 @@ public class TakeOrderController implements Initializable {
 	private List<Category> categories;
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
+	private Image noImage;
+	private boolean found;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
+		found = false;
 		productfound = new SimpleBooleanProperty();
 		clientfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
 		unites = UnitManager.getAll();
-		
+		noImage = productImage.getImage();
+
 		currentVendor = Session.vendor;
 
 		products = ProductManager.getAll();
@@ -155,7 +166,8 @@ public class TakeOrderController implements Initializable {
 					boolean validfields = true;
 					String quantity = quantityField.getText().trim();
 					String modifiedPrice = modifiedPriceField.getText().trim();
-					double minModifiedPrice = currentProduct.getCost_price()+ (currentProduct.getCost_price()*10)/100;
+					double minModifiedPrice = currentProduct.getCost_price()
+							+ (currentProduct.getCost_price() * 10) / 100;
 
 					if (!StringUtils.isInteger(quantity)) {
 						invalidFields += " - Veuillez saisir une quantité valide. \n";
@@ -177,10 +189,10 @@ public class TakeOrderController implements Initializable {
 								.getText()) <= 0) {
 							invalidFields += " - Veuillez saisir un prix valide \n";
 							validfields = false;
-						}else if(Double.parseDouble(modifiedPriceField
-								.getText()) < minModifiedPrice)
-						{
-							invalidFields += " - Le prix ajusté ne peut être plus petit que : "+minModifiedPrice+ " $.\n";
+						} else if (Double.parseDouble(modifiedPriceField
+								.getText()) < minModifiedPrice) {
+							invalidFields += " - Le prix ajusté ne peut être plus petit que : "
+									+ minModifiedPrice + " $.\n";
 							validfields = false;
 						}
 					}
@@ -401,6 +413,9 @@ public class TakeOrderController implements Initializable {
 				int index = productComboBox.getSelectionModel()
 						.getSelectedIndex();
 				currentProduct = productComboBox.getItems().get(index);
+				ByteArrayInputStream is = new ByteArrayInputStream(
+						currentProduct.getImg());
+				productImage.setImage(new Image(is));
 				for (Unit unit : unites) {
 					if (unit.getId() == currentProduct.getUnit_id()) {
 						unitLabel.setText("" + unit.getDescription());
@@ -414,11 +429,13 @@ public class TakeOrderController implements Initializable {
 				upcLabel.setText("" + currentProduct.getUpc());
 				quantityLabel.setText("" + currentProduct.getQuantity());
 				costPriceLabel.setText(currentProduct.getCost_price() + " $");
-				sellingPriceLabel.setText(currentProduct.getSelling_price() + " $");
+				sellingPriceLabel.setText(currentProduct.getSelling_price()
+						+ " $");
 				productfound.set(true);
 			} else {
 				productfound.set(false);
 			}
+
 		});
 		clientComboBox.setOnAction(e -> {
 			if (clientComboBox.getSelectionModel().getSelectedIndex() > -1) {
@@ -439,7 +456,7 @@ public class TakeOrderController implements Initializable {
 		costPriceLabel.setText("");
 		sellingPriceLabel.setText("");
 		categoryLabel.setText("");
-
+		productImage.setImage(noImage);
 		quantityField.setText("");
 		modifiedPriceField.setText("");
 	}

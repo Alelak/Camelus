@@ -132,19 +132,15 @@ public class ShowOrderDetailsController implements Initializable {
 			total += orderLineTV.getTotal();
 		}
 
-		
-		if (total >= commission.getMcondition())
-		{
+		if (total >= commission.getMcondition()) {
 			if (commission.getType() == 0) {
 				double rate = (double) commission.getRate() / 100;
 				vendorCommission = total * rate;
-			} else{
+			} else {
 				vendorCommission = commission.getRate();
 			}
-		}
-		else
+		} else
 			vendorCommission = 0;
-		
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(orderTV.getOrdered_at());

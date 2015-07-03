@@ -360,11 +360,10 @@ public class ShowVendorsController implements Initializable {
 						(obs, oldSelection, newSelection) -> {
 
 							int selectedYearId = 0;
-							if(!yearComboBoxIsEmpty())
-									yearComboBox
-									.getSelectionModel().getSelectedItem()
-									.getId();
-							
+							if (!yearComboBoxIsEmpty())
+								yearComboBox.getSelectionModel()
+										.getSelectedItem().getId();
+
 							if (newSelection != null
 									&& newSelection.getId() > 0
 									&& selectedYearId > 0) {
@@ -538,13 +537,12 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
-	
-	private boolean yearComboBoxIsEmpty()
-	{
+
+	private boolean yearComboBoxIsEmpty() {
 		boolean yes = true;
-		if (yearComboBox.getItems().size() > 0) 
+		if (yearComboBox.getItems().size() > 0)
 			yes = false;
-		
+
 		return yes;
 	}
 
@@ -556,9 +554,10 @@ public class ShowVendorsController implements Initializable {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
 		int selectedYearId = 0;
-		if (yearComboBox.getItems().size() > 0) 
-			selectedYearId = yearComboBox.getSelectionModel().getSelectedItem().getId();
-		
+		if (yearComboBox.getItems().size() > 0)
+			selectedYearId = yearComboBox.getSelectionModel().getSelectedItem()
+					.getId();
+
 		ObservableList<Choice> monthObservableList = FXCollections
 				.observableArrayList();
 		monthObservableList.add(new Choice(0, "Mois"));
