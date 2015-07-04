@@ -200,43 +200,54 @@ public class MainWindowController implements Initializable {
 
 	private void switchScene(final String filename, Vendor selectedVendor) {
 		MainWindowController c = this;
-		Platform.runLater(() -> {
-			fadeTransition.stop();
-			fadeTransition.setFromValue(1);
-			fadeTransition.setToValue(0);
-			fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+		new Thread(new Runnable() {
 
-				@Override
-				public void handle(ActionEvent event) {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource(
-							"../views/" + filename + ".fxml"));
-					try {
-						content.getChildren().setAll(loader.load());
-					} catch (IOException j) {
-						j.printStackTrace();
-					}
+			@Override
+			public void run() {
+				Platform.runLater(() -> {
+					fadeTransition.stop();
+					fadeTransition.setFromValue(1);
+					fadeTransition.setToValue(0);
+					fadeTransition
+							.setOnFinished(new EventHandler<ActionEvent>() {
 
-					if (filename.equals("showvendors")) {
-						ShowVendorsController controller = loader
-								.<ShowVendorsController> getController();
-						controller.initData(c);
-					}
-					if (selectedVendor != null)
-						if (filename.equals("showorders")) {
-							ShowOrdersController controller = loader
-									.<ShowOrdersController> getController();
-							controller.initData(selectedVendor);
-						}
-					fadeTransition = new FadeTransition(Duration.millis(200),
-							content);
-					fadeTransition.setFromValue(0);
-					fadeTransition.setToValue(1);
+								@Override
+								public void handle(ActionEvent event) {
+									FXMLLoader loader = new FXMLLoader(
+											getClass().getResource(
+													"../views/" + filename
+															+ ".fxml"));
+									try {
+										content.getChildren().setAll(
+												loader.load());
+									} catch (IOException j) {
+										j.printStackTrace();
+									}
+
+									if (filename.equals("showvendors")) {
+										ShowVendorsController controller = loader
+												.<ShowVendorsController> getController();
+										controller.initData(c);
+									}
+									if (selectedVendor != null)
+										if (filename.equals("showorders")) {
+											ShowOrdersController controller = loader
+													.<ShowOrdersController> getController();
+											controller.initData(selectedVendor);
+										}
+									fadeTransition = new FadeTransition(
+											Duration.millis(200), content);
+									fadeTransition.setFromValue(0);
+									fadeTransition.setToValue(1);
+									fadeTransition.play();
+								}
+							});
 					fadeTransition.play();
-				}
-			});
-			fadeTransition.play();
 
-		});
+				});
+
+			}
+		}).start();
 
 	}
 
@@ -251,8 +262,8 @@ public class MainWindowController implements Initializable {
 	}
 
 	@FXML
-	public void unitesmihandler() {
-
+	public void unitsmihandler() {
+		openMenuWindows("units");
 	}
 
 	private void openMenuWindows(String filename) {

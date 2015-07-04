@@ -142,7 +142,7 @@
 						<items>
 							<MenuItem text="Categories" onAction="#categoriesmihandler"></MenuItem>
 							<MenuItem text="Commissions"  onAction="#commissionsmihandler"></MenuItem>
-							<MenuItem text="Unites" onAction="#unitesmihandler"></MenuItem>
+							<MenuItem text="Unites" onAction="#unitsmihandler"></MenuItem>
 						</items>
 					</MenuButton>
 					<Label prefWidth="30" prefHeight="30">

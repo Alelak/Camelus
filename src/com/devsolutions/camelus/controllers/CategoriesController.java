@@ -50,6 +50,7 @@ public class CategoriesController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addDraggableNode(titleBar);
+		categorielist.setPlaceholder(new Label("Pas de Categories"));
 		lblClose.setOnMouseClicked(e -> {
 
 			((Stage) lblClose.getScene().getWindow()).close();
@@ -157,7 +158,7 @@ public class CategoriesController implements Initializable {
 				});
 	}
 
-	public void addDraggableNode(final Node node) {
+	private void addDraggableNode(final Node node) {
 		node.setOnMousePressed(e -> {
 			if (e.getButton() != MouseButton.MIDDLE) {
 				initialX = e.getSceneX();

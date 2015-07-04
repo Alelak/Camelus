@@ -9,6 +9,14 @@ public class Unit {
 	private Date updated_at;
 	private int deleted;
 
+	public Unit() {
+
+	}
+
+	public Unit(String description) {
+		this.description = description;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -47,6 +55,11 @@ public class Unit {
 
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	@Override
+	public String toString() {
+		return this.description;
 	}
 
 }

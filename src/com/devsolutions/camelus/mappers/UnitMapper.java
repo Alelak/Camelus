@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import com.devsolutions.camelus.entities.Unit;
 
 public interface UnitMapper {
@@ -18,11 +17,14 @@ public interface UnitMapper {
 	Unit getById(int id);
 
 	@Insert("INSERT INTO units (description) VALUE (#{description})")
-	@Options(flushCache = true)
-	void add(String description);
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
+	void add(Unit unit);
 
 	@Update("UPDATE units SET deleted = 1 WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);
 
+	@Update("UPDATE units SET description = #{description} WHERE id = #{id}")
+	@Options(flushCache = true)
+	void update(Unit unit);
 }

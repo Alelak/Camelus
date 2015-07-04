@@ -9,7 +9,7 @@ public class UnitManagerTest {
 
 	public void insert() {
 
-		UnitManager.add("kg");
+		UnitManager.add(new Unit("kg"));
 		System.out.println("Record inserted");
 	}
 
