@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.UnitManager;
+import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -69,7 +70,7 @@ public class UnitsController implements Initializable {
 		animation.setCycleCount(1);
 
 		addBtn.setOnAction(e -> {
-			unitslist.getItems().add(new Unit());
+			unitslist.getItems().add(new Unit(""));
 			unitslist.getSelectionModel().selectLast();
 			animation.play();
 		});
@@ -108,17 +109,21 @@ public class UnitsController implements Initializable {
 				Unit unit = event.getNewValue();
 				int index = event.getIndex();
 				Unit unit2 = unitsOb.get(index);
-				if (!event.getNewValue().getDescription().isEmpty()) {
-					if (isNew) {
-						UnitManager.add(unit);
+				if (!unit.getDescription().isEmpty()) {
+					if (!FXUtils.customcontains(unitsOb, unit.getDescription())) {
+						if (isNew) {
+							UnitManager.add(unit);
 
-						unitsOb.set(index, unit);
+							unitsOb.set(index, unit);
+						} else {
+
+							unit2.setDescription(unit.getDescription());
+							unitsOb.set(index, unit2);
+							UnitManager.update(unit2);
+
+						}
 					} else {
-
-						unit2.setDescription(unit.getDescription());
-						unitsOb.set(index, unit2);
-						UnitManager.update(unit2);
-
+						// feedback
 					}
 				} else {
 					unitsOb.remove(index);

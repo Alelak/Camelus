@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.managers.CategoryManager;
+import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -110,17 +111,22 @@ public class CategoriesController implements Initializable {
 						Category category = event.getNewValue();
 						int index = event.getIndex();
 						Category category2 = categoriesOb.get(index);
-						if (!event.getNewValue().getDescription().isEmpty()) {
-							if (isNew) {
-								CategoryManager.add(category);
+						if (!category.getDescription().isEmpty()) {
+							if (!FXUtils.customcontains(categoriesOb,
+									category.getDescription())) {
+								if (isNew) {
+									CategoryManager.add(category);
 
-								categoriesOb.set(index, category);
+									categoriesOb.set(index, category);
+								} else {
+
+									category2.setDescription(category
+											.getDescription());
+									CategoryManager.update(category2);
+									categoriesOb.set(index, category2);
+								}
 							} else {
-
-								category2.setDescription(category
-										.getDescription());
-								CategoryManager.update(category2);
-								categoriesOb.set(index, category2);
+								// feedback
 							}
 						} else {
 							categoriesOb.remove(index);
