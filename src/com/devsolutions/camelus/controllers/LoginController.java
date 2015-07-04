@@ -3,6 +3,7 @@ package com.devsolutions.camelus.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -51,6 +52,7 @@ public class LoginController implements Initializable {
 		passwordtxt.setText("1234");
 
 		loginbtn.setOnAction(e -> {
+
 			loginLogic();
 		});
 		passwordtxt.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -78,94 +80,98 @@ public class LoginController implements Initializable {
 	}
 
 	public void loginLogic() {
-		stage = (Stage) loginbtn.getScene().getWindow();
-		String username = usernametxt.getText().trim();
-		String password = passwordtxt.getText().trim();
-		int accountType = chooseAccountType.getSelectionModel()
-				.getSelectedIndex();
-		if (!username.isEmpty() && !password.isEmpty() && accountType != 0) {
+		Platform.runLater(() -> {
+			stage = (Stage) loginbtn.getScene().getWindow();
+			String username = usernametxt.getText().trim();
+			String password = passwordtxt.getText().trim();
+			int accountType = chooseAccountType.getSelectionModel()
+					.getSelectedIndex();
+			if (!username.isEmpty() && !password.isEmpty() && accountType != 0) {
 
-			if (accountType == 1) {
+				if (accountType == 1) {
 
-				Admin admin = AdminManager.getByUserName(username);
-				if (admin != null) {
+					Admin admin = AdminManager.getByUserName(username);
+					if (admin != null) {
 
-					if (admin.getPassword().equals(password)) {
-						Session.admin = admin;
-						FXMLLoader loader = new FXMLLoader(getClass()
-								.getResource("../views/mainwindow.fxml"));
-						Parent root = null;
-						try {
-							root = loader.load();
-						} catch (Exception e1) {
-							e1.printStackTrace();
+						if (admin.getPassword().equals(password)) {
+							Session.admin = admin;
+							FXMLLoader loader = new FXMLLoader(getClass()
+									.getResource("../views/mainwindow.fxml"));
+							Parent root = null;
+							try {
+								root = loader.load();
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+							MainWindowController mainWindowController = loader
+									.<MainWindowController> getController();
+							mainWindowController.setMainApp(stage);
+							mainWindowController.addDraggableNode(root);
+							Scene scene = new Scene(root);
+							scene.getStylesheets().add(
+									getClass().getResource("../views/main.css")
+											.toExternalForm());
+							stage.setScene(scene);
+							stage.centerOnScreen();
+						} else {
+							showError();
+
 						}
-						MainWindowController mainWindowController = loader
-								.<MainWindowController> getController();
-						mainWindowController.setMainApp(stage);
-						mainWindowController.addDraggableNode(root);
-						Scene scene = new Scene(root);
-						scene.getStylesheets().add(
-								getClass().getResource("../views/main.css")
-										.toExternalForm());
-						stage.setScene(scene);
-						stage.centerOnScreen();
 					} else {
 						showError();
 
 					}
+
 				} else {
-					showError();
+					Vendor vendor = VendorManager.getByUserName(username);
+					if (vendor != null) {
+						if (vendor.getPassword().equals(password)) {
+							Session.vendor = vendor;
+							FXMLLoader loader = new FXMLLoader(getClass()
+									.getResource("../views/mainwindow.fxml"));
+							Parent root = null;
+							try {
+								root = loader.load();
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+							MainWindowController mainWindowController = loader
+									.<MainWindowController> getController();
+							mainWindowController.setMainApp(stage);
+							mainWindowController.addDraggableNode(root);
+							Scene scene = new Scene(root);
 
+							scene.getStylesheets().add(
+									getClass().getResource("../views/main.css")
+											.toExternalForm());
+							stage.setScene(scene);
+							stage.centerOnScreen();
+						} else {
+							showError();
+						}
+					} else {
+						showError();
+					}
 				}
-
 			} else {
-				Vendor vendor = VendorManager.getByUserName(username);
-				if (vendor != null) {
-					if (vendor.getPassword().equals(password)) {
-						Session.vendor = vendor;
-						FXMLLoader loader = new FXMLLoader(getClass()
-								.getResource("../views/mainwindow.fxml"));
-						Parent root = null;
-						try {
-							root = loader.load();
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-						MainWindowController mainWindowController = loader
-								.<MainWindowController> getController();
-						mainWindowController.setMainApp(stage);
-						mainWindowController.addDraggableNode(root);
-						Scene scene = new Scene(root);
-
-						scene.getStylesheets().add(
-								getClass().getResource("../views/main.css")
-										.toExternalForm());
-						stage.setScene(scene);
-						stage.centerOnScreen();
-					} else {
-						showError();
-					}
-				} else {
-					showError();
+				if (username.isEmpty()) {
+					usernametxt
+							.setStyle("-fx-border-color:red; -fx-border-width:2");
 				}
-			}
-		} else {
-			if (username.isEmpty()) {
-				usernametxt
-						.setStyle("-fx-border-color:red; -fx-border-width:2");
-			}
-			if (password.isEmpty()) {
-				passwordtxt
-						.setStyle("-fx-border-color:red; -fx-border-width:2");
+				if (password.isEmpty()) {
+					passwordtxt
+							.setStyle("-fx-border-color:red; -fx-border-width:2");
+				}
+
+				if (accountType == 0) {
+					chooseAccountType
+							.setStyle("-fx-border-color:red; -fx-border-width:2");
+				}
+
 			}
 
-			if (accountType == 0) {
-				chooseAccountType
-						.setStyle("-fx-border-color:red; -fx-border-width:2");
-			}
+		});
 
-		}
 	}
 
 	public void showError() {

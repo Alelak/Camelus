@@ -1,5 +1,7 @@
 package com.devsolutions.camelus.application;
 
+import com.devsolutions.camelus.services.DBConnection;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +20,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			DBConnection.getSqlSessionFactory();
 			Font.loadFont(
 					Main.class.getResource(
 							"../../../../fonts/fontawesome-webfont.ttf")
@@ -31,8 +34,7 @@ public class Main extends Application {
 							"../../../../fonts/Roboto-Medium.ttf")
 							.toExternalForm(), 10);
 			Font.loadFont(
-					getClass().getResource(
-							"../../../../fonts/Roboto-Bold.ttf")
+					getClass().getResource("../../../../fonts/Roboto-Bold.ttf")
 							.toExternalForm(), 10);
 			scene.getStylesheets().add(
 					getClass().getResource("../views/main.css")
