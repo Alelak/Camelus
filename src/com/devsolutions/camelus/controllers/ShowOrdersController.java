@@ -1,7 +1,10 @@
 package com.devsolutions.camelus.controllers;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -88,6 +92,7 @@ public class ShowOrdersController implements Initializable {
 	private SortedList<OrderTV> sortedData;
 
 	private List<OrderLineTV> orderLinesList;
+	private Stage stage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -189,21 +194,47 @@ public class ShowOrdersController implements Initializable {
 		});
 
 		pdfBtn.setOnAction(e -> {
-			Document document = new Document();
-			OrderTV orderTV = orderTableView.getSelectionModel()
-					.getSelectedItem();
-			Client client = ClientManager.getById(orderTV.getClient_id());
+			creatPDF();
+		});
+
+		orderTableView.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
+						showOrderBtn.setDisable(false);
+						pdfBtn.setDisable(false);
+					} else {
+						showOrderBtn.setDisable(true);
+						pdfBtn.setDisable(true);
+					}
+				});
+	}
+
+	private void creatPDF() {
+		Document document = new Document();
+		OrderTV orderTV = orderTableView.getSelectionModel().getSelectedItem();
+		Client client = ClientManager.getById(orderTV.getClient_id());
+		stage = (Stage) pdfBtn.getScene().getWindow();
+		String defaultFileName = "Commande-No "	+ orderTV.getId() +"_"+orderTV.getEnterprise_name()+ ".pdf";
+		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Exporter la Commande");
+		fileChooser.setInitialFileName(defaultFileName);
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF Files", "*.pdf");
+		fileChooser.getExtensionFilters().add(extFilter);
+		
+		File savedFile = fileChooser.showSaveDialog(stage);
+
+		if (savedFile != null) {
+
 			try {
-				PdfWriter.getInstance(document, new FileOutputStream(
-						"Commande-No " + orderTV.getId() + ".pdf"));
+				PdfWriter.getInstance(document, new FileOutputStream(savedFile.getAbsolutePath()));
 				document.setPageSize(PageSize.A4);
 				document.setMargins(0, 0, 10, 0);
 				document.open();
 
 				PdfPTable table = new PdfPTable(6);
 
-				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
-						Font.BOLD);
+				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
 				LineSeparator ls = new LineSeparator();
 
@@ -213,32 +244,36 @@ public class ShowOrdersController implements Initializable {
 				p1.setSpacingBefore(25f);
 
 				try {
-					Font boldFontHeaderFields = new Font(
-							Font.FontFamily.HELVETICA, 12, Font.BOLD);
-					// Font boldFontHeader = new Font(Font.FontFamily.HELVETICA,
-					// 12, Font.);
-					Image image = Image.getInstance("src/images/logo-gfc.png");
+					Font boldFontHeaderFields = new Font(Font.FontFamily.HELVETICA,
+							12, Font.BOLD);
+					
+					Image image = Image.getInstance("src/images/gfc.png");
+					
+					Paragraph imageParagraph = new Paragraph();
+					imageParagraph.add(image);
+					imageParagraph.setIndentationLeft(20f);
+					
 					PdfPTable tabHeader = new PdfPTable(2);
 					tabHeader.setWidthPercentage(100);
 
 					PdfPCell cell1 = new PdfPCell(image, true);
 					cell1.setBorder(Rectangle.NO_BORDER);
+					cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+					cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					tabHeader.addCell(cell1);
 
 					PdfPCell cell2 = new PdfPCell();
 
-					Paragraph p = new Paragraph(new Phrase(
-							"Numéro de commande : " + orderTV.getId() + "\n",
-							boldFontHeaderFields));
+					Paragraph p = new Paragraph(new Phrase("Numéro de commande : "
+							+ orderTV.getId() + "\n", boldFontHeaderFields));
 					p.add(new Phrase("Numéro du client          : "
-							+ orderTV.getClient_id() + "\n",
-							boldFontHeaderFields));
+							+ orderTV.getClient_id() + "\n", boldFontHeaderFields));
 					p.add(new Phrase("Numéro du vendeur     : "
-							+ orderTV.getAssociated_vendor(),
-							boldFontHeaderFields));
+							+ orderTV.getAssociated_vendor(), boldFontHeaderFields));
 
 					p.setIndentationLeft(50f);
 					cell2.addElement(p);
+					cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
 					cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell2.setBorder(Rectangle.NO_BORDER);
 					tabHeader.addCell(cell2);
@@ -271,8 +306,7 @@ public class ShowOrdersController implements Initializable {
 				Paragraph p3 = new Paragraph();
 				p3.setIndentationLeft(20f);
 				p3.add(new Phrase("Email : "));
-				p3.add(new Phrase(client.getContact_email() + "       ",
-						boldFont));
+				p3.add(new Phrase(client.getContact_email() + "       ", boldFont));
 
 				p3.add(new Phrase("Tel : "));
 				p3.add(new Phrase(client.getContact_tel() + "       ", boldFont));
@@ -285,8 +319,7 @@ public class ShowOrdersController implements Initializable {
 
 				document.add(p3);
 
-				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f,
-						40f };
+				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f, 40f };
 				table.setWidths(columnWidths);
 
 				table.setHeaderRows(1);
@@ -339,16 +372,16 @@ public class ShowOrdersController implements Initializable {
 			} catch (DocumentException | FileNotFoundException ex) {
 				ex.printStackTrace();
 			}
-		});
-
-		orderTableView.getSelectionModel().selectedItemProperty()
-				.addListener((obs, oldSelection, newSelection) -> {
-					if (newSelection != null) {
-						showOrderBtn.setDisable(false);
-					} else {
-						showOrderBtn.setDisable(true);
-					}
-				});
+			String[] params = { "cmd", "/c", savedFile.getAbsolutePath() };
+			try {
+				Runtime.getRuntime().exec(params);
+			} catch (Exception ex) {
+				System.out.println("failed");
+			}
+		}
+		else {
+			System.out.println("no file");
+		}
 	}
 
 	private void creatTablePDF(PdfPTable table, OrderTV orderTV) {
@@ -443,7 +476,6 @@ public class ShowOrdersController implements Initializable {
 	}
 
 	public void initData(Vendor selectedVendor) {
-		// this.selectedVendor = selectedVendor;
 		searchField.setText(selectedVendor.getFname() + " "
 				+ selectedVendor.getLname());
 	}

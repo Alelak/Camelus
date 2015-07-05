@@ -5,8 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowOrdersController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowOrdersController">
 	<children>
 		<VBox layoutY="-1.0">
 			<children>
@@ -14,19 +13,17 @@
 					<center>
 						<HBox BorderPane.alignment="CENTER">
 							<children>
-								<Button fx:id="takeOrderBtn" mnemonicParsing="false"
-									text="Prise Commande">
+								<Button fx:id="takeOrderBtn" mnemonicParsing="false" text="Prise Commande">
 									<HBox.margin>
 										<Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
 									</HBox.margin>
 								</Button>
-								<Button fx:id="showOrderBtn" disable="true"
-									mnemonicParsing="false" text="Consulter Commande">
+								<Button fx:id="showOrderBtn" disable="true" mnemonicParsing="false" text="Consulter Commande">
 									<HBox.margin>
 										<Insets bottom="10.0" right="20.0" top="10.0" />
 									</HBox.margin>
 								</Button>
-								<Button fx:id="pdfBtn" mnemonicParsing="false" text="Créer PDF">
+								<Button fx:id="pdfBtn" disable="true" mnemonicParsing="false" text="Exporter Commandes">
 									<HBox.margin>
 										<Insets right="20.0" top="10.0" />
 									</HBox.margin>
@@ -35,30 +32,25 @@
 						</HBox>
 					</center>
 					<left>
-						<Pane fx:id="leftPane" prefWidth="250.0"
-							BorderPane.alignment="CENTER" />
+						<Pane fx:id="leftPane" prefWidth="250.0" BorderPane.alignment="CENTER" />
 					</left>
 					<right>
-						<Pane fx:id="rightPane" prefWidth="250.0"
-							BorderPane.alignment="CENTER" />
+						<Pane fx:id="rightPane" prefWidth="250.0" BorderPane.alignment="CENTER" />
 					</right>
 				</BorderPane>
 				<BorderPane>
 					<center>
 						<HBox BorderPane.alignment="CENTER">
 							<children>
-								<TextField fx:id="searchField" prefWidth="200.0"
-									promptText="Recherche" />
+								<TextField fx:id="searchField" prefWidth="200.0" promptText="Recherche" />
 							</children>
 						</HBox>
 					</center>
 					<left>
-						<Pane fx:id="leftSearchPane" prefWidth="300.0"
-							BorderPane.alignment="CENTER" />
+						<Pane fx:id="leftSearchPane" prefWidth="300.0" BorderPane.alignment="CENTER" />
 					</left>
 					<right>
-						<Pane fx:id="rightSearchPane" prefWidth="300.0"
-							BorderPane.alignment="CENTER" />
+						<Pane fx:id="rightSearchPane" prefWidth="300.0" BorderPane.alignment="CENTER" />
 					</right>
 					<top>
 						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
@@ -69,18 +61,12 @@
 				</BorderPane>
 				<TableView fx:id="orderTableView">
 					<columns>
-						<TableColumn fx:id="orderIdCol" prefWidth="100.0"
-							text="No" />
-						<TableColumn fx:id="vendorFNameCol" prefWidth="150.0"
-							text="Prénom du Vendeur" />
-						<TableColumn fx:id="vendorLNameCol" prefWidth="150.0"
-							text="Nom du Vendeur" />
-						<TableColumn fx:id="clientNameCol" prefWidth="100.0"
-							text="Nom du Client" />
-						<TableColumn fx:id="commentCol" prefWidth="100.0"
-							text="Commentaire" />
-						<TableColumn fx:id="orderedAtCol" prefWidth="200.0"
-							text="Date de commande" />
+						<TableColumn fx:id="orderIdCol" prefWidth="100.0" text="No" />
+						<TableColumn fx:id="vendorFNameCol" prefWidth="150.0" text="Prénom du Vendeur" />
+						<TableColumn fx:id="vendorLNameCol" prefWidth="150.0" text="Nom du Vendeur" />
+						<TableColumn fx:id="clientNameCol" prefWidth="100.0" text="Nom du Client" />
+						<TableColumn fx:id="commentCol" prefWidth="100.0" text="Commentaire" />
+						<TableColumn fx:id="orderedAtCol" prefWidth="200.0" text="Date de commande" />
 					</columns>
 				</TableView>
 			</children>

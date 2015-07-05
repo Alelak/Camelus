@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URL;
@@ -24,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -94,6 +96,8 @@ public class ShowVendorsController implements Initializable {
 	private List<VendorReport> currentCommissionTVList;
 
 	private MainWindowController mainWindowController;
+
+	private Stage stage;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -236,93 +240,11 @@ public class ShowVendorsController implements Initializable {
 			}
 		});
 
-		commissionBtn
-				.setOnAction(e -> {
-					comissionBtnAction();
+		commissionBtn.setOnAction(e -> {
+			comissionBtnAction();
+			creatPDF();
 
-					Document document = new Document();
-					int selectedMonth = monthComboBox.getSelectionModel()
-							.getSelectedItem().getId();
-					int selectedYear = yearComboBox.getSelectionModel()
-							.getSelectedItem().getId();
-					Vendor vendor = vendorTableView.getSelectionModel()
-							.getSelectedItem();
-					try {
-						PdfWriter.getInstance(document, new FileOutputStream(
-								"Rapport de commission (" + selectedMonth + "-"
-										+ selectedYear + ").pdf"));
-
-						document.setPageSize(PageSize.A4);
-						document.setMargins(0, 0, 30, 0);
-						document.open();
-						Font boldFont = new Font(Font.FontFamily.HELVETICA, 18,
-								Font.BOLD);
-						Paragraph p1 = new Paragraph();
-						p1.setIndentationLeft(50f);
-						p1.setIndentationRight(50f);
-						p1.setSpacingAfter(30f);
-
-						Date date = new Date();
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(date);
-						int year = cal.get(Calendar.YEAR);
-						int month = cal.get(Calendar.MONTH);
-						int day = cal.get(Calendar.DAY_OF_MONTH);
-
-						p1.add(new Phrase(
-								"No       :   "
-										+ vendor.getId()
-										+ "                                                    Date: "
-										+ StringUtils.formateDate(day,
-												month + 1, year), boldFont));
-						document.add(p1);
-
-						Paragraph p = new Paragraph("Nom   :   "
-								+ vendor.getFname() + " " + vendor.getLname(),
-								boldFont);
-						p.setIndentationLeft(50f);
-
-						p.setSpacingAfter(50f);
-						document.add(p);
-
-						Font boldFontTitle = new Font(
-								Font.FontFamily.HELVETICA, 24, Font.BOLD);
-
-						Paragraph p2 = new Paragraph("Rapport de commission",
-								boldFontTitle);
-						p2.setAlignment(Element.ALIGN_CENTER);
-
-						p2.setSpacingAfter(30f);
-						document.add(p2);
-
-						Paragraph p3 = new Paragraph("("
-								+ StringUtils.monthName(selectedMonth) + " - "
-								+ selectedYear + ")", boldFontTitle);
-						p3.setAlignment(Element.ALIGN_CENTER);
-
-						p3.setSpacingAfter(50f);
-						document.add(p3);
-
-						PdfPTable table = new PdfPTable(4);
-
-						double totaSales = 0;
-						double totalCommission = 0;
-
-						for (VendorReport commissionTV : currentCommissionTVList) {
-							totaSales += commissionTV.getTotal_sale();
-							totalCommission += commissionTV
-									.getTotal_commission();
-						}
-						creatTablePDF(table, totaSales, totalCommission,
-								document);
-						document.add(table);
-
-						document.close();
-
-					} catch (DocumentException | FileNotFoundException ex) {
-						ex.printStackTrace();
-					}
-				});
+		});
 
 		ordersBtn.setOnAction(e -> {
 			Vendor selectedVendor = vendorTableView.getSelectionModel()
@@ -361,15 +283,17 @@ public class ShowVendorsController implements Initializable {
 
 							int selectedYearId = 0;
 							if (!yearComboBoxIsEmpty())
-								yearComboBox.getSelectionModel()
+								selectedYearId = yearComboBox.getSelectionModel()
 										.getSelectedItem().getId();
 
 							if (newSelection != null
 									&& newSelection.getId() > 0
 									&& selectedYearId > 0) {
 								commissionBtn.setDisable(false);
+								System.out.println("month yes");
 							} else {
 								commissionBtn.setDisable(true);
+								System.out.println("month no");
 							}
 						});
 
@@ -385,12 +309,119 @@ public class ShowVendorsController implements Initializable {
 							if (newSelection != null && selectedMonthId > 0
 									&& newSelection.getId() > 0) {
 								commissionBtn.setDisable(false);
+								System.out.println("year yes");
 							} else {
 								commissionBtn.setDisable(true);
+								System.out.println("year no");
 							}
 							initMonthComboBox();
 						});
 
+	}
+
+	private void creatPDF() {
+		Document document = new Document();
+		int selectedMonth = monthComboBox.getSelectionModel().getSelectedItem()
+				.getId();
+		int selectedYear = yearComboBox.getSelectionModel().getSelectedItem()
+				.getId();
+		Vendor vendor = vendorTableView.getSelectionModel().getSelectedItem();
+
+		stage = (Stage) commissionBtn.getScene().getWindow();
+
+		FileChooser fileChooser = new FileChooser();
+
+		fileChooser.setTitle("Exporter le rapport de commission");
+		String defaultFileName = "Rapport-de-commission_" + vendor.getFname()
+				+ "-" + vendor.getLname() + "(" + selectedMonth + "-"
+				+ selectedYear + ").pdf";
+		fileChooser.setInitialFileName(defaultFileName);
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF Files", "*.pdf");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File savedFile = fileChooser.showSaveDialog(stage);
+
+		if (savedFile != null) {
+
+			try {
+				PdfWriter.getInstance(document, new FileOutputStream(savedFile.getAbsoluteFile()));
+
+				document.setPageSize(PageSize.A4);
+				document.setMargins(0, 0, 30, 0);
+				document.open();
+				Font boldFont = new Font(Font.FontFamily.HELVETICA, 18,
+						Font.BOLD);
+				Paragraph p1 = new Paragraph();
+				p1.setIndentationLeft(50f);
+				p1.setIndentationRight(50f);
+				p1.setSpacingAfter(30f);
+
+				Date date = new Date();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
+				int day = cal.get(Calendar.DAY_OF_MONTH);
+
+				p1.add(new Phrase(
+						"No       :   "
+								+ vendor.getId()
+								+ "                                                    Date: "
+								+ StringUtils.formateDate(day, month + 1, year),
+						boldFont));
+				document.add(p1);
+
+				Paragraph p = new Paragraph("Nom   :   " + vendor.getFname()
+						+ " " + vendor.getLname(), boldFont);
+				p.setIndentationLeft(50f);
+
+				p.setSpacingAfter(50f);
+				document.add(p);
+
+				Font boldFontTitle = new Font(Font.FontFamily.HELVETICA, 24,
+						Font.BOLD);
+
+				Paragraph p2 = new Paragraph("Rapport de commission",
+						boldFontTitle);
+				p2.setAlignment(Element.ALIGN_CENTER);
+
+				p2.setSpacingAfter(30f);
+				document.add(p2);
+
+				Paragraph p3 = new Paragraph("("
+						+ StringUtils.monthName(selectedMonth) + " - "
+						+ selectedYear + ")", boldFontTitle);
+				p3.setAlignment(Element.ALIGN_CENTER);
+
+				p3.setSpacingAfter(50f);
+				document.add(p3);
+
+				PdfPTable table = new PdfPTable(4);
+
+				double totaSales = 0;
+				double totalCommission = 0;
+
+				for (VendorReport commissionTV : currentCommissionTVList) {
+					totaSales += commissionTV.getTotal_sale();
+					totalCommission += commissionTV.getTotal_commission();
+				}
+				creatTablePDF(table, totaSales, totalCommission, document);
+				document.add(table);
+
+				document.close();
+
+			} catch (DocumentException | FileNotFoundException ex) {
+				ex.printStackTrace();
+			}
+
+			String[] params = { "cmd", "/c", savedFile.getAbsolutePath() };
+			try {
+				Runtime.getRuntime().exec(params);
+			} catch (Exception ex) {
+				System.out.println("failed");
+			}
+		} else {
+			System.out.println("no file");
+		}
 	}
 
 	private void creatTablePDF(PdfPTable table, double totaSales,
@@ -545,8 +576,21 @@ public class ShowVendorsController implements Initializable {
 
 		return yes;
 	}
+	
+	private boolean monthComboBoxIsEmpty() {
+		boolean yes = true;
+		if (monthComboBox.getItems().size() > 0)
+			yes = false;
+
+		return yes;
+	}
 
 	private void initMonthComboBox() {
+		int selectedMonthId = 0;
+		if (!monthComboBoxIsEmpty())
+			selectedMonthId = monthComboBox
+				.getSelectionModel().getSelectedItem()
+				.getId();
 		monthComboBox.getItems().clear();
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
@@ -572,7 +616,14 @@ public class ShowVendorsController implements Initializable {
 			}
 		}
 		monthComboBox.setItems(monthObservableList);
-		monthComboBox.getSelectionModel().select(0);
+		if(monthComboBox.getItems().size() >0 && selectedMonthId > monthComboBox.getItems().get(monthComboBox.getItems().size()-1).getId())
+		{
+			monthComboBox.getSelectionModel().select(0);
+		}
+		else{
+			monthComboBox.getSelectionModel().select(selectedMonthId);
+		}
+		
 	}
 
 	private void initComboBox() {
