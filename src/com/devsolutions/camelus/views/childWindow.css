@@ -67,7 +67,7 @@ TitledPane
 
 .flat-btn:focused {
 	-fx-border-color: #004263;
-	-fx-border-width: 2.0;
+	-fx-border-width: 1.0;
 }
 
 .flat-btn:hover {
@@ -81,4 +81,27 @@ TitledPane
 #categorielist{
 	-fx-border-color: -camelus-blue;
 	-fx-border-width: 2.0;
+}
+
+
+#chooseCommisionType .label {
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+
+#chooseCommisionType .context-menu {
+    -fx-background-color: white;
+    -fx-padding: 0.0;
+}
+
+#chooseCommisionType .context-menu .label {
+    -fx-text-fill: black;
+}
+
+#chooseCommisionType .context-menu .menu-item:focused {
+    -fx-background-color: #03A9F4;
+}
+
+#chooseCommisionType .arrow {
+    -fx-background-color: white;
 }

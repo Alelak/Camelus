@@ -20,11 +20,11 @@ public interface CategoryMapper {
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Category category);
 
-	@Update("UPDATE categories SET deleted = 1 WHERE id = #{id}")
+	@Update("UPDATE categories SET deleted = 1, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);
 
-	@Update("UPDATE categories SET description = #{description} WHERE id = #{id}")
+	@Update("UPDATE categories SET description = #{description}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void update(Category category);
 }

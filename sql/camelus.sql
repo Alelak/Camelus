@@ -82,8 +82,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `camelus`.`commissions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` TINYINT(1) NOT NULL,
-  `rate` INT NOT NULL,
-  `mcondition` INT NULL,
+  `rate` DECIMAL(10,2)  NOT NULL,
+  `mcondition` DECIMAL(10,2)  NOT NULL,
   `deleted` TINYINT(1) NULL DEFAULT 0,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,

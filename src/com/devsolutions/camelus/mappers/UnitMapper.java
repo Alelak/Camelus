@@ -20,11 +20,11 @@ public interface UnitMapper {
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Unit unit);
 
-	@Update("UPDATE units SET deleted = 1 WHERE id = #{id}")
+	@Update("UPDATE units SET deleted = 1, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);
 
-	@Update("UPDATE units SET description = #{description} WHERE id = #{id}")
+	@Update("UPDATE units SET description = #{description}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void update(Unit unit);
 }

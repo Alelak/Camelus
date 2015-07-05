@@ -5,8 +5,8 @@ import java.util.Date;
 public class Commission {
 	private int id;
 	private int type;
-	private int rate;
-	private int mcondition;
+	private double rate;
+	private double mcondition;
 	private Date created_at;
 	private Date updated_at;
 	private int deleted;
@@ -27,19 +27,19 @@ public class Commission {
 		this.type = type;
 	}
 
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 
-	public int getMcondition() {
+	public double getMcondition() {
 		return mcondition;
 	}
 
-	public void setMcondition(int mcondition) {
+	public void setMcondition(double mcondition) {
 		this.mcondition = mcondition;
 	}
 

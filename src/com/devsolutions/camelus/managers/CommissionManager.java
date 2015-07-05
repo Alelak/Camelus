@@ -39,4 +39,11 @@ public class CommissionManager {
 		session.commit();
 		session.close();
 	}
+
+	public static void update(Commission commission) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(CommissionMapper.class).update(commission);
+		session.commit();
+		session.close();
+	}
 }

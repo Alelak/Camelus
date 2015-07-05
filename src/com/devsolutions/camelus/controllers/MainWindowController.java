@@ -258,7 +258,7 @@ public class MainWindowController implements Initializable {
 
 	@FXML
 	public void commissionsmihandler() {
-
+		openMenuWindows("commissions");
 	}
 
 	@FXML
