@@ -37,7 +37,7 @@
 						<Insets top="150.0" />
 					</padding>
 					<Label fx:id="message1" text="La base de données est vide." />
-					<Label text="Ajouter maintenant un client." />
+					<Label id="message2" text="Ajouter maintenant un client." />
 				</VBox>
 				<GridPane fx:id="gridRowTwo" GridPane.rowIndex="1"
 					gridLinesVisible="false">

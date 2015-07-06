@@ -80,7 +80,6 @@ public class ShowClientsController implements Initializable {
 	@FXML
 	private Button btnOrder;
 	private ObservableList<Client> ClientsOb;
-	private List<Client> listClient;
 	private SortedList<Client> sortedData;
 	private MainWindowController mainWindowController;
 
@@ -88,9 +87,7 @@ public class ShowClientsController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
-		listClient = ClientManager.getAll();
-		ClientsOb = FXCollections.observableArrayList();
-		ClientsOb.addAll(listClient);
+		ClientsOb = FXCollections.observableArrayList(ClientManager.getAll());
 
 		if (ClientsOb.size() == 0) {
 
@@ -205,11 +202,10 @@ public class ShowClientsController implements Initializable {
 		clientTableView.setItems(sortedData);
 
 		btnRefresh.setOnAction(e -> {
-			ClientsOb.removeAll(listClient);
-			listClient = ClientManager.getAll();
-			ClientsOb.addAll(listClient);
+			ClientsOb.clear();
+			ClientsOb.addAll(ClientManager.getAll());
 		});
-		
+
 		btnOrder.setOnAction(e -> {
 			Client selectedClient = clientTableView.getSelectionModel()
 					.getSelectedItem();
@@ -319,7 +315,7 @@ public class ShowClientsController implements Initializable {
 				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
 						.getHeight() / 2) + y);
 	}
-	
+
 	public void initData(MainWindowController mainWindowController) {
 		this.mainWindowController = mainWindowController;
 	}
