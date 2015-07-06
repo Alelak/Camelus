@@ -18,11 +18,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -58,10 +62,28 @@ public class ShowOrdersController implements Initializable {
 	private Button takeOrderBtn;
 	@FXML
 	private Button showOrderBtn;
-
+	@FXML
+	private Button btnRefresh;
 	@FXML
 	private Button pdfBtn;
 
+	
+	@FXML
+	private GridPane motherGrid;
+	@FXML
+	private GridPane content;
+	@FXML
+	private RowConstraints rowOne;
+	@FXML
+	private VBox gridRowOne;
+	@FXML
+	private Label message1;
+	@FXML
+	private RowConstraints rowTwo;
+	@FXML
+	private GridPane gridRowTwo;
+	
+	
 	@FXML
 	private Pane leftPane;
 	@FXML
@@ -96,6 +118,23 @@ public class ShowOrdersController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		gridRowTwo.setVisible(false);
+		gridRowOne.setVisible(false);
+		
+		if (Session.vendor != null)
+			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
+		else
+			ordersList = OrderManager.getAllTV();
+
+		ordersObservableList = FXCollections.observableArrayList();
+		ordersObservableList.addAll(ordersList);
+
+		if (ordersObservableList.size() == 0) {
+
+			noDataToShow();
+		} else {
+			showTableView();
+		}
 		initTableView();
 
 		FilteredList<OrderTV> filteredData = new FilteredList<>(
@@ -442,12 +481,7 @@ public class ShowOrdersController implements Initializable {
 
 	public void initTableView() {
 
-		if (Session.vendor != null)
-			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
-		else
-			ordersList = OrderManager.getAllTV();
-
-		ordersObservableList = FXCollections.observableArrayList();
+		
 
 		orderIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -466,8 +500,6 @@ public class ShowOrdersController implements Initializable {
 		commentCol.setCellValueFactory(new PropertyValueFactory<>("comment"));
 		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>(
 				"ordered_at_formated"));
-
-		ordersObservableList.addAll(ordersList);
 	}
 
 	public void addToTableView(OrderTV orderTV) {
@@ -483,4 +515,20 @@ public class ShowOrdersController implements Initializable {
 	public void initDataClient(Client selectedClient) {
 		searchField.setText(selectedClient.getEnterprise_name());
 	}
+	
+	
+	private void noDataToShow() {
+		gridRowTwo.setVisible(false);
+		gridRowOne.setVisible(true);
+		rowOne.setPercentHeight(100);
+		rowTwo.setPercentHeight(0);
+	}
+
+	public void showTableView() {
+		gridRowOne.setVisible(false);
+		gridRowTwo.setVisible(true);
+		rowOne.setPercentHeight(0);
+		rowTwo.setPercentHeight(100);
+	}
+	
 }

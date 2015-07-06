@@ -1,75 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowOrdersController">
+
+
+
+
+
+
+<GridPane fx:id="motherGrid" prefWidth="900"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.ShowOrdersController">
+	<rowConstraints>
+		<RowConstraints percentHeight="90" />
+		<RowConstraints percentHeight="10" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
 	<children>
-		<VBox layoutY="-1.0">
+		<GridPane fx:id="content" GridPane.rowIndex="0"
+			gridLinesVisible="False">
+			<rowConstraints>
+				<RowConstraints fx:id="rowOne" />
+				<RowConstraints fx:id="rowTwo" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="100" />
+			</columnConstraints>
 			<children>
-				<BorderPane>
-					<center>
-						<HBox BorderPane.alignment="CENTER">
-							<children>
-								<Button fx:id="takeOrderBtn" mnemonicParsing="false" text="Prise Commande">
-									<HBox.margin>
-										<Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-									</HBox.margin>
-								</Button>
-								<Button fx:id="showOrderBtn" disable="true" mnemonicParsing="false" text="Consulter Commande">
-									<HBox.margin>
-										<Insets bottom="10.0" right="20.0" top="10.0" />
-									</HBox.margin>
-								</Button>
-								<Button fx:id="pdfBtn" disable="true" mnemonicParsing="false" text="Exporter Commandes">
-									<HBox.margin>
-										<Insets right="20.0" top="10.0" />
-									</HBox.margin>
-								</Button>
-							</children>
+				<VBox spacing="0" alignment="TOP_CENTER" fx:id="gridRowOne"
+					GridPane.rowIndex="0">
+					<padding>
+						<Insets top="150.0" />
+					</padding>
+					<Label fx:id="message1" text="La base de données est vide." />
+					<Label id="message2" text="Ajouter maintenant une commande." />
+				</VBox>
+				<GridPane fx:id="gridRowTwo" GridPane.rowIndex="1"
+					gridLinesVisible="false">
+					<padding>
+						<Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+					</padding>
+					<rowConstraints>
+						<RowConstraints percentHeight="10" />
+						<RowConstraints percentHeight="90" />
+					</rowConstraints>
+					<columnConstraints>
+						<ColumnConstraints percentWidth="50" />
+						<ColumnConstraints percentWidth="50" />
+					</columnConstraints>
+					<children>
+						<HBox spacing="5" alignment="BOTTOM_LEFT" GridPane.rowIndex="0"
+							GridPane.columnIndex="0">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<TextField fx:id="searchField" minWidth="370"
+								promptText="Chercher des commandes par No de commande, Entreprise."></TextField>
 						</HBox>
-					</center>
-					<left>
-						<Pane fx:id="leftPane" prefWidth="250.0" BorderPane.alignment="CENTER" />
-					</left>
-					<right>
-						<Pane fx:id="rightPane" prefWidth="250.0" BorderPane.alignment="CENTER" />
-					</right>
-				</BorderPane>
-				<BorderPane>
-					<center>
-						<HBox BorderPane.alignment="CENTER">
-							<children>
-								<TextField fx:id="searchField" prefWidth="200.0" promptText="Recherche" />
-							</children>
+						<HBox alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
+							GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<Button fx:id="btnRefresh" prefWidth="120" styleClass="flat-btn"
+								text="Actualiser">
+								<graphic>
+									<FontAwesomeIconView styleClass="whiteFont"
+										icon="ICON_REFRESH" />
+								</graphic>
+							</Button>
 						</HBox>
-					</center>
-					<left>
-						<Pane fx:id="leftSearchPane" prefWidth="300.0" BorderPane.alignment="CENTER" />
-					</left>
-					<right>
-						<Pane fx:id="rightSearchPane" prefWidth="300.0" BorderPane.alignment="CENTER" />
-					</right>
-					<top>
-						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-					</top>
-					<bottom>
-						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-					</bottom>
-				</BorderPane>
-				<TableView fx:id="orderTableView">
-					<columns>
-						<TableColumn fx:id="orderIdCol" prefWidth="100.0" text="No" />
-						<TableColumn fx:id="vendorFNameCol" prefWidth="150.0" text="Prénom du Vendeur" />
-						<TableColumn fx:id="vendorLNameCol" prefWidth="150.0" text="Nom du Vendeur" />
-						<TableColumn fx:id="clientNameCol" prefWidth="100.0" text="Nom du Client" />
-						<TableColumn fx:id="commentCol" prefWidth="100.0" text="Commentaire" />
-						<TableColumn fx:id="orderedAtCol" prefWidth="200.0" text="Date de commande" />
-					</columns>
-				</TableView>
+						<TableView styleClass="tableView" fx:id="orderTableView"
+							GridPane.rowIndex="1" GridPane.columnIndex="0"
+							GridPane.columnSpan="2">
+							<columns>
+								<TableColumn fx:id="orderIdCol" prefWidth="100.0"
+									text="No" />
+								<TableColumn fx:id="vendorFNameCol" prefWidth="150.0"
+									text="Prénom du Vendeur" />
+								<TableColumn fx:id="vendorLNameCol" prefWidth="150.0"
+									text="Nom du Vendeur" />
+								<TableColumn fx:id="clientNameCol" prefWidth="100.0"
+									text="Nom du Client" />
+								<TableColumn fx:id="commentCol" prefWidth="100.0"
+									text="Commentaire" />
+								<TableColumn fx:id="orderedAtCol" prefWidth="200.0"
+									text="Date de commande" />
+							</columns>
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+						</TableView>
+					</children>
+				</GridPane>
 			</children>
-		</VBox>
+		</GridPane>
+		<HBox alignment="TOP_CENTER" spacing="5" id="footer"
+			GridPane.rowIndex="1">
+
+			<Button fx:id="takeOrderBtn" prefWidth="120" styleClass="flat-btn"
+				text="Prendre commande">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PLUS" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="showOrderBtn" prefWidth="120"
+				styleClass="flat-btn" text="Consulter">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PENCIL" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="pdfBtn" prefWidth="120"
+				styleClass="flat-btn" text="Exporter Commandes">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_MINUS" />
+				</graphic>
+			</Button>
+
+		</HBox>
 	</children>
-</AnchorPane>
+	<stylesheets>
+		<URL value="@Content.css" />
+	</stylesheets>
+</GridPane>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
