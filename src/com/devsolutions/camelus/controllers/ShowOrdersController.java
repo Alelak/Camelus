@@ -79,19 +79,11 @@ public class ShowOrdersController implements Initializable {
 	@FXML
 	private Label message1;
 	@FXML
+	private Label message2;
+	@FXML
 	private RowConstraints rowTwo;
 	@FXML
 	private GridPane gridRowTwo;
-	
-	
-	@FXML
-	private Pane leftPane;
-	@FXML
-	private Pane rightPane;
-	@FXML
-	private Pane rightSearchPane;
-	@FXML
-	private Pane leftSearchPane;
 
 	@FXML
 	private TextField searchField;
@@ -122,9 +114,15 @@ public class ShowOrdersController implements Initializable {
 		gridRowOne.setVisible(false);
 		
 		if (Session.vendor != null)
+		{
+			
 			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
+		}
 		else
+		{
 			ordersList = OrderManager.getAllTV();
+			message2.setText("");
+		}
 
 		ordersObservableList = FXCollections.observableArrayList();
 		ordersObservableList.addAll(ordersList);
@@ -171,13 +169,7 @@ public class ShowOrdersController implements Initializable {
 
 		if (Session.vendor == null) {
 			takeOrderBtn.setDisable(true);
-		} else {
-			leftPane.setPrefSize(100, 0);
-			rightPane.setPrefSize(100, 0);
-			leftSearchPane.setPrefSize(150, 0);
-			rightSearchPane.setPrefSize(150, 0);
-
-		}
+		} 
 
 		showOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = orderTableView.getSelectionModel()
