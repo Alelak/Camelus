@@ -84,17 +84,14 @@
 							GridPane.rowIndex="1" GridPane.columnIndex="0"
 							GridPane.columnSpan="2">
 							<columns>
-								<TableColumn fx:id="orderIdCol" prefWidth="100.0"
+								<TableColumn maxWidth="450" fx:id="orderIdCol" 
 									text="No" />
-								<TableColumn fx:id="vendorFNameCol" prefWidth="150.0"
-									text="Prénom du Vendeur" />
-								<TableColumn fx:id="vendorLNameCol" prefWidth="150.0"
+
+								<TableColumn  fx:id="vendorNameCol" 
 									text="Nom du Vendeur" />
-								<TableColumn fx:id="clientNameCol" prefWidth="100.0"
+								<TableColumn fx:id="clientNameCol" 
 									text="Nom du Client" />
-								<TableColumn fx:id="commentCol" prefWidth="100.0"
-									text="Commentaire" />
-								<TableColumn fx:id="orderedAtCol" prefWidth="200.0"
+								<TableColumn fx:id="orderedAtCol" 
 									text="Date de commande" />
 							</columns>
 							<columnResizePolicy>
@@ -109,7 +106,7 @@
 			GridPane.rowIndex="1">
 
 			<Button fx:id="takeOrderBtn" prefWidth="120" styleClass="flat-btn"
-				text="Prendre commande">
+				text="Effectuer">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
 						icon="ICON_PLUS" />
@@ -119,14 +116,14 @@
 				styleClass="flat-btn" text="Consulter">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
-						icon="ICON_PENCIL" />
+						icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
 			<Button disable="true" fx:id="pdfBtn" prefWidth="120"
-				styleClass="flat-btn" text="Exporter Commandes">
+				styleClass="flat-btn" text="Exporter">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
-						icon="ICON_MINUS" />
+						icon="ICON_DOWNLOAD" />
 				</graphic>
 			</Button>
 

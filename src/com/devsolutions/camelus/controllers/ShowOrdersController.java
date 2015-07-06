@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.OrderLineTV;
@@ -90,14 +91,11 @@ public class ShowOrdersController implements Initializable {
 
 	@FXML
 	private TableColumn<OrderTV, String> orderIdCol;
+
 	@FXML
-	private TableColumn<OrderTV, String> vendorFNameCol;
-	@FXML
-	private TableColumn<OrderTV, String> vendorLNameCol;
+	private TableColumn<OrderTV, String> vendorNameCol;
 	@FXML
 	private TableColumn<OrderTV, String> clientNameCol;
-	@FXML
-	private TableColumn<OrderTV, String> commentCol;
 	@FXML
 	private TableColumn<OrderTV, String> orderedAtCol;
 
@@ -190,7 +188,9 @@ public class ShowOrdersController implements Initializable {
 							.<ShowOrderDetailsController> getController();
 					controller.initData(orderTV);
 
+					newStage.initStyle(StageStyle.UNDECORATED);
 					newStage.initModality(Modality.APPLICATION_MODAL);
+					newStage.initOwner(motherGrid.getScene().getWindow());
 
 					newStage.show();
 
@@ -478,18 +478,14 @@ public class ShowOrdersController implements Initializable {
 		orderIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 		if (Session.admin != null) {
-			vendorFNameCol.setCellValueFactory(new PropertyValueFactory<>(
-					"fname"));
-			vendorLNameCol.setCellValueFactory(new PropertyValueFactory<>(
-					"lname"));
+			vendorNameCol.setCellValueFactory(new PropertyValueFactory<>(
+					"fullname"));
 		} else {
-			orderTableView.getColumns().remove(vendorFNameCol);
-			orderTableView.getColumns().remove(vendorLNameCol);
+			orderTableView.getColumns().remove(vendorNameCol);
 		}
 
 		clientNameCol.setCellValueFactory(new PropertyValueFactory<>(
 				"enterprise_name"));
-		commentCol.setCellValueFactory(new PropertyValueFactory<>("comment"));
 		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>(
 				"ordered_at_formated"));
 	}

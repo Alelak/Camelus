@@ -36,7 +36,7 @@ public class StringUtils {
 		else
 			formatedMonth = "" + month;
 				
-		formatedDate = formatedDay + "-" + formatedMonth + "-" + year;
+		formatedDate = formatedDay + "/" + formatedMonth + "/" + year;
 		
 		return formatedDate;
 	}
