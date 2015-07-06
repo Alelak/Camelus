@@ -38,7 +38,7 @@
                               <Insets left="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="ordersBtn" mnemonicParsing="false" text="Commandes">
+                        <Button fx:id="ordersBtn" disable="true" mnemonicParsing="false" text="Commandes">
                            <HBox.margin>
                               <Insets left="20.0" top="20.0" />
                            </HBox.margin>

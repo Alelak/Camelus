@@ -71,12 +71,17 @@ public class AddUpdateVendorController implements Initializable {
 
 		for (Commission commission : commissions) {
 			if (commission.getType() == 0)
-				commissionChoices.add(new Choice(commission.getId(),
-						"Poucentage : " + commission.getRate() + "%"));
+				commissionChoices
+						.add(new Choice(commission.getId(), commission
+								.getRate()
+								+ "% (>="
+								+ commission.getMcondition() + "$)"));
 			else
-				commissionChoices.add(new Choice(commission.getId(), "Fixe : "
-						+ commission.getRate() + "$ (>="
-						+ commission.getMcondition() + "$)"));
+				commissionChoices.add(new Choice(commission.getId(), commission
+						.getRate()
+						+ "$ (>="
+						+ commission.getMcondition()
+						+ "$)"));
 		}
 
 		commission.setItems(commissionChoices);

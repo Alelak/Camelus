@@ -93,7 +93,7 @@ public class OrderTV {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
-		ordered_at_formated = day + "-" + month + "-" + year;
+		ordered_at_formated = day + "-" + month+1 + "-" + year;
 		return ordered_at_formated;
 	}
 
