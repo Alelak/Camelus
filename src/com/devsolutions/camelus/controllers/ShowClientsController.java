@@ -55,6 +55,7 @@ public class ShowClientsController implements Initializable {
 	private Button btnSearch;
 	@FXML
 	private Button btnRefresh;
+
 	@FXML
 	private TableView<Client> clientTableView;
 	@FXML
@@ -73,6 +74,8 @@ public class ShowClientsController implements Initializable {
 	private Button btnDelete;
 	@FXML
 	private Button btnConsult;
+	@FXML
+	private Button btnOrder;
 	private ObservableList<Client> ClientsOb;
 	private List<Client> listClient;
 	private SortedList<Client> sortedData;
@@ -104,10 +107,12 @@ public class ShowClientsController implements Initializable {
 							btnUpdate.setDisable(false);
 							btnDelete.setDisable(false);
 							btnConsult.setDisable(false);
+							btnOrder.setDisable(false);
 						} else {
 							btnUpdate.setDisable(true);
 							btnDelete.setDisable(true);
 							btnConsult.setDisable(true);
+							btnOrder.setDisable(true);
 						}
 					}
 				});
