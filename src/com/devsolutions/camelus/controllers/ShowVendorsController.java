@@ -290,10 +290,8 @@ public class ShowVendorsController implements Initializable {
 									&& newSelection.getId() > 0
 									&& selectedYearId > 0) {
 								commissionBtn.setDisable(false);
-								System.out.println("month yes");
 							} else {
 								commissionBtn.setDisable(true);
-								System.out.println("month no");
 							}
 						});
 
@@ -309,10 +307,8 @@ public class ShowVendorsController implements Initializable {
 							if (newSelection != null && selectedMonthId > 0
 									&& newSelection.getId() > 0) {
 								commissionBtn.setDisable(false);
-								System.out.println("year yes");
 							} else {
 								commissionBtn.setDisable(true);
-								System.out.println("year no");
 							}
 							initMonthComboBox();
 						});
