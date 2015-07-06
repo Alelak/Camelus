@@ -12,9 +12,9 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.image.*?>
 
-
-<GridPane id="motherGrid" prefHeight="550" prefWidth="550"
+<GridPane id="motherGrid" prefHeight="670" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.AddProductController">
 
@@ -39,9 +39,9 @@
 			</columnConstraints>
 
 			<children>
-		
 
-				<Label text="Ajouter Produit"  GridPane.ColumnIndex="0">
+
+				<Label text="Ajouter Produit" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -60,8 +60,9 @@
 			</children>
 		</GridPane>
 
-		<GridPane GridPane.rowIndex="1">
+		<GridPane  GridPane.rowIndex="1">
 			<rowConstraints>
+				<RowConstraints valignment="CENTER" />
 				<RowConstraints valignment="CENTER" percentHeight="11.5" />
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints percentHeight="10.3" />
@@ -83,7 +84,18 @@
 			</columnConstraints>
 
 			<children>
-				<Label GridPane.rowIndex="0" GridPane.ColumnIndex="0"
+			<HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.ColumnIndex="0" GridPane.ColumnSpan="3"> 
+				<ImageView 
+					fx:id="imageProduct" fitHeight="80.0" style="-fx-background-color: white;"
+					fitWidth="100.0" pickOnBounds="true" preserveRatio="true"
+					>
+					<image>
+						<Image url="@../../../../images/nopicture.jpg">
+						</Image>
+					</image>
+				</ImageView>
+				</HBox>
+				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
 					GridPane.ColumnSpan="3"
 					text="*Saisir tous les champs qui sont avec étoile afin de passer la validation du formulaire. ">
 					<padding>
@@ -92,71 +104,64 @@
 				</Label>
 
 
-				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
-					text="UPC:">
-				</Label>
-				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0"
-					text="Nom de Produit:">
+				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="UPC:">
 				</Label>
 				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0"
-					text="Quantitè de Produit">
+					text="Nom de Produit:">
 				</Label>
 				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0"
-					text="Unitè de Produit:">
+					text="Quantitè de Produit">
 				</Label>
 				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0"
-					text="Categorie de Produit:">
+					text="Unitè de Produit:">
 				</Label>
 				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
-					text="Image de Produit:">
+					text="Categorie de Produit:">
 				</Label>
 				<Label GridPane.rowIndex="7" GridPane.ColumnIndex="0"
-					text="Prix d'achat:">
+					text="Image de Produit:">
 				</Label>
 				<Label GridPane.rowIndex="8" GridPane.ColumnIndex="0"
+					text="Prix d'achat:">
+				</Label>
+				<Label GridPane.rowIndex="9" GridPane.ColumnIndex="0"
 					text="Prix de Vente:">
 				</Label>
 
-				<TextField fx:id="upc" GridPane.rowIndex="1" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-				<TextField fx:id="name"  GridPane.rowIndex="2" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-				<TextField fx:id="quantity" GridPane.rowIndex="3" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-					<ChoiceBox fx:id="unit" GridPane.rowIndex="4" GridPane.ColumnIndex="1"
-					maxWidth="235">
-                   </ChoiceBox>
-					<ChoiceBox fx:id="category" GridPane.rowIndex="5" GridPane.ColumnIndex="1"
-					maxWidth="235">
-                   </ChoiceBox>
-                   <Button fx:id="btnAddImg" GridPane.rowIndex="6" GridPane.ColumnIndex="1"
-					maxWidth="235" text="Add image"></Button>
-				<TextField fx:id="costPrice" GridPane.rowIndex="7" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-					<TextField fx:id="sellingPrice" GridPane.rowIndex="8" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
+				<TextField fx:id="upc" GridPane.rowIndex="2"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="name" GridPane.rowIndex="3"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="quantity" GridPane.rowIndex="4"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<ChoiceBox fx:id="unit" GridPane.rowIndex="5"
+					GridPane.ColumnIndex="1" maxWidth="235">
+				</ChoiceBox>
+				<ChoiceBox fx:id="category" GridPane.rowIndex="6"
+					GridPane.ColumnIndex="1" maxWidth="235">
+				</ChoiceBox>
+				<Button fx:id="btnAddImg" GridPane.rowIndex="7"
+					GridPane.ColumnIndex="1" maxWidth="235" text="Add image"></Button>
+				<TextField fx:id="costPrice" GridPane.rowIndex="8"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="sellingPrice" GridPane.rowIndex="9"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
 
 
-				<TitledPane GridPane.rowIndex="9" GridPane.ColumnIndex="0"
-					GridPane.ColumnSpan="3" animated="true" text="Description">
+				<TitledPane prefHeight="110" GridPane.rowIndex="10"
+					GridPane.ColumnIndex="0" GridPane.ColumnSpan="3" animated="true"
+					text="Description">
 					<padding>
 						<Insets right="5" left="5" />
 					</padding>
 
 					<content>
-						<TextArea fx:id="description"  promptText="Veillez saisir une descritpion" />
+						<TextArea fx:id="description" promptText="Veillez saisir une descritpion" />
 					</content>
 
 				</TitledPane>
 
 
-
-				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="2">
-					<graphic>
-						<FontAwesomeIconView styleClass="starFont"
-							icon="ICON_STAR" />
-					</graphic>
-				</Label>
 
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="2">
 					<graphic>
@@ -172,14 +177,21 @@
 					</graphic>
 				</Label>
 
-				<Label GridPane.rowIndex="7" GridPane.ColumnIndex="2" text="($)">
+				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
+
 				<Label GridPane.rowIndex="8" GridPane.ColumnIndex="2" text="($)">
-				
+					<graphic>
+						<FontAwesomeIconView styleClass="starFont"
+							icon="ICON_STAR" />
+					</graphic>
+				</Label>
+				<Label GridPane.rowIndex="9" GridPane.ColumnIndex="2" text="($)">
+
 				</Label>
 			</children>
 		</GridPane>

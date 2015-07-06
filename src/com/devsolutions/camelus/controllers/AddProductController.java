@@ -1,6 +1,7 @@
 package com.devsolutions.camelus.controllers;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
@@ -17,8 +18,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,6 +37,8 @@ import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.Choice;
 
 public class AddProductController implements Initializable {
+	@FXML
+	private ImageView imageProduct;
 	@FXML
 	private GridPane titleBar;
 	@FXML
@@ -85,6 +89,8 @@ public class AddProductController implements Initializable {
 
 		btnAddImg.setOnAction(e -> {
 			addPicture();
+			 Showimage();
+			
 		});
 
 		upc.setOnKeyReleased(e -> {
@@ -92,40 +98,38 @@ public class AddProductController implements Initializable {
 					.matches(
 							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 				upc.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-				System.out.println("le UPC doit avoir 12 chiffres ");
-				error = true;
+			
+				
 			} else
 				upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
 		name.setOnKeyReleased(e -> {
 			if (name.getText().isEmpty()) {
 				name.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-				System.out.println("le UPC doit avoir  chiffres ");
-				error = true;
+			
+				
 			} else
 				name.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
-		/*quantity.setOnKeyReleased(e -> {
-			if (!isNumeric(quantity.getText()))
+		quantity.setOnKeyReleased(e -> {
+			if (isNumeric(quantity.getText())){
+				if  (Double.parseDouble(quantity.getText()) > 0)
+					quantity.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+			}else
 				quantity.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			 if(quantity.getText().isEmpty())
-				quantity.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			 if  (Double.parseDouble(costPrice.getText()) < 0)
-				quantity.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			else
-				quantity.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+			
 		});
 	
 		costPrice.setOnKeyReleased(e -> {
-			if (!isNumber(costPrice.getText()))
-				costPrice.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			else if (Double.parseDouble(costPrice.getText()) < 0)
-				costPrice.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-
-			else
+			if (isNumber(costPrice.getText())){
+				
+		if (Double.parseDouble(costPrice.getText()) > 0)
 				costPrice.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+
+			}	else
+				costPrice.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
-		*/
+		
 		btnAddProduct
 				.setOnAction(e -> {
 					/*
@@ -220,7 +224,6 @@ public class AddProductController implements Initializable {
 	public void listChoiceBoxUnit() {
 		List<Unit> unitList = UnitManager.getAll();
 		listChoiceUnit = FXCollections.observableArrayList();
-		listChoiceUnit.add(new Choice(0, "No Selection"));
 		for (Unit unit : unitList) {
 			listChoiceUnit.add(new Choice(unit.getId(), unit.getDescription()));
 		}
@@ -231,7 +234,6 @@ public class AddProductController implements Initializable {
 	public void listChoiceBoxCategory() {
 		List<Category> CategoryList = CategoryManager.getAll();
 		listChoiceCategory = FXCollections.observableArrayList();
-		listChoiceCategory.add(new Choice(0, "No Selection"));
 		for (Category category : CategoryList) {
 			listChoiceCategory.add(new Choice(category.getId(), category
 					.getDescription()));
@@ -257,6 +259,7 @@ public class AddProductController implements Initializable {
 		product.setImg(imageInByte);
 		product.setDescription(description.getText());
 		product.setCost_price(Double.parseDouble(costPrice.getText()));
+		if(!sellingPrice.getText().isEmpty())
 		product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
 
 		return product;
@@ -280,7 +283,7 @@ public class AddProductController implements Initializable {
 
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"All Images", "*.*");
+				"All Images", "*.jpg","*.png","*.jpeg","*.gif","*.bmp");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -319,6 +322,12 @@ public class AddProductController implements Initializable {
 				node.getScene().getWindow().setY(e.getScreenY() - initialY);
 			}
 		});
+	}
+	private void Showimage() {
+
+		ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
+		imageProduct.setImage(new Image(is));
+
 	}
 
 	@FXML

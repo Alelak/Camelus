@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,25 +12,29 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductTableView;
-
 import com.devsolutions.camelus.managers.ProductManager;
+import com.devsolutions.camelus.utils.CRUD;
 
 public class ShowProductsController implements Initializable {
 	public List<ProductTableView> getProductsList() {
 		return productsList;
 	}
-
+	@FXML
+	private GridPane motherGrid;
 	@FXML
 	private Button btnSearchProduct;
 	@FXML
@@ -103,29 +108,26 @@ public class ShowProductsController implements Initializable {
 
 		tableViewProduct.setItems(sortedData);
 
+		
 		btnAddProduct.setOnAction(e -> {
+			Stage stage = new Stage();
+			Parent root = null;
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(
+					"../views/AddProduct.fxml"));
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource(
-						"../views/AddProduct.fxml"));
-
-				Stage newStage = new Stage();
-				Scene scene;
-
-				scene = new Scene(loader.load());
-
-				newStage.setScene(scene);
-
-				AddProductController controller = loader
-						.<AddProductController> getController();
-
-				controller.initData(this);
-				newStage.initModality(Modality.APPLICATION_MODAL);
-
-				newStage.show();
-
-			} catch (Exception e1) {
+				root = loader.load();
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			Scene scene = new Scene(root);
+			AddProductController controller = loader
+					.<AddProductController> getController();
+			controller.initData(this);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+		
 		});
 
 		btnUpdateProduct
@@ -140,29 +142,26 @@ public class ShowProductsController implements Initializable {
 								.getById(productTableView.getId());
 
 						if (product != null) {
+							Stage stage = new Stage();
+							Parent root = null;
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(
+									"../views/UpdateProduct.fxml"));
 							try {
-								FXMLLoader loader = new FXMLLoader(getClass()
-										.getResource(
-												"../views/UpdateProduct.fxml"));
-
-								Stage newStage = new Stage();
-								Scene scene;
-
-								scene = new Scene(loader.load());
-
-								newStage.setScene(scene);
-
+								root = loader.load();
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+							Scene scene = new Scene(root);
 								UpdateProductController controller = loader
 										.<UpdateProductController> getController();
 								controller.initData(this, product, index);
 
-								newStage.initModality(Modality.APPLICATION_MODAL);
+								stage.setScene(scene);
+								stage.initStyle(StageStyle.UNDECORATED);
+								stage.initModality(Modality.APPLICATION_MODAL);
+								stage.show();
 
-								newStage.show();
-
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
+							
 
 						}
 					}
