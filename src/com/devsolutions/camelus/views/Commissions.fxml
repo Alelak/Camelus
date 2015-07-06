@@ -72,7 +72,8 @@
 			</Button>
 		</HBox>
 		<HBox GridPane.rowIndex="2" spacing="20">
-			<TableView prefWidth="400" fx:id="commissionTable">
+			<TableView styleClass="tableView" prefWidth="400"
+				fx:id="commissionTable">
 				<HBox.margin>
 					<Insets bottom="20" top="20" left="20" right="20"></Insets>
 				</HBox.margin>
@@ -97,7 +98,8 @@
 	</children>
 
 	<stylesheets>
-		<URL value="@childWindow.css" />
+		<URL value="@Content.css" />
+		<URL value="@ChildWindow.css" />
 	</stylesheets>
 </GridPane>
 

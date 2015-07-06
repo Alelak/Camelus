@@ -14,36 +14,36 @@
 
 
 
-#clientTableView  {
+.tableView  {
   -fx-focus-color: transparent;
   -fx-border-color: #016699;
-  -fx-border-width: 2;
-  -fx-padding: 0;
+  -fx-border-width: 2.0;
+  -fx-padding: 0.0;
   -fx-selection-bar: #d1d1d1;
 }
-#clientTableView .table-column {
+.tableView   .table-column {
   -fx-alignment: CENTER;
 }
-#clientTableView > .column-header-background {
+.tableView   > .column-header-background {
     
     -fx-text-fill: #999999;
 }
-#clientTableView:selected-row {
+.tableView  :selected-row {
     -fx-background-color: red ;
 }
-#clientTableView .column-header .label{ -fx-font-family: 'Roboto Medium';  -fx-text-fill: white; }
-#clientTableView .column-header .row{  -fx-text-fill: white; }
-#clientTableView .column-header {   -fx-background-color: #016699; }
-#clientTableView .arrow {  -fx-mark-color: white ; }  
+.tableView   .column-header .label{ -fx-font-family: 'Roboto Medium';  -fx-text-fill: white; }
+.tableView   .column-header .row{  -fx-text-fill: white; }
+.tableView   .column-header {   -fx-background-color: #016699; }
+.tableView   .arrow {  -fx-mark-color: white ; }  
 #message1{
 	-fx-font-family: 'Roboto Bold';
 	 -fx-text-fill: #999999;
-	 -fx-font-size: 50;
+	 -fx-font-size: 50.0;
 }
 #message2{
 	-fx-font-family: 'Roboto Medium';
 	 -fx-text-fill: #999999;
-	 -fx-font-size: 30;
+	 -fx-font-size: 30.0;
 }
 
 

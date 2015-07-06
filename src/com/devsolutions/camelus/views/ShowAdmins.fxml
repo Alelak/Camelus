@@ -9,34 +9,59 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
-
+<?import java.net.*?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
 	fx:controller="com.devsolutions.camelus.controllers.ShowAdminsController">
 	<rowConstraints>
-		<RowConstraints percentHeight="10.0" />
 		<RowConstraints percentHeight="90.0" />
+		<RowConstraints percentHeight="10.0" />
 	</rowConstraints>
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
 
 	<children>
-		<HBox alignment="CENTER" spacing="10" GridPane.rowIndex="0">
+		<HBox alignment="CENTER" spacing="10" GridPane.rowIndex="1">
 			<GridPane.margin>
 				<Insets top="5"></Insets>
 			</GridPane.margin>
 			<children>
-				<Button fx:id="addBtn" text="Ajouter"></Button>
-				<Button disable="true" fx:id="updateBtn" text="Modifier"></Button>
-				<Button disable="true" fx:id="showDetailsBtn" text="Consulter"></Button>
-				<Button disable="true" fx:id="deleteBtn" text="Supprimer"></Button>
+				<Button prefWidth="120" styleClass="flat-btn" fx:id="addBtn"
+					text="Ajouter">
+					<graphic>
+						<FontAwesomeIconView styleClass="whiteFont"
+							icon="ICON_PLUS" />
+					</graphic>
+				</Button>
+				<Button prefWidth="120" styleClass="flat-btn" disable="true"
+					fx:id="updateBtn" text="Modifier">
+					<graphic>
+						<FontAwesomeIconView styleClass="whiteFont"
+							icon="ICON_PENCIL" />
+					</graphic>
+				</Button>
+				<Button prefWidth="120" styleClass="flat-btn" disable="true"
+					fx:id="showDetailsBtn" text="Consulter">
+					<graphic>
+						<FontAwesomeIconView styleClass="whiteFont"
+							icon="ICON_MINUS" />
+					</graphic>
+				</Button>
+				<Button prefWidth="120" styleClass="flat-btn" disable="true"
+					fx:id="deleteBtn" text="Supprimer">
+					<graphic>
+						<FontAwesomeIconView styleClass="whiteFont"
+							icon="ICON_EYE_OPEN" />
+					</graphic>
+				</Button>
 
 			</children>
 		</HBox>
-		<TableView prefWidth="1000" fx:id="adminsTableView"
-			GridPane.rowIndex="1">
+		<TableView styleClass="tableView" prefWidth="1000"
+			fx:id="adminsTableView" GridPane.rowIndex="0">
 			<GridPane.margin>
-				<Insets bottom="10"></Insets>
+				<Insets top="10"></Insets>
 			</GridPane.margin>
 			<columns>
 				<TableColumn fx:id="idColumn" text="Id" />
@@ -51,6 +76,8 @@
 		</TableView>
 
 	</children>
-
+	<stylesheets>
+		<URL value="@Content.css" />
+	</stylesheets>
 </GridPane>
 
