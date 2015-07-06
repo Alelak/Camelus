@@ -113,9 +113,9 @@
 					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="btnOrder" prefWidth="120" styleClass="flat-btn" contentDisplay="CENTER"
+			<Button disable="true" fx:id="btnOrder" prefWidth="120" styleClass="flat-btn" 
 				text="Commandes">
-				<graphic>
+				<graphic >
 					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_FILE_TEXT" />
 				</graphic>
 			</Button>
