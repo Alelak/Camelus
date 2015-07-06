@@ -73,7 +73,7 @@
 								</graphic>
 							</Button>
 						</HBox>
-						<TableView fx:id="clientTableView" GridPane.rowIndex="1"
+						<TableView styleClass="tableView" fx:id="clientTableView" GridPane.rowIndex="1"
 							GridPane.columnIndex="0" GridPane.columnSpan="2">
 							<columns>
 								<TableColumn maxWidth="0" fx:id="idColumn" text="Id" />
