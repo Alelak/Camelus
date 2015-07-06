@@ -59,6 +59,9 @@
 		</GridPane>
 
 		<HBox alignment="BOTTOM_CENTER" GridPane.rowIndex="1">
+		<padding>
+		<Insets bottom="10" />
+		</padding>
 			<Label text="Informations supplémentaires sur "></Label>
 			<Label style=" -fx-text-fill:#016699; -fx-font-family: 'Roboto Bold'; -fx-underline: true ;" fx:id="ContactName" GridPane.rowIndex="0"></Label>
 			<Label text="."></Label>

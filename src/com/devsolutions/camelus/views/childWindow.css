@@ -103,3 +103,8 @@ TitledPane
 #chooseCommisionType .arrow {
     -fx-background-color: white;
 }
+#contentGrid{
+	-fx-border-color: #016699;
+	-fx-border-style: dashed ;
+	-fx-border-width: 2;
+}

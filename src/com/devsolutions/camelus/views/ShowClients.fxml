@@ -113,7 +113,7 @@
 					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="btnOrder" prefWidth="120" styleClass="flat-btn" alignment="CENTER"
+			<Button disable="true" fx:id="btnOrder" prefWidth="120" styleClass="flat-btn" contentDisplay="CENTER"
 				text="Commandes">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_FILE_TEXT" />
