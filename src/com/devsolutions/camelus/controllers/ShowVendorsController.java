@@ -249,7 +249,7 @@ public class ShowVendorsController implements Initializable {
 		ordersBtn.setOnAction(e -> {
 			Vendor selectedVendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
-			mainWindowController.loadScene("showorders", selectedVendor);
+			mainWindowController.loadSceneVendor("showorders", selectedVendor, null);
 		});
 
 		vendorTableView.getSelectionModel().selectedItemProperty()

@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CustomDialogBox;
@@ -77,7 +78,7 @@ public class MainWindowController implements Initializable {
 			innerToolbarHbox.getChildren().remove(tbadminsbtn);
 		}
 		tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-		switchScene("home", null);
+		switchScene("home", null, null);
 
 		logoutbtn.setOnMouseClicked(e -> {
 			try {
@@ -119,36 +120,36 @@ public class MainWindowController implements Initializable {
 		tbacceuilbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbacceuilbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("Home", null);
+			switchScene("Home", null, null);
 		});
 
 		tbclientsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbclientsbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("showclients", null);
+			switchScene("showclients", null, null);
 		});
 
 		tbvendeursbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbvendeursbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("showvendors", null);
+			switchScene("showvendors", null, null);
 		});
 
 		tbcommands.setOnAction(e -> {
 			resetButtonColor();
 			tbcommands.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("showorders", null);
+			switchScene("showorders", null, null);
 		});
 
 		tbproduitsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbproduitsbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("showproducts", null);
+			switchScene("showproducts", null, null);
 		});
 		tbadminsbtn.setOnAction(e -> {
 			resetButtonColor();
 			tbadminsbtn.setStyle("-fx-background-color: #00A0DC;");
-			switchScene("showadmins", null);
+			switchScene("showadmins", null, null);
 		});
 	}
 
@@ -192,13 +193,19 @@ public class MainWindowController implements Initializable {
 		});
 	}
 
-	public void loadScene(final String filename, Vendor selectedVendor) {
+	public void loadSceneVendor(final String filename,final Vendor selectedVendor, final Client selectedClient) {
 		resetButtonColor();
 		tbcommands.setStyle("-fx-background-color: #00A0DC;");
-		switchScene(filename, selectedVendor);
+		switchScene(filename, selectedVendor, null);
+	}
+	
+	public void loadSceneClient(final String filename,final Client selectedClient) {
+		resetButtonColor();
+		tbcommands.setStyle("-fx-background-color: #00A0DC;");
+		switchScene(filename, null, selectedClient);
 	}
 
-	private void switchScene(final String filename, Vendor selectedVendor) {
+	private void switchScene(final String filename,final Vendor selectedVendor, final Client selectedClient) {
 		MainWindowController c = this;
 		new Thread(new Runnable() {
 
@@ -229,11 +236,25 @@ public class MainWindowController implements Initializable {
 												.<ShowVendorsController> getController();
 										controller.initData(c);
 									}
+									
+									if (filename.equals("showclients")) {
+										ShowClientsController controller = loader
+												.<ShowClientsController> getController();
+										controller.initData(c);
+									}
+									
 									if (selectedVendor != null)
 										if (filename.equals("showorders")) {
 											ShowOrdersController controller = loader
 													.<ShowOrdersController> getController();
-											controller.initData(selectedVendor);
+											controller.initDataVendor(selectedVendor);
+										}
+									
+									if (selectedClient != null)
+										if (filename.equals("showorders")) {
+											ShowOrdersController controller = loader
+													.<ShowOrdersController> getController();
+											controller.initDataClient(selectedClient);
 										}
 									fadeTransition = new FadeTransition(
 											Duration.millis(200), content);

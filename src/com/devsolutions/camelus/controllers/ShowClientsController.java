@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomDialogBox;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -79,6 +82,7 @@ public class ShowClientsController implements Initializable {
 	private ObservableList<Client> ClientsOb;
 	private List<Client> listClient;
 	private SortedList<Client> sortedData;
+	private MainWindowController mainWindowController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -205,6 +209,12 @@ public class ShowClientsController implements Initializable {
 			listClient = ClientManager.getAll();
 			ClientsOb.addAll(listClient);
 		});
+		
+		btnOrder.setOnAction(e -> {
+			Client selectedClient = clientTableView.getSelectionModel()
+					.getSelectedItem();
+			mainWindowController.loadSceneClient("showorders", selectedClient);
+		});
 
 	}
 
@@ -308,6 +318,10 @@ public class ShowClientsController implements Initializable {
 		childStage
 				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
 						.getHeight() / 2) + y);
+	}
+	
+	public void initData(MainWindowController mainWindowController) {
+		this.mainWindowController = mainWindowController;
 	}
 
 }

@@ -475,8 +475,12 @@ public class ShowOrdersController implements Initializable {
 		ordersObservableList.add(orderTV);
 	}
 
-	public void initData(Vendor selectedVendor) {
+	public void initDataVendor(Vendor selectedVendor) {
 		searchField.setText(selectedVendor.getFname() + " "
 				+ selectedVendor.getLname());
+	}
+	
+	public void initDataClient(Client selectedClient) {
+		searchField.setText(selectedClient.getEnterprise_name());
 	}
 }
