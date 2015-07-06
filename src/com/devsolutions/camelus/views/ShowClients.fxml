@@ -112,6 +112,12 @@
 					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
+			<Button disable="true" fx:id="btnConsult" prefWidth="120" styleClass="flat-btn"
+				text="Commandes">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
+				</graphic>
+			</Button>
 		</HBox>
 	</children>
 	<stylesheets>
