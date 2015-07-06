@@ -113,21 +113,16 @@
 				<TextField fx:id="addressTxt" GridPane.rowIndex="5" GridPane.ColumnIndex="1"
 					maxWidth="235"></TextField>
 
-
 				<TitledPane GridPane.rowIndex="6" GridPane.ColumnIndex="0"
 					GridPane.ColumnSpan="3" animated="true" text="Description">
 					<padding>
 						<Insets right="5" left="5" />
 					</padding>
-
 					<content>
-						<TextArea fx:id="descriptionTxt"  promptText="Veillez saisir une descritpion" />
+						<TextArea fx:id="descriptionTxt"  promptText="Veillez saisir une descritpion" wrapText="true"/>
 					</content>
 
 				</TitledPane>
-
-
-
 				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"

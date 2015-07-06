@@ -2,6 +2,7 @@ package com.devsolutions.camelus.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
@@ -11,6 +12,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,14 +39,12 @@ public class ShowClientsController implements Initializable {
 	private GridPane motherGrid;
 	@FXML
 	private GridPane content;
-
 	@FXML
 	private RowConstraints rowOne;
 	@FXML
 	private VBox gridRowOne;
 	@FXML
 	private Label message1;
-
 	@FXML
 	private RowConstraints rowTwo;
 	@FXML
@@ -54,7 +55,6 @@ public class ShowClientsController implements Initializable {
 	private Button btnSearch;
 	@FXML
 	private Button btnRefresh;
-
 	@FXML
 	private TableView<Client> clientTableView;
 	@FXML
@@ -65,7 +65,6 @@ public class ShowClientsController implements Initializable {
 	private TableColumn<Client, String> contact_name_Column;
 	@FXML
 	private TableColumn<Client, String> contact_tel_Column;
-
 	@FXML
 	private Button btnAdd;
 	@FXML
@@ -74,20 +73,26 @@ public class ShowClientsController implements Initializable {
 	private Button btnDelete;
 	@FXML
 	private Button btnConsult;
-
 	private ObservableList<Client> ClientsOb;
+	private List<Client> listClient;
+	private SortedList<Client> sortedData;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ClientsOb = FXCollections.observableArrayList(ClientManager.getAll());
-		// System.out.println(ClientsOb.size());
+		gridRowTwo.setVisible(false);
+		gridRowOne.setVisible(false);
+		listClient = ClientManager.getAll();
+		ClientsOb = FXCollections.observableArrayList();
+		ClientsOb.addAll(listClient);
+
 		if (ClientsOb.size() == 0) {
+
 			noDataToShow();
 		} else {
-			initTableView();
-			clientTableView.setItems(ClientsOb);
 			showTableView();
 		}
+		initTableView();
+		clientTableView.setItems(ClientsOb);
 
 		clientTableView.getSelectionModel().selectedItemProperty()
 				.addListener(new ChangeListener<Client>() {
@@ -114,45 +119,110 @@ public class ShowClientsController implements Initializable {
 			try {
 				CustomDialogBox customDialogBox = new CustomDialogBox(
 						(Stage) btnDelete.getScene().getWindow(),
-						"Voulez vous vraiment supprimer " + clientTableView
-						.getSelectionModel().getSelectedItem().getContact_name() + " de votre liste de clients?", "Oui", "Non");
+						"Voulez vous vraiment supprimer "
+								+ clientTableView.getSelectionModel()
+										.getSelectedItem().getContact_name()
+								+ " de votre liste de clients?", "Oui", "Non");
+
 				customDialogBox.positiveButton
 						.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								Client clientTodelete = clientTableView.getSelectionModel()
-										.getSelectedItem();
+								Client clientTodelete = clientTableView
+										.getSelectionModel().getSelectedItem();
+
 								ClientsOb.remove(clientTodelete);
 								ClientManager.delete(clientTodelete.getId());
-								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton.getScene().getWindow();
+								if (ClientsOb.isEmpty()) {
+									noDataToShow();
+								}
+								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
+										.getScene().getWindow();
 								dialogBoxStage.close();
 							}
 						});
-				
-				customDialogBox.negativeButton
-				.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						Stage dialogBoxStage = (Stage) customDialogBox.positiveButton.getScene().getWindow();
-						dialogBoxStage.close();
 
-					}
-				});
+				customDialogBox.negativeButton
+						.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
+										.getScene().getWindow();
+								dialogBoxStage.close();
+
+							}
+						});
 			} catch (IOException e2) {
 				e2.printStackTrace();
-			}		
+			}
 		});
+
+		btnConsult.setOnAction(e -> {
+
+			Client clientToShow = clientTableView.getSelectionModel()
+					.getSelectedItem();
+			showConsultClientWindow(clientToShow);
+		});
+
+		FilteredList<Client> filteredData = new FilteredList<>(ClientsOb,
+				p -> true);
+		textFieldSearch.textProperty().addListener(
+				(observable, oldValue, newValue) -> {
+					filteredData.setPredicate(Client -> {
+						if (newValue == null || newValue.isEmpty()) {
+							return true;
+						}
+						String lowerCaseFilter = newValue.toLowerCase();
+						String id = Client.getId() + "";
+						if (Client.getContact_name().toLowerCase()
+								.contains(lowerCaseFilter)) {
+							return true;
+						} else if (Client.getEnterprise_name().toLowerCase()
+								.contains(lowerCaseFilter)) {
+							return true;
+						} else if (Client.getContact_tel().toLowerCase()
+								.toLowerCase().contains(lowerCaseFilter)) {
+							return true;
+						} else if (id.contains(lowerCaseFilter)) {
+							return true;
+						}
+						return false;
+					});
+				});
+
+		sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(
+				clientTableView.comparatorProperty());
+		clientTableView.setItems(sortedData);
+
+		btnRefresh.setOnAction(e -> {
+			ClientsOb.removeAll(listClient);
+			listClient = ClientManager.getAll();
+			ClientsOb.addAll(listClient);
+		});
+
 	}
 
-	
+	public void selectLastRow() {
+		int indexLastRow = ClientsOb.size() - 1;
+		clientTableView.getSelectionModel().select(indexLastRow);
+		clientTableView.getFocusModel().focus(indexLastRow);
+	}
+
+	public void selectTheModifierRow(int index) {
+		clientTableView.getSelectionModel().select(index);
+		clientTableView.getFocusModel().focus(index);
+	}
+
 	public void addToTable(Client client) {
 		ClientsOb.add(client);
+		System.out.println(ClientsOb.size());
 	}
 
-	public void updateTable(int index,Client client) {
+	public void updateTable(int index, Client client) {
 		ClientsOb.set(index, client);
 	}
-	
+
 	private void initTableView() {
 		idColumn.setCellValueFactory(new PropertyValueFactory<Client, Long>(
 				"id"));
@@ -167,14 +237,15 @@ public class ShowClientsController implements Initializable {
 	}
 
 	private void noDataToShow() {
-		content.getChildren().remove(gridRowTwo);
+		gridRowTwo.setVisible(false);
+		gridRowOne.setVisible(true);
 		rowOne.setPercentHeight(100);
 		rowTwo.setPercentHeight(0);
 	}
 
 	public void showTableView() {
-		content.getChildren().remove(gridRowOne);
-		// content.getChildren().add(gridRowTwo);
+		gridRowOne.setVisible(false);
+		gridRowTwo.setVisible(true);
 		rowOne.setPercentHeight(0);
 		rowTwo.setPercentHeight(100);
 	}
@@ -194,11 +265,44 @@ public class ShowClientsController implements Initializable {
 		AddUpdateClientController controller = loader
 				.<AddUpdateClientController> getController();
 		controller.initStageAndData(this, clientToupdate, index, type);
-		// controller.initData(this);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(motherGrid.getScene().getWindow());
 		stage.show();
+		Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+		centerStage(parentStage, stage, 22);
 	}
+
+	private void showConsultClientWindow(Client clientToShow) {
+		Stage stage = new Stage();
+		Parent root = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(
+				"../views/ShowClientDetails.fxml"));
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		ShowClientController controller = loader
+				.<ShowClientController> getController();
+		controller.initData(clientToShow);
+		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(motherGrid.getScene().getWindow());
+		stage.show();
+		Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+		centerStage(parentStage, stage, 22);
+	}
+
+	private void centerStage(Stage parentStage, Stage childStage, int y) {
+		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
+				- childStage.getWidth() / 2);
+		childStage
+				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
+						.getHeight() / 2) + y);
+	}
+
 }

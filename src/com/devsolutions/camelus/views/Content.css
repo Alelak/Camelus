@@ -1,28 +1,40 @@
 
 
-
-#motherGrid{
-	
-}
-
-#Content{
-	
-}
-
-
 #footer{
 	-fx-background-color: white  ;
 }
 
-#gridRowOne{
-	
-	
+
+
+#textFieldSearch:focused{
+	 -fx-focus-color: transparent;
+	 -fx-border-color: #004263;
+	-fx-border-width: 1.5;
 }
 
-#gridRowTwo{
-	
-}
 
+
+#clientTableView  {
+  -fx-focus-color: transparent;
+  -fx-border-color: #016699;
+  -fx-border-width: 2;
+  -fx-padding: 0;
+  -fx-selection-bar: #d1d1d1;
+}
+#clientTableView .table-column {
+  -fx-alignment: CENTER;
+}
+#clientTableView > .column-header-background {
+    
+    -fx-text-fill: #999999;
+}
+#clientTableView:selected-row {
+    -fx-background-color: red ;
+}
+#clientTableView .column-header .label{ -fx-font-family: 'Roboto Medium';  -fx-text-fill: white; }
+#clientTableView .column-header .row{  -fx-text-fill: white; }
+#clientTableView .column-header {   -fx-background-color: #016699; }
+#clientTableView .arrow {  -fx-mark-color: white ; }  
 #message1{
 	-fx-font-family: 'Roboto Bold';
 	 -fx-text-fill: #999999;
@@ -53,7 +65,7 @@
 
 .flat-btn:focused {
 	-fx-border-color: #004263;
-	-fx-border-width: 2.0;
+	-fx-border-width: 1.5;
 }
 
 .flat-btn:hover {

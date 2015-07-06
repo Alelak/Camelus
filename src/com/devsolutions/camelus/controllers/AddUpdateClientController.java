@@ -3,6 +3,7 @@ package com.devsolutions.camelus.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
@@ -30,7 +31,6 @@ public class AddUpdateClientController implements Initializable {
 	private Client clientToUpdate;
 	private int index;
 	private Stage stage;
-	
 	private ShowClientsController showClientsController;
 	@FXML
 	private GridPane titleBar;
@@ -58,10 +58,11 @@ public class AddUpdateClientController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addDraggableNode(titleBar);
-
+		
 		contact_telTxt
 				.setOnKeyReleased(e -> {
 					if (validatePhoneNumber(contact_telTxt.getText().trim())) {
+
 						contact_telTxt
 								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 
@@ -81,15 +82,13 @@ public class AddUpdateClientController implements Initializable {
 							if (contact_telTxt.getText().isEmpty())
 								contact_telTxt.setStyle("-fx-border-width: 0;");
 							if (validatePhoneNumber(contact_telTxt.getText())) {
+								String regex = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$";
+								Pattern pattern = Pattern.compile(regex);
+								Matcher matcher = pattern
+										.matcher(contact_telTxt.getText());
+								contact_telTxt.setText((matcher
+										.replaceFirst("($1) $2-$3")));
 								contact_telTxt.setStyle("-fx-border-width: 0;");
-								contact_telTxt.setText(String.format(
-										"(%s) %s-%s",
-										contact_telTxt.getText()
-												.substring(0, 3),
-										contact_telTxt.getText()
-												.substring(3, 6),
-										contact_telTxt.getText().substring(6,
-												10)));
 							}
 						}
 					}
@@ -145,7 +144,6 @@ public class AddUpdateClientController implements Initializable {
 					String phoneNumber = contact_telTxt.getText().trim();
 					String address = addressTxt.getText().trim();
 					String description = descriptionTxt.getText().trim();
-
 					Client client = new Client();
 					client.setEnterprise_name(enterprise);
 					client.setContact_name(name);
@@ -160,41 +158,42 @@ public class AddUpdateClientController implements Initializable {
 					if (enterprise.isEmpty() || name.isEmpty()
 							|| address.isEmpty() || email.isEmpty()) {
 						valid = false;
-						feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
+						feedbackmsg += "Il faut saisir Tous les champs requis.\n";
 					}
 
-					if (ClientByEntrepriseAndClientName != null) {
-						feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe déjà. \n";
-						valid = false;
+					if (clientToUpdate == null) {
+						if (ClientByEntrepriseAndClientName != null) {
+							feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe déjà. \n";
+							valid = false;
+						}
 					}
-
 					if (!validatePhoneNumber(phoneNumber)) {
-						feedbackmsg += "Le numéro de téléphone est incorrect. \n";
+						feedbackmsg += "Vous devez saisir un numéro de téléphone valide. \n";
 						valid = false;
 					}
 
 					if (!validateEmail(email)) {
-						feedbackmsg += "L'adresse email est incorrecte. \n";
+						feedbackmsg += "Vous devez saisir une adresse email valide. \n";
 						valid = false;
 					}
 
 					if (valid) {
-
-						if (clientToUpdate != null) {
+						if (clientToUpdate != null){
 							client.setId(clientToUpdate.getId());
 							ClientManager.update(client);
 							showClientsController.updateTable(index, client);
-							showClientsController.showTableView();
-						} else {
+							showClientsController.selectTheModifierRow(index);
+						} else{
 							ClientManager.add(client);
 							showClientsController.addToTable(client);
 							showClientsController.showTableView();
+							showClientsController.selectLastRow();
 						}
 						stage.close();
 					} else {
 						try {
 							CustomInfoBox customDialogBox = new CustomInfoBox(
-									stage, feedbackmsg, "Ok", "#ff0000");
+									stage, feedbackmsg, "Ok", "#282828");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
 										@Override
@@ -211,17 +210,11 @@ public class AddUpdateClientController implements Initializable {
 				});
 	}
 
-	public boolean isNumeric(String str) {
-		try {
-			double d = Double.parseDouble(str);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
-
 	private boolean validatePhoneNumber(String phoneNo) {
-		return (isNumeric(phoneNo) && phoneNo.length() == 10) ? true : false;
+		String regex = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(phoneNo);
+		return matcher.matches();
 	}
 
 	private boolean validateEmail(String email) {
@@ -279,5 +272,4 @@ public class AddUpdateClientController implements Initializable {
 		addressTxt.setText(client.getAddress());
 		descriptionTxt.setText(client.getDescription());
 	}
-
 }

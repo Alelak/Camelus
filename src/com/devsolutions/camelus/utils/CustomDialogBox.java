@@ -43,6 +43,11 @@ public class CustomDialogBox {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(mainStage);
 		stage.show();
+		centerStage(mainStage , stage, 18);
+	}
+	private void centerStage(Stage parentStage , Stage childStage, int y ){
+		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2 - childStage.getWidth() / 2);
+		childStage.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage.getHeight() / 2)+y);
 	}
 
 }

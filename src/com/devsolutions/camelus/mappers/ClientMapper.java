@@ -21,13 +21,14 @@ public interface ClientMapper {
 
 	@Select("SELECT * FROM clients WHERE id = #{id} AND " + DELETED_CONDITION)
 	Client getById(long id);
-	
-	@Select("SELECT * FROM clients WHERE enterprise_name = #{enterprise_name} AND contact_name = #{contact_name} AND " + DELETED_CONDITION)
+
+	@Select("SELECT * FROM clients WHERE enterprise_name = #{enterprise_name} AND contact_name = #{contact_name} AND "
+			+ DELETED_CONDITION)
 	Client getByEntrepriseAndClientName(Client client);
 
 	@Insert("INSERT INTO clients (associated_vendor, enterprise_name, contact_name, contact_tel, contact_email, address, description)"
 			+ " VALUES (#{associated_vendor}, #{enterprise_name}, #{contact_name}, #{contact_tel}, #{contact_email}, #{address}, #{description})")
-	@Options(flushCache = true)
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Client client);
 
 	@Update("UPDATE clients SET associated_vendor = #{associated_vendor}, enterprise_name = #{enterprise_name}, contact_name = #{contact_name}, contact_tel = #{contact_tel}, contact_email = #{contact_email}, address = #{address}, description = #{description}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
