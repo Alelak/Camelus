@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -7,459 +7,522 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.Image?>
-
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity"
-	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-	prefWidth="1037.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+<?import java.net.*?>
+<?import javafx.geometry.Insets?>
+<GridPane id="motherGrid" prefWidth="1037.0" maxHeight="550"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.TakeOrderController">
-	<items>
-		<VBox prefHeight="200.0" prefWidth="100.0">
-			<children>
-				<BorderPane prefHeight="0.0" prefWidth="296.0">
-					<center>
-						<Label text="Ajouter un produit à la liste de commande"
-							BorderPane.alignment="CENTER">
-							<font>
-								<Font name="System Bold" size="12.0" />
-							</font>
-							<BorderPane.margin>
-								<Insets bottom="10.0" top="10.0" />
-							</BorderPane.margin>
-						</Label>
-					</center>
-				</BorderPane>
-				<BorderPane>
-					<left>
-						<Pane prefHeight="396.0" prefWidth="20.0"
-							BorderPane.alignment="CENTER" />
-					</left>
-					<right>
-						<Pane prefHeight="200.0" prefWidth="20.0"
-							BorderPane.alignment="CENTER" />
-					</right>
-					<center>
-						<VBox prefWidth="475.0" BorderPane.alignment="CENTER">
-							<children>
-								<BorderPane>
-									<center>
-										<HBox BorderPane.alignment="CENTER">
-											<children>
-												<BorderPane>
-													<left>
-														<HBox BorderPane.alignment="CENTER">
-															<children>
-																<Label text="Client :">
-																	<HBox.margin>
-																		<Insets top="13.0" />
-																	</HBox.margin>
-																</Label>
-																<ComboBox fx:id="clientComboBox" editable="true"
-																	prefWidth="100.0">
-																	<HBox.margin>
-																		<Insets bottom="10.0" left="10.0" top="10.0" />
-																	</HBox.margin>
-																</ComboBox>
-															</children>
-														</HBox>
-													</left>
-													<right>
-														<HBox BorderPane.alignment="CENTER">
-															<children>
-																<Label text="Produit : ">
-																	<HBox.margin>
-																		<Insets bottom="10.0" top="13.0" />
-																	</HBox.margin>
-																</Label>
-																<ComboBox fx:id="productComboBox" editable="true"
-																	prefWidth="100.0">
-																	<HBox.margin>
-																		<Insets bottom="10.0" left="10.0" top="10.0" />
-																	</HBox.margin>
-																</ComboBox>
-															</children>
-														</HBox>
-													</right>
-													<center>
-														<Pane minWidth="110.0" BorderPane.alignment="CENTER" />
-													</center>
-													<HBox.margin>
-														<Insets bottom="10.0" top="10.0" />
-													</HBox.margin>
-												</BorderPane>
-											</children>
-											<padding>
-												<Insets left="20.0" right="20.0" />
-											</padding>
-										</HBox>
-									</center>
-									<left>
-										<Pane prefWidth="10.0" BorderPane.alignment="CENTER">
-											<BorderPane.margin>
-												<Insets />
-											</BorderPane.margin>
-										</Pane>
-									</left>
-									<right>
-										<Pane prefWidth="10.0" BorderPane.alignment="CENTER" />
-									</right>
-								</BorderPane>
-								<BorderPane>
-									<center>
-										<HBox BorderPane.alignment="CENTER">
-											<children>
-												<SplitPane dividerPositions="0.5" prefWidth="456.0">
-													<items>
-														<VBox prefHeight="200.0" prefWidth="100.0">
-															<children>
-																<BorderPane prefHeight="21.0" prefWidth="125.0">
-																	<center>
-																		<Label text="Informations sur le produit"
-																			BorderPane.alignment="CENTER">
-																			<font>
-																				<Font name="System Bold" size="12.0" />
-																			</font>
-																		</Label>
-																	</center>
-																</BorderPane>
-																<BorderPane prefHeight="200.0" prefWidth="200.0">
-																	<center>
-																		<VBox prefHeight="200.0" prefWidth="100.0"
-																			BorderPane.alignment="CENTER">
-																			<children>
-																				<BorderPane prefHeight="200.0" prefWidth="200.0">
-																					<center>
-																						<ImageView fx:id="productImage"
-																							fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
-																							preserveRatio="true" BorderPane.alignment="CENTER">
-																							<image>
-																								<Image url="@../../../../images/nopicture.jpg">
-																								</Image>
-																							</image>
-																							<BorderPane.margin>
-																								<Insets bottom="10.0" />
-																							</BorderPane.margin>
 
-																						</ImageView>
-																					</center>
-																				</BorderPane>
-																				<HBox prefHeight="14.0" prefWidth="178.0">
-																					<children>
-																						<Label prefWidth="90.0" text="UPC : " />
-																						<Label fx:id="upcLabel">
-																							<font>
-																								<Font name="System Bold" size="12.0" />
-																							</font>
-																						</Label>
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0"
-																							top="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																				<HBox prefHeight="0.0" prefWidth="178.0">
-																					<children>
-																						<Label prefWidth="90.0" text="Qt disponible : " />
-																						<Label fx:id="quantityLabel">
-																							<font>
-																								<Font name="System Bold" size="12.0" />
-																							</font>
-																						</Label>
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																				<HBox prefHeight="0.0" prefWidth="168.0">
-																					<children>
-																						<Label prefWidth="90.0" text="Unité : " />
-																						<Label fx:id="unitLabel">
-																							<font>
-																								<Font name="System Bold" size="12.0" />
-																							</font>
-																						</Label>
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																				<HBox prefHeight="100.0" prefWidth="200.0">
-																					<children>
-																						<Label prefWidth="90.0" text="Prix coutant : " />
-																						<Label fx:id="costPriceLabel">
-																							<font>
-																								<Font name="System Bold" size="12.0" />
-																							</font>
-																						</Label>
-																					</children>
-																					<VBox.margin>
-																						<Insets left="5.0" right="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																				<HBox prefHeight="8.0" prefWidth="178.0">
-																					<children>
-																						<Label prefWidth="90.0" text="Prix vendant : " />
-																						<Label fx:id="sellingPriceLabel">
-																							<font>
-																								<Font name="System Bold" size="12.0" />
-																							</font>
-																						</Label>
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																				<HBox prefHeight="15.0" prefWidth="178.0">
-																					<children>
-																						<Label prefWidth="90.0" text="Catégorie : " />
-																						<Label fx:id="categoryLabel">
-																							<font>
-																								<Font name="System Bold" size="12.0" />
-																							</font>
-																						</Label>
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																			</children>
-																		</VBox>
-																	</center>
-																	<top>
-																		<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-																	</top>
-																	<left>
-																		<Pane prefHeight="200.0" prefWidth="10.0"
-																			BorderPane.alignment="CENTER" />
-																	</left>
-																	<right>
-																		<Pane prefHeight="200.0" prefWidth="10.0"
-																			BorderPane.alignment="CENTER" />
-																	</right>
-																	<bottom>
-																		<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-																	</bottom>
-																</BorderPane>
-															</children>
-														</VBox>
-														<VBox prefHeight="200.0" prefWidth="100.0">
-															<children>
-																<BorderPane prefHeight="20.0" prefWidth="223.0">
-																	<center>
-																		<Label text="Information sur la commandes"
-																			BorderPane.alignment="CENTER">
-																			<font>
-																				<Font name="System Bold" size="12.0" />
-																			</font>
-																		</Label>
-																	</center>
-																</BorderPane>
-																<BorderPane prefHeight="200.0" prefWidth="200.0">
-																	<top>
-																		<Pane prefHeight="30.0" prefWidth="200.0"
-																			BorderPane.alignment="CENTER" />
-																	</top>
-																	<left>
-																		<Pane prefHeight="200.0" prefWidth="10.0"
-																			BorderPane.alignment="CENTER" />
-																	</left>
-																	<right>
-																		<Pane prefHeight="200.0" prefWidth="10.0"
-																			BorderPane.alignment="CENTER" />
-																	</right>
-																	<bottom>
-																		<Pane prefHeight="30.0" prefWidth="200.0"
-																			BorderPane.alignment="CENTER" />
-																	</bottom>
-																	<center>
-																		<VBox prefHeight="200.0" prefWidth="100.0"
-																			BorderPane.alignment="CENTER">
-																			<children>
-																				<HBox prefHeight="9.0" prefWidth="203.0">
-																					<children>
-																						<Label prefWidth="100.0" text="Prix ajusté ($) : ">
-																							<HBox.margin>
-																								<Insets top="4.0" />
-																							</HBox.margin>
-																						</Label>
-																						<TextField fx:id="modifiedPriceField"
-																							prefHeight="25.0" prefWidth="94.0" />
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0"
-																							top="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																				<HBox prefHeight="0.0" prefWidth="203.0">
-																					<children>
-																						<Label prefWidth="100.0" text="Quantité : ">
-																							<HBox.margin>
-																								<Insets top="4.0" />
-																							</HBox.margin>
-																						</Label>
-																						<TextField fx:id="quantityField"
-																							prefHeight="25.0" prefWidth="94.0" />
-																					</children>
-																					<VBox.margin>
-																						<Insets bottom="5.0" left="5.0" right="5.0"
-																							top="5.0" />
-																					</VBox.margin>
-																				</HBox>
-																			</children>
-																		</VBox>
-																	</center>
-																</BorderPane>
-															</children>
-														</VBox>
-													</items>
-												</SplitPane>
-											</children>
-										</HBox>
-									</center>
-									<left>
-										<Pane prefHeight="200.0" prefWidth="10.0"
-											BorderPane.alignment="CENTER" />
-									</left>
-									<right>
-										<Pane prefHeight="200.0" prefWidth="10.0"
-											BorderPane.alignment="CENTER" />
-									</right>
-								</BorderPane>
-							</children>
-						</VBox>
-					</center>
-				</BorderPane>
-				<BorderPane>
-					<center>
-						<Button fx:id="addOrderLineBtn" disable="true"
-							mnemonicParsing="false" prefWidth="90.0" text="Ajouter"
-							BorderPane.alignment="CENTER">
-							<BorderPane.margin>
-								<Insets />
-							</BorderPane.margin>
-						</Button>
-					</center>
-					<top>
-						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-					</top>
-					<bottom>
-						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-					</bottom>
-				</BorderPane>
+	<rowConstraints>
+		<RowConstraints percentHeight="5.1" />
+
+		<RowConstraints percentHeight="94.9" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
+
+	<children>
+
+		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
+			style="-fx-background-color: #efefef;">
+			<rowConstraints>
+				<RowConstraints percentHeight="100" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="50" />
+				<ColumnConstraints percentWidth="50" />
+			</columnConstraints>
+
+			<children>
+
+				<Label text="Effectuer une commande" GridPane.ColumnIndex="0"
+					id="titleWindow">
+					<padding>
+						<Insets left="7" />
+					</padding>
+				</Label>
+
+				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
+
+					<padding>
+						<Insets right="-1" />
+					</padding>
+					<Label fx:id="lblClose" alignment="CENTER" prefHeight="30"
+						prefWidth="30" onMouseClicked="#CloseWindow">
+
+						<graphic>
+							<FontAwesomeIconView id="closeFont" icon="ICON_REMOVE" />
+						</graphic>
+					</Label>
+				</HBox>
 			</children>
-		</VBox>
-		<VBox prefHeight="200.0" prefWidth="100.0">
-			<children>
-				<BorderPane prefHeight="0.0" prefWidth="296.0">
-					<center>
-						<Label text="Liste des produits à commader"
-							BorderPane.alignment="CENTER">
-							<font>
-								<Font name="System Bold" size="12.0" />
-							</font>
-							<BorderPane.margin>
-								<Insets bottom="10.0" top="10.0" />
-							</BorderPane.margin>
-						</Label>
-					</center>
-				</BorderPane>
-				<TableView fx:id="orderLinesTableView" prefHeight="282.0"
-					prefWidth="494.0">
-					<VBox.margin>
-						<Insets left="10.0" right="10.0" />
-					</VBox.margin>
+		</GridPane>
 
-					<columns>
-						<TableColumn fx:id="upcCol" prefWidth="100.0" text="UPC" />
-						<TableColumn fx:id="productNameCol" prefWidth="100.0"
-							text="Nom" />
-						<TableColumn fx:id="priceCol" prefWidth="100.0"
-							text="Prix unitaire ($)" />
-						<TableColumn fx:id="quantityCol" prefWidth="100.0"
-							text="Quantité" />
-						<TableColumn fx:id="modifiedPriceCol" prefWidth="100.0"
-							text="Prix ajusté ($)" />
-					</columns>
 
-				</TableView>
-				<TitledPane animated="false" prefWidth="454.0" text="Commentaire">
-					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="145.0"
-							prefWidth="452.0">
-							<children>
-								<VBox prefHeight="120.0" prefWidth="495.0">
-									<padding>
-										<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-									</padding>
+
+
+
+
+
+
+
+		<SplitPane style="-fx-background-color: white"
+			GridPane.rowIndex="1" dividerPositions="0.5">
+			<items>
+				<VBox prefHeight="200.0" prefWidth="100.0">
+					<children>
+						<BorderPane prefHeight="0.0" prefWidth="296.0">
+							<center>
+								<Label styleClass="boldLabel"
+									text="Ajouter un produit à la liste de commande"
+									BorderPane.alignment="CENTER">
+									<font>
+										<Font name="System Bold" size="12.0" />
+									</font>
+									<BorderPane.margin>
+										<Insets bottom="10.0" top="10.0" />
+									</BorderPane.margin>
+								</Label>
+							</center>
+						</BorderPane>
+						<BorderPane>
+							<left>
+								<Pane prefHeight="396.0" prefWidth="20.0"
+									BorderPane.alignment="CENTER" />
+							</left>
+							<right>
+								<Pane prefHeight="200.0" prefWidth="20.0"
+									BorderPane.alignment="CENTER" />
+							</right>
+							<center>
+								<VBox prefWidth="475.0" BorderPane.alignment="CENTER">
 									<children>
-										<TextArea fx:id="commentTextArea" prefWidth="498.0"
-											promptText="Veillez saisir un commentaire" />
+										<BorderPane>
+											<center>
+												<HBox BorderPane.alignment="CENTER">
+													<children>
+														<BorderPane>
+															<left>
+																<HBox BorderPane.alignment="CENTER">
+																	<children>
+																		<Label text="Client :">
+																			<HBox.margin>
+																				<Insets top="13.0" />
+																			</HBox.margin>
+																		</Label>
+																		<ComboBox fx:id="clientComboBox" editable="true"
+																			prefWidth="150.0">
+																			<HBox.margin>
+																				<Insets bottom="10.0" left="10.0" top="10.0" />
+																			</HBox.margin>
+																		</ComboBox>
+																	</children>
+																</HBox>
+															</left>
+															<right>
+																<HBox BorderPane.alignment="CENTER">
+																	<children>
+																		<Label text="Produit : ">
+																			<HBox.margin>
+																				<Insets bottom="10.0" top="13.0" />
+																			</HBox.margin>
+																		</Label>
+																		<ComboBox fx:id="productComboBox" editable="true"
+																			prefWidth="150.0">
+																			<HBox.margin>
+																				<Insets bottom="10.0" left="10.0" top="10.0" />
+																			</HBox.margin>
+																		</ComboBox>
+																	</children>
+																</HBox>
+															</right>
+															<center>
+																<Pane minWidth="40.0" BorderPane.alignment="CENTER" />
+															</center>
+															<HBox.margin>
+																<Insets bottom="10.0" top="10.0" />
+															</HBox.margin>
+														</BorderPane>
+													</children>
+													<padding>
+														<Insets left="5.0" right="5.0" />
+													</padding>
+												</HBox>
+											</center>
+											<left>
+												<Pane prefWidth="10.0" BorderPane.alignment="CENTER">
+													<BorderPane.margin>
+														<Insets />
+													</BorderPane.margin>
+												</Pane>
+											</left>
+											<right>
+												<Pane prefWidth="10.0" BorderPane.alignment="CENTER" />
+											</right>
+										</BorderPane>
+										<BorderPane>
+											<center>
+												<HBox BorderPane.alignment="CENTER">
+													<children>
+														<SplitPane id="splitPane" dividerPositions="0.5"
+															prefWidth="456.0"
+															style="-fx-background-color: white ;-fx-border-color: #016699; -fx-border-width: 2;">
+															<items>
+																<VBox prefHeight="200.0" prefWidth="100.0">
+																	<children>
+																		<BorderPane prefHeight="21.0" prefWidth="125.0">
+																			<center>
+																				<Label text="Informations sur le produit"
+																					BorderPane.alignment="CENTER">
+																				</Label>
+																			</center>
+																		</BorderPane>
+																		<BorderPane prefHeight="200.0" prefWidth="200.0">
+																			<center>
+																				<VBox prefHeight="200.0" prefWidth="100.0"
+																					BorderPane.alignment="CENTER">
+																					<children>
+																						<BorderPane prefHeight="200.0"
+																							prefWidth="200.0">
+																							<center>
+																								<HBox
+																									style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
+																									<ImageView fx:id="productImage"
+																										fitHeight="150.0" fitWidth="200.0"
+																										pickOnBounds="true" preserveRatio="false"
+																										BorderPane.alignment="CENTER">
+																										<image>
+																											<Image url="@../../../../images/nopicture.jpg">
+																											</Image>
+																										</image>
+																									</ImageView>
+																									<BorderPane.margin>
+																										<Insets bottom="10.0" />
+																									</BorderPane.margin>
+																								</HBox>
+																							</center>
+																						</BorderPane>
+																						
+																						
+																						<HBox prefHeight="14.0" prefWidth="178.0">
+																							<children>
+																								<Label prefWidth="90.0" text="UPC : " />
+																								<Label fx:id="upcLabel">
+																									<font>
+																										<Font name="System Bold" size="12.0" />
+																									</font>
+																								</Label>
+																							</children>
+																							<VBox.margin>
+																								<Insets bottom="5.0" left="5.0" right="5.0"
+																									top="5.0" />
+																							</VBox.margin>
+																						</HBox>
+																						<HBox prefHeight="0.0" prefWidth="178.0">
+																							<children>
+																								<Label prefWidth="90.0" text="Qt disponible : " />
+																								<Label fx:id="quantityLabel">
+																									<font>
+																										<Font name="System Bold" size="12.0" />
+																									</font>
+																								</Label>
+																							</children>
+																							<VBox.margin>
+																								<Insets bottom="5.0" left="5.0" right="5.0" />
+																							</VBox.margin>
+																						</HBox>
+																						<HBox prefHeight="100.0" prefWidth="200.0">
+																							<children>
+																								<Label prefWidth="90.0" text="Prix coutant : " />
+																								<Label fx:id="costPriceLabel">
+																									<font>
+																										<Font name="System Bold" size="12.0" />
+																									</font>
+																								</Label>
+																							</children>
+																							<VBox.margin>
+																								<Insets left="5.0" right="5.0" />
+																							</VBox.margin>
+																						</HBox>
+																						<HBox prefHeight="8.0" prefWidth="178.0">
+																							<children>
+																								<Label prefWidth="90.0" text="Prix vendant : " />
+																								<Label fx:id="sellingPriceLabel">
+																									<font>
+																										<Font name="System Bold" size="12.0" />
+																									</font>
+																								</Label>
+																							</children>
+																							<VBox.margin>
+																								<Insets bottom="5.0" left="5.0" right="5.0" />
+																							</VBox.margin>
+																						</HBox>
+																						<HBox prefHeight="0.0" prefWidth="168.0">
+																							<children>
+																								<Label prefWidth="90.0" text="Unité : " />
+																								<Label fx:id="unitLabel">
+																									<font>
+																										<Font name="System Bold" size="12.0" />
+																									</font>
+																								</Label>
+																							</children>
+																							<VBox.margin>
+																								<Insets bottom="5.0" left="5.0" right="5.0" />
+																							</VBox.margin>
+																						</HBox>
+																						<HBox prefHeight="15.0" prefWidth="178.0">
+																							<children>
+																								<Label prefWidth="90.0" text="Catégorie : " />
+																								<Label fx:id="categoryLabel">
+																									<font>
+																										<Font name="System Bold" size="12.0" />
+																									</font>
+																								</Label>
+																							</children>
+																							<VBox.margin>
+																								<Insets bottom="5.0" left="5.0" right="5.0" />
+																							</VBox.margin>
+																						</HBox>
+																					</children>
+																				</VBox>
+																			</center>
+																			<top>
+																				<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+																			</top>
+																			<left>
+																				<Pane prefHeight="200.0" prefWidth="10.0"
+																					BorderPane.alignment="CENTER" />
+																			</left>
+																			<right>
+																				<Pane prefHeight="200.0" prefWidth="10.0"
+																					BorderPane.alignment="CENTER" />
+																			</right>
+																			<bottom>
+																				<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
+																			</bottom>
+																		</BorderPane>
+																	</children>
+																</VBox>
+																<VBox prefHeight="200.0" prefWidth="100.0">
+																	<children>
+																		<BorderPane prefHeight="20.0" prefWidth="223.0">
+																			<center>
+																				<Label text="Information sur la commandes"
+																					BorderPane.alignment="CENTER">
+																				</Label>
+																			</center>
+																		</BorderPane>
+																		<BorderPane prefHeight="200.0" prefWidth="200.0">
+																			<top>
+																				<Pane prefHeight="30.0" prefWidth="200.0"
+																					BorderPane.alignment="CENTER" />
+																			</top>
+																			<left>
+																				<Pane prefHeight="200.0" prefWidth="10.0"
+																					BorderPane.alignment="CENTER" />
+																			</left>
+																			<right>
+																				<Pane prefHeight="200.0" prefWidth="10.0"
+																					BorderPane.alignment="CENTER" />
+																			</right>
+																			<bottom>
+																				<Pane prefHeight="30.0" prefWidth="200.0"
+																					BorderPane.alignment="CENTER" />
+																			</bottom>
+																			<center>
+																				<VBox spacing="7" prefHeight="200.0" prefWidth="100.0"
+																					BorderPane.alignment="CENTER">
+																					<children>
+																					<HBox spacing="5" alignment="CENTER_LEFT" >
+																						<Label alignment="CENTER">
+																									<graphic>
+																										<FontAwesomeIconView
+																											styleClass="starFont" icon="ICON_STAR" />
+																									</graphic>
+																								</Label>
+																								<Label  text="Champs requis pour quantité."/>
+																						</HBox>
+																					
+																						<HBox spacing="5" alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="203.0">
+																							<children>
+																								<Label minWidth="85" maxWidth="85" text="Prix ajusté ($) :"/>
+																								<TextField fx:id="modifiedPriceField"
+																									prefHeight="25.0" maxWidth="102" >
+																										
+																									</TextField>
+																							</children>
+																						
+																						</HBox>
+																						<HBox alignment="CENTER_LEFT" spacing="5" prefHeight="9.0" prefWidth="203.0">
+																							<children>
+																								<Label minWidth="85" maxWidth="85" text="Quantité :"/>
+																								<TextField fx:id="quantityField"
+																									prefHeight="25.0" maxWidth="102" />
+																								<Label alignment="CENTER_LEFT">
+																									<graphic>
+																										<FontAwesomeIconView
+																											styleClass="starFont" icon="ICON_STAR" />
+																									</graphic>
+																								</Label>
+
+																							</children>
+																							
+																						</HBox>
+																					</children>
+																				</VBox>
+																			</center>
+																		</BorderPane>
+																	</children>
+																</VBox>
+															</items>
+														</SplitPane>
+													</children>
+												</HBox>
+											</center>
+											<left>
+												<Pane prefHeight="200.0" prefWidth="10.0"
+													BorderPane.alignment="CENTER" />
+											</left>
+											<right>
+												<Pane prefHeight="200.0" prefWidth="10.0"
+													BorderPane.alignment="CENTER" />
+											</right>
+										</BorderPane>
 									</children>
 								</VBox>
-							</children>
-						</AnchorPane>
-					</content>
-					<VBox.margin>
-						<Insets left="10.0" right="10.0" top="5.0" />
-					</VBox.margin>
-				</TitledPane>
-				<BorderPane>
-					<center>
-						<GridPane BorderPane.alignment="CENTER">
-							<columnConstraints>
-								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-									prefWidth="100.0" />
-								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-									prefWidth="100.0" />
-								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-									prefWidth="100.0" />
-								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-									prefWidth="100.0" />
-							</columnConstraints>
-							<rowConstraints>
-								<RowConstraints minHeight="10.0" prefHeight="30.0"
-									vgrow="SOMETIMES" />
-							</rowConstraints>
-							<children>
-								<BorderPane prefHeight="200.0" prefWidth="200.0">
-									<center>
-										<Button fx:id="takeOrderBtn" disable="true"
-											mnemonicParsing="false" prefWidth="90.0" text="Effectuer"
-											BorderPane.alignment="CENTER" />
-									</center>
-								</BorderPane>
-								<BorderPane prefHeight="200.0" prefWidth="200.0"
-									GridPane.columnIndex="1">
-									<center>
-										<Button fx:id="editBtn" contentDisplay="CENTER"
-											disable="true" mnemonicParsing="false" text="Modifier"
-											BorderPane.alignment="CENTER" />
-									</center>
-								</BorderPane>
-								<BorderPane prefHeight="200.0" prefWidth="200.0"
-									GridPane.columnIndex="2">
-									<center>
-										<Button fx:id="removeBtn" disable="true"
-											mnemonicParsing="false" text="Enlever" BorderPane.alignment="CENTER" />
-									</center>
-								</BorderPane>
-								<BorderPane prefHeight="200.0" prefWidth="200.0"
-									GridPane.columnIndex="3">
-									<center>
-										<Button fx:id="resetBtn" mnemonicParsing="false"
-											prefWidth="90.0" text="Ré-initialiser" BorderPane.alignment="CENTER" />
-									</center>
-								</BorderPane>
-							</children>
-						</GridPane>
-					</center>
-					<top>
-						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-					</top>
-					<bottom>
-						<Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-					</bottom>
-				</BorderPane>
-			</children>
-		</VBox>
-	</items>
-</SplitPane>
+							</center>
+						</BorderPane>
+						<BorderPane>
+							<center>
+								<Button disable="true" prefWidth="120" styleClass="flat-btn"
+									fx:id="addOrderLineBtn" text="Ajouter" BorderPane.alignment="CENTER"></Button>
+
+
+							</center>
+							<top>
+								<Pane prefHeight="12.0" BorderPane.alignment="CENTER" />
+							</top>
+							<bottom>
+								<Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
+							</bottom>
+						</BorderPane>
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0">
+					<children>
+						<BorderPane prefHeight="0.0" prefWidth="296.0">
+							<center>
+								<Label styleClass="boldLabel" text="Liste des produits à commader"
+									BorderPane.alignment="CENTER">
+									<font>
+										<Font name="System Bold" size="12.0" />
+									</font>
+									<BorderPane.margin>
+										<Insets bottom="10.0" top="10.0" />
+									</BorderPane.margin>
+								</Label>
+							</center>
+						</BorderPane>
+						<TableView styleClass="tableView" fx:id="orderLinesTableView"
+							prefHeight="282.0" prefWidth="494.0">
+							<VBox.margin>
+								<Insets left="10.0" right="10.0" />
+							</VBox.margin>
+
+							<columns>
+								<TableColumn fx:id="upcCol" prefWidth="100.0" text="UPC" />
+								<TableColumn fx:id="productNameCol" prefWidth="100.0"
+									text="Nom" />
+								<TableColumn fx:id="priceCol" prefWidth="100.0"
+									text="Prix unitaire ($)" />
+								<TableColumn fx:id="quantityCol" prefWidth="100.0"
+									text="Quantité" />
+								<TableColumn fx:id="modifiedPriceCol" prefWidth="100.0"
+									text="Prix ajusté ($)" />
+							</columns>
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+						</TableView>
+						<TitledPane animated="false" text="Commentaire"
+							prefHeight="130">
+							<VBox.margin>
+								<Insets left="10.0" right="10.0" top="10.0" />
+							</VBox.margin>
+							<TextArea promptText="Veillez saisir un commentaire" />
+						</TitledPane>
+						<BorderPane>
+							<center>
+								<GridPane BorderPane.alignment="CENTER">
+									<columnConstraints>
+										<ColumnConstraints hgrow="SOMETIMES"
+											minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES"
+											minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES"
+											minWidth="10.0" prefWidth="100.0" />
+										<ColumnConstraints hgrow="SOMETIMES"
+											minWidth="10.0" prefWidth="100.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="10.0" prefHeight="30.0"
+											vgrow="SOMETIMES" />
+									</rowConstraints>
+									<children>
+										<BorderPane prefHeight="200.0" prefWidth="200.0">
+											<center>
+												<Button prefWidth="120" styleClass="flat-btn" fx:id="takeOrderBtn"
+													text="Effectuer" disable="true" BorderPane.alignment="CENTER"></Button>
+											</center>
+										</BorderPane>
+										<BorderPane prefHeight="200.0" prefWidth="200.0"
+											GridPane.columnIndex="1">
+											<center>
+												<Button prefWidth="120" styleClass="flat-btn" fx:id="editBtn"
+													text="Modifier" contentDisplay="CENTER" disable="true"
+													BorderPane.alignment="CENTER"></Button>
+											</center>
+										</BorderPane>
+										<BorderPane prefHeight="200.0" prefWidth="200.0"
+											GridPane.columnIndex="2">
+											<center>
+												<Button prefWidth="120" styleClass="flat-btn" fx:id="removeBtn"
+													text="Enlever" contentDisplay="CENTER" disable="true"
+													BorderPane.alignment="CENTER"></Button>
+											</center>
+										</BorderPane>
+										<BorderPane prefHeight="200.0" prefWidth="200.0"
+											GridPane.columnIndex="3">
+											<center>
+												<Button prefWidth="120" styleClass="flat-btn" fx:id="resetBtn"
+													text="Ré-initialiser" contentDisplay="CENTER" disable="true"
+													BorderPane.alignment="CENTER"></Button>
+											</center>
+										</BorderPane>
+									</children>
+								</GridPane>
+							</center>
+							<top>
+								<Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
+							</top>
+							<bottom>
+								<Pane prefHeight="10.0" BorderPane.alignment="CENTER" />
+							</bottom>
+						</BorderPane>
+					</children>
+				</VBox>
+			</items>
+		</SplitPane>
+
+
+
+	</children>
+
+	<stylesheets>
+		<URL value="@childWindow.css" />
+		<URL value="@Content.css" />
+	</stylesheets>
+</GridPane>
+	

@@ -10,6 +10,10 @@ TitledPane
 -fx-base: #f5f5f5;   
 -fx-text-fill: black; 
 }
+
+TextArea{
+-fx-background-color: white;
+}
 #motherGrid{
 	-fx-border-width: 2.0;
 	-fx-border-color: #9b9b9b;
@@ -107,4 +111,14 @@ TitledPane
 	-fx-border-color: #016699;
 	-fx-border-style: dashed ;
 	-fx-border-width: 2;
+}
+
+.boldLabel{
+	-fx-font-family: 'Roboto bold';
+	-fx-font-weight: bold;
+}
+
+#splitPane > .split-pane-divider {  
+   -fx-background-color: #016699;
+   -fx-padding: 0.5;  
 }

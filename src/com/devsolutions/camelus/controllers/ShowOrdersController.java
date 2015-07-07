@@ -208,10 +208,12 @@ public class ShowOrdersController implements Initializable {
 						.<TakeOrderController> getController();
 				controller.initData(this);
 
+				newStage.initStyle(StageStyle.UNDECORATED);
 				newStage.initModality(Modality.APPLICATION_MODAL);
-
+				newStage.initOwner(motherGrid.getScene().getWindow());
 				newStage.show();
-
+				stage = (Stage) pdfBtn.getScene().getWindow();
+				centerStage( stage ,  newStage, 22 );
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -232,7 +234,10 @@ public class ShowOrdersController implements Initializable {
 					}
 				});
 	}
-
+	private void centerStage(Stage parentStage , Stage childStage, int y ){
+		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2 - childStage.getWidth() / 2);
+		childStage.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage.getHeight() / 2)+y);
+	}
 	private void creatPDF() {
 		Document document = new Document();
 		OrderTV orderTV = orderTableView.getSelectionModel().getSelectedItem();
