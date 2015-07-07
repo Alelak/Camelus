@@ -19,8 +19,8 @@
 	fx:controller="com.devsolutions.camelus.controllers.AddProductController">
 
 	<rowConstraints>
-		<RowConstraints percentHeight="5.4" />
-		<RowConstraints percentHeight="84.6" />
+		<RowConstraints percentHeight="4.5" />
+		<RowConstraints percentHeight="84.5" />
 		<RowConstraints percentHeight="10" />
 	</rowConstraints>
 	<columnConstraints>

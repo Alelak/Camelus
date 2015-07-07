@@ -89,8 +89,8 @@ public class AddProductController implements Initializable {
 
 		btnAddImg.setOnAction(e -> {
 			addPicture();
-			 Showimage();
-			
+			Showimage();
+
 		});
 
 		upc.setOnKeyReleased(e -> {
@@ -98,38 +98,39 @@ public class AddProductController implements Initializable {
 					.matches(
 							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 				upc.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-			
-				
+
 			} else
 				upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
 		name.setOnKeyReleased(e -> {
 			if (name.getText().isEmpty()) {
 				name.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			
-				
+
 			} else
 				name.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
 		quantity.setOnKeyReleased(e -> {
-			if (isNumeric(quantity.getText())){
-				if  (Double.parseDouble(quantity.getText()) > 0)
+			if (isNumeric(quantity.getText())) {
+				if (Double.parseDouble(quantity.getText()) > 0)
 					quantity.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-			}else
+			} else
 				quantity.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			
-		});
-	
-		costPrice.setOnKeyReleased(e -> {
-			if (isNumber(costPrice.getText())){
-				
-		if (Double.parseDouble(costPrice.getText()) > 0)
-				costPrice.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 
-			}	else
-				costPrice.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
-		
+
+		costPrice
+				.setOnKeyReleased(e -> {
+					if (isNumber(costPrice.getText())) {
+
+						if (Double.parseDouble(costPrice.getText()) > 0)
+							costPrice
+									.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+
+					} else
+						costPrice
+								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+				});
+
 		btnAddProduct
 				.setOnAction(e -> {
 					/*
@@ -140,7 +141,7 @@ public class AddProductController implements Initializable {
 					 */
 
 					for (ProductTableView b : productController
-							.getProductsList()) {
+							.getProductsObservableList()) {
 						System.out.println("verification UpC avant");
 						if (b.getUpc().equals(upc.getText()))
 							verifUpc = true;
@@ -193,6 +194,8 @@ public class AddProductController implements Initializable {
 						addProductToTableView();
 						stage = (Stage) btnAddProduct.getScene().getWindow();
 						stage.close();
+						productController.showTableView();
+						productController.selectLastRow();
 					}
 
 				});
@@ -259,8 +262,8 @@ public class AddProductController implements Initializable {
 		product.setImg(imageInByte);
 		product.setDescription(description.getText());
 		product.setCost_price(Double.parseDouble(costPrice.getText()));
-		if(!sellingPrice.getText().isEmpty())
-		product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
+		if (!sellingPrice.getText().isEmpty())
+			product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
 
 		return product;
 	}
@@ -283,7 +286,7 @@ public class AddProductController implements Initializable {
 
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"All Images", "*.jpg","*.png","*.jpeg","*.gif","*.bmp");
+				"All Images", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -323,6 +326,7 @@ public class AddProductController implements Initializable {
 			}
 		});
 	}
+
 	private void Showimage() {
 
 		ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);

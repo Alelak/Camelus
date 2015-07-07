@@ -1,76 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="337.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
-				fx:controller="com.devsolutions.camelus.controllers.ShowProductsController">
-   <children>
-      <VBox prefHeight="337.0" prefWidth="476.0">
-         <children>
-            <HBox minHeight="80.0" prefHeight="80.0" prefWidth="476.0">
-               <children>
-                  <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Ajouter Produit">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" top="35.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnUpdateProduct" disable="true" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Modifier Produit">
-                     <HBox.margin>
-                        <Insets right="10.0" top="35.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnDeleteProduct" disable="true" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Supprimer Produit">
-                     <HBox.margin>
-                        <Insets right="10.0" top="35.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnShowProduct" disable="true" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Afficher Produit">
-                     <HBox.margin>
-                        <Insets right="10.0" top="35.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <AnchorPane prefHeight="53.0" prefWidth="476.0">
-               <children>
-                  <TextField fx:id="txtFiledSearch" layoutX="147.0" layoutY="3.0" minHeight="27.0" prefHeight="22.0" prefWidth="179.0" />
-                  <Button fx:id="btnSearchProduct" layoutX="333.0" layoutY="3.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false">
-               <graphic>
-        <ImageView fitHeight="20.0" fitWidth="20.0">
-          <image>
-            <Image url="@../../../../images/Search.png" />
-          </image>
-        </ImageView>
-      </graphic>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </AnchorPane>
-            <AnchorPane prefHeight="237.0" prefWidth="476.0">
-               <children>
-                  <TableView fx:id="tableViewProduct" layoutY="-1.0" prefHeight="237.0" prefWidth="476.0" >
-                  <columns>
-	            	<TableColumn fx:id="idCol" prefWidth="50.0" text="Id" />
-					<TableColumn fx:id="upcCol" prefWidth="100.0" text="UPC" />
-					<TableColumn fx:id="nameCol" prefWidth="100.0" text="Nom" />
-					<TableColumn fx:id="quantityCol" prefWidth="50.0" text="Quantite" />
-					<TableColumn fx:id="categoryCol" prefWidth="100.0" text="Categories" />
-					<TableColumn fx:id="priceSellingcol" prefWidth="50.0" text="Prix ($)" />	
-				</columns>
-				</TableView>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+<GridPane fx:id="motherGrid" prefWidth="900"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.ShowProductsController">
+	<rowConstraints>
+		<RowConstraints percentHeight="90" />
+		<RowConstraints percentHeight="10" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
+	<children>
+		<GridPane fx:id="content" GridPane.rowIndex="0"
+			gridLinesVisible="False">
+			<rowConstraints>
+				<RowConstraints fx:id="rowOne" />
+				<RowConstraints fx:id="rowTwo" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="100" />
+			</columnConstraints>
+			<children>
+				<VBox spacing="0" alignment="TOP_CENTER" fx:id="gridRowOne"
+					GridPane.rowIndex="0">
+					<padding>
+						<Insets top="150.0" />
+					</padding>
+					<Label fx:id="message1" text="La base de données est vide." />
+					<Label id="message2" text="Ajouter maintenant un client." />
+				</VBox>
+				<GridPane fx:id="gridRowTwo" GridPane.rowIndex="1"
+					gridLinesVisible="false">
+					<padding>
+						<Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+					</padding>
+					<rowConstraints>
+						<RowConstraints percentHeight="10" />
+						<RowConstraints percentHeight="90" />
+					</rowConstraints>
+					<columnConstraints>
+						<ColumnConstraints percentWidth="50" />
+						<ColumnConstraints percentWidth="50" />
+					</columnConstraints>
+					<children>
+						<HBox spacing="5" alignment="BOTTOM_LEFT" GridPane.rowIndex="0"
+							GridPane.columnIndex="0">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<TextField fx:id="textFieldSearch" minWidth="370"
+								promptText="Chercher des Produit par, Nom,UPC ou Categories"></TextField>
+						</HBox>
+						<HBox alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
+							GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<Button fx:id="btnRefresh" prefWidth="120" styleClass="flat-btn"
+								text="Actualiser">
+								<graphic>
+									<FontAwesomeIconView styleClass="whiteFont"
+										icon="ICON_REFRESH" />
+								</graphic>
+							</Button>
+						</HBox>
+						<TableView styleClass="tableView" fx:id="tableViewProduct"
+							GridPane.rowIndex="1" GridPane.columnIndex="0"
+							GridPane.columnSpan="2">
+							<columns>
+								<TableColumn maxWidth="650" fx:id="idCol" text="No" />
+								<TableColumn fx:id="upcCol" text="UPC" />
+								<TableColumn fx:id="nameCol" text="Nom" />
+								<TableColumn fx:id="quantityCol" text="Quantite" />
+								<TableColumn fx:id="categoryCol" text="Categories" />
+								<TableColumn fx:id="priceSellingcol" text="Prix ($)" />
+							</columns>
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+
+						</TableView>
+					</children>
+				</GridPane>
+			</children>
+		</GridPane>
+		<HBox alignment="TOP_CENTER" spacing="5" id="footer"
+			GridPane.rowIndex="1">
+
+			<Button fx:id="btnAddProduct" prefWidth="120" styleClass="flat-btn"
+				text="Ajouter">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PLUS" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="btnUpdateProduct" prefWidth="120"
+				styleClass="flat-btn" text="Modifer">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PENCIL" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="btnDeleteProduct" prefWidth="120"
+				styleClass="flat-btn" text="Supprimer">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_MINUS" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="btnShowProduct" prefWidth="120"
+				styleClass="flat-btn" text="Consulter">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_EYE_OPEN" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="btnPdfProduct" prefWidth="120"
+				styleClass="flat-btn" text="Générer pdf">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_FILE_TEXT" />
+				</graphic>
+			</Button>
+		</HBox>
+	</children>
+	<stylesheets>
+		<URL value="@Content.css" />
+	</stylesheets>
+</GridPane>

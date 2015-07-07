@@ -92,120 +92,124 @@ public class UpdateProductController implements Initializable {
 					.matches(
 							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 				upc.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-			
-				
+
 			} else
 				upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
 		name.setOnKeyReleased(e -> {
 			if (name.getText().isEmpty()) {
 				name.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			
-				
+
 			} else
 				name.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
 		quantity.setOnKeyReleased(e -> {
-			if (isNumeric(quantity.getText())){
-				if  (Double.parseDouble(quantity.getText()) > 0)
+			if (isNumeric(quantity.getText())) {
+				if (Double.parseDouble(quantity.getText()) > 0)
 					quantity.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-			}else
+			} else
 				quantity.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			
-		});
-	
-		costPrice.setOnKeyReleased(e -> {
-			if (isNumber(costPrice.getText())){
-				
-		if (Double.parseDouble(costPrice.getText()) > 0)
-				costPrice.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 
-			}	else
-				costPrice.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
-		
+
+		costPrice
+				.setOnKeyReleased(e -> {
+					if (isNumber(costPrice.getText())) {
+
+						if (Double.parseDouble(costPrice.getText()) > 0)
+							costPrice
+									.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+
+					} else
+						costPrice
+								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+				});
+
 		btnAddImg.setOnAction(e -> {
 
 			addPicture();
 			Showimage();
 		});
-		btnUpdateProduct.setOnAction(e -> {
+		btnUpdateProduct
+				.setOnAction(e -> {
 
-			error = false;
-			verifUpc = false;
-			for (ProductTableView b : productController
-					.getProductsList()) {
-				
-				if (b.getUpc().equals(upc.getText()))
-					verifUpc = true;
-			
+					error = false;
+					verifUpc = false;
+					for (ProductTableView b : productController
+							.getProductsObservableList()) {
 
-			}
+						if (b.getUpc().equals(upc.getText()))
+							verifUpc = true;
 
-			if (!(!upc.getText().isEmpty() && !name.getText().isEmpty()
-					&& !quantity.getText().isEmpty() && !costPrice
-					.getText().isEmpty())) {
-				System.out
-						.println("il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP");
-				error = true;
-			}
-			if (!upc.getText()
-					.matches(
-							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-				System.out.println("le UPC doit avoir 12 chiffres ");
-				error = true;
-			}
-			if ((verifUpc == true)&&(!upc.getText().equals(productToUpdate.getUpc()))) {
-				upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-				System.out
-						.println("le UPC existe deja veillez entrer un nouveau upc svp");
-				error = true;
-			}
-			if (name.getText().equals("")) {
-				System.out
-						.println("Veillez saisire le nom de produit SVP");
-				error = true;
-			}
-			if (!isNumeric(quantity.getText())) {
-				System.out.println("entrer une Quantiter valide");
-				error = true;
-			} else if (Integer.parseInt(quantity.getText()) < 0) {
-				System.out
-						.println("Veuillez entrez une qunatiter Posetive SVP");
-				error = true;
-			}
-			if (!isNumber(costPrice.getText())) {
-				System.out.println("saisie un prix valide Svp");
-				error = true;
-			} else if (Double.parseDouble(costPrice.getText()) < 0) {
-				System.out.println("saisie un prix Posetive Svp");
-				error = true;
-			}
-			if (error == false) {
+					}
 
-				ProductManager.update(updateProduct());
-				ProductTableView productTable = new ProductTableView();
-				productTable.setId(product.getId());
+					if (!(!upc.getText().isEmpty() && !name.getText().isEmpty()
+							&& !quantity.getText().isEmpty() && !costPrice
+							.getText().isEmpty())) {
+						System.out
+								.println("il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP");
+						error = true;
+					}
+					if (!upc.getText()
+							.matches(
+									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						System.out.println("le UPC doit avoir 12 chiffres ");
+						error = true;
+					}
+					if ((verifUpc == true)
+							&& (!upc.getText().equals(productToUpdate.getUpc()))) {
+						upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+						System.out
+								.println("le UPC existe deja veillez entrer un nouveau upc svp");
+						error = true;
+					}
+					if (name.getText().equals("")) {
+						System.out
+								.println("Veillez saisire le nom de produit SVP");
+						error = true;
+					}
+					if (!isNumeric(quantity.getText())) {
+						System.out.println("entrer une Quantiter valide");
+						error = true;
+					} else if (Integer.parseInt(quantity.getText()) < 0) {
+						System.out
+								.println("Veuillez entrez une qunatiter Posetive SVP");
+						error = true;
+					}
+					if (!isNumber(costPrice.getText())) {
+						System.out.println("saisie un prix valide Svp");
+						error = true;
+					} else if (Double.parseDouble(costPrice.getText()) < 0) {
+						System.out.println("saisie un prix Posetive Svp");
+						error = true;
+					}
+					if (error == false) {
 
-				productTable.setName(product.getName());
-				productTable.setQuantity(product.getQuantity());
-				productTable.setUpc(product.getUpc());
-				productTable.setSelling_price(product.getSelling_price());
-				productTable.setDescriptionCategory(category.getValue()
-						.toString());
-				productController.updateTableView(index, productTable);
-				stage = (Stage) btnUpdateProduct.getScene().getWindow();
-				stage.close();
-			}
+						ProductManager.update(updateProduct());
+						ProductTableView productTable = new ProductTableView();
+						productTable.setId(product.getId());
 
+						productTable.setName(product.getName());
+						productTable.setQuantity(product.getQuantity());
+						productTable.setUpc(product.getUpc());
+						productTable.setSelling_price(product
+								.getSelling_price());
+						productTable.setDescriptionCategory(category.getValue()
+								.toString());
+						productController.updateTableView(index, productTable);
+						stage = (Stage) btnUpdateProduct.getScene().getWindow();
+						stage.close();
+						productController.selectTheModifierRow(index);
+					}
 
-		});
+				});
 		btnCancelProduct.setOnAction(e -> {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
 			stage.close();
 		});
 
 	}
+
 	public static boolean isNumeric(String str) {
 		try {
 			Integer.parseInt(str);
@@ -223,6 +227,7 @@ public class UpdateProductController implements Initializable {
 		}
 		return true;
 	}
+
 	public Product updateProduct()
 
 	{
@@ -297,10 +302,11 @@ public class UpdateProductController implements Initializable {
 		sellingPrice.setText("" + productToUpdate.getSelling_price());
 		description.setText(productToUpdate.getDescription());
 		imageInByte = productToUpdate.getImg();
-		if(imageInByte!=null)
-		Showimage();
+		if (imageInByte != null)
+			Showimage();
 		else {
-			imageProduct.setImage(new Image(getClass().getResourceAsStream("../../../../images/nopicture.jpg")));
+			imageProduct.setImage(new Image(getClass().getResourceAsStream(
+					"../../../../images/nopicture.jpg")));
 		}
 
 		listChoiceBoxUnit(productToUpdate.getUnit_id());
@@ -314,12 +320,14 @@ public class UpdateProductController implements Initializable {
 		imageProduct.setImage(new Image(is));
 
 	}
+
 	@FXML
 	private void CloseWindow() {
 
 		Stage stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
 	}
+
 	private void addDraggableNode(final Node node) {
 		node.setOnMousePressed(e -> {
 			if (e.getButton() != MouseButton.MIDDLE) {
@@ -334,6 +342,7 @@ public class UpdateProductController implements Initializable {
 			}
 		});
 	}
+
 	public void initData(ShowProductsController ProductController,
 			Product productToUpdate, int index) {
 		this.productController = ProductController;

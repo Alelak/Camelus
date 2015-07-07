@@ -3,19 +3,26 @@ package com.devsolutions.camelus.controllers;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.UnitManager;
 
 public class ShowProductController implements Initializable {
-
+	@FXML
+	private GridPane titleBar;
 	@FXML
 	private Label upc;
 	@FXML
@@ -35,21 +42,29 @@ public class ShowProductController implements Initializable {
 	@FXML
 	private Label sellingPrice;
 	@FXML
-	private Label description;
-
+	private TextArea description;
+	@FXML
+	private Label lblClose;
 	private Stage stage;
 
 	private byte[] imageInByte;
 	Product product;
 	Product productToUpdate;
+	private Double initialX;
+	private Double initialY;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		addDraggableNode(titleBar);	
 		btnCancelProduct.setOnAction(e -> {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
 			stage.close();
 		});
+	}
+	@FXML
+	private void CloseWindow() {
+		Stage stage = (Stage) lblClose.getScene().getWindow();
+		stage.close();
 	}
 
 	public void initData(ShowProductsController ProductController,
@@ -81,6 +96,20 @@ public class ShowProductController implements Initializable {
 		ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
 		imageProduct.setImage(new Image(is));
 
+	}
+	private void addDraggableNode(final Node node) {
+		node.setOnMousePressed(e -> {
+			if (e.getButton() != MouseButton.MIDDLE) {
+				initialX = e.getSceneX();
+				initialY = e.getSceneY();
+			}
+		});
+		node.setOnMouseDragged(e -> {
+			if (e.getButton() != MouseButton.MIDDLE) {
+				node.getScene().getWindow().setX(e.getScreenX() - initialX);
+				node.getScene().getWindow().setY(e.getScreenY() - initialY);
+			}
+		});
 	}
 
 }

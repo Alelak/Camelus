@@ -12,10 +12,13 @@ import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductTableView;
 
 public interface ProductMapper {
-	@Select("SELECT * FROM products")
+	public static final String DELETED_CONDITION = "deleted = 0";
+
+	@Select("SELECT * FROM products WHERE " + DELETED_CONDITION)
 	List<Product> getAll();
 
-	@Select("SELECT products.id,products.upc,products.name,products.quantity,products.selling_price,categories.description FROM products inner join categories ON products.category_id=categories.id ")
+	@Select("SELECT products.id,products.upc,products.name,products.quantity,products.selling_price,categories.description FROM products inner join categories ON products.category_id=categories.id WHERE products. "
+			+ DELETED_CONDITION)
 	List<ProductTableView> getAllProductTableView();
 
 	@Select("SELECT * FROM products WHERE id = #{id} ")
