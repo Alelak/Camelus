@@ -22,19 +22,18 @@ public class ShowAdminController implements Initializable {
 	@FXML
 	private Label lblClose;
 	@FXML
-	private Button btnQuitter;
+	private Button btnClose;
 	@FXML
 	private Label logintxt;
-	@FXML
-	private Label passwordtxt;
-	@FXML
-	private Label lnametxt;
-	@FXML
-	private Label fnametxt;
 	@FXML
 	private Label sintxt;
 	@FXML
 	private Label hiredatetxt;
+	@FXML
+	private Label adminName;
+
+	@FXML
+	private Label idtxt;
 	private Stage stage;
 	private double initialX;
 	private double initialY;
@@ -47,8 +46,8 @@ public class ShowAdminController implements Initializable {
 			stage = (Stage) lblClose.getScene().getWindow();
 			stage.close();
 		});
-		btnQuitter.setOnAction(e -> {
-			stage = (Stage) btnQuitter.getScene().getWindow();
+		btnClose.setOnAction(e -> {
+			stage = (Stage) btnClose.getScene().getWindow();
 			stage.close();
 		});
 	}
@@ -69,10 +68,9 @@ public class ShowAdminController implements Initializable {
 	}
 
 	public void initData(Admin admin) {
+		idtxt.setText("" + admin.getId());
+		adminName.setText(admin.getFull_name());
 		logintxt.setText(admin.getLogin());
-		passwordtxt.setText(admin.getPassword());
-		lnametxt.setText(admin.getLname());
-		fnametxt.setText(admin.getFname());
 		sintxt.setText(admin.getSin());
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		hiredatetxt.setText(simpleDateFormat.format(admin.getHire_date()));

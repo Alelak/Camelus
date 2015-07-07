@@ -11,19 +11,23 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+
+
+
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowAdminController">
 
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
-		<RowConstraints percentHeight="84.6" />
 		<RowConstraints percentHeight="10" />
+		<RowConstraints valignment="CENTER" percentHeight="76.6" />
+		<RowConstraints percentHeight="8" />
 	</rowConstraints>
 	<columnConstraints>
-		<ColumnConstraints percentWidth="100" />
+		<ColumnConstraints halignment="CENTER" percentWidth="100" />
 	</columnConstraints>
 
 	<children>
@@ -39,8 +43,8 @@
 
 			<children>
 
-				<Label text="Consulter Admin" GridPane.ColumnIndex="0"
-					fx:id="titleWindow">
+				<Label style="-fx-font-family:'Roboto Bold';"
+					GridPane.ColumnIndex="0" Text="Consulter client">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -58,67 +62,78 @@
 				</HBox>
 			</children>
 		</GridPane>
-		<GridPane GridPane.rowIndex="1">
-			<GridPane.margin>
-				<Insets top="40"></Insets>
-			</GridPane.margin>
+
+		<HBox alignment="BOTTOM_CENTER" GridPane.rowIndex="1">
+			<padding>
+				<Insets bottom="10" />
+			</padding>
+			<Label text="Informations supplémentaires sur "></Label>
+			<Label
+				style=" -fx-text-fill:#016699; -fx-font-family: 'Roboto Bold'; -fx-underline: true ;"
+				fx:id="adminName" GridPane.rowIndex="0"></Label>
+			<Label text="."></Label>
+		</HBox>
+
+
+		<GridPane maxWidth="450" maxHeight="400" id="contentGrid"
+			GridPane.rowIndex="2">
+			<padding>
+				<Insets top="70" />
+			</padding>
+
+
 			<rowConstraints>
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
+				<RowConstraints percentHeight="16" />
+				<RowConstraints percentHeight="16" />
+				<RowConstraints percentHeight="16" />
+				<RowConstraints percentHeight="16" />
 			</rowConstraints>
 			<columnConstraints>
-				<ColumnConstraints halignment="RIGHT"
-					percentWidth="39" />
-				<ColumnConstraints halignment="CENTER"
-					percentWidth="45" />
-				<ColumnConstraints halignment="LEFT" percentWidth="16" />
+				<ColumnConstraints prefWidth="100" />
 			</columnConstraints>
 
 			<children>
+				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0"
+					alignment="CENTER">
+					<Label text="Numéro d'identification :" />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="idtxt" />
+				</HBox>
+				<HBox spacing="2" minWidth="450" GridPane.rowIndex="1"
+					alignment="CENTER">
+					<Label text="Login :" />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="logintxt" />
+				</HBox>
+				<HBox spacing="2" minWidth="450" GridPane.rowIndex="2"
+					alignment="CENTER">
+					<Label text="NAS :" />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="sintxt" />
+				</HBox>
+				<HBox spacing="2" minWidth="450" GridPane.rowIndex="3"
+					alignment="CENTER">
+					<Label text="Date D'embauche :" />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="hiredatetxt" />
+				</HBox>
 
-				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
-					text="Nom d'utilisateur:">
-				</Label>
-				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0"
-					text="Mot de Passe:">
-				</Label>
-				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0" text="Nom:">
-				</Label>
-				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0" text="Prenom:">
-				</Label>
-				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0" text="NAS:">
-				</Label>
-				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
-					text="Date d'embauche:">
-				</Label>
-
-				<Label fx:id="logintxt" GridPane.rowIndex="1"
-					GridPane.ColumnIndex="1" maxWidth="235"></Label>
-				<Label fx:id="passwordtxt" GridPane.rowIndex="2"
-					GridPane.ColumnIndex="1" maxWidth="235"></Label>
-				<Label fx:id="fnametxt" GridPane.rowIndex="3"
-					GridPane.ColumnIndex="1" maxWidth="235"></Label>
-				<Label fx:id="lnametxt" GridPane.rowIndex="4"
-					GridPane.ColumnIndex="1" maxWidth="235"></Label>
-				<Label fx:id="sintxt" GridPane.rowIndex="5"
-					GridPane.ColumnIndex="1" maxWidth="235"></Label>
-				<Label fx:id="hiredatetxt" GridPane.rowIndex="6"
-					GridPane.ColumnIndex="1" maxWidth="235"></Label>
 			</children>
 		</GridPane>
 
-		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
+		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />
 			</padding>
-			<Button prefWidth="120" styleClass="flat-btn" fx:id="btnQuitter" text="Quitter"></Button>
+			<Button prefWidth="120" styleClass="flat-btn" fx:id="btnClose"
+				text="Fermer"></Button>
 		</HBox>
 	</children>
+
+
+
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
+
+
 </GridPane>
+
+
+

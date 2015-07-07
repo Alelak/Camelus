@@ -33,9 +33,7 @@ public class ShowAdminsController implements Initializable {
 	@FXML
 	private TableColumn<Admin, Integer> idColumn;
 	@FXML
-	private TableColumn<Admin, String> fnameColumn;
-	@FXML
-	private TableColumn<Admin, String> lnameColumn;
+	private TableColumn<Admin, String> fullnameColumn;
 	@FXML
 	private TableColumn<Admin, String> loginColumn;
 	@FXML
@@ -54,8 +52,8 @@ public class ShowAdminsController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		idColumn.setCellValueFactory(new PropertyValueFactory<Admin, Integer>(
 				"id"));
-		fnameColumn.setCellValueFactory(new PropertyValueFactory<>("fname"));
-		lnameColumn.setCellValueFactory(new PropertyValueFactory<>("lname"));
+		fullnameColumn.setCellValueFactory(new PropertyValueFactory<>(
+				"full_name"));
 		loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		hireDateColumn.setCellValueFactory(new PropertyValueFactory<>(

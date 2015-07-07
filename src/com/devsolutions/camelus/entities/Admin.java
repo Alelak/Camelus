@@ -8,6 +8,8 @@ public class Admin {
 	private String password;
 	private String fname;
 	private String lname;
+	@SuppressWarnings("unused")
+	private String full_name;
 	private Date hire_date;
 	private String sin;
 	private int super_admin;
@@ -101,6 +103,14 @@ public class Admin {
 
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public String getFull_name() {
+		return fname + " " + lname;
+	}
+
+	public void setFull_name(String full_name) {
+		this.full_name = full_name;
 	}
 
 }

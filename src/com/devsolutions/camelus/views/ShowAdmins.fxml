@@ -45,14 +45,14 @@
 					fx:id="showDetailsBtn" text="Consulter">
 					<graphic>
 						<FontAwesomeIconView styleClass="whiteFont"
-							icon="ICON_MINUS" />
+							icon="ICON_EYE_OPEN" />
 					</graphic>
 				</Button>
 				<Button prefWidth="120" styleClass="flat-btn" disable="true"
 					fx:id="deleteBtn" text="Supprimer">
 					<graphic>
 						<FontAwesomeIconView styleClass="whiteFont"
-							icon="ICON_EYE_OPEN" />
+							icon="ICON_MINUS" />
 					</graphic>
 				</Button>
 
@@ -64,10 +64,9 @@
 				<Insets top="10"></Insets>
 			</GridPane.margin>
 			<columns>
-				<TableColumn fx:id="idColumn" text="Id" />
+				<TableColumn fx:id="idColumn" text="Numéro d'identification" />
 				<TableColumn fx:id="loginColumn" text="Nom D'utilisateur" />
-				<TableColumn fx:id="fnameColumn" text="Nom" />
-				<TableColumn fx:id="lnameColumn" text="Prenom" />
+				<TableColumn fx:id="fullnameColumn" text="Nom et Prenom" />
 				<TableColumn fx:id="hireDateColumn" text="Date D'embauche" />
 			</columns>
 			<columnResizePolicy>
