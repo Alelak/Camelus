@@ -25,7 +25,7 @@ public interface OrderLineMapper {
 	List<OrderLine> getByProductId(long product_id);
 
 	@Insert("INSERT INTO order_lines (product_id,order_id,modified_price,quantity) VALUES (#{product_id},#{order_id},#{modified_price},#{quantity})")
-	@Options(flushCache = true)
+	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(OrderLine orderLine);
 
 }

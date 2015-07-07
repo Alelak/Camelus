@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.devsolutions.camelus.auditing.Audit;
+import com.devsolutions.camelus.auditing.AuditTypes;
+import com.devsolutions.camelus.auditing.AuditUtils;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.mappers.CategoryMapper;
 import com.devsolutions.camelus.services.DBConnection;
+import com.devsolutions.camelus.services.Session;
 
 public class CategoryManager {
 
@@ -32,6 +36,10 @@ public class CategoryManager {
 		session.getMapper(CategoryMapper.class).add(category);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
+						"a ajouter une categorie id : " + category.getId()));
+		AuditUtils.getAuditingService().start();
 	}
 
 	public static void delete(int id) {
@@ -39,6 +47,10 @@ public class CategoryManager {
 		session.getMapper(CategoryMapper.class).delete(id);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.admin.getLogin(), AuditTypes.DELETE,
+						"a supprimer une categorie id : " + id));
+		AuditUtils.getAuditingService().start();
 	}
 
 	public static void update(Category category) {
@@ -46,5 +58,9 @@ public class CategoryManager {
 		session.getMapper(CategoryMapper.class).update(category);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
+						"a modifier une categorie id : " + category.getId()));
+		AuditUtils.getAuditingService().start();
 	}
 }

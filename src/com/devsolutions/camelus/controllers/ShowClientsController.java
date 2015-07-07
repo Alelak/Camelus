@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomDialogBox;
 
@@ -83,6 +84,12 @@ public class ShowClientsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		if (Session.admin != null) {
+			btnAdd.setDisable(true);
+			btnUpdate.setDisable(true);
+			btnDelete.setDisable(true);
+		}
+
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
 		ClientsOb = FXCollections.observableArrayList(ClientManager.getAll());
@@ -103,8 +110,10 @@ public class ShowClientsController implements Initializable {
 							ObservableValue<? extends Client> observable,
 							Client oldValue, Client newValue) {
 						if (newValue != null) {
-							btnUpdate.setDisable(false);
-							btnDelete.setDisable(false);
+							if (Session.admin == null) {
+								btnUpdate.setDisable(false);
+								btnDelete.setDisable(false);
+							}
 							btnConsult.setDisable(false);
 							btnOrder.setDisable(false);
 						} else {
@@ -225,7 +234,6 @@ public class ShowClientsController implements Initializable {
 
 	public void addToTable(Client client) {
 		ClientsOb.add(client);
-		System.out.println(ClientsOb.size());
 	}
 
 	public void updateTable(int index, Client client) {

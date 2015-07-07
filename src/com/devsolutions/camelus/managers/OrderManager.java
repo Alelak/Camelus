@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.devsolutions.camelus.auditing.Audit;
+import com.devsolutions.camelus.auditing.AuditTypes;
+import com.devsolutions.camelus.auditing.AuditUtils;
 import com.devsolutions.camelus.entities.Order;
 import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.mappers.OrderMapper;
 import com.devsolutions.camelus.services.DBConnection;
+import com.devsolutions.camelus.services.Session;
 
 public class OrderManager {
 
@@ -16,6 +20,10 @@ public class OrderManager {
 		session.getMapper(OrderMapper.class).add(order);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
+						"a ajouter une  commande id : " + order.getId()));
+		AuditUtils.getAuditingService().start();
 	}
 
 	public static List<Order> getAll() {
@@ -32,7 +40,7 @@ public class OrderManager {
 		session.close();
 		return orders;
 	}
-	
+
 	public static List<OrderTV> getAllTV() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		List<OrderTV> orders = session.getMapper(OrderMapper.class).getAllTV();
@@ -60,5 +68,9 @@ public class OrderManager {
 		session.getMapper(OrderMapper.class).cancel(id);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
+						"a modifier une commande id : " + id));
+		AuditUtils.getAuditingService().start();
 	}
 }

@@ -20,6 +20,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import com.devsolutions.camelus.auditing.Audit;
+import com.devsolutions.camelus.auditing.AuditTypes;
+import com.devsolutions.camelus.auditing.AuditUtils;
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.AdminManager;
@@ -120,6 +123,10 @@ public class LoginController implements Initializable {
 													.toExternalForm());
 									stage.setScene(scene);
 									stage.centerOnScreen();
+									AuditUtils.getAuditingService().setAudit(
+											new Audit(Session.admin.getLogin(),
+													AuditTypes.LOGIN, null));
+									AuditUtils.getAuditingService().start();
 								} else {
 									showError();
 
@@ -156,6 +163,12 @@ public class LoginController implements Initializable {
 													.toExternalForm());
 									stage.setScene(scene);
 									stage.centerOnScreen();
+
+									AuditUtils.getAuditingService().setAudit(
+											new Audit(
+													Session.vendor.getLogin(),
+													AuditTypes.LOGIN, null));
+									AuditUtils.getAuditingService().start();
 								} else {
 									showError();
 								}

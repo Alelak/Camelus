@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.devsolutions.camelus.auditing.Audit;
+import com.devsolutions.camelus.auditing.AuditTypes;
+import com.devsolutions.camelus.auditing.AuditUtils;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.mappers.VendorMapper;
 import com.devsolutions.camelus.services.DBConnection;
+import com.devsolutions.camelus.services.Session;
 
 public class VendorManager {
 	public static List<Vendor> getAll() {
@@ -36,6 +40,10 @@ public class VendorManager {
 		session.getMapper(VendorMapper.class).add(vendor);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
+						"a ajouter un vendeur id : " + vendor.getId()));
+		AuditUtils.getAuditingService().start();
 	}
 
 	public static void update(Vendor vendor) {
@@ -43,6 +51,10 @@ public class VendorManager {
 		session.getMapper(VendorMapper.class).update(vendor);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
+						"a modifier un vendeur id : " + vendor.getId()));
+		AuditUtils.getAuditingService().start();
 	}
 
 	public static void delete(int id) {
@@ -50,5 +62,9 @@ public class VendorManager {
 		session.getMapper(VendorMapper.class).delete(id);
 		session.commit();
 		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.admin.getLogin(), AuditTypes.DELETE,
+						"a supprimer un vendeur id : " + id));
+		AuditUtils.getAuditingService().start();
 	}
 }
