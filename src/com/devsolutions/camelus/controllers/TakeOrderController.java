@@ -355,6 +355,7 @@ public class TakeOrderController implements Initializable {
 			}
 
 			showOrdersController.addToTableView(orderTV);
+			showOrdersController.showTableView();
 
 			stage = (Stage) takeOrderBtn.getScene().getWindow();
 			stage.close();
@@ -410,9 +411,13 @@ public class TakeOrderController implements Initializable {
 				int index = productComboBox.getSelectionModel()
 						.getSelectedIndex();
 				currentProduct = productComboBox.getItems().get(index);
-				ByteArrayInputStream is = new ByteArrayInputStream(
-						currentProduct.getImg());
-				productImage.setImage(new Image(is));
+				ByteArrayInputStream is = null;
+				if (currentProduct.getImg() != null) {
+					is = new ByteArrayInputStream(currentProduct.getImg());
+					productImage.setImage(new Image(is));
+				}
+				else
+					productImage.setImage(noImage);
 				for (Unit unit : unites) {
 					if (unit.getId() == currentProduct.getUnit_id()) {
 						unitLabel.setText("" + unit.getDescription());

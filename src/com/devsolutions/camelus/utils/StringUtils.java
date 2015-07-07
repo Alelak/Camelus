@@ -32,9 +32,9 @@ public class StringUtils {
 			formatedDay = "" + day;
 		
 		if(month<10)
-			formatedMonth = "0" + month;
+			formatedMonth = "0" + (month+1);
 		else
-			formatedMonth = "" + month;
+			formatedMonth = "" + (month+1);
 				
 		formatedDate = formatedDay + "/" + formatedMonth + "/" + year;
 		
