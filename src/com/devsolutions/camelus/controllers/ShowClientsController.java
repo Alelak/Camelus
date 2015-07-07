@@ -2,11 +2,9 @@ package com.devsolutions.camelus.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Client;
-import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomDialogBox;
@@ -209,7 +207,7 @@ public class ShowClientsController implements Initializable {
 		btnOrder.setOnAction(e -> {
 			Client selectedClient = clientTableView.getSelectionModel()
 					.getSelectedItem();
-			mainWindowController.loadSceneClient("showorders", selectedClient);
+			mainWindowController.switchScene("showorders", selectedClient);
 		});
 
 	}

@@ -12,9 +12,8 @@ public class OrderTV {
 	private int commission_id;
 	private String fname; // prenom du vendeur
 	private String lname; // nom du vendeur
-	private String fullname; // nom complet du vendeur
 	private String enterprise_name;
-	private String comment; 
+	private String comment;
 	private Date ordered_at;
 	private String ordered_at_formated;
 
@@ -96,19 +95,11 @@ public class OrderTV {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
-		ordered_at_formated = StringUtils.formateDate(day,month,year);
+		ordered_at_formated = StringUtils.formateDate(day, month, year);
 		return ordered_at_formated;
 	}
 
 	public void setOrdered_at_formated(String ordered_at_formated) {
 		this.ordered_at_formated = ordered_at_formated;
-	}
-
-	public String getFullname() {
-		return fname + " " + lname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
 	}
 }

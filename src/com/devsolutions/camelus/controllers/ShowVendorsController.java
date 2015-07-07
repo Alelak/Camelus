@@ -249,7 +249,7 @@ public class ShowVendorsController implements Initializable {
 		ordersBtn.setOnAction(e -> {
 			Vendor selectedVendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
-			mainWindowController.loadSceneVendor("showorders", selectedVendor, null);
+			mainWindowController.switchScene("showorders", selectedVendor);
 		});
 
 		vendorTableView.getSelectionModel().selectedItemProperty()
@@ -283,8 +283,9 @@ public class ShowVendorsController implements Initializable {
 
 							int selectedYearId = 0;
 							if (!yearComboBoxIsEmpty())
-								selectedYearId = yearComboBox.getSelectionModel()
-										.getSelectedItem().getId();
+								selectedYearId = yearComboBox
+										.getSelectionModel().getSelectedItem()
+										.getId();
 
 							if (newSelection != null
 									&& newSelection.getId() > 0
@@ -332,14 +333,16 @@ public class ShowVendorsController implements Initializable {
 				+ "-" + vendor.getLname() + "(" + selectedMonth + "-"
 				+ selectedYear + ").pdf";
 		fileChooser.setInitialFileName(defaultFileName);
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF Files", "*.pdf");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+				"PDF Files", "*.pdf");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File savedFile = fileChooser.showSaveDialog(stage);
 
 		if (savedFile != null) {
 
 			try {
-				PdfWriter.getInstance(document, new FileOutputStream(savedFile.getAbsoluteFile()));
+				PdfWriter.getInstance(document,
+						new FileOutputStream(savedFile.getAbsoluteFile()));
 
 				document.setPageSize(PageSize.A4);
 				document.setMargins(0, 0, 30, 0);
@@ -427,7 +430,7 @@ public class ShowVendorsController implements Initializable {
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -470,7 +473,7 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			c1.setColspan(4);
@@ -560,7 +563,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Année"));
+		yearObservableList.add(new Choice(0, "Annï¿½e"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -572,7 +575,7 @@ public class ShowVendorsController implements Initializable {
 
 		return yes;
 	}
-	
+
 	private boolean monthComboBoxIsEmpty() {
 		boolean yes = true;
 		if (monthComboBox.getItems().size() > 0)
@@ -584,9 +587,8 @@ public class ShowVendorsController implements Initializable {
 	private void initMonthComboBox() {
 		int selectedMonthId = 0;
 		if (!monthComboBoxIsEmpty())
-			selectedMonthId = monthComboBox
-				.getSelectionModel().getSelectedItem()
-				.getId();
+			selectedMonthId = monthComboBox.getSelectionModel()
+					.getSelectedItem().getId();
 		monthComboBox.getItems().clear();
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
@@ -612,14 +614,14 @@ public class ShowVendorsController implements Initializable {
 			}
 		}
 		monthComboBox.setItems(monthObservableList);
-		if(monthComboBox.getItems().size() >0 && selectedMonthId > monthComboBox.getItems().get(monthComboBox.getItems().size()-1).getId())
-		{
+		if (monthComboBox.getItems().size() > 0
+				&& selectedMonthId > monthComboBox.getItems()
+						.get(monthComboBox.getItems().size() - 1).getId()) {
 			monthComboBox.getSelectionModel().select(0);
-		}
-		else{
+		} else {
 			monthComboBox.getSelectionModel().select(selectedMonthId);
 		}
-		
+
 	}
 
 	private void initComboBox() {
@@ -629,7 +631,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Année"));
+		yearsObservableList.add(new Choice(0, "Annï¿½e"));
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());

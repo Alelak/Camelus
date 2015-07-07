@@ -29,7 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
-import com.devsolutions.camelus.application.Main;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Order;
@@ -126,12 +125,10 @@ public class TakeOrderController implements Initializable {
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
 	private Image noImage;
-	private boolean found;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTableView();
-		found = false;
 		productfound = new SimpleBooleanProperty();
 		clientfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
@@ -170,14 +167,14 @@ public class TakeOrderController implements Initializable {
 							+ (currentProduct.getCost_price() * 10) / 100;
 
 					if (!StringUtils.isInteger(quantity)) {
-						invalidFields += " - Veuillez saisir une quantité valide. \n";
+						invalidFields += " - Veuillez saisir une quantitï¿½ valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) <= 0) {
-						invalidFields += " - Veuillez saisir une quantité valide. \n";
+						invalidFields += " - Veuillez saisir une quantitï¿½ valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) > currentProduct
 							.getQuantity()) {
-						invalidFields += " - La quantité disponible ne peut satisfaire votre demande! \n";
+						invalidFields += " - La quantitï¿½ disponible ne peut satisfaire votre demande! \n";
 						validfields = false;
 					}
 
@@ -191,7 +188,7 @@ public class TakeOrderController implements Initializable {
 							validfields = false;
 						} else if (Double.parseDouble(modifiedPriceField
 								.getText()) < minModifiedPrice) {
-							invalidFields += " - Le prix ajusté ne peut être plus petit que : "
+							invalidFields += " - Le prix ajustï¿½ ne peut ï¿½tre plus petit que : "
 									+ minModifiedPrice + " $.\n";
 							validfields = false;
 						}
@@ -202,7 +199,7 @@ public class TakeOrderController implements Initializable {
 								.getItems()) {
 							if (productToOrderTV.getId() == currentProduct
 									.getId()) {
-								invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimmer  \n";
+								invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veuillez le modifier ou le supprimmer  \n";
 								validfields = false;
 							}
 						}
@@ -215,7 +212,7 @@ public class TakeOrderController implements Initializable {
 									.getId()) {
 								if (currentProduct.getId() != selectedProductToModifie
 										.getId()) {
-									invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimmer  \n";
+									invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veuillez le modifier ou le supprimmer  \n";
 									validfields = false;
 
 								}

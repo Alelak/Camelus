@@ -3,8 +3,6 @@ package com.devsolutions.camelus.controllers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -24,7 +22,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -68,7 +65,6 @@ public class ShowOrdersController implements Initializable {
 	@FXML
 	private Button pdfBtn;
 
-	
 	@FXML
 	private GridPane motherGrid;
 	@FXML
@@ -110,14 +106,11 @@ public class ShowOrdersController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
-		
-		if (Session.vendor != null)
-		{
-			
+
+		if (Session.vendor != null) {
+
 			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
-		}
-		else
-		{
+		} else {
 			ordersList = OrderManager.getAllTV();
 			message2.setText("");
 		}
@@ -167,7 +160,7 @@ public class ShowOrdersController implements Initializable {
 
 		if (Session.vendor == null) {
 			takeOrderBtn.setDisable(true);
-		} 
+		}
 
 		showOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = orderTableView.getSelectionModel()
@@ -245,27 +238,31 @@ public class ShowOrdersController implements Initializable {
 		OrderTV orderTV = orderTableView.getSelectionModel().getSelectedItem();
 		Client client = ClientManager.getById(orderTV.getClient_id());
 		stage = (Stage) pdfBtn.getScene().getWindow();
-		String defaultFileName = "Commande-No "	+ orderTV.getId() +"_"+orderTV.getEnterprise_name()+ ".pdf";
-		
+		String defaultFileName = "Commande-No " + orderTV.getId() + "_"
+				+ orderTV.getEnterprise_name() + ".pdf";
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Exporter la Commande");
 		fileChooser.setInitialFileName(defaultFileName);
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF Files", "*.pdf");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+				"PDF Files", "*.pdf");
 		fileChooser.getExtensionFilters().add(extFilter);
-		
+
 		File savedFile = fileChooser.showSaveDialog(stage);
 
 		if (savedFile != null) {
 
 			try {
-				PdfWriter.getInstance(document, new FileOutputStream(savedFile.getAbsolutePath()));
+				PdfWriter.getInstance(document,
+						new FileOutputStream(savedFile.getAbsolutePath()));
 				document.setPageSize(PageSize.A4);
 				document.setMargins(0, 0, 10, 0);
 				document.open();
 
 				PdfPTable table = new PdfPTable(6);
 
-				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
+						Font.BOLD);
 
 				LineSeparator ls = new LineSeparator();
 
@@ -275,15 +272,15 @@ public class ShowOrdersController implements Initializable {
 				p1.setSpacingBefore(25f);
 
 				try {
-					Font boldFontHeaderFields = new Font(Font.FontFamily.HELVETICA,
-							12, Font.BOLD);
-					
+					Font boldFontHeaderFields = new Font(
+							Font.FontFamily.HELVETICA, 12, Font.BOLD);
+
 					Image image = Image.getInstance("src/images/gfc.png");
-					
+
 					Paragraph imageParagraph = new Paragraph();
 					imageParagraph.add(image);
 					imageParagraph.setIndentationLeft(20f);
-					
+
 					PdfPTable tabHeader = new PdfPTable(2);
 					tabHeader.setWidthPercentage(100);
 
@@ -295,12 +292,15 @@ public class ShowOrdersController implements Initializable {
 
 					PdfPCell cell2 = new PdfPCell();
 
-					Paragraph p = new Paragraph(new Phrase("Numéro de commande : "
-							+ orderTV.getId() + "\n", boldFontHeaderFields));
-					p.add(new Phrase("Numéro du client          : "
-							+ orderTV.getClient_id() + "\n", boldFontHeaderFields));
-					p.add(new Phrase("Numéro du vendeur     : "
-							+ orderTV.getAssociated_vendor(), boldFontHeaderFields));
+					Paragraph p = new Paragraph(new Phrase(
+							"Numï¿½ro de commande : " + orderTV.getId() + "\n",
+							boldFontHeaderFields));
+					p.add(new Phrase("Numï¿½ro du client          : "
+							+ orderTV.getClient_id() + "\n",
+							boldFontHeaderFields));
+					p.add(new Phrase("Numï¿½ro du vendeur     : "
+							+ orderTV.getAssociated_vendor(),
+							boldFontHeaderFields));
 
 					p.setIndentationLeft(50f);
 					cell2.addElement(p);
@@ -337,7 +337,8 @@ public class ShowOrdersController implements Initializable {
 				Paragraph p3 = new Paragraph();
 				p3.setIndentationLeft(20f);
 				p3.add(new Phrase("Email : "));
-				p3.add(new Phrase(client.getContact_email() + "       ", boldFont));
+				p3.add(new Phrase(client.getContact_email() + "       ",
+						boldFont));
 
 				p3.add(new Phrase("Tel : "));
 				p3.add(new Phrase(client.getContact_tel() + "       ", boldFont));
@@ -350,7 +351,8 @@ public class ShowOrdersController implements Initializable {
 
 				document.add(p3);
 
-				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f, 40f };
+				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f,
+						40f };
 				table.setWidths(columnWidths);
 
 				table.setHeaderRows(1);
@@ -359,7 +361,7 @@ public class ShowOrdersController implements Initializable {
 
 				Font boldFontDetails = new Font(Font.FontFamily.HELVETICA, 18,
 						Font.BOLD);
-				Paragraph p4 = new Paragraph(new Phrase("Détails : ",
+				Paragraph p4 = new Paragraph(new Phrase("Dï¿½tails : ",
 						boldFontDetails));
 				p4.setIndentationLeft(20f);
 				p4.setSpacingAfter(50f);
@@ -409,8 +411,7 @@ public class ShowOrdersController implements Initializable {
 			} catch (Exception ex) {
 				System.out.println("failed");
 			}
-		}
-		else {
+		} else {
 			System.out.println("no file");
 		}
 	}
@@ -431,11 +432,11 @@ public class ShowOrdersController implements Initializable {
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Prix ajusté ($)", boldFont));
+		c1 = new PdfPCell(new Phrase("Prix ajustï¿½ ($)", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Quantité", boldFont));
+		c1 = new PdfPCell(new Phrase("Quantitï¿½", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
@@ -473,8 +474,6 @@ public class ShowOrdersController implements Initializable {
 
 	public void initTableView() {
 
-		
-
 		orderIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 		if (Session.admin != null) {
@@ -495,16 +494,15 @@ public class ShowOrdersController implements Initializable {
 		ordersObservableList.add(orderTV);
 	}
 
-	public void initDataVendor(Vendor selectedVendor) {
+	public void filterByVendor(Vendor selectedVendor) {
 		searchField.setText(selectedVendor.getFname() + " "
 				+ selectedVendor.getLname());
 	}
-	
-	public void initDataClient(Client selectedClient) {
+
+	public void filterByClient(Client selectedClient) {
 		searchField.setText(selectedClient.getEnterprise_name());
 	}
-	
-	
+
 	private void noDataToShow() {
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(true);
@@ -518,5 +516,5 @@ public class ShowOrdersController implements Initializable {
 		rowOne.setPercentHeight(0);
 		rowTwo.setPercentHeight(100);
 	}
-	
+
 }
