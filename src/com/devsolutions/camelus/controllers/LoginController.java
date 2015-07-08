@@ -18,6 +18,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.auditing.Audit;
@@ -28,8 +29,11 @@ import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.FXUtils;
 
 public class LoginController implements Initializable {
+	@FXML
+	private GridPane titlebar;
 	@FXML
 	private Button loginbtn;
 	@FXML
@@ -45,6 +49,7 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		FXUtils.addDraggableNode(titlebar);
 		accountTypes = FXCollections.observableArrayList();
 		accountTypes.addAll("Type de Compte", "Admin", "Vendeur");
 		chooseAccountType.setItems(accountTypes);
@@ -115,7 +120,7 @@ public class LoginController implements Initializable {
 									MainWindowController mainWindowController = loader
 											.<MainWindowController> getController();
 									mainWindowController.setMainApp(stage);
-									mainWindowController.addDraggableNode(root);
+									FXUtils.addDraggableNode(root);
 									Scene scene = new Scene(root);
 									scene.getStylesheets().add(
 											getClass().getResource(
@@ -155,7 +160,7 @@ public class LoginController implements Initializable {
 									MainWindowController mainWindowController = loader
 											.<MainWindowController> getController();
 									mainWindowController.setMainApp(stage);
-									mainWindowController.addDraggableNode(root);
+									FXUtils.addDraggableNode(root);
 									Scene scene = new Scene(root);
 
 									scene.getStylesheets().add(

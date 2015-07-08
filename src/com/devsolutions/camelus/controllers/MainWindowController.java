@@ -12,13 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -34,8 +32,6 @@ import com.devsolutions.camelus.utils.FontAwesomeIconView;
 
 public class MainWindowController implements Initializable {
 	private Stage stage;
-	private double initialX;
-	private double initialY;
 	private FadeTransition fadeTransition;
 	@FXML
 	private Button tbacceuilbtn;
@@ -100,7 +96,6 @@ public class MainWindowController implements Initializable {
 									e1.printStackTrace();
 								}
 								Scene scene = new Scene(root);
-								addDraggableNode(root);
 								scene.getStylesheets().add(
 										getClass().getResource(
 												"../views/main.css")
@@ -178,21 +173,6 @@ public class MainWindowController implements Initializable {
 
 	public void setMainApp(Stage stage) {
 		this.stage = stage;
-	}
-
-	public void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 
 	private void switchScene(final String filename, final Vendor vendor,

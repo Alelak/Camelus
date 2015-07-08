@@ -17,22 +17,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListView.EditEvent;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 public class CategoriesController implements Initializable {
-	private double initialX;
-	private double initialY;
 	@FXML
 	private GridPane titleBar;
 	@FXML
@@ -50,7 +46,7 @@ public class CategoriesController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);
+		FXUtils.addDraggableNode(titleBar);
 		categorielist.setPlaceholder(new Label("Pas de Categories"));
 		lblClose.setOnMouseClicked(e -> {
 
@@ -162,20 +158,5 @@ public class CategoriesController implements Initializable {
 					}
 
 				});
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 }

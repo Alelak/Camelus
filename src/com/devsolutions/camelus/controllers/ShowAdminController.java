@@ -5,13 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Admin;
+import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -35,12 +34,10 @@ public class ShowAdminController implements Initializable {
 	@FXML
 	private Label idtxt;
 	private Stage stage;
-	private double initialX;
-	private double initialY;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);
+		FXUtils.addDraggableNode(titleBar);
 
 		lblClose.setOnMouseClicked(e -> {
 			stage = (Stage) lblClose.getScene().getWindow();
@@ -49,21 +46,6 @@ public class ShowAdminController implements Initializable {
 		btnClose.setOnAction(e -> {
 			stage = (Stage) btnClose.getScene().getWindow();
 			stage.close();
-		});
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
 		});
 	}
 

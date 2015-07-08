@@ -4,19 +4,14 @@ import com.devsolutions.camelus.services.DBConnection;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application {
-	private double initialX;
-	private double initialY;
-
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -45,7 +40,6 @@ public class Main extends Application {
 			primaryStage.getIcons().add(
 					new Image(getClass().getResource(
 							"../../../../images/logo.png").toExternalForm()));
-			addDraggableNode(root);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,21 +48,6 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 
 }

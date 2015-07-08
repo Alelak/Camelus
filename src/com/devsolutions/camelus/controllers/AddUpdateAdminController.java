@@ -13,19 +13,18 @@ import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -59,12 +58,10 @@ public class AddUpdateAdminController implements Initializable {
 	private Admin adminToUpdate;
 	private int index;
 	private Stage stage;
-	private double initialX;
-	private double initialY;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);
+		FXUtils.addDraggableNode(titleBar);
 
 		lblClose.setOnMouseClicked(e -> {
 			stage = (Stage) lblClose.getScene().getWindow();
@@ -186,21 +183,6 @@ public class AddUpdateAdminController implements Initializable {
 						}
 					}
 				});
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 
 	public void initStageAndData(ShowAdminsController showAdminsController,

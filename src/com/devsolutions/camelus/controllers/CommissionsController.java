@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.managers.CommissionManager;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,7 +15,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -23,13 +23,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class CommissionsController implements Initializable {
-	private double initialX;
-	private double initialY;
 	@FXML
 	private GridPane titleBar;
 	@FXML
@@ -62,7 +59,7 @@ public class CommissionsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);
+		FXUtils.addDraggableNode(titleBar);
 		rateEntered = new SimpleBooleanProperty();
 		conditionEntered = new SimpleBooleanProperty();
 		commissionTable.setPlaceholder(new Label("Pas de commissions"));
@@ -214,21 +211,6 @@ public class CommissionsController implements Initializable {
 			commissionTable.getSelectionModel().clearSelection();
 			reinitialise();
 
-		});
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
 		});
 	}
 
