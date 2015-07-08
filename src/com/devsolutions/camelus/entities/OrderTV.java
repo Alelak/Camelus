@@ -12,6 +12,7 @@ public class OrderTV {
 	private int commission_id;
 	private String fname; // prenom du vendeur
 	private String lname; // nom du vendeur
+	private String fullname;
 	private String enterprise_name;
 	private String comment;
 	private Date ordered_at;
@@ -124,5 +125,13 @@ public class OrderTV {
 
 	public void setCanceledText(String canceledText) {
 		this.canceledText = canceledText;
+	}
+
+	public String getFullname() {
+		return fname + " " + lname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 }
