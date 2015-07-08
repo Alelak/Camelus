@@ -75,10 +75,6 @@ public class ProductManager {
 		session.getMapper(ProductMapper.class).incrementQuantity(quantity, id);
 		session.commit();
 		session.close();
-		AuditUtils.getAuditingService().setAudit(
-				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
-						"a modifier un produit id : " + id));
-		AuditUtils.getAuditingService().start();
 	}
 
 	public static void decrementQuantity(int quantity, long id) {
@@ -86,9 +82,5 @@ public class ProductManager {
 		session.getMapper(ProductMapper.class).decrementQuantity(quantity, id);
 		session.commit();
 		session.close();
-		AuditUtils.getAuditingService().setAudit(
-				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
-						"a modifier un produit id : " + id));
-		AuditUtils.getAuditingService().start();
 	}
 }
