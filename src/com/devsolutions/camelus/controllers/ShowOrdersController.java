@@ -246,6 +246,7 @@ public class ShowOrdersController implements Initializable {
 			orderTV.setStatus(1);
 			int index = orderTableView.getSelectionModel().getSelectedIndex();
 			updateTableView(index, orderTV);
+			cancelOrderBtn.setDisable(true);
 		});
 
 		orderTableView.getSelectionModel().selectedItemProperty()
@@ -253,7 +254,10 @@ public class ShowOrdersController implements Initializable {
 					if (newSelection != null) {
 						showOrderBtn.setDisable(false);
 						pdfBtn.setDisable(false);
-						cancelOrderBtn.setDisable(false);
+						if(newSelection.getStatus()!=1)
+							cancelOrderBtn.setDisable(false);
+						else
+							cancelOrderBtn.setDisable(true);
 					} else {
 						showOrderBtn.setDisable(true);
 						pdfBtn.setDisable(true);
