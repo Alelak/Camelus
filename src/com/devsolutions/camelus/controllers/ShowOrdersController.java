@@ -59,6 +59,8 @@ public class ShowOrdersController implements Initializable {
 	@FXML
 	private Button takeOrderBtn;
 	@FXML
+	private Button cancelOrderBtn;
+	@FXML
 	private Button showOrderBtn;
 	@FXML
 	private Button btnRefresh;
@@ -94,6 +96,8 @@ public class ShowOrdersController implements Initializable {
 	private TableColumn<OrderTV, String> clientNameCol;
 	@FXML
 	private TableColumn<OrderTV, String> orderedAtCol;
+	@FXML
+	private TableColumn<OrderTV, String> statusCol;
 
 	private List<OrderTV> ordersList;
 	private ObservableList<OrderTV> ordersObservableList;
@@ -162,6 +166,18 @@ public class ShowOrdersController implements Initializable {
 			takeOrderBtn.setDisable(true);
 		}
 
+		btnRefresh.setOnAction(e -> {
+			ordersObservableList.clear();
+			if (Session.vendor != null) {
+
+				ordersObservableList.addAll(OrderManager
+						.getByVendorId(Session.vendor.getId()));
+			} else {
+				ordersObservableList.addAll(OrderManager.getAllTV());
+				message2.setText("");
+			}
+		});
+
 		showOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = orderTableView.getSelectionModel()
 					.getSelectedItem();
@@ -213,7 +229,7 @@ public class ShowOrdersController implements Initializable {
 				newStage.initOwner(motherGrid.getScene().getWindow());
 				newStage.show();
 				stage = (Stage) pdfBtn.getScene().getWindow();
-				centerStage( stage ,  newStage, 22 );
+				centerStage(stage, newStage, 22);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -223,21 +239,37 @@ public class ShowOrdersController implements Initializable {
 			creatPDF();
 		});
 
+		cancelOrderBtn.setOnAction(e -> {
+			OrderTV orderTV = orderTableView.getSelectionModel()
+					.getSelectedItem();
+			OrderManager.cancel(orderTV.getId());
+			orderTV.setStatus(1);
+			int index = orderTableView.getSelectionModel().getSelectedIndex();
+			updateTableView(index, orderTV);
+		});
+
 		orderTableView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
 						showOrderBtn.setDisable(false);
 						pdfBtn.setDisable(false);
+						cancelOrderBtn.setDisable(false);
 					} else {
 						showOrderBtn.setDisable(true);
 						pdfBtn.setDisable(true);
+						cancelOrderBtn.setDisable(true);
 					}
 				});
 	}
-	private void centerStage(Stage parentStage , Stage childStage, int y ){
-		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2 - childStage.getWidth() / 2);
-		childStage.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage.getHeight() / 2)+y);
+
+	private void centerStage(Stage parentStage, Stage childStage, int y) {
+		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
+				- childStage.getWidth() / 2);
+		childStage
+				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
+						.getHeight() / 2) + y);
 	}
+
 	private void creatPDF() {
 		Document document = new Document();
 		OrderTV orderTV = orderTableView.getSelectionModel().getSelectedItem();
@@ -492,11 +524,16 @@ public class ShowOrdersController implements Initializable {
 				"enterprise_name"));
 		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>(
 				"ordered_at_formated"));
+		statusCol
+				.setCellValueFactory(new PropertyValueFactory<>("canceledText"));
 	}
 
 	public void addToTableView(OrderTV orderTV) {
-
 		ordersObservableList.add(orderTV);
+	}
+
+	public void updateTableView(int index, OrderTV orderTV) {
+		ordersObservableList.set(index, orderTV);
 	}
 
 	public void filterByVendor(Vendor selectedVendor) {

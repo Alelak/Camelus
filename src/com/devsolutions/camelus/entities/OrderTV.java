@@ -16,6 +16,8 @@ public class OrderTV {
 	private String comment;
 	private Date ordered_at;
 	private String ordered_at_formated;
+	private int status;
+	private String canceledText;
 
 	public long getId() {
 		return id;
@@ -101,5 +103,26 @@ public class OrderTV {
 
 	public void setOrdered_at_formated(String ordered_at_formated) {
 		this.ordered_at_formated = ordered_at_formated;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getCanceledText() {
+		canceledText = "Actif";
+
+		if (status == 1)
+			canceledText = "Annuler";
+
+		return canceledText;
+	}
+
+	public void setCanceledText(String canceledText) {
+		this.canceledText = canceledText;
 	}
 }

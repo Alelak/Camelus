@@ -26,6 +26,7 @@ import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.utils.FXUtils;
+import com.devsolutions.camelus.utils.StringUtils;
 
 public class ShowOrderDetailsController implements Initializable {
 	@FXML
@@ -161,7 +162,7 @@ public class ShowOrderDetailsController implements Initializable {
 		contactEmailLabel.setText(currentClient.getContact_email());
 		orderNumberLabel.setText("" + orderTV.getId());
 
-		orderedAtLabel.setText(day + "-" + (month + 1) + "-" + year);
+		orderedAtLabel.setText(StringUtils.formateDate(day, month, year));
 		contactNameLabel.setText(currentClient.getContact_name());
 		contactTelLabel.setText(currentClient.getContact_tel());
 		entrepriseNameLabel.setText(currentClient.getEnterprise_name());

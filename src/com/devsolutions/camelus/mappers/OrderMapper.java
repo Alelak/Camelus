@@ -15,13 +15,13 @@ public interface OrderMapper {
 	@Select("SELECT * FROM orders")
 	List<Order> getAll();
 
-	@Select("SELECT orders.id, client_id, associated_vendor, commission_id, fname, lname, enterprise_name, comment, ordered_at "
+	@Select("SELECT orders.id, client_id, status, associated_vendor, commission_id, fname, lname, enterprise_name, comment, ordered_at "
 			+ "FROM vendors INNER JOIN orders ON  vendors.id = orders.vendor_id"
 			+ "     INNER JOIN clients ON orders.client_id = clients.id"
 			+ " WHERE vendor_id = #{vendor_id}")
 	List<OrderTV> getByVendorId(int vendor_id);
 
-	@Select("SELECT orders.id, client_id, associated_vendor, commission_id, fname, lname, enterprise_name, comment, ordered_at "
+	@Select("SELECT orders.id, client_id, status, associated_vendor, commission_id, fname, lname, enterprise_name, comment, ordered_at "
 			+ "FROM vendors INNER JOIN orders ON  vendors.id = orders.vendor_id"
 			+ "     INNER JOIN clients ON orders.client_id = clients.id")
 	List<OrderTV> getAllTV();
