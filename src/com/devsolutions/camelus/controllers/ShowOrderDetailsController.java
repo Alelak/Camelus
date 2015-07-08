@@ -9,15 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Client;
@@ -27,6 +25,7 @@ import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
+import com.devsolutions.camelus.utils.FXUtils;
 
 public class ShowOrderDetailsController implements Initializable {
 	@FXML
@@ -64,7 +63,7 @@ public class ShowOrderDetailsController implements Initializable {
 	@FXML
 	private Label lblClose;
 	@FXML
-	private HBox titleBar;
+	private GridPane titleBar;
 	private List<OrderLineTV> orderLinesList;
 	private ObservableList<OrderLineTV> orderLinesObservableList;
 
@@ -79,12 +78,11 @@ public class ShowOrderDetailsController implements Initializable {
 	private Commission commission;
 
 	private Stage stage;
-	private double initialX;
-	private double initialY;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);
+		FXUtils.addDraggableNode(titleBar);
 		initTableView();
 		orderLinesTableView.getColumns().addAll(productUpcCol, productNameCol,
 				priceCol, modifiedPriceCol, quantityCol, totalCol);
@@ -168,26 +166,10 @@ public class ShowOrderDetailsController implements Initializable {
 		contactTelLabel.setText(currentClient.getContact_tel());
 		entrepriseNameLabel.setText(currentClient.getEnterprise_name());
 	}
-	
+
 	@FXML
 	private void CloseWindow() {
 		Stage stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
-	}
-
-	private void addDraggableNode(final Node node) {
-		
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 }

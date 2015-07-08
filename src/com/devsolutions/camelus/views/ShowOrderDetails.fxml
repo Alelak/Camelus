@@ -8,33 +8,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.*?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
-<AnchorPane id="motherGrid" prefHeight="546.0" prefWidth="690.0"
+<VBox id="motherGrid" prefHeight="546.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowOrderDetailsController">
-	<children>
-		<VBox>
+
 			<children>
-				<HBox fx:id="titleBar" minWidth="738.0" style="-fx-background-color: #efefef;">
-				<VBox.margin>
-				<Insets top="2" left="3" ></Insets>
-				</VBox.margin>
-					<HBox alignment="CENTER_LEFT" minWidth="365.0">
-						<Label text="Consulter commande">
-							<padding>
-								<Insets left="7" />
-							</padding>
-						</Label>
-					</HBox>
-					<HBox alignment="BASELINE_RIGHT" minWidth="365.0">
-						<Label fx:id="lblClose" alignment="CENTER" prefHeight="30"
-							prefWidth="30" onMouseClicked="#CloseWindow">
-							<graphic>
-								<FontAwesomeIconView id="closeFont" icon="ICON_REMOVE" />
-							</graphic>
-						</Label>
-					</HBox>
-				</HBox>
-				<BorderPane prefHeight="0.0" prefWidth="625.0">
+				<GridPane  prefHeight="61" fx:id="titleBar"
+					style="-fx-background-color: #efefef;">
+					<rowConstraints>
+						<RowConstraints percentHeight="100" />
+					</rowConstraints>
+					<columnConstraints>
+						<ColumnConstraints percentWidth="50" />
+						<ColumnConstraints percentWidth="50" />
+					</columnConstraints>
+
+					<children>
+
+
+						<HBox GridPane.ColumnIndex="0" alignment="CENTER_LEFT">
+							<Label text="Consulter la commande" id="titleWindow">
+								<padding>
+									<Insets left="7" />
+								</padding>
+							</Label>
+						</HBox>
+
+						<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
+							<Label fx:id="lblClose" alignment="CENTER" prefHeight="30"
+								prefWidth="30" onMouseClicked="#CloseWindow">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_REMOVE" />
+								</graphic>
+							</Label>
+						</HBox>
+					</children>
+				</GridPane>
+
+				<BorderPane prefHeight="0.0" >
 					<right>
 						<HBox prefHeight="40.0" BorderPane.alignment="CENTER">
 							<children>
@@ -99,8 +110,8 @@
 						</HBox>
 					</center>
 				</BorderPane>
-				<BorderPane prefHeight="4.0" prefWidth="625.0" />
-				<VBox prefHeight="95.0" prefWidth="625.0">
+				<BorderPane prefHeight="4.0"/>
+				<VBox prefHeight="95.0">
 					<children>
 						<HBox prefHeight="100.0" prefWidth="200.0">
 							<children>
@@ -157,7 +168,7 @@
 							</font>
 						</Label>
 						<TableView styleClass="tableView" fx:id="orderLinesTableView"
-							prefHeight="143.0" prefWidth="625.0">
+							prefHeight="143.0" >
 							<VBox.margin>
 								<Insets left="50.0" right="50.0" />
 							</VBox.margin>
@@ -165,7 +176,7 @@
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
 						</TableView>
-						<BorderPane prefHeight="0.0" prefWidth="625.0">
+						<BorderPane prefHeight="0.0" >
 							<right>
 								<Label fx:id="orderTotalLabel" text="Total de la commande : 1000.00 $"
 									BorderPane.alignment="CENTER">
@@ -194,11 +205,11 @@
 						</BorderPane>
 						<BorderPane>
 							<center>
-								<TitledPane animated="false" prefHeight="142.0"
-									prefWidth="556.0" text="Commentaire" BorderPane.alignment="CENTER">
+								<TitledPane animated="false" prefHeight="142.0" text="Commentaire"
+									BorderPane.alignment="CENTER">
 									<content>
 										<TextArea fx:id="orderCommentTextArea" editable="false"
-											text="Ceci est un commentaire" />
+	text="Ceci est un commentaire" />
 									</content>
 								</TitledPane>
 							</center>
@@ -231,10 +242,8 @@
 					</VBox.margin>
 				</VBox>
 			</children>
-		</VBox>
-	</children>
 	<stylesheets>
 		<URL value="@Content.css" />
 		<URL value="@childWindow.css" />
 	</stylesheets>
-</AnchorPane>
+</VBox>

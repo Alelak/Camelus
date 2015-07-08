@@ -6,8 +6,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -18,7 +16,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -29,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -51,6 +47,7 @@ import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 
 public class TakeOrderController implements Initializable {
@@ -133,90 +130,15 @@ public class TakeOrderController implements Initializable {
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
 	private Image noImage;
-	private double initialX;
-	private double initialY;
-	
+
 	private String quantity;
 	private String modifiedPrice;
 	private double minModifiedPrice;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		quantityField.setEditable(false);
-		modifiedPriceField.setEditable(false);
-		
-		quantity = quantityField.getText().trim();
-		modifiedPrice = modifiedPriceField.getText().trim();
-		if(currentProduct != null)
-		minModifiedPrice = currentProduct.getCost_price();
-		else
-			minModifiedPrice = 0 ;
 
-		quantityField
-		.setOnKeyReleased(e -> {
-			quantity = quantityField.getText().trim();
-			
-			if ( !StringUtils.isInteger(quantity) || Integer.parseInt(quantity) > currentProduct 
-					.getQuantity()  || Integer.parseInt(quantity) <= 0 ) {
-				quantityField.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			} 
-			else {
-				quantityField
-				.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-			}
-		});
-
-		quantityField.focusedProperty().addListener(
-		new ChangeListener<Boolean>() {
-			@Override
-			public void changed(
-					ObservableValue<? extends Boolean> arg0,
-					Boolean oldPropertyValue, Boolean newPropertyValue) {
-				if (StringUtils.isInteger(quantity) && Integer.parseInt(quantity) > 0 && Integer.parseInt(quantity) <= currentProduct
-						.getQuantity()) {
-					quantityField.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-				} 
-			}
-		});
-		
-		modifiedPriceField
-		.setOnKeyReleased(e -> {
-
-			modifiedPrice = modifiedPriceField.getText().trim();
-			minModifiedPrice = (currentProduct.getCost_price() *1.10);
-			
-			if (!StringUtils.isDouble(modifiedPrice) || Double.parseDouble(modifiedPriceField
-					.getText()) <= 0 || Double.parseDouble(modifiedPriceField
-							.getText()) < minModifiedPrice) {
-				modifiedPriceField.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-			}else{
-				modifiedPriceField
-				.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-			}
-		});
-
-		modifiedPriceField.focusedProperty().addListener(
-		new ChangeListener<Boolean>() {
-			@Override
-			public void changed(
-					ObservableValue<? extends Boolean> arg0,
-					Boolean oldPropertyValue, Boolean newPropertyValue) {
-				if (StringUtils.isDouble(modifiedPrice) || Double.parseDouble(modifiedPriceField
-						.getText()) > 0 || Double.parseDouble(modifiedPriceField
-								.getText()) >= minModifiedPrice) {
-					modifiedPriceField.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-				}
-			}
-		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		addDraggableNode(titleBar);
+		FXUtils.addDraggableNode(titleBar);
 		initTableView();
 		productfound = new SimpleBooleanProperty();
 		clientfound = new SimpleBooleanProperty();
@@ -250,9 +172,9 @@ public class TakeOrderController implements Initializable {
 					}
 					String invalidFields = "";
 					boolean validfields = true;
-					 quantity = quantityField.getText().trim();
-					 modifiedPrice = modifiedPriceField.getText().trim();
-					 minModifiedPrice = currentProduct.getCost_price()
+					quantity = quantityField.getText().trim();
+					modifiedPrice = modifiedPriceField.getText().trim();
+					minModifiedPrice = currentProduct.getCost_price()
 							+ (currentProduct.getCost_price() * 10) / 100;
 
 					if (!StringUtils.isInteger(quantity)) {
@@ -340,7 +262,8 @@ public class TakeOrderController implements Initializable {
 
 					} else {
 						try {
-							stage = (Stage) addOrderLineBtn.getScene().getWindow();
+							stage = (Stage) addOrderLineBtn.getScene()
+									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									stage, invalidFields, "Ok", "#000000");
 							customDialogBox.btn
@@ -507,8 +430,7 @@ public class TakeOrderController implements Initializable {
 				if (currentProduct.getImg() != null) {
 					is = new ByteArrayInputStream(currentProduct.getImg());
 					productImage.setImage(new Image(is));
-				}
-				else
+				} else
 					productImage.setImage(noImage);
 				for (Unit unit : unites) {
 					if (unit.getId() == currentProduct.getUnit_id()) {
@@ -583,24 +505,10 @@ public class TakeOrderController implements Initializable {
 	public void initData(ShowOrdersController showOrdersController) {
 		this.showOrdersController = showOrdersController;
 	}
-	
+
 	@FXML
 	private void CloseWindow() {
 		stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
-	}
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 }
