@@ -88,7 +88,12 @@ public class ShowProductController implements Initializable {
 		category.setText(CategoryManager.getById(
 				productToUpdate.getCategory_id()).getDescription());
 		imageInByte = productToUpdate.getImg();
-		Showimage();
+		if (imageInByte != null)
+			Showimage();
+		else {
+			imageProduct.setImage(new Image(getClass().getResourceAsStream(
+					"../../../../images/nopicture.jpg")));
+		}
 
 	}
 

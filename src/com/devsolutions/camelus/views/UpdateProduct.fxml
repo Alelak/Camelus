@@ -14,7 +14,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.image.*?>
 
-<GridPane id="motherGrid" maxHeight="400" minHeight="400" prefWidth="550"
+<GridPane id="motherGrid"  prefHeight="670" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.UpdateProductController">
 
@@ -61,6 +61,8 @@
 		</GridPane>
 
 		<GridPane GridPane.rowIndex="1">
+				<padding>
+		<Insets top="10"></Insets></padding>
 			<rowConstraints>
 				<RowConstraints valignment="CENTER" />
 				<RowConstraints valignment="CENTER" percentHeight="11.5" />
@@ -77,19 +79,24 @@
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints halignment="RIGHT"
-					percentWidth="39" />
+					percentWidth="35" />
 				<ColumnConstraints halignment="CENTER"
 					percentWidth="45" />
-				<ColumnConstraints halignment="LEFT" percentWidth="16" />
+				<ColumnConstraints halignment="LEFT" percentWidth="20" />
 			</columnConstraints>
 
 			<children>
 				<HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.ColumnIndex="0" GridPane.ColumnSpan="3"> 
+				<HBox
+						style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
+					
+					
 				<ImageView 
 					fx:id="imageProduct" fitHeight="80.0" style="-fx-background-color: white;"
 					fitWidth="100.0" pickOnBounds="true" preserveRatio="true"
 					>
 				</ImageView>
+				</HBox>
 				</HBox>
 				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
 					GridPane.ColumnSpan="3"
@@ -194,7 +201,7 @@
 
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
-				<Insets right="5" bottom="8" />
+				<Insets right="5"/>
 			</padding>
 
 			<Button prefWidth="120" styleClass="flat-btn" fx:id="btnUpdateProduct"

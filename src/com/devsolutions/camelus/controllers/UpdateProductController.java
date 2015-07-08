@@ -4,12 +4,15 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -35,6 +38,7 @@ import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.Choice;
+import com.devsolutions.camelus.utils.CustomInfoBox;
 
 public class UpdateProductController implements Initializable {
 	@FXML
@@ -83,10 +87,12 @@ public class UpdateProductController implements Initializable {
 	private boolean error = false;
 	private double initialX;
 	private double initialY;
+	private String errorMsg;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addDraggableNode(titleBar);
+		errorMsg="";
 		upc.setOnKeyReleased(e -> {
 			if (upc.getText()
 					.matches(
@@ -146,43 +152,40 @@ public class UpdateProductController implements Initializable {
 					if (!(!upc.getText().isEmpty() && !name.getText().isEmpty()
 							&& !quantity.getText().isEmpty() && !costPrice
 							.getText().isEmpty())) {
-						System.out
-								.println("il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP");
+						errorMsg+="- il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP \n";
 						error = true;
 					}
 					if (!upc.getText()
 							.matches(
 									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-						System.out.println("le UPC doit avoir 12 chiffres ");
+						errorMsg+="le UPC doit avoir 12 chiffres ";
 						error = true;
 					}
 					if ((verifUpc == true)
 							&& (!upc.getText().equals(productToUpdate.getUpc()))) {
 						upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-						System.out
-								.println("le UPC existe deja veillez entrer un nouveau upc svp");
+						errorMsg+="- le UPC existe deja veillez entrer un nouveau upc svp \n";
 						error = true;
 					}
 					if (name.getText().equals("")) {
-						System.out
-								.println("Veillez saisire le nom de produit SVP");
+						errorMsg+="- Veillez saisire le nom de produit SVP \n";
 						error = true;
 					}
 					if (!isNumeric(quantity.getText())) {
-						System.out.println("entrer une Quantiter valide");
+						errorMsg+="- entrer une Quantiter valide \n";
 						error = true;
 					} else if (Integer.parseInt(quantity.getText()) < 0) {
-						System.out
-								.println("Veuillez entrez une qunatiter Posetive SVP");
+						errorMsg+="- Veuillez entrez une qunatiter Posetive SVP\n";
 						error = true;
 					}
 					if (!isNumber(costPrice.getText())) {
-						System.out.println("saisie un prix valide Svp");
+						errorMsg+="- saisie un prix valide Svp \n";
 						error = true;
 					} else if (Double.parseDouble(costPrice.getText()) < 0) {
-						System.out.println("saisie un prix Posetive Svp");
+						errorMsg+="- saisie un prix Posetive Svp\n";
 						error = true;
 					}
+					stage = (Stage) btnUpdateProduct.getScene().getWindow();
 					if (error == false) {
 
 						ProductManager.update(updateProduct());
@@ -197,9 +200,28 @@ public class UpdateProductController implements Initializable {
 						productTable.setDescriptionCategory(category.getValue()
 								.toString());
 						productController.updateTableView(index, productTable);
-						stage = (Stage) btnUpdateProduct.getScene().getWindow();
+						
 						stage.close();
 						productController.selectTheModifierRow(index);
+					}else
+					{
+						try {
+							CustomInfoBox customDialogBox = new CustomInfoBox(
+									stage, errorMsg, "Ok", "#282828");
+							customDialogBox.btn
+									.setOnAction(new EventHandler<ActionEvent>() {
+										@Override
+										public void handle(ActionEvent event) {
+											stage = (Stage) customDialogBox.btn
+													.getScene().getWindow();
+											errorMsg="";
+											stage.close();
+										}
+									});
+						} catch (IOException ex) {
+							ex.printStackTrace();
+						}
+
 					}
 
 				});

@@ -30,8 +30,8 @@
 	</columnConstraints>
 
 	<children>
-		<GridPane  fx:id="titleBar"
-			GridPane.rowIndex="0" style="-fx-background-color: #efefef;">
+		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
+			style="-fx-background-color: #efefef;">
 			<rowConstraints>
 				<RowConstraints percentHeight="100" />
 			</rowConstraints>
@@ -98,56 +98,59 @@
 					<padding>
 						<Insets top="5" left="5" />
 					</padding>
-					<ImageView fx:id="imageProduct" fitHeight="100.0" 
-						style="-fx-background-color: white;" fitWidth="100.0"
-						pickOnBounds="true" preserveRatio="false">
+					<HBox
+						style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
+						<ImageView fx:id="imageProduct" fitHeight="100.0"
+							style="-fx-background-color: white;" fitWidth="100.0"
+							pickOnBounds="true" preserveRatio="false">
 
-					</ImageView>
-					<VBox spacing="30" alignment="CENTER">
-						<HBox.margin>
-							<Insets left="65" />
-						</HBox.margin>
-						<HBox>
-							<Label text="Numero UPC: " />
-							<Label style="-fx-font-family:'Roboto Bold';" fx:id="upc" />
+						</ImageView>
 						</HBox>
-						<HBox>
-							<Label text="Quantitè de produit: " />
-							<Label style="-fx-font-family:'Roboto Bold';" fx:id="quantity" />
-						</HBox>
-					</VBox>
-				</HBox>
-				<HBox spacing="2" minWidth="450" GridPane.rowIndex="1"
-					alignment="CENTER">
-					<Label text="categorie :" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="category" />
-				</HBox>
-				<HBox spacing="2" minWidth="450" GridPane.rowIndex="2"
-					alignment="CENTER">
-					<Label text="unitee: " />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="unit" />
-				</HBox>
-				<HBox spacing="2" minWidth="450" GridPane.rowIndex="3"
-					alignment="CENTER">
-					<Label text="Prix d'achat: " />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="costPrice" />
-				</HBox>
-				<HBox spacing="2" minWidth="450" GridPane.rowIndex="4"
-					alignment="CENTER">
-					<Label text="Prix de Vente: " />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="sellingPrice" />
-				</HBox>
-				<TitledPane GridPane.rowIndex="5" GridPane.rowSpan="2"
-					minWidth="450" animated="true" text="Description">
-					<padding>
-						<Insets right="5" left="5" />
-					</padding>
+						<VBox spacing="30" alignment="CENTER">
+							<HBox.margin>
+								<Insets left="65" />
+							</HBox.margin>
+							<HBox>
+								<Label text="Numero UPC: " />
+								<Label style="-fx-font-family:'Roboto Bold';" fx:id="upc" />
+							</HBox>
+							<HBox>
+								<Label text="Quantitè de produit: " />
+								<Label style="-fx-font-family:'Roboto Bold';" fx:id="quantity" />
+							</HBox>
+						</VBox>
+					</HBox>
+					<HBox spacing="2" minWidth="450" GridPane.rowIndex="1"
+						alignment="CENTER">
+						<Label text="categorie :" />
+						<Label style="-fx-font-family:'Roboto Bold';" fx:id="category" />
+					</HBox>
+					<HBox spacing="2" minWidth="450" GridPane.rowIndex="2"
+						alignment="CENTER">
+						<Label text="unitee: " />
+						<Label style="-fx-font-family:'Roboto Bold';" fx:id="unit" />
+					</HBox>
+					<HBox spacing="2" minWidth="450" GridPane.rowIndex="3"
+						alignment="CENTER">
+						<Label text="Prix d'achat: " />
+						<Label style="-fx-font-family:'Roboto Bold';" fx:id="costPrice" />
+					</HBox>
+					<HBox spacing="2" minWidth="450" GridPane.rowIndex="4"
+						alignment="CENTER">
+						<Label text="Prix de Vente: " />
+						<Label style="-fx-font-family:'Roboto Bold';" fx:id="sellingPrice" />
+					</HBox>
+					<TitledPane GridPane.rowIndex="5" GridPane.rowSpan="2"
+						minWidth="450" animated="true" text="Description">
+						<padding>
+							<Insets right="5" left="5" />
+						</padding>
 
-					<content>
-						<TextArea fx:id="description" wrapText="true" editable="false" />
-					</content>
+						<content>
+							<TextArea fx:id="description" wrapText="true" editable="false" />
+						</content>
 
-				</TitledPane>
+					</TitledPane>
 
 			</children>
 		</GridPane>

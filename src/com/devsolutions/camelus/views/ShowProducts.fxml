@@ -37,7 +37,7 @@
 						<Insets top="150.0" />
 					</padding>
 					<Label fx:id="message1" text="La base de données est vide." />
-					<Label id="message2" text="Ajouter maintenant un client." />
+					<Label id="message2" text="Ajouter maintenant un Produit." />
 				</VBox>
 				<GridPane fx:id="gridRowTwo" GridPane.rowIndex="1"
 					gridLinesVisible="false">
@@ -125,7 +125,7 @@
 						icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="btnPdfProduct" prefWidth="120"
+			<Button  fx:id="btnPdfProduct" prefWidth="120"
 				styleClass="flat-btn" text="Générer pdf">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
