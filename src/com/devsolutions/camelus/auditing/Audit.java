@@ -1,7 +1,7 @@
 package com.devsolutions.camelus.auditing;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Audit implements Serializable {
 	private static final long serialVersionUID = -1854199887475795254L;

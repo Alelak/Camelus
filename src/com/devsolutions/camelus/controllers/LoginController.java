@@ -125,7 +125,8 @@ public class LoginController implements Initializable {
 									stage.centerOnScreen();
 									AuditUtils.getAuditingService().setAudit(
 											new Audit(Session.admin.getLogin(),
-													AuditTypes.LOGIN, null));
+													AuditTypes.LOGIN,
+													"est connecter"));
 									AuditUtils.getAuditingService().start();
 								} else {
 									showError();
@@ -167,7 +168,8 @@ public class LoginController implements Initializable {
 									AuditUtils.getAuditingService().setAudit(
 											new Audit(
 													Session.vendor.getLogin(),
-													AuditTypes.LOGIN, null));
+													AuditTypes.LOGIN,
+													"est connecter"));
 									AuditUtils.getAuditingService().start();
 								} else {
 									showError();
