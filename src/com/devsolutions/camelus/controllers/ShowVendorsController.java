@@ -20,20 +20,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.entities.VendorReport;
 import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.entities.Vendor;
+import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
@@ -52,6 +58,20 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class ShowVendorsController implements Initializable {
+	@FXML
+	private GridPane motherGrid;
+	@FXML
+	private GridPane content;
+	@FXML
+	private RowConstraints rowOne;
+	@FXML
+	private VBox gridRowOne;
+	@FXML
+	private Label message1;
+	@FXML
+	private RowConstraints rowTwo;
+	@FXML
+	private GridPane gridRowTwo;
 
 	@FXML
 	private TableView<Vendor> vendorTableView;
@@ -69,11 +89,6 @@ public class ShowVendorsController implements Initializable {
 	private Button ordersBtn;
 
 	@FXML
-	private Pane rightSearchPane;
-	@FXML
-	private Pane leftSearchPane;
-
-	@FXML
 	private TextField searchField;
 
 	@FXML
@@ -82,9 +97,7 @@ public class ShowVendorsController implements Initializable {
 	private ComboBox<Choice> yearComboBox;
 
 	@FXML
-	private TableColumn<Vendor, String> vendorFirstNameCol;
-	@FXML
-	private TableColumn<Vendor, String> vendorFLastNameCol;
+	private TableColumn<Vendor, String> vendorNameCol;
 	@FXML
 	private TableColumn<Vendor, String> vendorIdCol;
 	@FXML
@@ -101,6 +114,16 @@ public class ShowVendorsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		gridRowTwo.setVisible(false);
+		gridRowOne.setVisible(false);
+		vendorsList = VendorManager.getAll();
+		vendorsObservableList = FXCollections.observableArrayList();
+		vendorsObservableList.addAll(vendorsList);
+		if (vendorsObservableList.size() == 0) {
+			noDataToShow();
+		} else {
+			showTableView();
+		}
 
 		initTableView();
 
@@ -161,10 +184,13 @@ public class ShowVendorsController implements Initializable {
 				AddUpdateVendorController controller = loader
 						.<AddUpdateVendorController> getController();
 				controller.initData(this, "Ajouter", null, -1);
-
+				controller.setTitleWindow("Aouter vendeur");
+				newStage.initStyle(StageStyle.UNDECORATED);
 				newStage.initModality(Modality.APPLICATION_MODAL);
-
+				newStage.initOwner(motherGrid.getScene().getWindow());
 				newStage.show();
+				Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+				centerStage(parentStage, newStage, 22);
 
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -200,10 +226,13 @@ public class ShowVendorsController implements Initializable {
 					AddUpdateVendorController controller = loader
 							.<AddUpdateVendorController> getController();
 					controller.initData(this, "Modifier", vendor, index);
-
+					controller.setTitleWindow("Modifier vendeur");
+					newStage.initStyle(StageStyle.UNDECORATED);
 					newStage.initModality(Modality.APPLICATION_MODAL);
-
+					newStage.initOwner(motherGrid.getScene().getWindow());
 					newStage.show();
+					Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+					centerStage(parentStage, newStage, 22);
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -212,6 +241,9 @@ public class ShowVendorsController implements Initializable {
 			}
 		});
 
+		
+
+		
 		showButton.setOnAction(e -> {
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
@@ -230,9 +262,12 @@ public class ShowVendorsController implements Initializable {
 							.<ShowVendorDetailsController> getController();
 					controller.initData(vendor);
 
+					newStage.initStyle(StageStyle.UNDECORATED);
 					newStage.initModality(Modality.APPLICATION_MODAL);
-
+					newStage.initOwner(motherGrid.getScene().getWindow());
 					newStage.show();
+					Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+					centerStage(parentStage, newStage, 22);
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -314,6 +349,20 @@ public class ShowVendorsController implements Initializable {
 							initMonthComboBox();
 						});
 
+	}
+
+	private void noDataToShow() {
+		gridRowTwo.setVisible(false);
+		gridRowOne.setVisible(true);
+		rowOne.setPercentHeight(100);
+		rowTwo.setPercentHeight(0);
+	}
+
+	public void showTableView() {
+		gridRowOne.setVisible(false);
+		gridRowTwo.setVisible(true);
+		rowOne.setPercentHeight(0);
+		rowTwo.setPercentHeight(100);
 	}
 
 	private void creatPDF() {
@@ -430,7 +479,8 @@ public class ShowVendorsController implements Initializable {
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
+				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.",
+				boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -473,7 +523,8 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
+					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.",
+					boldFont));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			c1.setColspan(4);
@@ -563,7 +614,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Annï¿½e"));
+		yearObservableList.add(new Choice(0, "Année"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -657,17 +708,9 @@ public class ShowVendorsController implements Initializable {
 	}
 
 	public void initTableView() {
-		vendorsList = VendorManager.getAll();
-		vendorsObservableList = FXCollections.observableArrayList();
-
 		vendorIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-		vendorFirstNameCol.setCellValueFactory(new PropertyValueFactory<>(
-				"fname"));
-		vendorFLastNameCol.setCellValueFactory(new PropertyValueFactory<>(
-				"lname"));
+		vendorNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		vendorLoginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
-
-		vendorsObservableList.addAll(vendorsList);
 	}
 
 	public void initData(MainWindowController mainWindowController) {
@@ -689,5 +732,13 @@ public class ShowVendorsController implements Initializable {
 	public TableView<Vendor> getTable() {
 		TableView<Vendor> table = vendorTableView;
 		return table;
+	}
+	
+	private void centerStage(Stage parentStage, Stage childStage, int y) {
+		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
+				- childStage.getWidth() / 2);
+		childStage
+				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
+						.getHeight() / 2) + y);
 	}
 }

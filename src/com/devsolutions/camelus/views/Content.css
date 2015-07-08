@@ -50,6 +50,7 @@
 .whiteFont{
 	 -fx-text-fill: #FFFFFF;
 }
+
 .flat-btn {
 	-fx-font-family: 'Roboto Medium';
     -fx-background-radius: 0.0;
@@ -60,8 +61,6 @@
     -fx-padding: 0.3em;
     -fx-cursor: hand;
 }
-
-
 
 .flat-btn:focused {
 	-fx-border-color: #004263;
@@ -76,3 +75,31 @@
 .flat-btn:pressed {
   -fx-background-color: derive(#016699 ,50.0%);
 }
+
+
+.flat-choiseBox{
+	-fx-font-family: 'Roboto Medium';
+    -fx-background-radius: 0.0;
+    -fx-background-color: #016699;
+    -fx-text-fill: red;
+    -fx-border-radius: 0.0;
+    -fx-border-width: 0.0;
+    -fx-padding: 0.0em;
+    -fx-cursor: hand;
+}
+
+
+.flat-choiseBox:focused {
+	-fx-border-color: #004263;
+	-fx-border-width: 1.5;
+}
+
+.flat-choiseBox:hover {
+	-fx-background-color: derive(#016699 ,20.0%);
+    -fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0,0.3), 0.0,0.0,1.0,1.0); 
+}
+
+.flat-choiseBox:pressed {
+  -fx-background-color: derive(#016699 ,50.0%);
+}
+

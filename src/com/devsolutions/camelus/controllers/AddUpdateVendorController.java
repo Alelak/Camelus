@@ -16,10 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Admin;
@@ -32,6 +36,17 @@ import com.devsolutions.camelus.utils.Choice;
 import com.devsolutions.camelus.utils.CustomInfoBox;
 
 public class AddUpdateVendorController implements Initializable {
+	private double initialX;
+	private double initialY;
+	@FXML
+	private GridPane titleBar;
+	@FXML
+	private Label lblClose;	
+	@FXML
+	private Label titleWindow;
+	
+	
+	
 	@FXML
 	private TextField textUsername;
 	@FXML
@@ -63,7 +78,7 @@ public class AddUpdateVendorController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		addDraggableNode(titleBar);
 		commissions = CommissionManager.getAll();
 
 		commissionChoices = FXCollections.observableArrayList();
@@ -242,5 +257,29 @@ public class AddUpdateVendorController implements Initializable {
 		commission.getSelectionModel()
 				.select(vendorToUpdate.getCommission_id());
 	}
-
+	
+	@FXML
+	private void CloseWindow() {
+		Stage stage = (Stage) lblClose.getScene().getWindow();
+		stage.close();
+	}
+	
+	private void addDraggableNode(final Node node) {
+		node.setOnMousePressed(e -> {
+			if (e.getButton() != MouseButton.MIDDLE) {
+				initialX = e.getSceneX();
+				initialY = e.getSceneY();
+			}
+		});
+		node.setOnMouseDragged(e -> {
+			if (e.getButton() != MouseButton.MIDDLE) {
+				node.getScene().getWindow().setX(e.getScreenX() - initialX);
+				node.getScene().getWindow().setY(e.getScreenY() - initialY);
+			}
+		});
+	}
+	
+	public void setTitleWindow(String title){
+		titleWindow.setText(title);
+	}
 }

@@ -1,104 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="484.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.ShowVendorsController">
-   <children>
-      <VBox alignment="CENTER" layoutX="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="484.0" prefWidth="498.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <BorderPane>
-               <center>
-                  <HBox prefHeight="0.0" prefWidth="533.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="addButton" mnemonicParsing="false" text="Ajouter">
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="10.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" text="Modifier">
-                           <HBox.margin>
-                              <Insets left="10.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" text="Supprimer">
-                           <HBox.margin>
-                              <Insets left="10.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="showButton" disable="true" mnemonicParsing="false" text="Consulter">
-                           <HBox.margin>
-                              <Insets left="10.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="commissionBtn" disable="true" mnemonicParsing="false" text="Rapport Commission">
-                           <HBox.margin>
-                              <Insets left="20.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="ordersBtn" disable="true" mnemonicParsing="false" text="Commandes">
-                           <HBox.margin>
-                              <Insets left="20.0" top="20.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </center>
-               <left>
-                  <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Pane prefWidth="55.0" BorderPane.alignment="CENTER" />
-               </right>
-            </BorderPane>
-            
-            <BorderPane>
-               <left>
-                  <Pane fx:id="leftSearchPane" prefWidth="80.0" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Pane fx:id="rightSearchPane" prefWidth="80.0" BorderPane.alignment="CENTER" />
-               </right>
-               <top>
-                  <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-               </top>
-               <bottom>
-                  <Pane prefHeight="20.0" BorderPane.alignment="CENTER" />
-               </bottom>
-               <center>
-                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <TextField fx:id="searchField" prefWidth="150.0" promptText="Recherche">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <ComboBox fx:id="monthComboBox" disable="true" prefWidth="150.0">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="yearComboBox" disable="true" prefWidth="150.0">
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </ComboBox>
-                     </children>
-                  </HBox>
-               </center>
-            </BorderPane>
-            
-            <TableView fx:id="vendorTableView" prefHeight="454.0" prefWidth="572.0">
-            	<columns>
-	            	<TableColumn fx:id="vendorIdCol" prefWidth="100.0" text="No" />
-					<TableColumn fx:id="vendorFirstNameCol" prefWidth="140.0" text="Prénom" />
-					<TableColumn fx:id="vendorFLastNameCol" prefWidth="125.0" text="Nom" />
-					<TableColumn fx:id="vendorLoginCol" prefWidth="200.0" text="Nom d'utilisateur" />
-				</columns>
-			</TableView>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+<GridPane fx:id="motherGrid" prefWidth="900"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.devsolutions.camelus.controllers.ShowVendorsController">
+	<rowConstraints>
+		<RowConstraints percentHeight="90" />
+		<RowConstraints percentHeight="10" />
+	</rowConstraints>
+	<columnConstraints>
+		<ColumnConstraints percentWidth="100" />
+	</columnConstraints>
+	<children>
+		<GridPane fx:id="content" GridPane.rowIndex="0"
+			gridLinesVisible="False">
+			<rowConstraints>
+				<RowConstraints fx:id="rowOne" />
+				<RowConstraints fx:id="rowTwo" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="100" />
+			</columnConstraints>
+			<children>
+				<VBox spacing="0" alignment="TOP_CENTER" fx:id="gridRowOne"
+					GridPane.rowIndex="0">
+					<padding>
+						<Insets top="150.0" />
+					</padding>
+					<Label fx:id="message1" text="La base de données est vide." />
+					<Label id="message2" text="Ajouter maintenant un vendeur" />
+				</VBox>
+				<GridPane fx:id="gridRowTwo" GridPane.rowIndex="1"
+					gridLinesVisible="false">
+					<padding>
+						<Insets bottom="6.0" left="10.0" right="10.0" top="10.0" />
+					</padding>
+					<rowConstraints>
+						<RowConstraints percentHeight="10" />
+						<RowConstraints percentHeight="90" />
+					</rowConstraints>
+					<columnConstraints>
+						<ColumnConstraints percentWidth="50" />
+						<ColumnConstraints percentWidth="50" />
+					</columnConstraints>
+					<children>
+						<HBox spacing="5" alignment="BOTTOM_LEFT" GridPane.rowIndex="0"
+							GridPane.columnIndex="0">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							<TextField fx:id="searchField" minWidth="387"
+								promptText="Chercher des vendeurs, des entreprise ou des numéros de téléphone"></TextField>		
+						</HBox>
+						
+						<HBox spacing="4" alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
+							GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" />
+							</padding>
+							 <ComboBox styleClass="flat-choiseBox" fx:id="monthComboBox" prefWidth="150.0"/>
+							 <ComboBox styleClass="flat-choiseBox" fx:id="yearComboBox"  prefWidth="150.0"/>
+							 
+							<Button fx:id="commissionBtn" prefWidth="120" styleClass="flat-btn"
+								text="Exporter Rapport">
+								<graphic>
+									<FontAwesomeIconView styleClass="whiteFont" icon="ICON_DOWNLOAD" />
+								</graphic>
+							</Button>
+						</HBox>
+						
+						
+                         
+                        
+           
+						
+						
+						
+						
+						
+						
+						<TableView styleClass="tableView" fx:id="vendorTableView" GridPane.rowIndex="1"
+							GridPane.columnIndex="0" GridPane.columnSpan="2">
+							<columns>
+								<TableColumn minWidth="292" fx:id="vendorIdCol" text="No" />
+								<TableColumn minWidth="292" fx:id="vendorNameCol" text="Nom et Prénom"/>	
+								<TableColumn minWidth="292" fx:id="vendorLoginCol" text="Login" />			
+							</columns>
+						</TableView>
+					</children>
+				</GridPane>
+			</children>
+		</GridPane>
+		<HBox alignment="TOP_CENTER" spacing="5" id="footer"
+			GridPane.rowIndex="1">
+
+			<Button fx:id="addButton" prefWidth="120" styleClass="flat-btn"
+				text="Ajouter">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"  icon="ICON_PLUS" />
+				</graphic>
+			</Button>
+			<Button   disable="true" fx:id="editButton" prefWidth="120" styleClass="flat-btn"
+				text="Modifer">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_PENCIL" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="deleteButton" prefWidth="120" styleClass="flat-btn"
+				text="Supprimer">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_MINUS" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="showButton" prefWidth="120" styleClass="flat-btn"
+				text="Consulter">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
+				</graphic>
+			</Button>
+			<Button disable="true" fx:id="ordersBtn" prefWidth="120" styleClass="flat-btn" 
+				text="Commandes">
+				<graphic >
+					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_FILE_TEXT" />
+				</graphic>
+			</Button>
+		</HBox>
+	</children>
+	<stylesheets>
+		<URL value="@Content.css" />
+	</stylesheets>
+</GridPane>
+
+
+
+
+
+
+
+
+
+

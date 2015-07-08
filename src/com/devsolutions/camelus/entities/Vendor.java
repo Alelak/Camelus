@@ -6,6 +6,7 @@ public class Vendor {
 	private int id;
 	private String login;
 	private String password;
+	private String name;
 	private String fname;
 	private String lname;
 	private Date hire_date;
@@ -37,6 +38,16 @@ public class Vendor {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	
+	
+	public String getName() {
+		return fname + " " + lname;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getFname() {

@@ -272,4 +272,7 @@ public class AddUpdateClientController implements Initializable {
 		addressTxt.setText(client.getAddress());
 		descriptionTxt.setText(client.getDescription());
 	}
+	
+	
+	
 }
