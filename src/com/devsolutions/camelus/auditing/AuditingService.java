@@ -34,4 +34,10 @@ public class AuditingService extends Service<Void> {
 		this.reset();
 	}
 
+	@Override
+	protected void failed() {
+		super.failed();
+		this.reset();
+	}
+
 }
