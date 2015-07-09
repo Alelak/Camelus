@@ -210,6 +210,10 @@ public class ShowVendorsController implements Initializable {
 
 				VendorManager.delete(vendor.getId());
 				removeFromTableView(vendor);
+				
+				if(vendorsList.isEmpty()){
+					noDataToShow();
+				}
 			} else {
 				try {
 					new CustomInfoBox((Stage) deleteButton.getScene()
