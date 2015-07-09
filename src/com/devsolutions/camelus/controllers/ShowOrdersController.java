@@ -3,6 +3,7 @@ package com.devsolutions.camelus.controllers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +40,8 @@ import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FileUtils;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -116,7 +121,7 @@ public class ShowOrdersController implements Initializable {
 			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
 		} else {
 			ordersList = OrderManager.getAllTV();
-			message2.setText("");
+			message2.setText("Vous n'êtes pas autorisé d'effectuer une commande.");
 		}
 
 		ordersObservableList = FXCollections.observableArrayList();
@@ -203,6 +208,9 @@ public class ShowOrdersController implements Initializable {
 
 					newStage.show();
 
+					centerStage((Stage) motherGrid.getScene().getWindow(),
+							newStage, 22);
+
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -254,7 +262,7 @@ public class ShowOrdersController implements Initializable {
 					if (newSelection != null) {
 						showOrderBtn.setDisable(false);
 						pdfBtn.setDisable(false);
-						if(newSelection.getStatus()!=1)
+						if (newSelection.getStatus() != 1)
 							cancelOrderBtn.setDisable(false);
 						else
 							cancelOrderBtn.setDisable(true);
@@ -274,6 +282,8 @@ public class ShowOrdersController implements Initializable {
 						.getHeight() / 2) + y);
 	}
 
+	
+
 	private void creatPDF() {
 		Document document = new Document();
 		OrderTV orderTV = orderTableView.getSelectionModel().getSelectedItem();
@@ -292,169 +302,207 @@ public class ShowOrdersController implements Initializable {
 		File savedFile = fileChooser.showSaveDialog(stage);
 
 		if (savedFile != null) {
-
-			try {
-				PdfWriter.getInstance(document,
-						new FileOutputStream(savedFile.getAbsolutePath()));
-				document.setPageSize(PageSize.A4);
-				document.setMargins(0, 0, 10, 0);
-				document.open();
-
-				PdfPTable table = new PdfPTable(6);
-
-				Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
-						Font.BOLD);
-
-				LineSeparator ls = new LineSeparator();
-
-				Paragraph p1 = new Paragraph();
-				p1.add(ls);
-				p1.setSpacingAfter(25f);
-				p1.setSpacingBefore(25f);
+			if (!FileUtils.isFileLockedReadOnly(savedFile)) {
 
 				try {
-					Font boldFontHeaderFields = new Font(
-							Font.FontFamily.HELVETICA, 12, Font.BOLD);
+					PdfWriter.getInstance(document, new FileOutputStream(
+							savedFile.getAbsolutePath()));
+					document.setPageSize(PageSize.A4);
+					document.setMargins(0, 0, 10, 0);
+					document.open();
 
-					Image image = Image.getInstance("src/images/gfc.png");
+					PdfPTable table = new PdfPTable(6);
 
-					Paragraph imageParagraph = new Paragraph();
-					imageParagraph.add(image);
-					imageParagraph.setIndentationLeft(20f);
+					Font boldFont = new Font(Font.FontFamily.HELVETICA, 12,
+							Font.BOLD);
 
-					PdfPTable tabHeader = new PdfPTable(2);
-					tabHeader.setWidthPercentage(100);
+					LineSeparator ls = new LineSeparator();
 
-					PdfPCell cell1 = new PdfPCell(image, true);
-					cell1.setBorder(Rectangle.NO_BORDER);
-					cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-					cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					tabHeader.addCell(cell1);
+					Paragraph p1 = new Paragraph();
+					p1.add(ls);
+					p1.setSpacingAfter(25f);
+					p1.setSpacingBefore(25f);
 
-					PdfPCell cell2 = new PdfPCell();
+					try {
+						Font boldFontHeaderFields = new Font(
+								Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
-					Paragraph p = new Paragraph(new Phrase(
-							"Numï¿½ro de commande : " + orderTV.getId() + "\n",
-							boldFontHeaderFields));
-					p.add(new Phrase("Numï¿½ro du client          : "
-							+ orderTV.getClient_id() + "\n",
-							boldFontHeaderFields));
-					p.add(new Phrase("Numï¿½ro du vendeur     : "
-							+ orderTV.getAssociated_vendor(),
-							boldFontHeaderFields));
+						Image image = Image.getInstance("src/images/gfc.png");
 
-					p.setIndentationLeft(50f);
-					cell2.addElement(p);
-					cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-					cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell2.setBorder(Rectangle.NO_BORDER);
-					tabHeader.addCell(cell2);
-					document.add(tabHeader);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+						Paragraph imageParagraph = new Paragraph();
+						imageParagraph.add(image);
+						imageParagraph.setIndentationLeft(20f);
+
+						PdfPTable tabHeader = new PdfPTable(2);
+						tabHeader.setWidthPercentage(100);
+
+						PdfPCell cell1 = new PdfPCell(image, true);
+						cell1.setBorder(Rectangle.NO_BORDER);
+						cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+						cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						tabHeader.addCell(cell1);
+
+						PdfPCell cell2 = new PdfPCell();
+
+						Paragraph p = new Paragraph(new Phrase(
+								"Numéro de commande : " + orderTV.getId()
+										+ "\n", boldFontHeaderFields));
+						p.add(new Phrase("Numéro du client          : "
+								+ orderTV.getClient_id() + "\n",
+								boldFontHeaderFields));
+						p.add(new Phrase("Numéro du vendeur     : "
+								+ orderTV.getAssociated_vendor(),
+								boldFontHeaderFields));
+
+						p.setIndentationLeft(50f);
+						cell2.addElement(p);
+						cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+						cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell2.setBorder(Rectangle.NO_BORDER);
+						tabHeader.addCell(cell2);
+						document.add(tabHeader);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+
+					Font boldFontTitle = new Font(Font.FontFamily.HELVETICA,
+							20, Font.BOLD);
+					Paragraph p = new Paragraph("Bon de commande",
+							boldFontTitle);
+					p.setIndentationLeft(200f);
+					document.add(p);
+
+					document.add(p1);
+
+					Paragraph p2 = new Paragraph();
+					p2.setIndentationLeft(20f);
+					p2.add(new Phrase("Entreprise : "));
+					p2.add(new Phrase(client.getEnterprise_name() + "\n",
+							boldFont));
+
+					p2.add(new Phrase("Adress      : "));
+					p2.add(new Phrase(client.getAddress(), boldFont));
+
+					p2.setSpacingBefore(10f);
+					p2.setSpacingAfter(10f);
+
+					document.add(p2);
+
+					Paragraph p3 = new Paragraph();
+					p3.setIndentationLeft(20f);
+					p3.add(new Phrase("Email : "));
+					p3.add(new Phrase(client.getContact_email() + "       ",
+							boldFont));
+
+					p3.add(new Phrase("Tel : "));
+					p3.add(new Phrase(client.getContact_tel() + "       ",
+							boldFont));
+
+					p3.add(new Phrase("Date : "));
+					p3.add(new Phrase(orderTV.getOrdered_at_formated(),
+							boldFont));
+
+					p3.setSpacingBefore(10f);
+					p3.setSpacingAfter(10f);
+
+					document.add(p3);
+
+					float[] columnWidths = new float[] { 60f, 60f, 50f, 60f,
+							40f, 40f };
+					table.setWidths(columnWidths);
+
+					table.setHeaderRows(1);
+
+					creatTablePDF(table, orderTV);
+
+					Font boldFontDetails = new Font(Font.FontFamily.HELVETICA,
+							18, Font.BOLD);
+					Paragraph p4 = new Paragraph(new Phrase("Détails : ",
+							boldFontDetails));
+					p4.setIndentationLeft(20f);
+					p4.setSpacingAfter(50f);
+					document.add(p4);
+
+					Paragraph p5 = new Paragraph();
+					p5.setSpacingAfter(20f);
+					p5.add(table);
+					document.add(p5);
+
+					Font boldFontTotal = new Font(Font.FontFamily.HELVETICA,
+							14, Font.BOLD);
+
+					double total = 0;
+					for (OrderLineTV orderLineTV : orderLinesList) {
+
+						total += orderLineTV.getTotal();
+					}
+
+					Paragraph p6 = new Paragraph();
+					p6.setAlignment(Element.ALIGN_RIGHT);
+					p6.setIndentationRight(60f);
+					p6.setSpacingBefore(10f);
+					p6.add(new Phrase("Total de la commande : " + total + " $",
+							boldFontTotal));
+					document.add(p6);
+
+					Paragraph p7 = new Paragraph();
+					p7.setIndentationLeft(60f);
+					p7.setSpacingBefore(50f);
+					p7.setSpacingAfter(30f);
+					p7.add(new Phrase(
+							"Le : "
+									+ orderTV.getOrdered_at_formated()
+									+ "                                                  Signature : ",
+							boldFontTotal));
+					document.add(p7);
+
+					document.close();
+
+				} catch (DocumentException | FileNotFoundException ex) {
+					ex.printStackTrace();
 				}
-
-				Font boldFontTitle = new Font(Font.FontFamily.HELVETICA, 20,
-						Font.BOLD);
-				Paragraph p = new Paragraph("Bon de commande", boldFontTitle);
-				p.setIndentationLeft(200f);
-				document.add(p);
-
-				document.add(p1);
-
-				Paragraph p2 = new Paragraph();
-				p2.setIndentationLeft(20f);
-				p2.add(new Phrase("Entreprise : "));
-				p2.add(new Phrase(client.getEnterprise_name() + "\n", boldFont));
-
-				p2.add(new Phrase("Adress      : "));
-				p2.add(new Phrase(client.getAddress(), boldFont));
-
-				p2.setSpacingBefore(10f);
-				p2.setSpacingAfter(10f);
-
-				document.add(p2);
-
-				Paragraph p3 = new Paragraph();
-				p3.setIndentationLeft(20f);
-				p3.add(new Phrase("Email : "));
-				p3.add(new Phrase(client.getContact_email() + "       ",
-						boldFont));
-
-				p3.add(new Phrase("Tel : "));
-				p3.add(new Phrase(client.getContact_tel() + "       ", boldFont));
-
-				p3.add(new Phrase("Date : "));
-				p3.add(new Phrase(orderTV.getOrdered_at_formated(), boldFont));
-
-				p3.setSpacingBefore(10f);
-				p3.setSpacingAfter(10f);
-
-				document.add(p3);
-
-				float[] columnWidths = new float[] { 60f, 60f, 50f, 60f, 40f,
-						40f };
-				table.setWidths(columnWidths);
-
-				table.setHeaderRows(1);
-
-				creatTablePDF(table, orderTV);
-
-				Font boldFontDetails = new Font(Font.FontFamily.HELVETICA, 18,
-						Font.BOLD);
-				Paragraph p4 = new Paragraph(new Phrase("Dï¿½tails : ",
-						boldFontDetails));
-				p4.setIndentationLeft(20f);
-				p4.setSpacingAfter(50f);
-				document.add(p4);
-
-				Paragraph p5 = new Paragraph();
-				p5.setSpacingAfter(20f);
-				p5.add(table);
-				document.add(p5);
-
-				Font boldFontTotal = new Font(Font.FontFamily.HELVETICA, 14,
-						Font.BOLD);
-
-				double total = 0;
-				for (OrderLineTV orderLineTV : orderLinesList) {
-
-					total += orderLineTV.getTotal();
+				String[] params = { "cmd", "/c", savedFile.getAbsolutePath() };
+				try {
+					Runtime.getRuntime().exec(params);
+				} catch (Exception ex) {
+					try {
+						CustomInfoBox customDialogBox = new CustomInfoBox(
+								stage, "Impossible d'ouvrir ce fichier!", "Ok",
+								"#ff0000");
+						customDialogBox.btn
+								.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										stage = (Stage) customDialogBox.btn
+												.getScene().getWindow();
+										stage.close();
+									}
+								});
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
 				}
-
-				Paragraph p6 = new Paragraph();
-				p6.setAlignment(Element.ALIGN_RIGHT);
-				p6.setIndentationRight(60f);
-				p6.setSpacingBefore(10f);
-				p6.add(new Phrase("Total de la commande : " + total + " $",
-						boldFontTotal));
-				document.add(p6);
-
-				Paragraph p7 = new Paragraph();
-				p7.setIndentationLeft(60f);
-				p7.setSpacingBefore(50f);
-				p7.setSpacingAfter(30f);
-				p7.add(new Phrase(
-						"Le : "
-								+ orderTV.getOrdered_at_formated()
-								+ "                                                  Signature : ",
-						boldFontTotal));
-				document.add(p7);
-
-				document.close();
-
-			} catch (DocumentException | FileNotFoundException ex) {
-				ex.printStackTrace();
 			}
-			String[] params = { "cmd", "/c", savedFile.getAbsolutePath() };
-			try {
-				Runtime.getRuntime().exec(params);
-			} catch (Exception ex) {
-				System.out.println("failed");
+			else {
+				try {
+					CustomInfoBox customDialogBox = new CustomInfoBox(
+							stage,
+							"Ce fichier est déjà ouvert, veuillez le fermer puis réessayez de nouveau.",
+							"Ok", "#000000");
+					customDialogBox.btn
+							.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent event) {
+									stage = (Stage) customDialogBox.btn.getScene()
+											.getWindow();
+									stage.close();
+								}
+							});
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
 			}
-		} else {
-			System.out.println("no file");
-		}
+		} 
 	}
 
 	private void creatTablePDF(PdfPTable table, OrderTV orderTV) {
@@ -473,11 +521,11 @@ public class ShowOrdersController implements Initializable {
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Prix ajustï¿½ ($)", boldFont));
+		c1 = new PdfPCell(new Phrase("Prix ajusté ($)", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Quantitï¿½", boldFont));
+		c1 = new PdfPCell(new Phrase("Quantité", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 

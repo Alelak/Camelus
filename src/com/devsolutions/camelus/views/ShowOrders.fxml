@@ -59,7 +59,7 @@
 								<Insets bottom="5.0" />
 							</padding>
 							<TextField fx:id="searchField" minWidth="370"
-								promptText="Chercher des commandes par No de commande, Entreprise."></TextField>
+								promptText="Chercher des commandes par No, Entreprise."></TextField>
 						</HBox>
 						<HBox alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
 							GridPane.columnIndex="1">
@@ -79,7 +79,6 @@
 							GridPane.columnSpan="2">
 							<columns>
 								<TableColumn maxWidth="450" fx:id="orderIdCol" text="No" />
-
 								<TableColumn fx:id="vendorNameCol" text="Nom du Vendeur" />
 								<TableColumn fx:id="clientNameCol" text="Nom du Client" />
 								<TableColumn fx:id="orderedAtCol" text="Date de commande" />
@@ -103,15 +102,6 @@
 						icon="ICON_PLUS" />
 				</graphic>
 			</Button>
-
-			<Button disable="true" fx:id="cancelOrderBtn" prefWidth="120"
-				styleClass="flat-btn" text="Annuler">
-				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont"
-						icon="ICON_REMOVE" />
-				</graphic>
-			</Button>
-
 			<Button disable="true" fx:id="showOrderBtn" prefWidth="120"
 				styleClass="flat-btn" text="Consulter">
 				<graphic>
@@ -126,7 +116,13 @@
 						icon="ICON_DOWNLOAD" />
 				</graphic>
 			</Button>
-
+<Button disable="true" fx:id="cancelOrderBtn" prefWidth="120"
+				styleClass="flat-btn" text="Annuler">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_REMOVE" />
+				</graphic>
+			</Button>
 		</HBox>
 	</children>
 	<stylesheets>

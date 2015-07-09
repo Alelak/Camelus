@@ -140,6 +140,7 @@ public class TakeOrderController implements Initializable {
 
 		FXUtils.addDraggableNode(titleBar);
 		initTableView();
+		
 		productfound = new SimpleBooleanProperty();
 		clientfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
@@ -488,6 +489,8 @@ public class TakeOrderController implements Initializable {
 				"modified_price"));
 
 		orderLinesTableView.setItems(productToOrderObservableList);
+		
+		orderLinesTableView.setPlaceholder(new Label("Aucun produit n'a été ajouté à la liste"));
 	}
 
 	public void addToTableView(ProductToOrderTV productToOrderTV) {

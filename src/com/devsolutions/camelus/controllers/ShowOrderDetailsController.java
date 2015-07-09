@@ -34,30 +34,35 @@ public class ShowOrderDetailsController implements Initializable {
 
 	@FXML
 	private Label orderNumberLabel;
-
 	@FXML
 	private Label orderedAtLabel;
-
 	@FXML
 	private Label entrepriseNameLabel;
-
 	@FXML
 	private Label contactNameLabel;
-
 	@FXML
 	private Label contactTelLabel;
-
 	@FXML
 	private Label contactEmailLabel;
-
 	@FXML
 	private Label orderTotalLabel;
-
 	@FXML
 	private Label vendorCommissionLabel;
 
 	@FXML
 	private TextArea orderCommentTextArea;
+	@FXML
+	private TableColumn<OrderLineTV, String> productUpcCol;
+	@FXML
+	private TableColumn<OrderLineTV, String> productNameCol;
+	@FXML
+	private TableColumn<OrderLineTV, String> quantityCol;
+	@FXML
+	private TableColumn<OrderLineTV, String> priceCol;
+	@FXML
+	private TableColumn<OrderLineTV, String> modifiedPriceCol;
+	@FXML
+	private TableColumn<OrderLineTV, String> totalCol;
 
 	@FXML
 	private Button doneBtn;
@@ -67,13 +72,6 @@ public class ShowOrderDetailsController implements Initializable {
 	private GridPane titleBar;
 	private List<OrderLineTV> orderLinesList;
 	private ObservableList<OrderLineTV> orderLinesObservableList;
-
-	private TableColumn<OrderLineTV, String> productUpcCol;
-	private TableColumn<OrderLineTV, String> productNameCol;
-	private TableColumn<OrderLineTV, String> priceCol;
-	private TableColumn<OrderLineTV, String> modifiedPriceCol;
-	private TableColumn<OrderLineTV, String> quantityCol;
-	private TableColumn<OrderLineTV, String> totalCol;
 
 	private Client currentClient;
 	private Commission commission;
@@ -85,8 +83,6 @@ public class ShowOrderDetailsController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
 		initTableView();
-		orderLinesTableView.getColumns().addAll(productUpcCol, productNameCol,
-				priceCol, modifiedPriceCol, quantityCol, totalCol);
 
 		doneBtn.setOnAction(e -> {
 			stage = (Stage) doneBtn.getScene().getWindow();
@@ -96,35 +92,18 @@ public class ShowOrderDetailsController implements Initializable {
 
 	public void initTableView() {
 		orderLinesObservableList = FXCollections.observableArrayList();
-		productUpcCol = new TableColumn<OrderLineTV, String>("UPC");
-		productUpcCol.setMinWidth(100);
+
 		productUpcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));
-
-		productNameCol = new TableColumn<OrderLineTV, String>("Nom du produit");
-		productNameCol.setMinWidth(100);
 		productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-		priceCol = new TableColumn<OrderLineTV, String>("Prix unitaire");
-		priceCol.setMinWidth(100);
-		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
-
-		modifiedPriceCol = new TableColumn<OrderLineTV, String>("Prix ajust�");
-		modifiedPriceCol.setMinWidth(100);
-		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
-				"modified_price"));
-
-		quantityCol = new TableColumn<OrderLineTV, String>("Quantit�");
-		quantityCol.setMinWidth(100);
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
-		totalCol = new TableColumn<OrderLineTV, String>("Total");
-		totalCol.setMinWidth(100);
+		priceCol.setCellValueFactory(new PropertyValueFactory<>("selling_price"));
+		modifiedPriceCol.setCellValueFactory(new PropertyValueFactory<>(
+				"modified_price_txt"));
 		totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
 	}
 
 	public void initData(OrderTV orderTV) {
 		orderLinesList = OrderLineManager.getByOrderId(orderTV.getId());
-
 		orderLinesObservableList.addAll(orderLinesList);
 
 		orderLinesTableView.setItems(orderLinesObservableList);

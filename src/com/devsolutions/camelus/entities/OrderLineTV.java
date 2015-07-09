@@ -1,18 +1,19 @@
 package com.devsolutions.camelus.entities;
 
 public class OrderLineTV {
-	private long upc;
+	private String upc;
 	private String name;
 	private double selling_price;
 	private double modified_price;
+	private String modified_price_txt;
 	private int quantity;
 	private double total;
 
-	public long getUpc() {
+	public String getUpc() {
 		return upc;
 	}
 
-	public void setUpc(long upc) {
+	public void setUpc(String upc) {
 		this.upc = upc;
 	}
 
@@ -60,5 +61,17 @@ public class OrderLineTV {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public String getModified_price_txt() {
+		if(modified_price==0)
+			modified_price_txt = "-";
+		else
+			modified_price_txt = ""+modified_price;
+		return modified_price_txt;
+	}
+
+	public void setModified_price_txt(String modified_price_txt) {
+		this.modified_price_txt = modified_price_txt;
 	}
 }
