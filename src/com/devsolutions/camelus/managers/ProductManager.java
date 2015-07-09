@@ -22,6 +22,22 @@ public class ProductManager {
 		return products;
 	}
 
+	public static List<Product> getByCategory(int category_id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<Product> products = session.getMapper(ProductMapper.class)
+				.getByCategory(category_id);
+		session.close();
+		return products;
+	}
+
+	public static List<Product> getByUnit(int unit_id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<Product> products = session.getMapper(ProductMapper.class)
+				.getByUnit(unit_id);
+		session.close();
+		return products;
+	}
+
 	public static List<ProductTableView> getAllProductTableView() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		List<ProductTableView> products = session

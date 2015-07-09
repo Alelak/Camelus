@@ -17,13 +17,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.PasswordField?>
-<GridPane id="motherGrid" prefHeight="500" prefWidth="350"
+<GridPane id="motherGrid" prefHeight="550" prefWidth="350"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.UnitsController">
 
 	<rowConstraints>
-		<RowConstraints percentHeight="6" />
-		<RowConstraints percentHeight="84" />
+		<RowConstraints percentHeight="5.5" />
+		<RowConstraints percentHeight="84.5" />
 		<RowConstraints percentHeight="10" />
 	</rowConstraints>
 	<columnConstraints>
@@ -61,12 +61,18 @@
 				</HBox>
 			</children>
 		</GridPane>
-		<ListView GridPane.rowIndex="1" fx:id="unitslist">
-			<GridPane.margin>
-				<Insets bottom="20" top="20" left="20" right="20"></Insets>
-			</GridPane.margin>
-		</ListView>
-
+		<VBox spacing="20" GridPane.rowIndex="1">
+			<Label fx:id="msgtxt">
+				<VBox.margin>
+					<Insets top="20" left="20" right="20"></Insets>
+				</VBox.margin>
+			</Label>
+			<ListView fx:id="unitslist">
+				<VBox.margin>
+					<Insets bottom="20" left="20" right="20"></Insets>
+				</VBox.margin>
+			</ListView>
+		</VBox>
 
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>

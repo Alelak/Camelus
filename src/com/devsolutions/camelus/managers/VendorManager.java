@@ -20,6 +20,14 @@ public class VendorManager {
 		return vendors;
 	}
 
+	public static List<Vendor> getByCommission(int commission_id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<Vendor> vendors = session.getMapper(VendorMapper.class)
+				.getByCommission(commission_id);
+		session.close();
+		return vendors;
+	}
+
 	public static Vendor getByUserName(String login) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Vendor vendor = session.getMapper(VendorMapper.class).getByUserName(

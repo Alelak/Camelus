@@ -64,7 +64,7 @@
 				<Insets top="10"></Insets>
 			</GridPane.margin>
 			<columns>
-				<TableColumn fx:id="idColumn" text="Numéro d'identification" />
+				<TableColumn maxWidth="600" fx:id="idColumn" text="No" />
 				<TableColumn fx:id="loginColumn" text="Nom D'utilisateur" />
 				<TableColumn fx:id="fullnameColumn" text="Nom et Prenom" />
 				<TableColumn fx:id="hireDateColumn" text="Date D'embauche" />

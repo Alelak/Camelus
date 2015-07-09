@@ -23,14 +23,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -208,9 +206,18 @@ public class ShowVendorsController implements Initializable {
 		deleteButton.setOnAction(e -> {
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
-			if (vendor != null) {
+			if (ClientManager.getByVendorId(vendor.getId()).isEmpty()) {
+
 				VendorManager.delete(vendor.getId());
 				removeFromTableView(vendor);
+			} else {
+				try {
+					new CustomInfoBox((Stage) deleteButton.getScene()
+							.getWindow(),
+							"Ce vendeur est deja associee a un client", "Ok");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 
 		});
@@ -239,7 +246,8 @@ public class ShowVendorsController implements Initializable {
 					newStage.initModality(Modality.APPLICATION_MODAL);
 					newStage.initOwner(motherGrid.getScene().getWindow());
 					newStage.show();
-					Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+					Stage parentStage = (Stage) motherGrid.getScene()
+							.getWindow();
 					centerStage(parentStage, newStage, 22);
 
 				} catch (Exception e1) {
@@ -249,9 +257,6 @@ public class ShowVendorsController implements Initializable {
 			}
 		});
 
-		
-
-		
 		showButton.setOnAction(e -> {
 			Vendor vendor = vendorTableView.getSelectionModel()
 					.getSelectedItem();
@@ -274,7 +279,8 @@ public class ShowVendorsController implements Initializable {
 					newStage.initModality(Modality.APPLICATION_MODAL);
 					newStage.initOwner(motherGrid.getScene().getWindow());
 					newStage.show();
-					Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+					Stage parentStage = (Stage) motherGrid.getScene()
+							.getWindow();
 					centerStage(parentStage, newStage, 22);
 
 				} catch (Exception e1) {
@@ -283,42 +289,42 @@ public class ShowVendorsController implements Initializable {
 			}
 		});
 
-		commissionBtn.setOnAction(e -> {
-			
-			int selectedYearId = 0;
-			if (!yearComboBoxIsEmpty())
-				selectedYearId = yearComboBox
-						.getSelectionModel().getSelectedItem()
-						.getId();
-			int selectedMonthId = monthComboBox
-					.getSelectionModel().getSelectedItem()
-					.getId();
-			
-			if (selectedYearId>0 && selectedMonthId>0)
-			{
-				comissionBtnAction();
-				creatPDF();
-			}else
-			{
-				try {
-					Stage parentStage = (Stage) motherGrid.getScene().getWindow();
-					CustomInfoBox customDialogBox = new CustomInfoBox(parentStage,
-							"Il faut choisir un mois et une année pour générer un rapport.", "Ok", "#303030");
-					customDialogBox.btn
-							.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent event) {
-									stage = (Stage) customDialogBox.btn
-											.getScene().getWindow();
-									stage.close();
-								}
-							});
-				} catch (IOException e2) {
-					e2.printStackTrace();
-				}
-			}
+		commissionBtn
+				.setOnAction(e -> {
 
-		});
+					int selectedYearId = 0;
+					if (!yearComboBoxIsEmpty())
+						selectedYearId = yearComboBox.getSelectionModel()
+								.getSelectedItem().getId();
+					int selectedMonthId = monthComboBox.getSelectionModel()
+							.getSelectedItem().getId();
+
+					if (selectedYearId > 0 && selectedMonthId > 0) {
+						comissionBtnAction();
+						creatPDF();
+					} else {
+						try {
+							Stage parentStage = (Stage) motherGrid.getScene()
+									.getWindow();
+							CustomInfoBox customDialogBox = new CustomInfoBox(
+									parentStage,
+									"Il faut choisir un mois et une annï¿½e pour gï¿½nï¿½rer un rapport.",
+									"Ok", "#303030");
+							customDialogBox.btn
+									.setOnAction(new EventHandler<ActionEvent>() {
+										@Override
+										public void handle(ActionEvent event) {
+											stage = (Stage) customDialogBox.btn
+													.getScene().getWindow();
+											stage.close();
+										}
+									});
+						} catch (IOException e2) {
+							e2.printStackTrace();
+						}
+					}
+
+				});
 
 		ordersBtn.setOnAction(e -> {
 			Vendor selectedVendor = vendorTableView.getSelectionModel()
@@ -366,9 +372,9 @@ public class ShowVendorsController implements Initializable {
 							if (newSelection != null
 									&& newSelection.getId() > 0
 									&& selectedYearId > 0) {
-								//commissionBtn.setDisable(false);
+								// commissionBtn.setDisable(false);
 							} else {
-								//commissionBtn.setDisable(true);
+								// commissionBtn.setDisable(true);
 							}
 						});
 
@@ -383,9 +389,9 @@ public class ShowVendorsController implements Initializable {
 
 							if (newSelection != null && selectedMonthId > 0
 									&& newSelection.getId() > 0) {
-								//commissionBtn.setDisable(false);
+								// commissionBtn.setDisable(false);
 							} else {
-								//commissionBtn.setDisable(true);
+								// commissionBtn.setDisable(true);
 							}
 							initMonthComboBox();
 						});
@@ -520,8 +526,7 @@ public class ShowVendorsController implements Initializable {
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.",
-				boldFont));
+				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -564,8 +569,7 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.",
-					boldFont));
+					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			c1.setColspan(4);
@@ -655,7 +659,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Année"));
+		yearObservableList.add(new Choice(0, "Annï¿½e"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -723,7 +727,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Année"));
+		yearsObservableList.add(new Choice(0, "Annï¿½e"));
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());
@@ -774,7 +778,7 @@ public class ShowVendorsController implements Initializable {
 		TableView<Vendor> table = vendorTableView;
 		return table;
 	}
-	
+
 	private void centerStage(Stage parentStage, Stage childStage, int y) {
 		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
 				- childStage.getWidth() / 2);

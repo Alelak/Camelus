@@ -17,7 +17,15 @@ public interface ProductMapper {
 	@Select("SELECT * FROM products WHERE " + DELETED_CONDITION)
 	List<Product> getAll();
 
-	@Select("SELECT products.id,products.upc,products.name,products.quantity,products.selling_price,categories.description FROM products inner join categories ON products.category_id=categories.id WHERE products. "
+	@Select("SELECT * FROM products WHERE category_id = #{category_id} AND "
+			+ DELETED_CONDITION)
+	List<Product> getByCategory(int category_id);
+
+	@Select("SELECT * FROM products WHERE unit_id = #{unit_id} AND "
+			+ DELETED_CONDITION)
+	List<Product> getByUnit(int unit_id);
+
+	@Select("SELECT products.id,products.upc,products.name,products.quantity,products.selling_price,categories.description FROM products inner join categories ON products.category_id=categories.id WHERE products."
 			+ DELETED_CONDITION)
 	List<ProductTableView> getAllProductTableView();
 

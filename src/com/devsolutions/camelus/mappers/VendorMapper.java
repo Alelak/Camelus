@@ -15,6 +15,10 @@ public interface VendorMapper {
 	@Select("SELECT * FROM vendors WHERE " + DELETED_CONDITION)
 	List<Vendor> getAll();
 
+	@Select("SELECT * FROM vendors WHERE commission_id = #{commission_id} AND "
+			+ DELETED_CONDITION)
+	List<Vendor> getByCommission(int commission_id);
+
 	@Select("SELECT * FROM vendors WHERE login = #{login} AND "
 			+ DELETED_CONDITION)
 	Vendor getByUserName(String login);

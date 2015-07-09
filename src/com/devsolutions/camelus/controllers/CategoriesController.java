@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.managers.CategoryManager;
+import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.animation.KeyFrame;
@@ -41,7 +42,8 @@ public class CategoriesController implements Initializable {
 	private Button removeBtn;
 	@FXML
 	private Label lblClose;
-
+	@FXML
+	private Label msgtxt;
 	private boolean isNew;
 
 	@Override
@@ -69,6 +71,7 @@ public class CategoriesController implements Initializable {
 			categorielist.getItems().add(new Category(""));
 			categorielist.getSelectionModel().selectLast();
 			animation.play();
+			msgtxt.setText("Saisissez une categorie puis entrez");
 		});
 		categorielist.setCellFactory(TextFieldListCell
 				.forListView(new StringConverter<Category>() {
@@ -114,6 +117,7 @@ public class CategoriesController implements Initializable {
 									CategoryManager.add(category);
 
 									categoriesOb.set(index, category);
+
 								} else {
 
 									category2.setDescription(category
@@ -121,21 +125,36 @@ public class CategoriesController implements Initializable {
 									CategoryManager.update(category2);
 									categoriesOb.set(index, category2);
 								}
+								msgtxt.setText("");
 							} else {
-								// feedback
+								msgtxt.setText("Cette categorie existe deja!");
 							}
 						} else {
-							categoriesOb.remove(index);
-							if (!isNew)
-								CategoryManager.delete(category2.getId());
+
+							if (!isNew) {
+								if (ProductManager.getByCategory(
+										category.getId()).isEmpty()) {
+									categoriesOb.remove(index);
+									CategoryManager.delete(category2.getId());
+									msgtxt.setText("");
+								} else {
+									msgtxt.setText("Cette categorie est lié avec un produit!");
+								}
+							}
 						}
 					}
 				});
 		removeBtn.setOnAction(e -> {
 			Category category = categorielist.getSelectionModel()
 					.getSelectedItem();
-			categoriesOb.remove(category);
-			CategoryManager.delete(category.getId());
+			if (ProductManager.getByCategory(category.getId()).isEmpty()) {
+
+				categoriesOb.remove(category);
+				CategoryManager.delete(category.getId());
+				msgtxt.setText("");
+			} else {
+				msgtxt.setText("Cette categorie est lié avec un produit!");
+			}
 		});
 		categoriesOb = FXCollections.observableArrayList(CategoryManager
 				.getAll());

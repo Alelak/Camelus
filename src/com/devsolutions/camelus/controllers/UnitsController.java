@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Unit;
+import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.FXUtils;
 
@@ -41,6 +42,8 @@ public class UnitsController implements Initializable {
 	private Button removeBtn;
 	@FXML
 	private Label lblClose;
+	@FXML
+	private Label msgtxt;
 	private boolean isNew;
 
 	@Override
@@ -69,6 +72,7 @@ public class UnitsController implements Initializable {
 			unitslist.getItems().add(new Unit(""));
 			unitslist.getSelectionModel().selectLast();
 			animation.play();
+			msgtxt.setText("Saisissez une unite puis entrez");
 		});
 		unitslist.setCellFactory(TextFieldListCell
 				.forListView(new StringConverter<Unit>() {
@@ -118,20 +122,34 @@ public class UnitsController implements Initializable {
 							UnitManager.update(unit2);
 
 						}
+						msgtxt.setText("");
 					} else {
-						// feedback
+						msgtxt.setText("Cette unite existe deja!");
 					}
 				} else {
-					unitsOb.remove(index);
-					if (!isNew)
-						UnitManager.delete(unit2.getId());
+
+					if (!isNew) {
+						if (ProductManager.getByUnit(unit2.getId()).isEmpty()) {
+							unitsOb.remove(index);
+							UnitManager.delete(unit2.getId());
+							msgtxt.setText("");
+						} else {
+							msgtxt.setText("Cette unite est lié avec un produit!");
+
+						}
+					}
 				}
 			}
 		});
 		removeBtn.setOnAction(e -> {
 			Unit unit = unitslist.getSelectionModel().getSelectedItem();
-			unitsOb.remove(unit);
-			UnitManager.delete(unit.getId());
+			if (ProductManager.getByUnit(unit.getId()).isEmpty()) {
+				unitsOb.remove(unit);
+				UnitManager.delete(unit.getId());
+				msgtxt.setText("");
+			} else {
+				msgtxt.setText("Cette unite est lié avec un produit!");
+			}
 		});
 		unitslist.getSelectionModel().selectedItemProperty()
 				.addListener(new ChangeListener<Unit>() {

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.managers.CommissionManager;
+import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 
@@ -203,15 +205,28 @@ public class CommissionsController implements Initializable {
 					commissionToModify.getType());
 			addBtn.setText("Confirmer");
 		});
-		deleteBtn.setOnAction(e -> {
-			Commission c = commissionTable.getSelectionModel()
-					.getSelectedItem();
-			CommissionManager.delete(c.getId());
-			commissionsOb.remove(c);
-			commissionTable.getSelectionModel().clearSelection();
-			reinitialise();
+		deleteBtn
+				.setOnAction(e -> {
 
-		});
+					Commission c = commissionTable.getSelectionModel()
+							.getSelectedItem();
+					if (VendorManager.getByCommission(c.getId()).isEmpty()) {
+						CommissionManager.delete(c.getId());
+						commissionsOb.remove(c);
+						commissionTable.getSelectionModel().clearSelection();
+						reinitialise();
+					} else {
+						try {
+							new CustomInfoBox(
+									(Stage) deleteBtn.getScene().getWindow(),
+									"Cette commission a ete deja attribuer a un vendeur",
+									"Ok");
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+
+				});
 	}
 
 	private void reinitialise() {

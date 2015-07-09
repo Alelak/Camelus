@@ -27,7 +27,10 @@ public class CustomInfoBoxController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(toolBar);
-
+		btn.setOnAction(e -> {
+			Stage stage = (Stage) btn.getScene().getWindow();
+			stage.close();
+		});
 	}
 
 	@FXML
