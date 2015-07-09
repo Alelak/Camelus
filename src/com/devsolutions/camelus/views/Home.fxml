@@ -34,7 +34,7 @@
 		<VBox GridPane.rowIndex="1" alignment="TOP_CENTER">
 			<VBox>
 				<VBox.margin>
-					<Insets top="-50" />
+					<Insets top="-100" />
 				</VBox.margin>
 			</VBox>
 			<Label fx:id="welcomeMessage" style="-fx-font-size: 26; -fx-text-fill: #003367" />

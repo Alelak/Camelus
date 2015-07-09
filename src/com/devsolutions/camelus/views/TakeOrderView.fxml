@@ -73,7 +73,7 @@
 			<items>
 				<VBox prefHeight="200.0" prefWidth="100.0">
 					<children>
-						<BorderPane prefHeight="0.0" prefWidth="296.0">
+						<BorderPane    prefHeight="0.0" prefWidth="296.0">
 							<center>
 								<Label styleClass="boldLabel"
 									text="Ajouter un produit à la liste de commande"
@@ -166,20 +166,20 @@
 											<center>
 												<HBox BorderPane.alignment="CENTER">
 													<children>
-														<SplitPane id="splitPane" dividerPositions="0.5"
+														<SplitPane  id="splitPane" dividerPositions="0.5"
 															prefWidth="456.0"
 															style="-fx-background-color: white ;-fx-border-color: #016699; -fx-border-width: 2;">
 															<items>
-																<VBox prefHeight="200.0" prefWidth="100.0">
+																<VBox prefHeight="200.0" prefWidth="100.0" >
 																	<children>
-																		<BorderPane prefHeight="21.0" prefWidth="125.0">
+																		<BorderPane  style="-fx-background-color: #016699" minHeight="21.0" prefWidth="125.0">
 																			<center>
-																				<Label text="Informations sur le produit"
+																				<Label style="-fx-text-fill: white;"  text="Informations sur le produit"
 																					BorderPane.alignment="CENTER">
 																				</Label>
 																			</center>
 																		</BorderPane>
-																		<BorderPane prefHeight="200.0" prefWidth="200.0">
+																		<BorderPane  style="-fx-text-fill: white;"   prefHeight="200.0" prefWidth="200.0">
 																			<center>
 																				<VBox prefHeight="200.0" prefWidth="100.0"
 																					BorderPane.alignment="CENTER">
@@ -307,9 +307,9 @@
 																</VBox>
 																<VBox prefHeight="200.0" prefWidth="100.0">
 																	<children>
-																		<BorderPane prefHeight="20.0" prefWidth="223.0">
+																		<BorderPane style="-fx-background-color: #016699" minHeight="21.0" prefWidth="223.0">
 																			<center>
-																				<Label text="Information sur la commandes"
+																				<Label style="-fx-text-fill: white;"  text="Information sur la commandes"
 																					BorderPane.alignment="CENTER">
 																				</Label>
 																			</center>

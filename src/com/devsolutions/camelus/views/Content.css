@@ -77,29 +77,57 @@
 }
 
 
-.flat-choiseBox{
+.flat-combo {
 	-fx-font-family: 'Roboto Medium';
     -fx-background-radius: 0.0;
     -fx-background-color: #016699;
-    -fx-text-fill: red;
+    -fx-text-fill: #FFFFFF;
     -fx-border-radius: 0.0;
     -fx-border-width: 0.0;
-    -fx-padding: 0.0em;
+    
     -fx-cursor: hand;
 }
 
-
-.flat-choiseBox:focused {
+.flat-combo:focused {
 	-fx-border-color: #004263;
 	-fx-border-width: 1.5;
 }
 
-.flat-choiseBox:hover {
+.flat-combo:hover {
 	-fx-background-color: derive(#016699 ,20.0%);
     -fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0,0.3), 0.0,0.0,1.0,1.0); 
 }
 
-.flat-choiseBox:pressed {
+.flat-combo:pressed {
   -fx-background-color: derive(#016699 ,50.0%);
 }
+
+
+.chooseAccountType .label {
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+
+.chooseAccountType .context-menu {
+    -fx-background-color: white;
+}
+
+.chooseAccountType .context-menu .label {
+    -fx-text-fill: black;
+}
+
+.chooseAccountType .context-menu .menu-item:focused {
+    -fx-background-color: #03A9F4;
+     
+}
+
+.chooseAccountType .arrow {
+    -fx-background-color: white;
+}
+
+
+
+
+
+
 

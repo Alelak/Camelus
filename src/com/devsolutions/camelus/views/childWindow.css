@@ -116,6 +116,7 @@ TextArea{
 .boldLabel{
 	-fx-font-family: 'Roboto bold';
 	-fx-font-weight: bold;
+	
 }
 
 #splitPane > .split-pane-divider {  

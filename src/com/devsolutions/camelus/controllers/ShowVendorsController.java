@@ -3,6 +3,7 @@ package com.devsolutions.camelus.controllers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,11 +15,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -45,6 +49,7 @@ import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.utils.Choice;
+import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.devsolutions.camelus.utils.StringUtils;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -92,9 +97,9 @@ public class ShowVendorsController implements Initializable {
 	private TextField searchField;
 
 	@FXML
-	private ComboBox<Choice> monthComboBox;
+	private ChoiceBox<Choice> monthComboBox;
 	@FXML
-	private ComboBox<Choice> yearComboBox;
+	private ChoiceBox<Choice> yearComboBox;
 
 	@FXML
 	private TableColumn<Vendor, String> vendorNameCol;
@@ -114,6 +119,9 @@ public class ShowVendorsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		monthComboBox.setDisable(true);
+		yearComboBox.setDisable(true);
+		commissionBtn.setDisable(true);
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
 		vendorsList = VendorManager.getAll();
@@ -276,8 +284,39 @@ public class ShowVendorsController implements Initializable {
 		});
 
 		commissionBtn.setOnAction(e -> {
-			comissionBtnAction();
-			creatPDF();
+			
+			int selectedYearId = 0;
+			if (!yearComboBoxIsEmpty())
+				selectedYearId = yearComboBox
+						.getSelectionModel().getSelectedItem()
+						.getId();
+			int selectedMonthId = monthComboBox
+					.getSelectionModel().getSelectedItem()
+					.getId();
+			
+			if (selectedYearId>0 && selectedMonthId>0)
+			{
+				comissionBtnAction();
+				creatPDF();
+			}else
+			{
+				try {
+					Stage parentStage = (Stage) motherGrid.getScene().getWindow();
+					CustomInfoBox customDialogBox = new CustomInfoBox(parentStage,
+							"Il faut choisir un mois et une année pour générer un rapport.", "Ok", "#303030");
+					customDialogBox.btn
+							.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent event) {
+									stage = (Stage) customDialogBox.btn
+											.getScene().getWindow();
+									stage.close();
+								}
+							});
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
+			}
 
 		});
 
@@ -296,6 +335,7 @@ public class ShowVendorsController implements Initializable {
 						ordersBtn.setDisable(false);
 						monthComboBox.setDisable(false);
 						yearComboBox.setDisable(false);
+						commissionBtn.setDisable(false);
 						initComboBox();
 
 					} else {
@@ -305,6 +345,7 @@ public class ShowVendorsController implements Initializable {
 						ordersBtn.setDisable(true);
 						monthComboBox.setDisable(true);
 						yearComboBox.setDisable(true);
+						commissionBtn.setDisable(true);
 						resetComboBox();
 					}
 					monthComboBox.getSelectionModel().select(0);
@@ -325,9 +366,9 @@ public class ShowVendorsController implements Initializable {
 							if (newSelection != null
 									&& newSelection.getId() > 0
 									&& selectedYearId > 0) {
-								commissionBtn.setDisable(false);
+								//commissionBtn.setDisable(false);
 							} else {
-								commissionBtn.setDisable(true);
+								//commissionBtn.setDisable(true);
 							}
 						});
 
@@ -342,9 +383,9 @@ public class ShowVendorsController implements Initializable {
 
 							if (newSelection != null && selectedMonthId > 0
 									&& newSelection.getId() > 0) {
-								commissionBtn.setDisable(false);
+								//commissionBtn.setDisable(false);
 							} else {
-								commissionBtn.setDisable(true);
+								//commissionBtn.setDisable(true);
 							}
 							initMonthComboBox();
 						});
@@ -682,7 +723,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Annï¿½e"));
+		yearsObservableList.add(new Choice(0, "Année"));
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());
