@@ -312,7 +312,7 @@ public class ShowVendorsController implements Initializable {
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									parentStage,
-									"Il faut choisir un mois et une annï¿½e pour gï¿½nï¿½rer un rapport.",
+									"Il faut choisir un mois et une année pour générer un rapport.",
 									"Ok", "#303030");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
@@ -530,7 +530,7 @@ public class ShowVendorsController implements Initializable {
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
+				"Aucune vente n'a été effectuée durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -573,7 +573,7 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
+					"Aucune vente n'a été effectuée durant ce mois.", boldFont));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			c1.setColspan(4);
@@ -663,7 +663,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Annï¿½e"));
+		yearObservableList.add(new Choice(0, "Année"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -731,7 +731,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Annï¿½e"));
+		yearsObservableList.add(new Choice(0, "Année"));
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());

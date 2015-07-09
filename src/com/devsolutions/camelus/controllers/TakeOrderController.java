@@ -179,14 +179,14 @@ public class TakeOrderController implements Initializable {
 							+ (currentProduct.getCost_price() * 10) / 100;
 
 					if (!StringUtils.isInteger(quantity)) {
-						invalidFields += " - Veuillez saisir une quantitï¿½ valide. \n";
+						invalidFields += " - Veuillez saisir une quantité valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) <= 0) {
-						invalidFields += " - Veuillez saisir une quantitï¿½ valide. \n";
+						invalidFields += " - Veuillez saisir une quantité valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) > currentProduct
 							.getQuantity()) {
-						invalidFields += " - La quantitï¿½ disponible ne peut satisfaire votre demande! \n";
+						invalidFields += " - La quantité disponible ne peut satisfaire votre demande! \n";
 						validfields = false;
 					}
 
@@ -200,7 +200,7 @@ public class TakeOrderController implements Initializable {
 							validfields = false;
 						} else if (Double.parseDouble(modifiedPriceField
 								.getText()) < minModifiedPrice) {
-							invalidFields += " - Le prix ajustï¿½ ne peut ï¿½tre plus petit que : "
+							invalidFields += " - Le prix ajusté ne peut être plus petit que : "
 									+ minModifiedPrice + " $.\n";
 							validfields = false;
 						}
@@ -211,7 +211,7 @@ public class TakeOrderController implements Initializable {
 								.getItems()) {
 							if (productToOrderTV.getId() == currentProduct
 									.getId()) {
-								invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veuillez le modifier ou le supprimmer  \n";
+								invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimer  \n";
 								validfields = false;
 							}
 						}
@@ -224,7 +224,7 @@ public class TakeOrderController implements Initializable {
 									.getId()) {
 								if (currentProduct.getId() != selectedProductToModifie
 										.getId()) {
-									invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veuillez le modifier ou le supprimmer  \n";
+									invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimmer  \n";
 									validfields = false;
 
 								}
@@ -490,7 +490,7 @@ public class TakeOrderController implements Initializable {
 
 		orderLinesTableView.setItems(productToOrderObservableList);
 		
-		orderLinesTableView.setPlaceholder(new Label("Aucun produit n'a été ajouté à la liste"));
+		orderLinesTableView.setPlaceholder(new Label("Aucun produit n'a pas été ajouté à la liste"));
 	}
 
 	public void addToTableView(ProductToOrderTV productToOrderTV) {
