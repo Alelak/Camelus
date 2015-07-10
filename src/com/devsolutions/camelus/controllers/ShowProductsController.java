@@ -43,6 +43,7 @@ import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.CustomDialogBox;
+import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -374,7 +375,6 @@ public class ShowProductsController implements Initializable {
 
 	public void addToTableView(ProductTableView product) {
 		productsObservableList.add(product);
-		System.out.println("hello");
 	}
 
 	public void updateTableView(int index, ProductTableView product) {
@@ -475,7 +475,6 @@ public class ShowProductsController implements Initializable {
 					i++;
 					PdfPTable table = new PdfPTable(2);
 					table.setSpacingBefore(20f);
-					System.out.println("le id=" + product.getId());
 					creatTablePDF(table, product, document, allUnit,
 							allCategory);
 					document.add(table);
@@ -540,10 +539,14 @@ public class ShowProductsController implements Initializable {
 			try {
 				Runtime.getRuntime().exec(params);
 			} catch (Exception ex) {
-				System.out.println("failed");
+				try {
+					new CustomInfoBox(stage, "Impossible d'ouvrir ce fichier!",
+							"Ok", "#ff0000");
+
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
 			}
-		} else {
-			System.out.println("no file");
 		}
 	}
 
@@ -560,13 +563,13 @@ public class ShowProductsController implements Initializable {
 			cell1.setHorizontalAlignment(Element.ALIGN_LEFT);
 			tabFooter.addCell(cell1);
 			PdfPCell cell2 = new PdfPCell(new Phrase(
-					"255 Crèmazie Est, bureau 015 Montrèal, Quebec, H2M 1M2"));
+					"255 Crï¿½mazie Est, bureau 015 Montrï¿½al, Quebec, H2M 1M2"));
 			;
 			cell2.setBorder(Rectangle.NO_BORDER);
 			cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
 			tabFooter.addCell(cell2);
 			PdfPCell cell3 = new PdfPCell(new Phrase(
-					"Tèlèphone: (514)-316-9202"));
+					"Tï¿½lï¿½phone: (514)-316-9202"));
 			;
 			cell3.setBorder(Rectangle.NO_BORDER);
 			cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -632,7 +635,7 @@ public class ShowProductsController implements Initializable {
 		/*---- nouveau table --------*/
 		PdfPTable tableInfoProduit = new PdfPTable(1);
 		/*----- Nom Produit-------*/
-		c1 = new PdfPCell(new Phrase("Catègorie : " + descriptionCat, boldFont));
+		c1 = new PdfPCell(new Phrase("Catï¿½gorie : " + descriptionCat, boldFont));
 		c1.setBorder(Rectangle.NO_BORDER);
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 		c1.setPaddingLeft(10);
@@ -640,7 +643,7 @@ public class ShowProductsController implements Initializable {
 		// c1.setPaddingBottom(5);
 		tableInfoProduit.addCell(c1);
 		/*----- Nom Produit-------*/
-		c1 = new PdfPCell(new Phrase("Quantitè : " + product.getQuantity(),
+		c1 = new PdfPCell(new Phrase("Quantitï¿½ : " + product.getQuantity(),
 				boldFont));
 		c1.setBorder(Rectangle.NO_BORDER);
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -659,7 +662,7 @@ public class ShowProductsController implements Initializable {
 		tableInfoProduit.addCell(c1);
 		/*----- Nom Produit-------*/
 
-		c1 = new PdfPCell(new Phrase("Unitè : " + descriptionUnit, boldFont));
+		c1 = new PdfPCell(new Phrase("Unitï¿½ : " + descriptionUnit, boldFont));
 		c1.setBorder(Rectangle.NO_BORDER);
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 		c1.setPaddingLeft(10);

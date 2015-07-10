@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,6 +34,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
@@ -102,7 +105,7 @@ public class ShowOrdersController implements Initializable {
 	@FXML
 	private TableColumn<OrderTV, String> clientNameCol;
 	@FXML
-	private TableColumn<OrderTV, String> orderedAtCol;
+	private TableColumn<OrderTV, Date> orderedAtCol;
 	@FXML
 	private TableColumn<OrderTV, String> statusCol;
 
@@ -169,7 +172,6 @@ public class ShowOrdersController implements Initializable {
 
 		orderTableView.setItems(sortedData);
 
-
 		btnRefresh.setOnAction(e -> {
 			ordersObservableList.clear();
 			if (Session.vendor != null) {
@@ -178,7 +180,7 @@ public class ShowOrdersController implements Initializable {
 						.getByVendorId(Session.vendor.getId()));
 			} else {
 				ordersObservableList.addAll(OrderManager.getAllTV());
-				
+
 			}
 		});
 
@@ -564,7 +566,18 @@ public class ShowOrdersController implements Initializable {
 		clientNameCol.setCellValueFactory(new PropertyValueFactory<>(
 				"enterprise_name"));
 		orderedAtCol.setCellValueFactory(new PropertyValueFactory<>(
-				"ordered_at_formated"));
+				"ordered_at"));
+		orderedAtCol.setCellFactory(column -> {
+			return new TableCell<OrderTV, Date>() {
+				@Override
+				protected void updateItem(Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item != null && !empty) {
+						setText(StringUtils.formatDate(item));
+					}
+				}
+			};
+		});
 		statusCol
 				.setCellValueFactory(new PropertyValueFactory<>("canceledText"));
 	}

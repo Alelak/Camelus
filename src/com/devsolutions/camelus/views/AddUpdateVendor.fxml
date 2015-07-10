@@ -60,15 +60,16 @@
 			</children>
 		</GridPane>
 
-		<HBox  spacing="2" GridPane.rowIndex="1" GridPane.columnIndex="0"
+		<HBox spacing="2" GridPane.rowIndex="1" GridPane.columnIndex="0"
 			GridPane.ColumnSpan="3">
 			<padding>
 				<Insets top="10" left="8" />
 			</padding>
-			
-			<Label alignment="CENTER" >
+
+			<Label alignment="CENTER">
 				<graphic>
-					<FontAwesomeIconView styleClass="starFont" icon="ICON_STAR" />
+					<FontAwesomeIconView styleClass="starFont"
+						icon="ICON_STAR" />
 				</graphic>
 			</Label>
 
@@ -123,7 +124,7 @@
 
 				<TextField fx:id="textUsername" GridPane.rowIndex="0"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<PasswordField  fx:id="textPassword" GridPane.rowIndex="1"
+				<PasswordField fx:id="textPassword" GridPane.rowIndex="1"
 					GridPane.ColumnIndex="1" maxWidth="235"></PasswordField>
 				<TextField fx:id="textFname" GridPane.rowIndex="2"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>

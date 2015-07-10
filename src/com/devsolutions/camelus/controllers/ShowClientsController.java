@@ -4,13 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.devsolutions.camelus.entities.Client;
-import com.devsolutions.camelus.managers.ClientManager;
-import com.devsolutions.camelus.services.Session;
-import com.devsolutions.camelus.utils.CRUD;
-import com.devsolutions.camelus.utils.CustomDialogBox;
-import com.devsolutions.camelus.utils.FXUtils;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,11 +30,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.utils.CRUD;
+import com.devsolutions.camelus.utils.CustomDialogBox;
+import com.devsolutions.camelus.utils.FXUtils;
+
 public class ShowClientsController implements Initializable {
 	@FXML
 	private GridPane motherGrid;
 	@FXML
 	private GridPane content;
+	@FXML
+	private GridPane gridRowTwo;
 	@FXML
 	private RowConstraints rowOne;
 	@FXML
@@ -50,14 +51,9 @@ public class ShowClientsController implements Initializable {
 	private Label message1;
 	@FXML
 	private RowConstraints rowTwo;
-	@FXML
-	private GridPane gridRowTwo;
+
 	@FXML
 	private TextField textFieldSearch;
-	@FXML
-	private Button btnSearch;
-	@FXML
-	private Button btnRefresh;
 
 	@FXML
 	private TableView<Client> clientTableView;
@@ -79,13 +75,17 @@ public class ShowClientsController implements Initializable {
 	private Button btnConsult;
 	@FXML
 	private Button btnOrder;
+	@FXML
+	private Button btnSearch;
+	@FXML
+	private Button btnRefresh;
+
 	private ObservableList<Client> ClientsOb;
 	private SortedList<Client> sortedData;
 	private MainWindowController mainWindowController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
 
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
@@ -107,10 +107,9 @@ public class ShowClientsController implements Initializable {
 							ObservableValue<? extends Client> observable,
 							Client oldValue, Client newValue) {
 						if (newValue != null) {
-							if (Session.admin == null) {
-								btnUpdate.setDisable(false);
-								btnDelete.setDisable(false);
-							}
+
+							btnUpdate.setDisable(false);
+							btnDelete.setDisable(false);
 							btnConsult.setDisable(false);
 							btnOrder.setDisable(false);
 						} else {

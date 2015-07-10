@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.AddUpdateClientController">
@@ -37,8 +38,7 @@
 
 			<children>
 
-				<Label  GridPane.ColumnIndex="0"
-					fx:id="titleWindow">
+				<Label GridPane.ColumnIndex="0" fx:id="titleWindow">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -65,7 +65,8 @@
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints percentHeight="10.3" />
-				<RowConstraints valignment="TOP" percentHeight="40" />
+				<RowConstraints percentHeight="10.3" />
+				<RowConstraints valignment="TOP" percentHeight="30" />
 
 			</rowConstraints>
 			<columnConstraints>
@@ -85,41 +86,46 @@
 					</padding>
 				</Label>
 
-
 				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
-					text="Nom de l'entreprise:">
+					text="Vendeur:">
 				</Label>
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0"
-					text="Nom du Client:">
+					text="Nom de l'entreprise:">
 				</Label>
 				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0"
-					text="Numéro de téléphone:">
+					text="Nom du Client:">
 				</Label>
 				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0"
-					text="Adresse e-mail:">
+					text="Numéro de téléphone:">
 				</Label>
 				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0"
+					text="Adresse e-mail:">
+				</Label>
+				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
 					text="Adresse de correspondance:">
 				</Label>
 
-				<TextField fx:id="enterprise_nameTxt" GridPane.rowIndex="1" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-				<TextField fx:id="contact_nameTxt" GridPane.rowIndex="2" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-				<TextField fx:id="contact_telTxt" GridPane.rowIndex="3" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-				<TextField fx:id="contact_emailTxt" GridPane.rowIndex="4" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
-				<TextField fx:id="addressTxt" GridPane.rowIndex="5" GridPane.ColumnIndex="1"
-					maxWidth="235"></TextField>
+				<ComboBox fx:id="vendorCombobox" GridPane.rowIndex="1"
+					GridPane.ColumnIndex="1" maxWidth="235" editable="true"></ComboBox>
+				<TextField fx:id="enterprise_nameTxt" GridPane.rowIndex="2"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="contact_nameTxt" GridPane.rowIndex="3"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="contact_telTxt" GridPane.rowIndex="4"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="contact_emailTxt" GridPane.rowIndex="5"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="addressTxt" GridPane.rowIndex="6"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
 
-				<TitledPane GridPane.rowIndex="6" GridPane.ColumnIndex="0"
+				<TitledPane GridPane.rowIndex="7" GridPane.ColumnIndex="0"
 					GridPane.ColumnSpan="3" animated="true" text="Description">
 					<padding>
 						<Insets right="5" left="5" />
 					</padding>
 					<content>
-						<TextArea fx:id="descriptionTxt"  promptText="Veillez saisir une descritpion" wrapText="true"/>
+						<TextArea fx:id="descriptionTxt" promptText="Veillez saisir une descritpion"
+							wrapText="true" />
 					</content>
 
 				</TitledPane>

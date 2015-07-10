@@ -191,7 +191,7 @@ public class ShowVendorsController implements Initializable {
 				AddUpdateVendorController controller = loader
 						.<AddUpdateVendorController> getController();
 				controller.initData(this, "Ajouter", null, -1);
-				controller.setTitleWindow("Aouter vendeur");
+				controller.setTitleWindow("Ajouter vendeur");
 				newStage.initStyle(StageStyle.UNDECORATED);
 				newStage.initModality(Modality.APPLICATION_MODAL);
 				newStage.initOwner(motherGrid.getScene().getWindow());
@@ -311,7 +311,7 @@ public class ShowVendorsController implements Initializable {
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									parentStage,
-									"Il faut choisir au moins une année pour générer un rapport.",
+									"Il faut choisir au moins une annï¿½e pour gï¿½nï¿½rer un rapport.",
 									"Ok", "#303030");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
@@ -484,17 +484,9 @@ public class ShowVendorsController implements Initializable {
 				Runtime.getRuntime().exec(params);
 			} catch (Exception ex) {
 				try {
-					CustomInfoBox customDialogBox = new CustomInfoBox(stage,
-							"Impossible d'ouvrir ce fichier!", "Ok", "#ff0000");
-					customDialogBox.btn
-							.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent event) {
-									stage = (Stage) customDialogBox.btn
-											.getScene().getWindow();
-									stage.close();
-								}
-							});
+					new CustomInfoBox(stage, "Impossible d'ouvrir ce fichier!",
+							"Ok", "#ff0000");
+
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
@@ -505,15 +497,12 @@ public class ShowVendorsController implements Initializable {
 	private void creatTablePDF(PdfPTable table, double totaSales,
 			double totalCommission, Document document) {
 
-		int selectedMonth = monthComboBox.getSelectionModel().getSelectedItem()
-				.getId();
-
 		Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -556,7 +545,7 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -718,7 +707,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Année"));
+		yearObservableList.add(new Choice(0, "Annï¿½e"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -772,7 +761,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Année"));
+		yearsObservableList.add(new Choice(0, "Annï¿½e"));
 
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();

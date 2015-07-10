@@ -6,8 +6,11 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomInfoBox;
@@ -16,11 +19,14 @@ import com.devsolutions.camelus.utils.StringUtils;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -36,6 +42,9 @@ public class AddUpdateClientController implements Initializable {
 	private GridPane titleBar;
 	@FXML
 	private Label lblClose;
+	@FXML
+	private ComboBox<Vendor> vendorCombobox;
+	
 	@FXML
 	private Button btnAddUpdate;
 	@FXML
@@ -54,11 +63,28 @@ public class AddUpdateClientController implements Initializable {
 	private TextField addressTxt;
 	@FXML
 	private TextArea descriptionTxt;
+	
+	private ObservableList<Vendor> vendorOservableList;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
-
+		vendorOservableList = FXCollections.observableArrayList();
+		vendorCombobox.setItems(vendorOservableList);
+		if(Session.vendor == null)
+		{
+			
+			vendorOservableList.addAll(VendorManager.getAll());
+		}
+		else
+		{
+			vendorOservableList.add(Session.vendor);
+			vendorCombobox.getSelectionModel().select(index);
+			vendorCombobox.setDisable(true);
+		}
+		
+		new AutoCompleteComboBoxListener<Vendor>(vendorCombobox);
+		
 		contact_telTxt
 				.setOnKeyReleased(e -> {
 					if (StringUtils.validPhoneNumber(contact_telTxt.getText()
@@ -148,6 +174,7 @@ public class AddUpdateClientController implements Initializable {
 					String phoneNumber = contact_telTxt.getText().trim();
 					String address = addressTxt.getText().trim();
 					String description = descriptionTxt.getText().trim();
+					
 					Client client = new Client();
 					client.setEnterprise_name(enterprise);
 					client.setContact_name(name);
@@ -155,7 +182,18 @@ public class AddUpdateClientController implements Initializable {
 					client.setContact_email(email);
 					client.setAddress(address);
 					client.setDescription(description);
-					client.setAssociated_vendor(Session.vendor.getId());
+					if (vendorCombobox.getSelectionModel().getSelectedIndex() > -1) {
+						int index = vendorCombobox.getSelectionModel()
+								.getSelectedIndex();
+						client.setAssociated_vendor(vendorOservableList.get(index).getId());
+					}
+					else
+					{
+						valid = false;
+						feedbackmsg += "Il faut choisir un vendeur.\n";
+					}
+					
+					
 					Client ClientByEntrepriseAndClientName = ClientManager
 							.getByEntrepriseAndClientName(client);
 
@@ -167,12 +205,12 @@ public class AddUpdateClientController implements Initializable {
 
 					if (clientToUpdate == null) {
 						if (ClientByEntrepriseAndClientName != null) {
-							feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe d�j�. \n";
+							feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe déjà. \n";
 							valid = false;
 						}
 					}
 					if (!StringUtils.validPhoneNumber((phoneNumber))) {
-						feedbackmsg += "Vous devez saisir un num�ro de t�l�phone valide. \n";
+						feedbackmsg += "Vous devez saisir un numéro de téléphone valide. \n";
 						valid = false;
 					}
 
@@ -233,6 +271,7 @@ public class AddUpdateClientController implements Initializable {
 			this.clientToUpdate = client;
 			this.index = index;
 			setData(clientToUpdate);
+			
 			break;
 		default:
 			titleWindow.setText("Default");
@@ -247,6 +286,12 @@ public class AddUpdateClientController implements Initializable {
 		contact_emailTxt.setText(client.getContact_email());
 		addressTxt.setText(client.getAddress());
 		descriptionTxt.setText(client.getDescription());
+		for(Vendor vendor : vendorOservableList){
+			if(client.getAssociated_vendor() == vendor.getId())
+			{
+				vendorCombobox.getSelectionModel().select(vendor);
+			}
+		}
 	}
 
 }

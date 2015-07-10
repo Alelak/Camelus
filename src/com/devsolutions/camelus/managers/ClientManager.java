@@ -49,10 +49,15 @@ public class ClientManager {
 		session.getMapper(ClientMapper.class).update(client);
 		session.commit();
 		session.close();
-
-		AuditUtils.getAuditingService().setAudit(
-				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
-						"a modifier un client id : " + client.getId()));
+		if (Session.vendor != null) {
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
+							"à modifier un client id : " + client.getId()));
+		} else {
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
+							"à modifier un client id : " + client.getId()));
+		}
 		AuditUtils.getAuditingService().start();
 	}
 
@@ -61,9 +66,15 @@ public class ClientManager {
 		session.getMapper(ClientMapper.class).add(client);
 		session.commit();
 		session.close();
-		AuditUtils.getAuditingService().setAudit(
-				new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
-						"a ajouter un client id : " + client.getId()));
+		if (Session.vendor != null) {
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
+							"à ajouter un client id : " + client.getId()));
+		} else {
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
+							"à ajouter un client id : " + client.getId()));
+		}
 		AuditUtils.getAuditingService().start();
 	}
 
@@ -72,9 +83,15 @@ public class ClientManager {
 		session.getMapper(ClientMapper.class).delete(id);
 		session.commit();
 		session.close();
+		if (Session.vendor != null) {
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.vendor.getLogin(), AuditTypes.DELETE,
-						"a supprimer un client id : " + id));
+						"à supprimer un client id : " + id));
+		}else {
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.admin.getLogin(), AuditTypes.DELETE,
+							"à supprimer un client id : " + id));
+		}
 		AuditUtils.getAuditingService().start();
 	}
 

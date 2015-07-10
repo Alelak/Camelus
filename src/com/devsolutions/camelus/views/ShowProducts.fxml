@@ -126,7 +126,7 @@
 				</graphic>
 			</Button>
 			<Button  fx:id="btnPdfProduct" prefWidth="120" disable="true"
-				styleClass="flat-btn" text="Générer pdf">
+				styleClass="flat-btn" text="Catalogue">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
 						icon="ICON_FILE_TEXT" />
