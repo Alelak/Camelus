@@ -125,7 +125,7 @@
 						icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button  fx:id="btnPdfProduct" prefWidth="120"
+			<Button  fx:id="btnPdfProduct" prefWidth="120" disable="true"
 				styleClass="flat-btn" text="Générer pdf">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"

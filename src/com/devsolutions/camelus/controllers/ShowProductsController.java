@@ -118,8 +118,10 @@ public class ShowProductsController implements Initializable {
 		if (productsObservableList.size() == 0) {
 
 			noDataToShow();
+			btnPdfProduct.setDisable(true);
 		} else {
 			showTableView();
+			btnPdfProduct.setDisable(false);
 		}
 		FilteredList<ProductTableView> filteredData = new FilteredList<>(
 				productsObservableList, p -> true);
@@ -250,53 +252,62 @@ public class ShowProductsController implements Initializable {
 						}
 					}
 				});
-		
-		btnDeleteProduct.setOnAction(e -> {
 
-			try {
-				CustomDialogBox customDialogBox = new CustomDialogBox(
-						(Stage) btnDeleteProduct.getScene().getWindow(),
-						"Voulez vous vraiment supprimer "
-								+tableViewProduct
-								.getSelectionModel().getSelectedItem().getName()
-								+ " de votre liste de Produits?", "Oui", "Non");
+		btnDeleteProduct
+				.setOnAction(e -> {
 
-				customDialogBox.positiveButton
-						.setOnAction(new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent event) {
-								ProductTableView productTable = tableViewProduct
-										.getSelectionModel().getSelectedItem();
-								if (productTable != null) {
-									ProductManager.delete(productTable.getId());
+					try {
+						CustomDialogBox customDialogBox = new CustomDialogBox(
+								(Stage) btnDeleteProduct.getScene().getWindow(),
+								"Voulez vous vraiment supprimer "
+										+ tableViewProduct.getSelectionModel()
+												.getSelectedItem().getName()
+										+ " de votre liste de Produits?",
+								"Oui", "Non");
 
-									productsObservableList.remove(productTable);
-								}
+						customDialogBox.positiveButton
+								.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										ProductTableView productTable = tableViewProduct
+												.getSelectionModel()
+												.getSelectedItem();
+										if (productTable != null) {
+											ProductManager.delete(productTable
+													.getId());
+											
 
-								if (productsObservableList.isEmpty()) {
-									noDataToShow();
-								}
-								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
-										.getScene().getWindow();
-								dialogBoxStage.close();
-							}
-						});
+											productsObservableList
+													.remove(productTable);
+											if(productsObservableList.size()==0)
+											{
+												btnPdfProduct.setDisable(true);											}
+										}
 
-				customDialogBox.negativeButton
-						.setOnAction(new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent event) {
-								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
-										.getScene().getWindow();
-								dialogBoxStage.close();
+										if (productsObservableList.isEmpty()) {
+											noDataToShow();
+										}
+										Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
+												.getScene().getWindow();
+										dialogBoxStage.close();
+									}
+								});
 
-							}
-						});
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			}
+						customDialogBox.negativeButton
+								.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
+												.getScene().getWindow();
+										dialogBoxStage.close();
 
-		});
+									}
+								});
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
+
+				});
 		btnPdfProduct.setOnAction(e -> {
 			creatPDF();
 		});
@@ -306,11 +317,13 @@ public class ShowProductsController implements Initializable {
 						btnDeleteProduct.setDisable(false);
 						btnShowProduct.setDisable(false);
 						btnUpdateProduct.setDisable(false);
+						
 
 					} else {
 						btnDeleteProduct.setDisable(true);
 						btnShowProduct.setDisable(true);
 						btnUpdateProduct.setDisable(true);
+						
 
 					}
 				});
@@ -600,9 +613,9 @@ public class ShowProductsController implements Initializable {
 		/*----cell Image --------*/
 		try {
 			Image image = null;
-			if (product.getImg() == null) 
+			if (product.getImg() == null)
 				image = Image.getInstance("src/images/nopicture.jpg");
-			 else
+			else
 				image = Image.getInstance(product.getImg());
 
 			image.scaleAbsoluteWidth(120);
