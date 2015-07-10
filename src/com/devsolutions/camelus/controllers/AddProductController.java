@@ -9,13 +9,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -23,7 +24,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -39,6 +39,8 @@ import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.utils.Choice;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FXUtils;
+import com.devsolutions.camelus.utils.StringUtils;
 
 public class AddProductController implements Initializable {
 	@FXML
@@ -82,16 +84,15 @@ public class AddProductController implements Initializable {
 	private ShowProductsController productController;
 	private boolean verifUpc = false;
 	private boolean error = false;
-	private double initialX;
-	private double initialY;
+
 	private String errorMsg;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listChoiceBoxUnit();
 		listChoiceBoxCategory();
-		errorMsg="";
-		addDraggableNode(titleBar);
+		errorMsg = "";
+		FXUtils.addDraggableNode(titleBar);
 
 		btnAddImg.setOnAction(e -> {
 			addPicture();
@@ -108,15 +109,9 @@ public class AddProductController implements Initializable {
 			} else
 				upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 		});
-		name.setOnKeyReleased(e -> {
-			if (name.getText().isEmpty()) {
-				name.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 
-			} else
-				name.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-		});
 		quantity.setOnKeyReleased(e -> {
-			if (isNumeric(quantity.getText())) {
+			if (StringUtils.isInteger(quantity.getText())) {
 				if (Double.parseDouble(quantity.getText()) > 0)
 					quantity.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 			} else
@@ -126,7 +121,7 @@ public class AddProductController implements Initializable {
 
 		costPrice
 				.setOnKeyReleased(e -> {
-					if (isNumber(costPrice.getText())) {
+					if (StringUtils.isDouble(costPrice.getText())) {
 
 						if (Double.parseDouble(costPrice.getText()) > 0)
 							costPrice
@@ -136,7 +131,50 @@ public class AddProductController implements Initializable {
 						costPrice
 								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 				});
+		upc.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0,
+					Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (!newPropertyValue) {
+					if (upc.getText().isEmpty())
+						upc.setStyle("-fx-border-width: 0;");
+					if (upc.getText()
+							.matches(
+									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						upc.setStyle("-fx-border-width: 0;");
+					}
+				}
+			}
+		});
 
+		quantity.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0,
+					Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (!newPropertyValue) {
+					if (quantity.getText().isEmpty())
+						quantity.setStyle("-fx-border-width: 0;");
+					if (StringUtils.isInteger(quantity.getText())) {
+						quantity.setStyle("-fx-border-width: 0;");
+					}
+				}
+			}
+		});
+		costPrice.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0,
+					Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (!newPropertyValue) {
+					if (costPrice.getText().isEmpty())
+						costPrice.setStyle("-fx-border-width: 0;");
+					if (StringUtils.isDouble(costPrice.getText())) {
+
+						if (Double.parseDouble(costPrice.getText()) > 0)
+							costPrice.setStyle("-fx-border-width: 0;");
+					}
+				}
+			}
+		});
 		btnAddProduct
 				.setOnAction(e -> {
 					/*
@@ -148,45 +186,45 @@ public class AddProductController implements Initializable {
 
 					for (ProductTableView b : productController
 							.getProductsObservableList()) {
-						
+
 						if (b.getUpc().equals(upc.getText()))
 							verifUpc = true;
-						
+
 					}
 
 					if (!(!upc.getText().isEmpty() && !name.getText().isEmpty()
 							&& !quantity.getText().isEmpty() && !costPrice
 							.getText().isEmpty())) {
-						errorMsg+="- il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP \n";
+						errorMsg += "- il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP \n";
 						error = true;
 					}
 					if (!upc.getText()
 							.matches(
 									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-						errorMsg+="- le UPC doit avoir 12 chiffres \n ";
+						errorMsg += "- le UPC doit avoir 12 chiffres \n ";
 						error = true;
 					}
 					if (verifUpc == true) {
 						upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-						errorMsg+="- le UPC existe deja veillez entrer un nouveau upc svp\n";
+						errorMsg += "- le UPC existe deja veillez entrer un nouveau upc svp\n";
 						error = true;
 					}
 					if (name.getText().equals("")) {
-						errorMsg+="- Veillez saisire le nom de produit SVP\n";
+						errorMsg += "- Veillez saisire le nom de produit SVP\n";
 						error = true;
 					}
-					if (!isNumeric(quantity.getText())) {
-						errorMsg+="- entrer une Quantiter valide\n";
+					if (!StringUtils.isInteger(quantity.getText())) {
+						errorMsg += "- entrer une Quantiter valide\n";
 						error = true;
 					} else if (Integer.parseInt(quantity.getText()) < 0) {
-						errorMsg+="- Veuillez entrez une qunatiter Posetive SVP\n";
+						errorMsg += "- Veuillez entrez une qunatiter Posetive SVP\n";
 						error = true;
 					}
-					if (!isNumber(costPrice.getText())) {
-						errorMsg+="- saisie un prix valide Svp\n";
+					if (!StringUtils.isDouble(costPrice.getText())) {
+						errorMsg += "- saisie un prix valide Svp\n";
 						error = true;
 					} else if (Double.parseDouble(costPrice.getText()) < 0) {
-						errorMsg+="- saisie un prix Posetive Svp\n";
+						errorMsg += "- saisie un prix Posetive Svp\n";
 						error = true;
 					}
 					stage = (Stage) btnAddProduct.getScene().getWindow();
@@ -197,8 +235,7 @@ public class AddProductController implements Initializable {
 						stage.close();
 						productController.showTableView();
 						productController.selectLastRow();
-					}else
-					{
+					} else {
 						try {
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									stage, errorMsg, "Ok", "#282828");
@@ -208,7 +245,7 @@ public class AddProductController implements Initializable {
 										public void handle(ActionEvent event) {
 											stage = (Stage) customDialogBox.btn
 													.getScene().getWindow();
-											errorMsg="";
+											errorMsg = "";
 											stage.close();
 										}
 									});
@@ -216,30 +253,13 @@ public class AddProductController implements Initializable {
 							ex.printStackTrace();
 						}
 
-					}});
+					}
+				});
 		btnCancelProduct.setOnAction(e -> {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
 			stage.close();
 		});
 
-	}
-
-	public static boolean isNumeric(String str) {
-		try {
-			Integer.parseInt(str);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
-
-	public static boolean isNumber(String str) {
-		try {
-			Double.parseDouble(str);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
 	}
 
 	public void listChoiceBoxUnit() {
@@ -328,21 +348,6 @@ public class AddProductController implements Initializable {
 
 	public void initData(ShowProductsController ProductController) {
 		this.productController = ProductController;
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 
 	private void Showimage() {

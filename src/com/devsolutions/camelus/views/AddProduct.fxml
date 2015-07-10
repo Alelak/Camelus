@@ -61,8 +61,9 @@
 		</GridPane>
 
 		<GridPane GridPane.rowIndex="1">
-		<padding>
-		<Insets top="10"></Insets></padding>
+			<padding>
+				<Insets top="10"></Insets>
+			</padding>
 			<rowConstraints>
 				<RowConstraints valignment="BOTTOM" />
 				<RowConstraints valignment="CENTER" percentHeight="11.5" />
@@ -90,7 +91,7 @@
 					GridPane.ColumnIndex="0" GridPane.ColumnSpan="3">
 					<HBox
 						style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
-						
+
 						<ImageView fx:id="imageProduct" fitHeight="80.0"
 							style="-fx-background-color: white;" fitWidth="100.0"
 							pickOnBounds="true" preserveRatio="true">
@@ -147,7 +148,7 @@
 					GridPane.ColumnIndex="1" maxWidth="235">
 				</ChoiceBox>
 				<Button fx:id="btnAddImg" GridPane.rowIndex="7"
-					GridPane.ColumnIndex="1" maxWidth="235" text="Add image"></Button>
+					GridPane.ColumnIndex="1" maxWidth="235" text="Ajouter image"></Button>
 				<TextField fx:id="costPrice" GridPane.rowIndex="8"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
 				<TextField fx:id="sellingPrice" GridPane.rowIndex="9"
