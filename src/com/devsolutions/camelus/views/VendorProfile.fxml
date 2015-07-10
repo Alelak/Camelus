@@ -12,17 +12,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.PasswordField?>
 
 
 
 
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ProfileController">
+	fx:controller="com.devsolutions.camelus.controllers.VendorProfileController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
-		<RowConstraints percentHeight="10" />
-		<RowConstraints valignment="TOP" percentHeight="76.6" />
+		<RowConstraints percentHeight="86.6" />
 		<RowConstraints percentHeight="8" />
 	</rowConstraints>
 	<columnConstraints>
@@ -44,7 +45,7 @@
 			<children>
 
 				<Label style="-fx-font-family:'Roboto Bold';"
-					GridPane.ColumnIndex="0" Text="Consulter Vendeur">
+					GridPane.ColumnIndex="0" text="Profil">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -63,33 +64,23 @@
 			</children>
 
 		</GridPane>
-
-		<HBox alignment="BOTTOM_CENTER" GridPane.rowIndex="1">
-			<padding>
-				<Insets bottom="10" />
-			</padding>
-			<Label text="Informations supplémentaires sur "></Label>
-			<Label
-				style=" -fx-text-fill:#016699; -fx-font-family: 'Roboto Bold'; -fx-underline: true ;"
-				fx:id="usernameLabel" GridPane.rowIndex="0"></Label>
-			<Label text="."></Label>
-		</HBox>
-
 		<GridPane maxWidth="450" maxHeight="400" id="contentGrid"
-			GridPane.rowIndex="2">
+			GridPane.rowIndex="1">
 			<padding>
 				<Insets bottom="5" />
 			</padding>
 
 
 			<rowConstraints>
-				<RowConstraints percentHeight="14.3" />
-				<RowConstraints percentHeight="14.3" />
-				<RowConstraints percentHeight="14.3" />
-				<RowConstraints percentHeight="14.3" />
-				<RowConstraints percentHeight="14.3" />
-				<RowConstraints percentHeight="14.3" />
-				<RowConstraints percentHeight="14.2" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
+				<RowConstraints percentHeight="11.11" />
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints prefWidth="100" />
@@ -98,48 +89,68 @@
 			<children>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0"
 					alignment="CENTER">
-					<Label text="Prénom du vendeur:" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="fnameLabel" />
+					<Label text="Nom D'utilisateur : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="usernameLabel" />
 				</HBox>
-				<HBox spacing="2" minWidth="450" GridPane.rowIndex="1"
-					alignment="CENTER">
-					<Label text="Nom du vendeur:" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="lnameLabel" />
+				<HBox fx:id="passwordHbox" spacing="2" minWidth="450"
+					GridPane.rowIndex="1" alignment="CENTER">
+					<Label text="Mot De Passe : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="passwordLabel" />
+					<Label fx:id="editlbl">
+						<HBox.margin>
+							<Insets left="20"></Insets>
+						</HBox.margin>
+						<graphic>
+							<FontAwesomeIconView fx:id="editFont" icon="ICON_EDIT"></FontAwesomeIconView>
+						</graphic>
+					</Label>
 				</HBox>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="2"
 					alignment="CENTER">
-					<Label text="N.A.S.:" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="sinLabel" />
+					<Label text="Prénom du vendeur : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="fnameLabel" />
 				</HBox>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="3"
 					alignment="CENTER">
-					<Label text="Date d'ambauche:" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="hiredateLabel" />
+					<Label text="Nom du vendeur : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="lnameLabel" />
 				</HBox>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="4"
 					alignment="CENTER">
-					<Label text="Type de commission:" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="commissionLabel" />
+					<Label text="N.A.S : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="sinLabel" />
 				</HBox>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="5"
 					alignment="CENTER">
-					<Label text="Condition (>=):" />
-					<Label style="-fx-font-family:'Roboto Bold';" fx:id="conditionLabel" />
+					<Label text="Date d'ambauche : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="hiredateLabel" />
 				</HBox>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="6"
 					alignment="CENTER">
-					<Label fx:id="bonusTxtLabel" />
+					<Label text="Type de commission : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="commissionLabel" />
+				</HBox>
+				<HBox spacing="2" minWidth="450" GridPane.rowIndex="7"
+					alignment="CENTER">
+					<Label text="Condition (>=) : " />
+					<Label style="-fx-font-family:'Roboto Bold';" fx:id="conditionLabel" />
+				</HBox>
+				<HBox spacing="2" minWidth="450" GridPane.rowIndex="8"
+					alignment="CENTER">
+					<Label text="Bonus : " />
 					<Label style="-fx-font-family:'Roboto Bold';" fx:id="bonusLabel" />
 				</HBox>
 			</children>
 		</GridPane>
 
-		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
+		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets right="5" bottom="8" />
 			</padding>
-			<Button fx:id="btnClose" prefWidth="120" styleClass="flat-btn"
-				text="Fermer"></Button>
+			<Button fx:id="updateBtn" disable="true" prefWidth="120" styleClass="flat-btn"
+				text="Confirmer"></Button>
+			<Button fx:id="btnClose" onMouseClicked="#CloseWindow"
+				prefWidth="120" styleClass="flat-btn" text="Fermer"></Button>
 		</HBox>
 
 

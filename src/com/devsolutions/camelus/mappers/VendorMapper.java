@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -38,4 +39,8 @@ public interface VendorMapper {
 	@Update("UPDATE  vendors SET deleted = 1 WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);
+
+	@Update("UPDATE  vendors SET password = #{password}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
+	@Options(flushCache = true)
+	void updatePassword(@Param("id") int id, @Param("password") String password);
 }

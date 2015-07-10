@@ -65,6 +65,17 @@ public class VendorManager {
 		AuditUtils.getAuditingService().start();
 	}
 
+	public static void updatePassword(int id, String password) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		session.getMapper(VendorMapper.class).updatePassword(id, password);
+		session.commit();
+		session.close();
+		AuditUtils.getAuditingService().setAudit(
+				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
+						"a modifier son mot de passe"));
+		AuditUtils.getAuditingService().start();
+	}
+
 	public static void delete(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).delete(id);

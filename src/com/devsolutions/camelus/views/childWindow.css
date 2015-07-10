@@ -110,7 +110,7 @@ TextArea{
 #contentGrid{
 	-fx-border-color: #016699;
 	-fx-border-style: dashed ;
-	-fx-border-width: 2;
+	-fx-border-width: 2.0;
 }
 
 .boldLabel{
@@ -122,4 +122,11 @@ TextArea{
 #splitPane > .split-pane-divider {  
    -fx-background-color: #016699;
    -fx-padding: 0.5;  
+}
+#editFont{
+	    -fx-font-size: 24.0;
+    -fx-cursor: hand;
+}
+#editFont:hover{
+	 -fx-text-fill: -camelus-blue;
 }

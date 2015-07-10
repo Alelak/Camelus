@@ -46,15 +46,12 @@ public class CustomInfoBox {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(MainStage);
 		stage.show();
-		centerStage(MainStage , stage, 0 );
+		FXUtils.centerStage(MainStage, stage, 0);
 	}
 
-	public CustomInfoBox(Stage stage, String message, String btnText) throws IOException {
+	public CustomInfoBox(Stage stage, String message, String btnText)
+			throws IOException {
 		this(stage, message, btnText, "#000000");
-	}
-	private void centerStage(Stage parentStage , Stage childStage, int y ){
-		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2 - childStage.getWidth() / 2);
-		childStage.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage.getHeight() / 2)+y);
 	}
 
 }
