@@ -150,7 +150,13 @@ public class TakeOrderController implements Initializable {
 		currentVendor = Session.vendor;
 
 		products = ProductManager.getAll();
-		clients = ClientManager.getByVendorId(currentVendor.getId());
+		if (Session.admin != null){
+			clients = ClientManager.getAll();
+		}else{
+			clients = ClientManager.getByVendorId(currentVendor.getId());
+		}
+		
+		
 
 		productObservableList = FXCollections.observableArrayList();
 		productObservableList.addAll(products);

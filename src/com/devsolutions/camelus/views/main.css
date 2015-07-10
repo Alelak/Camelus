@@ -77,7 +77,7 @@
     -fx-background-color: #cecece;
 }
 
-#lblHelp:hover {
+#lblAbout:hover {
     -fx-background-color: #cecece;
 }
 
@@ -91,7 +91,7 @@
     -fx-text-fill: black;
 }
 
-#lblHelp:hover #helpFont {
+#lblAbout:hover #helpFont {
     -fx-text-fill: black;
 }
 
@@ -103,7 +103,7 @@
     -fx-background-color: -camelus-blue;
 }
 
-#lblHelp:pressed {
+#lblAbout:pressed {
     -fx-background-color: -camelus-blue;
 }
 
@@ -115,7 +115,7 @@
     -fx-text-fill: white;
 }
 
-#lblHelp:pressed #helpFont {
+#lblAbout:pressed #helpFont {
     -fx-text-fill: white;
 }
 

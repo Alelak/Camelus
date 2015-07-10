@@ -123,7 +123,7 @@ public class ShowOrdersController implements Initializable {
 			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
 		} else {
 			ordersList = OrderManager.getAllTV();
-			message2.setText("Vous n'�tes pas autoris� d'effectuer une commande.");
+			message2.setText("Effectuer maintenant une commande.");
 		}
 
 		ordersObservableList = FXCollections.observableArrayList();
@@ -169,9 +169,6 @@ public class ShowOrdersController implements Initializable {
 
 		orderTableView.setItems(sortedData);
 
-		if (Session.vendor == null) {
-			takeOrderBtn.setDisable(true);
-		}
 
 		btnRefresh.setOnAction(e -> {
 			ordersObservableList.clear();
@@ -181,7 +178,7 @@ public class ShowOrdersController implements Initializable {
 						.getByVendorId(Session.vendor.getId()));
 			} else {
 				ordersObservableList.addAll(OrderManager.getAllTV());
-				message2.setText("");
+				
 			}
 		});
 

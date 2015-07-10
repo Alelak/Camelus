@@ -62,13 +62,13 @@
 				</Label>
 				<HBox alignment="TOP_RIGHT" GridPane.columnIndex="2">
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
-						fx:id="lblHelp">
+						fx:id="lblAbout" onMouseClicked="#showAboutWindow">
 						<tooltip>
-							<Tooltip text="Aide" />
+							<Tooltip text="À propos" />
 						</tooltip>
 						<graphic>
 							<FontAwesomeIconView id="helpFont"
-								styleClass="font-awesome" icon="ICON_QUESTION" />
+								styleClass="font-awesome" icon="ICON_EXCLAMATION" />
 						</graphic>
 					</Label>
 					<Label alignment="BOTTOM_CENTER" prefWidth="30" prefHeight="30"
@@ -87,7 +87,7 @@
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
 						fx:id="lblClose" onMouseClicked="#CloseWindow">
 						<tooltip>
-							<Tooltip text="Fermer" />
+							<Tooltip text="Quitter" />
 						</tooltip>
 						<graphic>
 							<FontAwesomeIconView id="closeFont"
@@ -140,14 +140,9 @@
 								icon="ICON_COGS" />
 						</graphic>
 						<items>
-							<MenuItem fx:id="ProfileMi" onAction="#profilemihandler"
-								text="Profile"></MenuItem>
-							<MenuItem fx:id="categoriesMI" text="Categories"
-								onAction="#categoriesmihandler"></MenuItem>
-							<MenuItem fx:id="CommissionsMI" text="Commissions"
-								onAction="#commissionsmihandler"></MenuItem>
-							<MenuItem fx:id="UnitesMI" text="Unites" onAction="#unitsmihandler"></MenuItem>
-							<MenuItem fx:id="LogsMI" text="Logs" onAction="#logsmihandler"></MenuItem>
+							<MenuItem text="Categories" onAction="#categoriesmihandler"></MenuItem>
+							<MenuItem text="Commissions"  onAction="#commissionsmihandler"></MenuItem>
+							<MenuItem text="Unites" onAction="#unitsmihandler"></MenuItem>
 						</items>
 					</MenuButton>
 					<Label prefWidth="30" prefHeight="30">

@@ -29,11 +29,10 @@ import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CustomDialogBox;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.FontAwesomeIconView;
 
 public class MainWindowController implements Initializable {
-	private Stage stage;
-	private FadeTransition fadeTransition;
 	@FXML
 	private Button tbacceuilbtn;
 	@FXML
@@ -51,7 +50,7 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private Label lblMinimize;
 	@FXML
-	private Label lblHelp;
+	private Label lblAbout;
 	@FXML
 	private HBox content;
 	@FXML
@@ -69,8 +68,9 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private MenuItem UnitesMI;
 	@FXML
+	private Stage stage;
+	private FadeTransition fadeTransition;
 	private MenuItem LogsMI;
-
 	private static final String BACKGROUND_CAMELUS_BLUE = "-fx-background-color: -camelus-blue;";
 	private static final String BACKGROUND_CAMELUS_LIGHT_BLUE = "-fx-background-color: -camelus-light-blue; ";
 
@@ -182,7 +182,27 @@ public class MainWindowController implements Initializable {
 		stage = (Stage) lblMinimize.getScene().getWindow();
 		stage.setIconified(true);
 	}
-
+	
+	@FXML
+	public void showAboutWindow() {
+		Parent root;
+		root = null;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(
+					"../views/About.fxml"));		
+			root = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(settingsmenubutton.getScene().getWindow());
+		stage.show();
+		FXUtils.centerStage((Stage) lblMinimize.getScene().getWindow(), stage, 22);
+	}
 	public void setMainApp(Stage stage) {
 		this.stage = stage;
 	}
@@ -247,18 +267,13 @@ public class MainWindowController implements Initializable {
 								}
 							});
 					fadeTransition.play();
-
 				});
-
 			}
 		}).start();
-
 	}
 
 	private void switchScene(final String filename) {
-
 		switchScene(filename, null, null);
-
 	}
 
 	public void switchScene(final String filename, final Vendor vendor) {

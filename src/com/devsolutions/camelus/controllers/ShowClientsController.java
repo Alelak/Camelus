@@ -85,11 +85,7 @@ public class ShowClientsController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if (Session.admin != null) {
-			btnAdd.setDisable(true);
-			btnUpdate.setDisable(true);
-			btnDelete.setDisable(true);
-		}
+	
 
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
