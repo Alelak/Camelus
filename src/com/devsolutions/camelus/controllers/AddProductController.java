@@ -86,18 +86,18 @@ public class AddProductController implements Initializable {
 	private boolean error = false;
 
 	private String errorMsg;
+	private String errorMsgImg;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listChoiceBoxUnit();
 		listChoiceBoxCategory();
 		errorMsg = "";
+		errorMsgImg = "";
 		FXUtils.addDraggableNode(titleBar);
 
-		btnAddImg.setOnAction(e -> {
-			addPicture();
-			Showimage();
-
+		btnAddImg.setOnAction(e -> {		
+				addPicture();
 		});
 
 		upc.setOnKeyReleased(e -> {
@@ -131,6 +131,19 @@ public class AddProductController implements Initializable {
 						costPrice
 								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 				});
+		sellingPrice
+				.setOnKeyReleased(e -> {
+					if (StringUtils.isDouble(sellingPrice.getText())) {
+
+						if (Double.parseDouble(sellingPrice.getText()) > 0)
+							sellingPrice
+									.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+
+					} else
+						sellingPrice
+								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+				});
+
 		upc.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0,
@@ -175,15 +188,26 @@ public class AddProductController implements Initializable {
 				}
 			}
 		});
+		sellingPrice.focusedProperty().addListener(
+				new ChangeListener<Boolean>() {
+					@Override
+					public void changed(
+							ObservableValue<? extends Boolean> arg0,
+							Boolean oldPropertyValue, Boolean newPropertyValue) {
+						if (!newPropertyValue) {
+							if (sellingPrice.getText().isEmpty())
+								sellingPrice.setStyle("-fx-border-width: 0;");
+							if (StringUtils.isDouble(sellingPrice.getText())) {
+
+								if (Double.parseDouble(sellingPrice.getText()) > 0)
+									sellingPrice
+											.setStyle("-fx-border-width: 0;");
+							}
+						}
+					}
+				});
 		btnAddProduct
 				.setOnAction(e -> {
-					/*
-					 * if ((unit.getSelectionModel().getSelectedIndex() == 0) ||
-					 * (category.getSelectionModel().getSelectedIndex() == 0))
-					 * System.out
-					 * .println("il faut choisir une unit ou une category");
-					 */
-
 					for (ProductTableView b : productController
 							.getProductsObservableList()) {
 
@@ -324,7 +348,7 @@ public class AddProductController implements Initializable {
 
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"All Images", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp");
+				"All Images", "*.jpg", "*.jpeg", "*.gif", "*.bmp");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -338,8 +362,28 @@ public class AddProductController implements Initializable {
 					ImageIO.write(originalImage, "jpg", baos);
 					baos.flush();
 					imageInByte = baos.toByteArray();
-				} else
-					System.out.println(mb);
+					Showimage();
+				} else {
+					errorMsgImg = "La taille de l`image est très grande veuillez choisie une autre image svp";
+					stage = (Stage) btnAddProduct.getScene().getWindow();
+					try {
+						CustomInfoBox customDialogBox = new CustomInfoBox(
+								stage, errorMsgImg, "Ok", "#282828");
+						customDialogBox.btn
+								.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										stage = (Stage) customDialogBox.btn
+												.getScene().getWindow();
+										errorMsgImg = "";
+										stage.close();
+									}
+								});
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -351,9 +395,10 @@ public class AddProductController implements Initializable {
 	}
 
 	private void Showimage() {
-
-		ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
-		imageProduct.setImage(new Image(is));
+			ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
+			imageProduct.setImage(new Image(is));
+	
+			
 
 	}
 

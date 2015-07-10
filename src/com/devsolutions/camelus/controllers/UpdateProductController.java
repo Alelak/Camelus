@@ -89,10 +89,12 @@ public class UpdateProductController implements Initializable {
 	private boolean error = false;
 
 	private String errorMsg;
+	private String errorMsgImg;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
+		errorMsgImg = "";
 		errorMsg = "";
 		upc.setOnKeyReleased(e -> {
 			if (upc.getText()
@@ -125,12 +127,24 @@ public class UpdateProductController implements Initializable {
 						costPrice
 								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
 				});
+		sellingPrice
+				.setOnKeyReleased(e -> {
+					if (StringUtils.isDouble(sellingPrice.getText())) {
+
+						if (Double.parseDouble(sellingPrice.getText()) > 0)
+							sellingPrice
+									.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+
+					} else
+						sellingPrice
+								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+				});
 
 		btnAddImg.setOnAction(e -> {
-
 			addPicture();
-			Showimage();
+
 		});
+
 		upc.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0,
@@ -175,6 +189,24 @@ public class UpdateProductController implements Initializable {
 				}
 			}
 		});
+		sellingPrice.focusedProperty().addListener(
+				new ChangeListener<Boolean>() {
+					@Override
+					public void changed(
+							ObservableValue<? extends Boolean> arg0,
+							Boolean oldPropertyValue, Boolean newPropertyValue) {
+						if (!newPropertyValue) {
+							if (sellingPrice.getText().isEmpty())
+								sellingPrice.setStyle("-fx-border-width: 0;");
+							if (StringUtils.isDouble(sellingPrice.getText())) {
+
+								if (Double.parseDouble(sellingPrice.getText()) > 0)
+									sellingPrice
+											.setStyle("-fx-border-width: 0;");
+							}
+						}
+					}
+				});
 		btnUpdateProduct
 				.setOnAction(e -> {
 
@@ -319,17 +351,42 @@ public class UpdateProductController implements Initializable {
 
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"All Images", "(*.jpg)", "*.jpg");
+				"All Images", "*.jpg", "*.jpeg", "*.gif", "*.bmp");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
-		if (file != null) {
 
+		if (file != null) {
 			try {
-				BufferedImage originalImage = ImageIO.read(file);
-				baos = new ByteArrayOutputStream();
-				ImageIO.write(originalImage, "jpg", baos);
-				baos.flush();
-				imageInByte = baos.toByteArray();
+				double mb = file.length() / 1048576;
+
+				if (mb < 1) {
+					BufferedImage originalImage = ImageIO.read(file);
+					baos = new ByteArrayOutputStream();
+					ImageIO.write(originalImage, "jpg", baos);
+					baos.flush();
+					imageInByte = baos.toByteArray();
+					Showimage();
+				} else {
+					errorMsgImg = "La taille de l`image est très grande veuillez choisie une autre image svp";
+					stage = (Stage) btnUpdateProduct.getScene().getWindow();
+					try {
+						CustomInfoBox customDialogBox = new CustomInfoBox(
+								stage, errorMsgImg, "Ok", "#282828");
+						customDialogBox.btn
+								.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										stage = (Stage) customDialogBox.btn
+												.getScene().getWindow();
+										errorMsgImg = "";
+										stage.close();
+									}
+								});
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

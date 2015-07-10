@@ -275,13 +275,12 @@ public class ShowProductsController implements Initializable {
 										if (productTable != null) {
 											ProductManager.delete(productTable
 													.getId());
-											
 
 											productsObservableList
 													.remove(productTable);
-											if(productsObservableList.size()==0)
-											{
-												btnPdfProduct.setDisable(true);											}
+											if (productsObservableList.size() == 0) {
+												btnPdfProduct.setDisable(true);
+											}
 										}
 
 										if (productsObservableList.isEmpty()) {
@@ -317,13 +316,11 @@ public class ShowProductsController implements Initializable {
 						btnDeleteProduct.setDisable(false);
 						btnShowProduct.setDisable(false);
 						btnUpdateProduct.setDisable(false);
-						
 
 					} else {
 						btnDeleteProduct.setDisable(true);
 						btnShowProduct.setDisable(true);
 						btnUpdateProduct.setDisable(true);
-						
 
 					}
 				});
