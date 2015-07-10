@@ -48,6 +48,7 @@ import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.utils.Choice;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -196,7 +197,7 @@ public class ShowVendorsController implements Initializable {
 				newStage.initOwner(motherGrid.getScene().getWindow());
 				newStage.show();
 				Stage parentStage = (Stage) motherGrid.getScene().getWindow();
-				centerStage(parentStage, newStage, 22);
+				FXUtils.centerStage(parentStage, newStage, 22);
 
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -210,8 +211,8 @@ public class ShowVendorsController implements Initializable {
 
 				VendorManager.delete(vendor.getId());
 				removeFromTableView(vendor);
-				
-				if(vendorsList.isEmpty()){
+
+				if (vendorsList.isEmpty()) {
 					noDataToShow();
 				}
 			} else {
@@ -252,7 +253,7 @@ public class ShowVendorsController implements Initializable {
 					newStage.show();
 					Stage parentStage = (Stage) motherGrid.getScene()
 							.getWindow();
-					centerStage(parentStage, newStage, 22);
+					FXUtils.centerStage(parentStage, newStage, 22);
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -285,7 +286,7 @@ public class ShowVendorsController implements Initializable {
 					newStage.show();
 					Stage parentStage = (Stage) motherGrid.getScene()
 							.getWindow();
-					centerStage(parentStage, newStage, 22);
+					FXUtils.centerStage(parentStage, newStage, 22);
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -312,7 +313,7 @@ public class ShowVendorsController implements Initializable {
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									parentStage,
-									"Il faut choisir un mois et une année pour générer un rapport.",
+									"Il faut choisir un mois et une annï¿½e pour gï¿½nï¿½rer un rapport.",
 									"Ok", "#303030");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
@@ -453,20 +454,11 @@ public class ShowVendorsController implements Initializable {
 				p1.setIndentationLeft(50f);
 				p1.setIndentationRight(50f);
 				p1.setSpacingAfter(30f);
-
-				Date date = new Date();
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(date);
-				int year = cal.get(Calendar.YEAR);
-				int month = cal.get(Calendar.MONTH);
-				int day = cal.get(Calendar.DAY_OF_MONTH);
-
 				p1.add(new Phrase(
 						"No       :   "
 								+ vendor.getId()
 								+ "                                                    Date: "
-								+ StringUtils.formateDate(day, month + 1, year),
-						boldFont));
+								+ StringUtils.formatDate(new Date()), boldFont));
 				document.add(p1);
 
 				Paragraph p = new Paragraph("Nom   :   " + vendor.getFname()
@@ -530,7 +522,7 @@ public class ShowVendorsController implements Initializable {
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -573,7 +565,7 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			c1.setColspan(4);
@@ -663,7 +655,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Année"));
+		yearObservableList.add(new Choice(0, "Annï¿½e"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -731,7 +723,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Année"));
+		yearsObservableList.add(new Choice(0, "Annï¿½e"));
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());
@@ -781,13 +773,5 @@ public class ShowVendorsController implements Initializable {
 	public TableView<Vendor> getTable() {
 		TableView<Vendor> table = vendorTableView;
 		return table;
-	}
-
-	private void centerStage(Stage parentStage, Stage childStage, int y) {
-		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
-				- childStage.getWidth() / 2);
-		childStage
-				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
-						.getHeight() / 2) + y);
 	}
 }

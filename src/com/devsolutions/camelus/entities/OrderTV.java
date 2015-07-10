@@ -1,9 +1,6 @@
 package com.devsolutions.camelus.entities;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import com.devsolutions.camelus.utils.StringUtils;
 
 public class OrderTV {
 	private long id;
@@ -12,11 +9,11 @@ public class OrderTV {
 	private int commission_id;
 	private String fname; // prenom du vendeur
 	private String lname; // nom du vendeur
+	@SuppressWarnings("unused")
 	private String fullname;
 	private String enterprise_name;
 	private String comment;
 	private Date ordered_at;
-	private String ordered_at_formated;
 	private int status;
 	private String canceledText;
 
@@ -90,20 +87,6 @@ public class OrderTV {
 
 	public void setAssociated_vendor(int associated_vendor) {
 		this.associated_vendor = associated_vendor;
-	}
-
-	public String getOrdered_at_formated() {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(ordered_at);
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH);
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		ordered_at_formated = StringUtils.formateDate(day, month, year);
-		return ordered_at_formated;
-	}
-
-	public void setOrdered_at_formated(String ordered_at_formated) {
-		this.ordered_at_formated = ordered_at_formated;
 	}
 
 	public int getStatus() {

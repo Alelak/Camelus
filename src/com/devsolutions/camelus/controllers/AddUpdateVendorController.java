@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
@@ -41,16 +42,14 @@ public class AddUpdateVendorController implements Initializable {
 	@FXML
 	private GridPane titleBar;
 	@FXML
-	private Label lblClose;	
+	private Label lblClose;
 	@FXML
 	private Label titleWindow;
-	
-	
-	
+
 	@FXML
 	private TextField textUsername;
 	@FXML
-	private TextField textPassword;
+	private PasswordField textPassword;
 	@FXML
 	private TextField textFname;
 	@FXML
@@ -86,11 +85,11 @@ public class AddUpdateVendorController implements Initializable {
 
 		for (Commission commission : commissions) {
 			if (commission.getType() == 0)
-				commissionChoices
-						.add(new Choice(commission.getId(), commission
-								.getRate()
-								+ "% (>="
-								+ commission.getMcondition() + "$)"));
+				commissionChoices.add(new Choice(commission.getId(), commission
+						.getRate()
+						+ "% (>="
+						+ commission.getMcondition()
+						+ "$)"));
 			else
 				commissionChoices.add(new Choice(commission.getId(), commission
 						.getRate()
@@ -257,13 +256,13 @@ public class AddUpdateVendorController implements Initializable {
 		commission.getSelectionModel()
 				.select(vendorToUpdate.getCommission_id());
 	}
-	
+
 	@FXML
 	private void CloseWindow() {
 		Stage stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	private void addDraggableNode(final Node node) {
 		node.setOnMousePressed(e -> {
 			if (e.getButton() != MouseButton.MIDDLE) {
@@ -278,8 +277,8 @@ public class AddUpdateVendorController implements Initializable {
 			}
 		});
 	}
-	
-	public void setTitleWindow(String title){
+
+	public void setTitleWindow(String title) {
 		titleWindow.setText(title);
 	}
 }

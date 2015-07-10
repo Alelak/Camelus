@@ -1,7 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
 import java.net.URL;
-import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -78,7 +77,6 @@ public class ShowOrderDetailsController implements Initializable {
 
 	private Stage stage;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
@@ -127,13 +125,6 @@ public class ShowOrderDetailsController implements Initializable {
 			}
 		} else
 			vendorCommission = 0;
-
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(orderTV.getOrdered_at());
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH);
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-
 		orderCommentTextArea.setText(orderTV.getComment());
 		vendorCommissionLabel.setText("Commission du vendeur : "
 				+ vendorCommission + " $");
@@ -141,7 +132,7 @@ public class ShowOrderDetailsController implements Initializable {
 		contactEmailLabel.setText(currentClient.getContact_email());
 		orderNumberLabel.setText("" + orderTV.getId());
 
-		orderedAtLabel.setText(StringUtils.formateDate(day, month, year));
+		orderedAtLabel.setText(StringUtils.formatDate(orderTV.getOrdered_at()));
 		contactNameLabel.setText(currentClient.getContact_name());
 		contactTelLabel.setText(currentClient.getContact_tel());
 		entrepriseNameLabel.setText(currentClient.getEnterprise_name());

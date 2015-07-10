@@ -1,11 +1,11 @@
 package com.devsolutions.camelus.controllers;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.utils.FXUtils;
+import com.devsolutions.camelus.utils.StringUtils;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,7 +54,6 @@ public class ShowAdminController implements Initializable {
 		adminName.setText(admin.getFull_name());
 		logintxt.setText(admin.getLogin());
 		sintxt.setText(admin.getSin());
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		hiredatetxt.setText(simpleDateFormat.format(admin.getHire_date()));
+		hiredatetxt.setText(StringUtils.formatDate((admin.getHire_date())));
 	}
 }

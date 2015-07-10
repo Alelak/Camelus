@@ -4,14 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -34,14 +33,11 @@ public class ShowClientController implements Initializable {
 	private TextArea description;
 	@FXML
 	private Button btnClose;
-	private Double initialX;
-	private Double initialY;
-
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);		
-		btnClose.setOnAction(e->{
+		FXUtils.addDraggableNode(titleBar);
+		btnClose.setOnAction(e -> {
 			CloseWindow();
 		});
 	}
@@ -52,21 +48,6 @@ public class ShowClientController implements Initializable {
 		stage.close();
 	}
 
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
-	}
-
 	public void initData(Client client) {
 		ContactName.setText(client.getContact_name());
 		entrepriseName.setText(client.getEnterprise_name());
@@ -75,6 +56,5 @@ public class ShowClientController implements Initializable {
 		adress.setText(client.getAddress());
 		description.setText(client.getDescription());
 	}
-	
 
 }

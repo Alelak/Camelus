@@ -41,7 +41,9 @@ import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.FileUtils;
+import com.devsolutions.camelus.utils.StringUtils;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -121,7 +123,7 @@ public class ShowOrdersController implements Initializable {
 			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
 		} else {
 			ordersList = OrderManager.getAllTV();
-			message2.setText("Vous n'êtes pas autorisé d'effectuer une commande.");
+			message2.setText("Vous n'ï¿½tes pas autorisï¿½ d'effectuer une commande.");
 		}
 
 		ordersObservableList = FXCollections.observableArrayList();
@@ -208,8 +210,8 @@ public class ShowOrdersController implements Initializable {
 
 					newStage.show();
 
-					centerStage((Stage) motherGrid.getScene().getWindow(),
-							newStage, 22);
+					FXUtils.centerStage((Stage) motherGrid.getScene()
+							.getWindow(), newStage, 22);
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -237,7 +239,7 @@ public class ShowOrdersController implements Initializable {
 				newStage.initOwner(motherGrid.getScene().getWindow());
 				newStage.show();
 				stage = (Stage) pdfBtn.getScene().getWindow();
-				centerStage(stage, newStage, 22);
+				FXUtils.centerStage(stage, newStage, 22);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -273,16 +275,6 @@ public class ShowOrdersController implements Initializable {
 					}
 				});
 	}
-
-	private void centerStage(Stage parentStage, Stage childStage, int y) {
-		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
-				- childStage.getWidth() / 2);
-		childStage
-				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
-						.getHeight() / 2) + y);
-	}
-
-	
 
 	private void creatPDF() {
 		Document document = new Document();
@@ -345,12 +337,12 @@ public class ShowOrdersController implements Initializable {
 						PdfPCell cell2 = new PdfPCell();
 
 						Paragraph p = new Paragraph(new Phrase(
-								"Numéro de commande : " + orderTV.getId()
+								"Numï¿½ro de commande : " + orderTV.getId()
 										+ "\n", boldFontHeaderFields));
-						p.add(new Phrase("Numéro du client          : "
+						p.add(new Phrase("Numï¿½ro du client          : "
 								+ orderTV.getClient_id() + "\n",
 								boldFontHeaderFields));
-						p.add(new Phrase("Numéro du vendeur     : "
+						p.add(new Phrase("Numï¿½ro du vendeur     : "
 								+ orderTV.getAssociated_vendor(),
 								boldFontHeaderFields));
 
@@ -399,8 +391,8 @@ public class ShowOrdersController implements Initializable {
 							boldFont));
 
 					p3.add(new Phrase("Date : "));
-					p3.add(new Phrase(orderTV.getOrdered_at_formated(),
-							boldFont));
+					p3.add(new Phrase(StringUtils.formatDate(orderTV
+							.getOrdered_at()), boldFont));
 
 					p3.setSpacingBefore(10f);
 					p3.setSpacingAfter(10f);
@@ -417,7 +409,7 @@ public class ShowOrdersController implements Initializable {
 
 					Font boldFontDetails = new Font(Font.FontFamily.HELVETICA,
 							18, Font.BOLD);
-					Paragraph p4 = new Paragraph(new Phrase("Détails : ",
+					Paragraph p4 = new Paragraph(new Phrase("Dï¿½tails : ",
 							boldFontDetails));
 					p4.setIndentationLeft(20f);
 					p4.setSpacingAfter(50f);
@@ -451,7 +443,8 @@ public class ShowOrdersController implements Initializable {
 					p7.setSpacingAfter(30f);
 					p7.add(new Phrase(
 							"Le : "
-									+ orderTV.getOrdered_at_formated()
+									+ StringUtils.formatDate(orderTV
+											.getOrdered_at())
 									+ "                                                  Signature : ",
 							boldFontTotal));
 					document.add(p7);
@@ -482,19 +475,18 @@ public class ShowOrdersController implements Initializable {
 						e2.printStackTrace();
 					}
 				}
-			}
-			else {
+			} else {
 				try {
 					CustomInfoBox customDialogBox = new CustomInfoBox(
 							stage,
-							"Ce fichier est déjà ouvert, veuillez le fermer puis réessayez de nouveau.",
+							"Ce fichier est dï¿½jï¿½ ouvert, veuillez le fermer puis rï¿½essayez de nouveau.",
 							"Ok", "#000000");
 					customDialogBox.btn
 							.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(ActionEvent event) {
-									stage = (Stage) customDialogBox.btn.getScene()
-											.getWindow();
+									stage = (Stage) customDialogBox.btn
+											.getScene().getWindow();
 									stage.close();
 								}
 							});
@@ -502,7 +494,7 @@ public class ShowOrdersController implements Initializable {
 					e2.printStackTrace();
 				}
 			}
-		} 
+		}
 	}
 
 	private void creatTablePDF(PdfPTable table, OrderTV orderTV) {
@@ -521,11 +513,11 @@ public class ShowOrdersController implements Initializable {
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Prix ajusté ($)", boldFont));
+		c1 = new PdfPCell(new Phrase("Prix ajustï¿½ ($)", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Quantité", boldFont));
+		c1 = new PdfPCell(new Phrase("Quantitï¿½", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 

@@ -9,6 +9,7 @@ import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomDialogBox;
+import com.devsolutions.camelus.utils.FXUtils;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -288,7 +289,7 @@ public class ShowClientsController implements Initializable {
 		stage.initOwner(motherGrid.getScene().getWindow());
 		stage.show();
 		Stage parentStage = (Stage) motherGrid.getScene().getWindow();
-		centerStage(parentStage, stage, 22);
+		FXUtils.centerStage(parentStage, stage, 22);
 	}
 
 	private void showConsultClientWindow(Client clientToShow) {
@@ -311,15 +312,7 @@ public class ShowClientsController implements Initializable {
 		stage.initOwner(motherGrid.getScene().getWindow());
 		stage.show();
 		Stage parentStage = (Stage) motherGrid.getScene().getWindow();
-		centerStage(parentStage, stage, 22);
-	}
-
-	private void centerStage(Stage parentStage, Stage childStage, int y) {
-		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
-				- childStage.getWidth() / 2);
-		childStage
-				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
-						.getHeight() / 2) + y);
+		FXUtils.centerStage(parentStage, stage, 22);
 	}
 
 	public void initData(MainWindowController mainWindowController) {

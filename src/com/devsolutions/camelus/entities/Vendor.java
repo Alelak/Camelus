@@ -6,6 +6,7 @@ public class Vendor {
 	private int id;
 	private String login;
 	private String password;
+	@SuppressWarnings("unused")
 	private String name;
 	private String fname;
 	private String lname;

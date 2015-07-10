@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.PasswordField?>
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.AddUpdateVendorController">
@@ -122,8 +123,8 @@
 
 				<TextField fx:id="textUsername" GridPane.rowIndex="0"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TextField fx:id="textPassword" GridPane.rowIndex="1"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<PasswordField  fx:id="textPassword" GridPane.rowIndex="1"
+					GridPane.ColumnIndex="1" maxWidth="235"></PasswordField>
 				<TextField fx:id="textFname" GridPane.rowIndex="2"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
 				<TextField fx:id="textLname" GridPane.rowIndex="3"

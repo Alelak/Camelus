@@ -140,8 +140,12 @@
 								icon="ICON_COGS" />
 						</graphic>
 						<items>
-							<MenuItem fx:id="categoriesMI" text="Categories" onAction="#categoriesmihandler"></MenuItem>
-							<MenuItem fx:id="CommissionsMI" text="Commissions"  onAction="#commissionsmihandler"></MenuItem>
+							<MenuItem fx:id="ProfileMi" onAction="#profilemihandler"
+								text="Profile"></MenuItem>
+							<MenuItem fx:id="categoriesMI" text="Categories"
+								onAction="#categoriesmihandler"></MenuItem>
+							<MenuItem fx:id="CommissionsMI" text="Commissions"
+								onAction="#commissionsmihandler"></MenuItem>
 							<MenuItem fx:id="UnitesMI" text="Unites" onAction="#unitsmihandler"></MenuItem>
 							<MenuItem fx:id="LogsMI" text="Logs" onAction="#logsmihandler"></MenuItem>
 						</items>

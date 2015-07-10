@@ -3,6 +3,7 @@ package com.devsolutions.camelus.utils;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
 public class FXUtils {
 	private static double initialX;
@@ -33,4 +34,13 @@ public class FXUtils {
 			}
 		});
 	}
+
+	public static void centerStage(Stage parentStage, Stage childStage, int y) {
+		childStage.setX(parentStage.getX() + parentStage.getWidth() / 2
+				- childStage.getWidth() / 2);
+		childStage
+				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
+						.getHeight() / 2) + y);
+	}
+
 }

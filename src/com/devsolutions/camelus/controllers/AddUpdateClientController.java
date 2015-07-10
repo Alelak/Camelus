@@ -5,29 +5,29 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.FXUtils;
+import com.devsolutions.camelus.utils.StringUtils;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class AddUpdateClientController implements Initializable {
-	private double initialX;
-	private double initialY;
 	private Client clientToUpdate;
 	private int index;
 	private Stage stage;
@@ -57,11 +57,12 @@ public class AddUpdateClientController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		addDraggableNode(titleBar);
-		
+		FXUtils.addDraggableNode(titleBar);
+
 		contact_telTxt
 				.setOnKeyReleased(e -> {
-					if (validatePhoneNumber(contact_telTxt.getText().trim())) {
+					if (StringUtils.validPhoneNumber(contact_telTxt.getText()
+							.trim())) {
 
 						contact_telTxt
 								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
@@ -81,7 +82,8 @@ public class AddUpdateClientController implements Initializable {
 						if (!newPropertyValue) {
 							if (contact_telTxt.getText().isEmpty())
 								contact_telTxt.setStyle("-fx-border-width: 0;");
-							if (validatePhoneNumber(contact_telTxt.getText())) {
+							if (StringUtils.validPhoneNumber(contact_telTxt
+									.getText().trim())) {
 								String regex = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$";
 								Pattern pattern = Pattern.compile(regex);
 								Matcher matcher = pattern
@@ -96,7 +98,8 @@ public class AddUpdateClientController implements Initializable {
 
 		contact_emailTxt
 				.setOnKeyReleased(e -> {
-					if (validateEmail(contact_emailTxt.getText().trim())) {
+					if (StringUtils.validEmail(contact_emailTxt.getText()
+							.trim())) {
 						contact_emailTxt
 								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
 					} else {
@@ -115,7 +118,8 @@ public class AddUpdateClientController implements Initializable {
 							if (contact_emailTxt.getText().isEmpty())
 								contact_emailTxt
 										.setStyle("-fx-border-width: 0;");
-							if (validateEmail(contact_emailTxt.getText())) {
+							if (StringUtils.validEmail(contact_emailTxt
+									.getText().trim())) {
 								contact_emailTxt
 										.setStyle("-fx-border-width: 0;");
 							}
@@ -163,27 +167,27 @@ public class AddUpdateClientController implements Initializable {
 
 					if (clientToUpdate == null) {
 						if (ClientByEntrepriseAndClientName != null) {
-							feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe déjà. \n";
+							feedbackmsg += "La combinaison de nom de l'entreprise et nom du client existe dï¿½jï¿½. \n";
 							valid = false;
 						}
 					}
-					if (!validatePhoneNumber(phoneNumber)) {
-						feedbackmsg += "Vous devez saisir un numéro de téléphone valide. \n";
+					if (!StringUtils.validPhoneNumber((phoneNumber))) {
+						feedbackmsg += "Vous devez saisir un numï¿½ro de tï¿½lï¿½phone valide. \n";
 						valid = false;
 					}
 
-					if (!validateEmail(email)) {
+					if (!StringUtils.validEmail(email)) {
 						feedbackmsg += "Vous devez saisir une adresse email valide. \n";
 						valid = false;
 					}
 
 					if (valid) {
-						if (clientToUpdate != null){
+						if (clientToUpdate != null) {
 							client.setId(clientToUpdate.getId());
 							ClientManager.update(client);
 							showClientsController.updateTable(index, client);
 							showClientsController.selectTheModifierRow(index);
-						} else{
+						} else {
 							ClientManager.add(client);
 							showClientsController.addToTable(client);
 							showClientsController.showTableView();
@@ -210,38 +214,10 @@ public class AddUpdateClientController implements Initializable {
 				});
 	}
 
-	private boolean validatePhoneNumber(String phoneNo) {
-		String regex = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(phoneNo);
-		return matcher.matches();
-	}
-
-	private boolean validateEmail(String email) {
-		Pattern ptr = Pattern
-				.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
-		return (ptr.matcher(email).matches()) ? true : false;
-	}
-
 	@FXML
 	private void CloseWindow() {
 		Stage stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
-	}
-
-	private void addDraggableNode(final Node node) {
-		node.setOnMousePressed(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				initialX = e.getSceneX();
-				initialY = e.getSceneY();
-			}
-		});
-		node.setOnMouseDragged(e -> {
-			if (e.getButton() != MouseButton.MIDDLE) {
-				node.getScene().getWindow().setX(e.getScreenX() - initialX);
-				node.getScene().getWindow().setY(e.getScreenY() - initialY);
-			}
-		});
 	}
 
 	public void initStageAndData(ShowClientsController showClientsController,
@@ -272,7 +248,5 @@ public class AddUpdateClientController implements Initializable {
 		addressTxt.setText(client.getAddress());
 		descriptionTxt.setText(client.getDescription());
 	}
-	
-	
-	
+
 }

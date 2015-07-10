@@ -293,6 +293,17 @@ public class MainWindowController implements Initializable {
 		openMenuWindows("logs");
 	}
 
+	@FXML
+	public void profilemihandler() {
+		if (Session.admin != null) {
+			// admin
+
+		} else {
+			// vendor
+		}
+
+	}
+
 	private void openMenuWindows(String filename) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(

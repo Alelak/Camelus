@@ -18,7 +18,7 @@
 
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowVendorDetailsController">
+	fx:controller="com.devsolutions.camelus.controllers.ProfileController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="10" />
