@@ -12,7 +12,7 @@ public interface AuditMapper {
 	@Options(flushCache = true)
 	void insert(Audit audit);
 
-	@Select("SELECT * FROM audits")
+	@Select("SELECT * FROM audits LIMIT 1000")
 	List<Audit> getAll();
 
 }

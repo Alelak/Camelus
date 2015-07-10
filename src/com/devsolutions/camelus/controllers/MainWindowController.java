@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -61,6 +62,15 @@ public class MainWindowController implements Initializable {
 	private HBox outerToolbarHbox;
 	@FXML
 	private MenuButton settingsmenubutton;
+	@FXML
+	private MenuItem categoriesMI;
+	@FXML
+	private MenuItem CommissionsMI;
+	@FXML
+	private MenuItem UnitesMI;
+	@FXML
+	private MenuItem LogsMI;
+
 	private static final String BACKGROUND_CAMELUS_BLUE = "-fx-background-color: -camelus-blue;";
 	private static final String BACKGROUND_CAMELUS_LIGHT_BLUE = "-fx-background-color: -camelus-light-blue; ";
 
@@ -74,6 +84,8 @@ public class MainWindowController implements Initializable {
 		} else if (Session.admin.getSuper_admin() == 0) {
 			GridPane.setMargin(outerToolbarHbox, new Insets(0, 60, 0, 0));
 			innerToolbarHbox.getChildren().remove(tbadminsbtn);
+		} else {
+			// super admin
 		}
 		tbacceuilbtn.setStyle(BACKGROUND_CAMELUS_LIGHT_BLUE);
 		switchScene("home");
@@ -274,6 +286,11 @@ public class MainWindowController implements Initializable {
 	@FXML
 	public void unitsmihandler() {
 		openMenuWindows("units");
+	}
+
+	@FXML
+	public void logsmihandler() {
+		openMenuWindows("logs");
 	}
 
 	private void openMenuWindows(String filename) {
