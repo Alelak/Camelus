@@ -20,6 +20,11 @@ public interface OrderLineMapper {
 			+ " FROM order_lines INNER JOIN products ON order_lines.product_id = products.id"
 			+ " WHERE order_id = #{order_id}")
 	List<OrderLineTV> getByOrderId(long order_id);
+	
+	@Select("SELECT upc, name, selling_price, modified_price, order_lines.quantity"
+			+ " FROM order_lines INNER JOIN products ON order_lines.product_id = products.id"
+			+ " INNER JOIN orders ON orders.id = order_id")
+	List<OrderLineTV> getAll();
 
 	@Select("SELECT * FROM order_lines WHERE product_id = #{product_id}")
 	List<OrderLine> getByProductId(long product_id);

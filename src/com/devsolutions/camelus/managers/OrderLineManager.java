@@ -17,6 +17,14 @@ public class OrderLineManager {
 		session.commit();
 		session.close();
 	}
+	
+	public static List<OrderLineTV> getAll() {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<OrderLineTV> orderLinesTV = session.getMapper(
+				OrderLineMapper.class).getAll();
+		session.close();
+		return orderLinesTV;
+	}
 
 	public static List<OrderLineTV> getByOrderId(long order_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();

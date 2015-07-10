@@ -301,10 +301,8 @@ public class ShowVendorsController implements Initializable {
 					if (!yearComboBoxIsEmpty())
 						selectedYearId = yearComboBox.getSelectionModel()
 								.getSelectedItem().getId();
-					int selectedMonthId = monthComboBox.getSelectionModel()
-							.getSelectedItem().getId();
 
-					if (selectedYearId > 0 && selectedMonthId > 0) {
+					if (selectedYearId > 0) {
 						comissionBtnAction();
 						creatPDF();
 					} else {
@@ -313,7 +311,7 @@ public class ShowVendorsController implements Initializable {
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									parentStage,
-									"Il faut choisir un mois et une annï¿½e pour gï¿½nï¿½rer un rapport.",
+									"Il faut choisir au moins une année pour générer un rapport.",
 									"Ok", "#303030");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
@@ -362,44 +360,11 @@ public class ShowVendorsController implements Initializable {
 					monthComboBox.getSelectionModel().select(0);
 				});
 
-		monthComboBox
-				.getSelectionModel()
-				.selectedItemProperty()
-				.addListener(
-						(obs, oldSelection, newSelection) -> {
-
-							int selectedYearId = 0;
-							if (!yearComboBoxIsEmpty())
-								selectedYearId = yearComboBox
-										.getSelectionModel().getSelectedItem()
-										.getId();
-
-							if (newSelection != null
-									&& newSelection.getId() > 0
-									&& selectedYearId > 0) {
-								// commissionBtn.setDisable(false);
-							} else {
-								// commissionBtn.setDisable(true);
-							}
-						});
-
-		yearComboBox
-				.getSelectionModel()
-				.selectedItemProperty()
-				.addListener(
-						(obs, oldSelection, newSelection) -> {
-							int selectedMonthId = monthComboBox
-									.getSelectionModel().getSelectedItem()
-									.getId();
-
-							if (newSelection != null && selectedMonthId > 0
-									&& newSelection.getId() > 0) {
-								// commissionBtn.setDisable(false);
-							} else {
-								// commissionBtn.setDisable(true);
-							}
-							initMonthComboBox();
-						});
+		yearComboBox.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null)
+						initMonthComboBox();
+				});
 
 	}
 
@@ -430,9 +395,14 @@ public class ShowVendorsController implements Initializable {
 		FileChooser fileChooser = new FileChooser();
 
 		fileChooser.setTitle("Exporter le rapport de commission");
-		String defaultFileName = "Rapport-de-commission_" + vendor.getFname()
-				+ "-" + vendor.getLname() + "(" + selectedMonth + "-"
-				+ selectedYear + ").pdf";
+		String defaultFileName = "";
+		if (selectedMonth > 0)
+			defaultFileName = "Rapport-de-commission_" + vendor.getFname()
+					+ "-" + vendor.getLname() + "(" + selectedMonth + "-"
+					+ selectedYear + ").pdf";
+		else
+			defaultFileName = "Rapport-de-commission_" + vendor.getFname()
+					+ "-" + vendor.getLname() + "(" + selectedYear + ").pdf";
 		fileChooser.setInitialFileName(defaultFileName);
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
 				"PDF Files", "*.pdf");
@@ -478,9 +448,14 @@ public class ShowVendorsController implements Initializable {
 				p2.setSpacingAfter(30f);
 				document.add(p2);
 
-				Paragraph p3 = new Paragraph("("
-						+ StringUtils.monthName(selectedMonth) + " - "
-						+ selectedYear + ")", boldFontTitle);
+				Paragraph p3 = null;
+				if (selectedMonth > 0)
+					p3 = new Paragraph("("
+							+ StringUtils.monthName(selectedMonth) + " - "
+							+ selectedYear + ")", boldFontTitle);
+				else
+					p3 = new Paragraph("(" + selectedYear + ")", boldFontTitle);
+
 				p3.setAlignment(Element.ALIGN_CENTER);
 
 				p3.setSpacingAfter(50f);
@@ -508,21 +483,37 @@ public class ShowVendorsController implements Initializable {
 			try {
 				Runtime.getRuntime().exec(params);
 			} catch (Exception ex) {
-				System.out.println("failed");
+				try {
+					CustomInfoBox customDialogBox = new CustomInfoBox(stage,
+							"Impossible d'ouvrir ce fichier!", "Ok", "#ff0000");
+					customDialogBox.btn
+							.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent event) {
+									stage = (Stage) customDialogBox.btn
+											.getScene().getWindow();
+									stage.close();
+								}
+							});
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
 			}
-		} else {
-			System.out.println("no file");
 		}
 	}
 
 	private void creatTablePDF(PdfPTable table, double totaSales,
 			double totalCommission, Document document) {
 
+		int selectedMonth = monthComboBox.getSelectionModel().getSelectedItem()
+				.getId();
+
 		Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
 		PdfPTable tableNoItems = new PdfPTable(1);
+
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
+				"Aucune vente n'a été effectuée durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -565,7 +556,8 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a ï¿½tï¿½ effectuï¿½e durant ce mois.", boldFont));
+					"Aucune vente n'a été effectuée durant ce mois.", boldFont));
+
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			c1.setColspan(4);
@@ -600,62 +592,133 @@ public class ShowVendorsController implements Initializable {
 		List<OrderTV> orders = OrderManager.getByVendorId(vendor.getId());
 		List<OrderTV> ordersNeeded = new ArrayList<OrderTV>();
 
-		for (OrderTV orderTV : orders) {
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(orderTV.getOrdered_at());
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH);
-
-			if (month + 1 == selectedMonth && year == selectedYear) {
-				ordersNeeded.add(orderTV);
-			}
-
-		}
-
 		List<OrderLineTV> orderLinesTVNeeded = new ArrayList<OrderLineTV>();
 		List<VendorReport> commissionTVList = new ArrayList<VendorReport>();
-		Commission commission = CommissionManager.getById(vendor
-				.getCommission_id());
-		for (OrderTV orderTV : ordersNeeded) {
-			List<OrderLineTV> orderLinesTV = OrderLineManager
-					.getByOrderId(orderTV.getId());
-			for (OrderLineTV orderLineTV : orderLinesTV) {
-				orderLinesTVNeeded.add(orderLineTV);
+
+		if (selectedMonth == 0) {
+			orders = OrderManager.getAllTV();
+			Commission commission = CommissionManager.getById(vendor
+					.getCommission_id());
+			for (OrderTV order : orders) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(order.getOrdered_at());
+				int year = cal.get(Calendar.YEAR);
+
+				if (year == selectedYear
+						&& order.getAssociated_vendor() == vendor
+								.getCommission_id()) {
+
+					List<OrderLineTV> orderLinesTV = OrderLineManager
+							.getByOrderId(order.getId());
+
+					double totalSale = 0;
+					double commissionAmount = 0;
+
+					for (OrderLineTV orderLineTV : orderLinesTV) {
+						totalSale += orderLineTV.getTotal();
+					}
+
+					if (totalSale >= commission.getMcondition()) {
+
+						if (commission.getType() == 0) {
+							commissionAmount = (totalSale * commission
+									.getRate()) / 100;
+						} else
+							commissionAmount = commission.getRate();
+					}
+
+					VendorReport commissionTV = new VendorReport();
+					commissionTV.setClient_id(order.getClient_id());
+					commissionTV.setEntreprise_name(order.getEnterprise_name());
+					commissionTV.setTotal_sale(totalSale);
+					commissionTV.setTotal_commission(commissionAmount);
+
+					commissionTVList.add(commissionTV);
+				}
 			}
 
-			double totalSale = 0;
+			for (OrderTV orderTV : ordersNeeded) {
 
-			double commissionAmount = 0;
-			for (OrderLineTV orderLineTV : orderLinesTVNeeded) {
-				totalSale += orderLineTV.getTotal();
+				double totalSale = 0;
+				double commissionAmount = 0;
+
+				for (OrderLineTV orderLineTV : orderLinesTVNeeded) {
+					totalSale += orderLineTV.getTotal();
+				}
+
+				if (totalSale >= commission.getMcondition()) {
+
+					if (commission.getType() == 0) {
+						commissionAmount = (totalSale * commission.getRate()) / 100;
+					} else
+						commissionAmount = commission.getRate();
+				}
+
+				VendorReport commissionTV = new VendorReport();
+				commissionTV.setClient_id(orderTV.getClient_id());
+				commissionTV.setEntreprise_name(orderTV.getEnterprise_name());
+				commissionTV.setTotal_sale(totalSale);
+				commissionTV.setTotal_commission(commissionAmount);
+
+				commissionTVList.add(commissionTV);
 			}
 
-			if (totalSale >= commission.getMcondition()) {
+		} else {
+			for (OrderTV orderTV : orders) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(orderTV.getOrdered_at());
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
 
-				if (commission.getType() == 0) {
-					commissionAmount = (totalSale * commission.getRate()) / 100;
-				} else
-					commissionAmount = commission.getRate();
+				if (month + 1 == selectedMonth && year == selectedYear) {
+					ordersNeeded.add(orderTV);
+				}
 			}
 
-			VendorReport commissionTV = new VendorReport();
-			commissionTV.setClient_id(orderTV.getClient_id());
-			commissionTV.setEntreprise_name(orderTV.getEnterprise_name());
-			commissionTV.setTotal_sale(totalSale);
-			commissionTV.setTotal_commission(commissionAmount);
+			Commission commission = CommissionManager.getById(vendor
+					.getCommission_id());
+			for (OrderTV orderTV : ordersNeeded) {
+				List<OrderLineTV> orderLinesTV = OrderLineManager
+						.getByOrderId(orderTV.getId());
+				for (OrderLineTV orderLineTV : orderLinesTV) {
+					orderLinesTVNeeded.add(orderLineTV);
+				}
+				double totalSale = 0;
+				double commissionAmount = 0;
 
-			commissionTVList.add(commissionTV);
+				for (OrderLineTV orderLineTV : orderLinesTVNeeded) {
+					totalSale += orderLineTV.getTotal();
+				}
+
+				if (totalSale >= commission.getMcondition()) {
+
+					if (commission.getType() == 0) {
+						commissionAmount = (totalSale * commission.getRate()) / 100;
+					} else
+						commissionAmount = commission.getRate();
+				}
+
+				VendorReport commissionTV = new VendorReport();
+				commissionTV.setClient_id(orderTV.getClient_id());
+				commissionTV.setEntreprise_name(orderTV.getEnterprise_name());
+				commissionTV.setTotal_sale(totalSale);
+				commissionTV.setTotal_commission(commissionAmount);
+
+				commissionTVList.add(commissionTV);
+			}
+
 		}
 
 		currentCommissionTVList.clear();
 		currentCommissionTVList.addAll(commissionTVList);
+
 	}
 
 	private void resetComboBox() {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Annï¿½e"));
+		yearObservableList.add(new Choice(0, "Année"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -668,19 +731,8 @@ public class ShowVendorsController implements Initializable {
 		return yes;
 	}
 
-	private boolean monthComboBoxIsEmpty() {
-		boolean yes = true;
-		if (monthComboBox.getItems().size() > 0)
-			yes = false;
-
-		return yes;
-	}
-
 	private void initMonthComboBox() {
-		int selectedMonthId = 0;
-		if (!monthComboBoxIsEmpty())
-			selectedMonthId = monthComboBox.getSelectionModel()
-					.getSelectedItem().getId();
+
 		monthComboBox.getItems().clear();
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
@@ -705,15 +757,12 @@ public class ShowVendorsController implements Initializable {
 						+ StringUtils.monthName(i)));
 			}
 		}
-		monthComboBox.setItems(monthObservableList);
-		if (monthComboBox.getItems().size() > 0
-				&& selectedMonthId > monthComboBox.getItems()
-						.get(monthComboBox.getItems().size() - 1).getId()) {
-			monthComboBox.getSelectionModel().select(0);
-		} else {
-			monthComboBox.getSelectionModel().select(selectedMonthId);
-		}
+		if (yearComboBox.getItems().size() == 1)
+			monthComboBox.getItems().add(new Choice(0, "Aucune vente"));
+		else
+			monthComboBox.setItems(monthObservableList);
 
+		monthComboBox.getSelectionModel().select(0);
 	}
 
 	private void initComboBox() {
@@ -723,7 +772,8 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Annï¿½e"));
+		yearsObservableList.add(new Choice(0, "Année"));
+
 		for (OrderTV orderTV : orders) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());
@@ -731,6 +781,18 @@ public class ShowVendorsController implements Initializable {
 
 			if (!exist(yearsObservableList, year))
 				yearsObservableList.add(new Choice(year, "" + year));
+		}
+
+		if (yearsObservableList.size() == 1) {
+			ObservableList<Choice> monthObservableList = FXCollections
+					.observableArrayList();
+			monthObservableList.add(new Choice(0, "Aucune vente"));
+
+			yearsObservableList.clear();
+			yearsObservableList.add(new Choice(0, "Aucune vente"));
+
+			monthComboBox.getItems().clear();
+			monthComboBox.setItems(monthObservableList);
 		}
 
 		yearComboBox.setItems(yearsObservableList);
