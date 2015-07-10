@@ -20,9 +20,17 @@ public class OrderManager {
 		session.getMapper(OrderMapper.class).add(order);
 		session.commit();
 		session.close();
-		AuditUtils.getAuditingService().setAudit(
-				new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
-						"a ajouter une  commande id : " + order.getId()));
+		if (Session.vendor != null) {
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
+							"a ajouter une  commande id : " + order.getId()));
+		}
+		else
+		{
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
+							"a ajouter une  commande id : " + order.getId()));
+		}
 		AuditUtils.getAuditingService().start();
 	}
 
@@ -68,9 +76,16 @@ public class OrderManager {
 		session.getMapper(OrderMapper.class).cancel(id);
 		session.commit();
 		session.close();
+		if (Session.vendor != null) {
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
-						"a modifier une commande id : " + id));
+						"a annulé une commande id : " + id));
+		}else
+		{
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
+							"a annulé une commande id : " + id));
+		}
 		AuditUtils.getAuditingService().start();
 	}
 }

@@ -10,7 +10,7 @@
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import java.net.*?>
 <?import javafx.geometry.Insets?>
-<GridPane id="motherGrid" prefWidth="1037.0" maxHeight="550"
+<GridPane id="motherGrid" prefWidth="1216.0" maxHeight="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.TakeOrderController">
 
@@ -89,12 +89,11 @@
 						</BorderPane>
 						<BorderPane>
 							<left>
-								<Pane prefHeight="396.0" prefWidth="20.0"
+								<Pane prefHeight="396.0" prefWidth="10.0"
 									BorderPane.alignment="CENTER" />
 							</left>
 							<right>
-								<Pane prefHeight="200.0" prefWidth="20.0"
-									BorderPane.alignment="CENTER" />
+								<Pane prefHeight="200.0" BorderPane.alignment="CENTER" />
 							</right>
 							<center>
 								<VBox prefWidth="475.0" BorderPane.alignment="CENTER">
@@ -105,15 +104,15 @@
 													<children>
 														<BorderPane>
 															<left>
-																<HBox BorderPane.alignment="CENTER">
+																<HBox>
 																	<children>
-																		<Label text="Client :">
+																		<Label text="Vendeur :">
 																			<HBox.margin>
 																				<Insets top="13.0" />
 																			</HBox.margin>
 																		</Label>
-																		<ComboBox fx:id="clientComboBox" editable="true"
-																			prefWidth="150.0">
+																		<ComboBox fx:id="vendorComboBox" editable="true"
+																			prefWidth="120.0">
 																			<HBox.margin>
 																				<Insets bottom="10.0" left="10.0" top="10.0" />
 																			</HBox.margin>
@@ -121,8 +120,30 @@
 																	</children>
 																</HBox>
 															</left>
+
+															<center>
+																<HBox>
+																	<children>
+																		<Label text="Client :">
+																			<HBox.margin>
+																				<Insets top="13.0" />
+																			</HBox.margin>
+																		</Label>
+																		<ComboBox fx:id="clientComboBox" editable="true"
+																			prefWidth="120.0">
+																			<HBox.margin>
+																				<Insets bottom="10.0" left="10.0" top="10.0" />
+																			</HBox.margin>
+																		</ComboBox>
+																	</children>
+																</HBox>
+																<BorderPane.margin>
+																	<Insets left="15.0" right="15.0" />
+																</BorderPane.margin>
+															</center>
+
 															<right>
-																<HBox BorderPane.alignment="CENTER">
+																<HBox>
 																	<children>
 																		<Label text="Produit : ">
 																			<HBox.margin>
@@ -130,7 +151,7 @@
 																			</HBox.margin>
 																		</Label>
 																		<ComboBox fx:id="productComboBox" editable="true"
-																			prefWidth="150.0">
+																			prefWidth="120.0">
 																			<HBox.margin>
 																				<Insets bottom="10.0" left="10.0" top="10.0" />
 																			</HBox.margin>
@@ -138,9 +159,7 @@
 																	</children>
 																</HBox>
 															</right>
-															<center>
-																<Pane minWidth="40.0" BorderPane.alignment="CENTER" />
-															</center>
+
 															<HBox.margin>
 																<Insets bottom="10.0" top="10.0" />
 															</HBox.margin>
@@ -151,16 +170,7 @@
 													</padding>
 												</HBox>
 											</center>
-											<left>
-												<Pane prefWidth="10.0" BorderPane.alignment="CENTER">
-													<BorderPane.margin>
-														<Insets />
-													</BorderPane.margin>
-												</Pane>
-											</left>
-											<right>
-												<Pane prefWidth="10.0" BorderPane.alignment="CENTER" />
-											</right>
+
 										</BorderPane>
 										<BorderPane>
 											<center>
@@ -387,7 +397,7 @@
 												</HBox>
 											</center>
 											<left>
-												<Pane prefHeight="200.0" prefWidth="10.0"
+												<Pane prefHeight="200.0" prefWidth="60.0"
 													BorderPane.alignment="CENTER" />
 											</left>
 											<right>
@@ -404,7 +414,8 @@
 								<Button disable="true" prefWidth="120" styleClass="flat-btn"
 									fx:id="addOrderLineBtn" text="Ajouter" BorderPane.alignment="CENTER">
 									<graphic>
-										<FontAwesomeIconView styleClass="whiteFont" icon="ICON_PLUS" />
+										<FontAwesomeIconView styleClass="whiteFont"
+											icon="ICON_PLUS" />
 									</graphic>
 								</Button>
 
@@ -493,39 +504,36 @@
 											GridPane.columnIndex="1">
 											<center>
 												<Button prefWidth="120" styleClass="flat-btn" fx:id="editBtn"
-													text="Modifier"  disable="true"
-													BorderPane.alignment="CENTER">
+													text="Modifier" disable="true" BorderPane.alignment="CENTER">
 													<graphic>
 														<FontAwesomeIconView styleClass="whiteFont"
 															icon="ICON_PENCIL" />
 													</graphic>
-													</Button>
+												</Button>
 											</center>
 										</BorderPane>
 										<BorderPane prefHeight="200.0" prefWidth="200.0"
 											GridPane.columnIndex="2">
 											<center>
 												<Button prefWidth="120" styleClass="flat-btn" fx:id="removeBtn"
-													text="Enlever" disable="true"
-													BorderPane.alignment="CENTER">
+													text="Enlever" disable="true" BorderPane.alignment="CENTER">
 													<graphic>
 														<FontAwesomeIconView styleClass="whiteFont"
 															icon="ICON_MINUS" />
 													</graphic>
-													</Button>
+												</Button>
 											</center>
 										</BorderPane>
 										<BorderPane prefHeight="200.0" prefWidth="200.0"
 											GridPane.columnIndex="3">
 											<center>
 												<Button prefWidth="120" styleClass="flat-btn" fx:id="resetBtn"
-													text="Ré-initialiser" 
-													BorderPane.alignment="CENTER">
+													text="Ré-initialiser" BorderPane.alignment="CENTER">
 													<graphic>
 														<FontAwesomeIconView styleClass="whiteFont"
 															icon="ICON_REFRESH" />
 													</graphic>
-													</Button>
+												</Button>
 											</center>
 										</BorderPane>
 									</children>

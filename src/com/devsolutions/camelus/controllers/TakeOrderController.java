@@ -45,6 +45,7 @@ import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
+import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.devsolutions.camelus.utils.FXUtils;
@@ -59,6 +60,8 @@ public class TakeOrderController implements Initializable {
 	private ComboBox<Product> productComboBox;
 	@FXML
 	private ComboBox<Client> clientComboBox;
+	@FXML
+	private ComboBox<Vendor> vendorComboBox;
 
 	@FXML
 	private Label upcLabel;
@@ -115,17 +118,18 @@ public class TakeOrderController implements Initializable {
 	private List<Client> clients;
 
 	private ObservableList<ProductToOrderTV> productToOrderObservableList;
+	private ObservableList<Vendor> vendorObservableList;
 
 	private ProductToOrderTV currentProductToOrderTV;
 
 	private Client currentClient;
 	private Product currentProduct;
-	private Vendor currentVendor;
 	private Stage stage;
 
 	private ShowOrdersController showOrdersController;
 	private SimpleBooleanProperty productfound;
 	private SimpleBooleanProperty clientfound;
+	private SimpleBooleanProperty vendorfound;
 	private List<Category> categories;
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
@@ -140,23 +144,21 @@ public class TakeOrderController implements Initializable {
 
 		FXUtils.addDraggableNode(titleBar);
 		initTableView();
-		
+
 		productfound = new SimpleBooleanProperty();
 		clientfound = new SimpleBooleanProperty();
+		vendorfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
 		unites = UnitManager.getAll();
 		noImage = productImage.getImage();
 
-		currentVendor = Session.vendor;
 
 		products = ProductManager.getAll();
-		if (Session.admin != null){
+		if (Session.admin != null) {
 			clients = ClientManager.getAll();
-		}else{
-			clients = ClientManager.getByVendorId(currentVendor.getId());
+		} else {
+			clients = ClientManager.getByVendorId(Session.vendor.getId());
 		}
-		
-		
 
 		productObservableList = FXCollections.observableArrayList();
 		productObservableList.addAll(products);
@@ -164,11 +166,19 @@ public class TakeOrderController implements Initializable {
 		clientObservableList = FXCollections.observableArrayList();
 		clientObservableList.addAll(clients);
 
+		if (Session.vendor != null) {
+			vendorObservableList = FXCollections.observableArrayList();
+			vendorObservableList.add(Session.vendor);
+			vendorComboBox.getSelectionModel().select(Session.vendor);
+		} else
+			vendorObservableList = FXCollections
+					.observableArrayList(VendorManager.getAll());
+		vendorComboBox.setItems(vendorObservableList);
 		productComboBox.setItems(productObservableList);
 		clientComboBox.setItems(clientObservableList);
-
 		new AutoCompleteComboBoxListener<Product>(productComboBox);
 		new AutoCompleteComboBoxListener<Client>(clientComboBox);
+		new AutoCompleteComboBoxListener<Vendor>(vendorComboBox);
 
 		addOrderLineBtn
 				.setOnAction(e -> {
@@ -242,6 +252,10 @@ public class TakeOrderController implements Initializable {
 						if (!clientComboBox.isDisabled()) {
 							clientComboBox.setDisable(true);
 						}
+
+						if (!vendorComboBox.isDisabled()) {
+							vendorComboBox.setDisable(true);
+						}
 						currentProductToOrderTV = new ProductToOrderTV();
 						currentProductToOrderTV.setQuantity(Integer
 								.parseInt(quantity));
@@ -307,6 +321,7 @@ public class TakeOrderController implements Initializable {
 			addOrderLineBtn.setText("Modifier");
 			if (orderLinesTableView.getItems().size() == 1) {
 				clientComboBox.setDisable(false);
+				vendorComboBox.setDisable(false);
 			}
 
 		});
@@ -322,6 +337,7 @@ public class TakeOrderController implements Initializable {
 			if (orderLinesTableView.getItems().size() == 0) {
 				takeOrderBtn.setDisable(true);
 				clientComboBox.setDisable(false);
+				vendorComboBox.setDisable(false);
 			}
 		});
 
@@ -332,13 +348,15 @@ public class TakeOrderController implements Initializable {
 			initForm();
 			takeOrderBtn.setDisable(true);
 			clientComboBox.setDisable(false);
+			vendorComboBox.setDisable(false);
 		});
 
 		takeOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = new OrderTV();
+			Vendor vendor = vendorComboBox.getItems().get(vendorComboBox.getSelectionModel().getSelectedIndex());
 
 			Order order = new Order();
-			order.setVendor_id(currentVendor.getId());
+			order.setVendor_id(vendor.getId());
 			order.setClient_id(currentClient.getId());
 			order.setComment(commentTextArea.getText());
 
@@ -360,11 +378,12 @@ public class TakeOrderController implements Initializable {
 			orderTV.setClient_id(order.getClient_id());
 			orderTV.setId(order.getId());
 			orderTV.setComment(order.getComment());
-			orderTV.setAssociated_vendor(Session.vendor.getId());
-			orderTV.setCommission_id(currentVendor.getCommission_id());
+		
+			orderTV.setAssociated_vendor(vendor.getId());
+			orderTV.setCommission_id(vendor.getCommission_id());
 			orderTV.setEnterprise_name(currentClient.getEnterprise_name());
-			orderTV.setFname(currentVendor.getFname());
-			orderTV.setLname(currentVendor.getLname());
+			orderTV.setFname(vendor.getFname());
+			orderTV.setLname(vendor.getLname());
 			orderTV.setOrdered_at(new Date());
 
 			for (ProductToOrderTV productToOrderTV : orderLinesTableView
@@ -400,7 +419,8 @@ public class TakeOrderController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable,
 					Boolean oldValue, Boolean newValue) {
 				if (newValue.booleanValue() == true
-						&& clientfound.get() == true) {
+						&& clientfound.get() == true
+						&& vendorfound.get() == true) {
 					addOrderLineBtn.setDisable(false);
 				} else {
 					addOrderLineBtn.setDisable(true);
@@ -415,6 +435,25 @@ public class TakeOrderController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable,
 					Boolean oldValue, Boolean newValue) {
 				if (newValue.booleanValue() == true
+						&& productfound.get() == true
+						&& vendorfound.get() == true) {
+
+					addOrderLineBtn.setDisable(false);
+				} else {
+					addOrderLineBtn.setDisable(true);
+				}
+
+			}
+
+		});
+
+		vendorfound.addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				if (newValue.booleanValue() == true
+						&& clientfound.get() == true
 						&& productfound.get() == true) {
 
 					addOrderLineBtn.setDisable(false);
@@ -470,6 +509,13 @@ public class TakeOrderController implements Initializable {
 				clientfound.set(false);
 			}
 		});
+		vendorComboBox.setOnAction(e -> {
+			if (vendorComboBox.getSelectionModel().getSelectedIndex() > -1) {
+				vendorfound.set(true);
+			} else {
+				vendorfound.set(false);
+			}
+		});
 	}
 
 	private void initForm() {
@@ -495,8 +541,9 @@ public class TakeOrderController implements Initializable {
 				"modified_price"));
 
 		orderLinesTableView.setItems(productToOrderObservableList);
-		
-		orderLinesTableView.setPlaceholder(new Label("Aucun produit n'a pas été ajouté à la liste"));
+
+		orderLinesTableView.setPlaceholder(new Label(
+				"Aucun produit n'a pas été ajouté à la liste"));
 	}
 
 	public void addToTableView(ProductToOrderTV productToOrderTV) {
@@ -505,10 +552,6 @@ public class TakeOrderController implements Initializable {
 
 	public void updateTableView(int index, ProductToOrderTV productToOrderTV) {
 		orderLinesTableView.getItems().set(index, productToOrderTV);
-	}
-
-	public void initData(Vendor currentVendor) {
-		this.currentVendor = currentVendor;
 	}
 
 	public void initData(ShowOrdersController showOrdersController) {

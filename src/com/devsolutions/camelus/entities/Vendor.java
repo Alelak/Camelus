@@ -115,4 +115,5 @@ public class Vendor {
 		this.updated_at = updated_at;
 	}
 
+	@Override public String toString() { return login; }
 }
