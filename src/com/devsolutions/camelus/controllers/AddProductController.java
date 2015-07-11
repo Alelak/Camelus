@@ -1,12 +1,12 @@
 package com.devsolutions.camelus.controllers;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -27,8 +27,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
@@ -77,7 +75,6 @@ public class AddProductController implements Initializable {
 	private ChoiceBox<Choice> unit;
 	private Stage stage;
 	Product product;
-	private ByteArrayOutputStream baos = null;
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
@@ -86,18 +83,15 @@ public class AddProductController implements Initializable {
 	private boolean error = false;
 
 	private String errorMsg;
-	private String errorMsgImg;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listChoiceBoxUnit();
 		listChoiceBoxCategory();
-		errorMsg = "";
-		errorMsgImg = "";
 		FXUtils.addDraggableNode(titleBar);
 
-		btnAddImg.setOnAction(e -> {		
-				addPicture();
+		btnAddImg.setOnAction(e -> {
+			addPicture();
 		});
 
 		upc.setOnKeyReleased(e -> {
@@ -287,9 +281,8 @@ public class AddProductController implements Initializable {
 	}
 
 	public void listChoiceBoxUnit() {
-		List<Unit> unitList = UnitManager.getAll();
 		listChoiceUnit = FXCollections.observableArrayList();
-		for (Unit unit : unitList) {
+		for (Unit unit : UnitManager.getAll()) {
 			listChoiceUnit.add(new Choice(unit.getId(), unit.getDescription()));
 		}
 		unit.setItems(listChoiceUnit);
@@ -297,9 +290,8 @@ public class AddProductController implements Initializable {
 	}
 
 	public void listChoiceBoxCategory() {
-		List<Category> CategoryList = CategoryManager.getAll();
 		listChoiceCategory = FXCollections.observableArrayList();
-		for (Category category : CategoryList) {
+		for (Category category : CategoryManager.getAll()) {
 			listChoiceCategory.add(new Choice(category.getId(), category
 					.getDescription()));
 		}
@@ -345,10 +337,14 @@ public class AddProductController implements Initializable {
 	}
 
 	public void addPicture() {
+		File defaultDirectory = new File(System.getProperty("user.home")
+				+ "/Pictures");
 
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(defaultDirectory);
+		fileChooser.setTitle("Choisir une image");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"All Images", "*.jpg", "*.jpeg", "*.gif", "*.bmp");
+				"All Images", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -357,28 +353,18 @@ public class AddProductController implements Initializable {
 				double mb = file.length() / 1048576;
 
 				if (mb < 1) {
-					BufferedImage originalImage = ImageIO.read(file);
-					baos = new ByteArrayOutputStream();
-					ImageIO.write(originalImage, "jpg", baos);
-					baos.flush();
-					imageInByte = baos.toByteArray();
+					Path path = Paths.get(file.getAbsolutePath());
+					imageInByte = Files.readAllBytes(path);
 					Showimage();
+					btnAddImg.setText("Modifier Image");
 				} else {
-					errorMsgImg = "La taille de l`image est très grande veuillez choisie une autre image svp";
 					stage = (Stage) btnAddProduct.getScene().getWindow();
 					try {
-						CustomInfoBox customDialogBox = new CustomInfoBox(
-								stage, errorMsgImg, "Ok", "#282828");
-						customDialogBox.btn
-								.setOnAction(new EventHandler<ActionEvent>() {
-									@Override
-									public void handle(ActionEvent event) {
-										stage = (Stage) customDialogBox.btn
-												.getScene().getWindow();
-										errorMsgImg = "";
-										stage.close();
-									}
-								});
+						new CustomInfoBox(
+								stage,
+								"Choisissez une image avec une taille de 1MO ou moins",
+								"Ok");
+
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
@@ -395,10 +381,8 @@ public class AddProductController implements Initializable {
 	}
 
 	private void Showimage() {
-			ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
-			imageProduct.setImage(new Image(is));
-	
-			
+		ByteArrayInputStream is = new ByteArrayInputStream(imageInByte);
+		imageProduct.setImage(new Image(is));
 
 	}
 

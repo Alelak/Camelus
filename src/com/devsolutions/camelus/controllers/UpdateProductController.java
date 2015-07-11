@@ -1,11 +1,12 @@
 package com.devsolutions.camelus.controllers;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,9 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
 import com.devsolutions.camelus.entities.ProductTableView;
@@ -77,7 +75,6 @@ public class UpdateProductController implements Initializable {
 	private ChoiceBox<Choice> unit;
 	private Stage stage;
 
-	private ByteArrayOutputStream baos = null;
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
@@ -89,12 +86,10 @@ public class UpdateProductController implements Initializable {
 	private boolean error = false;
 
 	private String errorMsg;
-	private String errorMsgImg;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
-		errorMsgImg = "";
 		errorMsg = "";
 		upc.setOnKeyReleased(e -> {
 			if (upc.getText()
@@ -348,10 +343,14 @@ public class UpdateProductController implements Initializable {
 	}
 
 	public void addPicture() {
+		File defaultDirectory = new File(System.getProperty("user.home")
+				+ "/Pictures");
 
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(defaultDirectory);
+		fileChooser.setTitle("Choisir une image");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"All Images", "*.jpg", "*.jpeg", "*.gif", "*.bmp");
+				"All Images", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -360,28 +359,18 @@ public class UpdateProductController implements Initializable {
 				double mb = file.length() / 1048576;
 
 				if (mb < 1) {
-					BufferedImage originalImage = ImageIO.read(file);
-					baos = new ByteArrayOutputStream();
-					ImageIO.write(originalImage, "jpg", baos);
-					baos.flush();
-					imageInByte = baos.toByteArray();
+					Path path = Paths.get(file.getAbsolutePath());
+					imageInByte = Files.readAllBytes(path);
 					Showimage();
+					btnAddImg.setText("Modifier Image");
 				} else {
-					errorMsgImg = "La taille de l`image est très grande veuillez choisie une autre image svp";
 					stage = (Stage) btnUpdateProduct.getScene().getWindow();
 					try {
-						CustomInfoBox customDialogBox = new CustomInfoBox(
-								stage, errorMsgImg, "Ok", "#282828");
-						customDialogBox.btn
-								.setOnAction(new EventHandler<ActionEvent>() {
-									@Override
-									public void handle(ActionEvent event) {
-										stage = (Stage) customDialogBox.btn
-												.getScene().getWindow();
-										errorMsgImg = "";
-										stage.close();
-									}
-								});
+						new CustomInfoBox(
+								stage,
+								"Choisissez une image avec une taille de 1MO ou moins",
+								"Ok");
+
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
