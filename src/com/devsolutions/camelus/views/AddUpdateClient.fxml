@@ -15,7 +15,6 @@
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.AddUpdateClientController">
-
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="84.6" />
@@ -24,7 +23,6 @@
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -35,15 +33,12 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label GridPane.ColumnIndex="0" fx:id="titleWindow">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
@@ -56,7 +51,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<GridPane gridLinesVisible="false" GridPane.rowIndex="1">
 			<rowConstraints>
 				<RowConstraints valignment="CENTER" percentHeight="11.5" />
@@ -67,7 +61,6 @@
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints valignment="TOP" percentHeight="30" />
-
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints halignment="RIGHT"
@@ -76,7 +69,6 @@
 					percentWidth="45" />
 				<ColumnConstraints halignment="LEFT" percentWidth="16" />
 			</columnConstraints>
-
 			<children>
 				<Label GridPane.rowIndex="0" GridPane.ColumnIndex="0"
 					GridPane.ColumnSpan="3"
@@ -85,9 +77,7 @@
 						<Insets right="70" />
 					</padding>
 				</Label>
-
-				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
-					text="Vendeur:">
+				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0" text="Vendeur:">
 				</Label>
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0"
 					text="Nom de l'entreprise:">
@@ -104,7 +94,6 @@
 				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
 					text="Adresse de correspondance:">
 				</Label>
-
 				<ComboBox fx:id="vendorCombobox" GridPane.rowIndex="1"
 					GridPane.ColumnIndex="1" maxWidth="235" editable="true"></ComboBox>
 				<TextField fx:id="enterprise_nameTxt" GridPane.rowIndex="2"
@@ -127,7 +116,6 @@
 						<TextArea fx:id="descriptionTxt" promptText="Veillez saisir une descritpion"
 							wrapText="true" />
 					</content>
-
 				</TitledPane>
 				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="2">
 					<graphic>
@@ -135,21 +123,18 @@
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
@@ -163,10 +148,8 @@
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets right="5" bottom="8" />
@@ -177,11 +160,7 @@
 				text="Annuler"></Button>
 		</HBox>
 	</children>
-
-
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
 </GridPane>
-

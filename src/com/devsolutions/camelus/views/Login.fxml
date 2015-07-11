@@ -31,7 +31,6 @@
 			<rowConstraints>
 				<RowConstraints percentHeight="100" />
 			</rowConstraints>
-
 			<columnConstraints>
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
@@ -81,7 +80,6 @@
 			</children>
 		</GridPane>
 		<VBox spacing="20" alignment="CENTER" GridPane.rowIndex="1">
-
 			<Label id="lblTitle" alignment="TOP_CENTER" text="Camelus"
 				style="-fx-font-size: 30; -fx-font-family: 'Roboto Bold'; -fx-text-fill: #2b2a2a;-fx-font-smoothing-type: gray;" />
 			<ChoiceBox maxWidth="200" styleClass="flat-btn" fx:id="chooseAccountType">

@@ -13,18 +13,14 @@
 <GridPane id="motherGrid" prefWidth="1216.0" maxHeight="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.TakeOrderController">
-
 	<rowConstraints>
 		<RowConstraints percentHeight="5.1" />
-
 		<RowConstraints percentHeight="94.9" />
 	</rowConstraints>
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
-
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
 			<rowConstraints>
@@ -34,9 +30,7 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label text="Effectuer une commande" GridPane.ColumnIndex="0"
 					id="titleWindow">
 					<padding>
@@ -59,15 +53,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
-
-
-
-
-
-
-
-
 		<SplitPane style="-fx-background-color: white"
 			GridPane.rowIndex="1" dividerPositions="0.5">
 			<items>
@@ -216,8 +201,6 @@
 																								</HBox>
 																							</center>
 																						</BorderPane>
-
-
 																						<HBox prefHeight="14.0" prefWidth="178.0">
 																							<children>
 																								<Label prefWidth="90.0" text="UPC : " />
@@ -364,10 +347,8 @@
 																									text="Prix ajusté ($) :" />
 																								<TextField fx:id="modifiedPriceField"
 																									prefHeight="25.0" maxWidth="102">
-
 																								</TextField>
 																							</children>
-
 																						</HBox>
 																						<HBox alignment="CENTER_LEFT" spacing="5"
 																							prefHeight="9.0" prefWidth="203.0">
@@ -381,9 +362,7 @@
 																											styleClass="starFont" icon="ICON_STAR" />
 																									</graphic>
 																								</Label>
-
 																							</children>
-
 																						</HBox>
 																					</children>
 																				</VBox>
@@ -550,11 +529,7 @@
 				</VBox>
 			</items>
 		</SplitPane>
-
-
-
 	</children>
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 		<URL value="@Content.css" />

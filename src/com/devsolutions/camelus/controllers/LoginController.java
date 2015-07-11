@@ -55,8 +55,8 @@ public class LoginController implements Initializable {
 		chooseAccountType.setItems(accountTypes);
 		progressIndicator.visibleProperty().bind(loginbtn.armedProperty());
 		// test
-		chooseAccountType.getSelectionModel().select(2);
-		usernametxt.setText("vendor");
+		chooseAccountType.getSelectionModel().select(1);
+		usernametxt.setText("admin");
 		passwordtxt.setText("1234");
 
 		loginbtn.setOnAction(e -> {

@@ -9,13 +9,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 <?import java.net.*?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.RowConstraints?>
-
-
-
-
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowVendorDetailsController">
@@ -28,7 +23,6 @@
 	<columnConstraints>
 		<ColumnConstraints halignment="CENTER" percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -39,17 +33,13 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
-
 			<children>
-
 				<Label style="-fx-font-family:'Roboto Bold';"
 					GridPane.ColumnIndex="0" Text="Consulter Vendeur">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
@@ -61,9 +51,7 @@
 					</children>
 				</HBox>
 			</children>
-
 		</GridPane>
-
 		<HBox alignment="BOTTOM_CENTER" GridPane.rowIndex="1">
 			<padding>
 				<Insets bottom="10" />
@@ -74,14 +62,11 @@
 				fx:id="usernameLabel" GridPane.rowIndex="0"></Label>
 			<Label text="."></Label>
 		</HBox>
-
 		<GridPane maxWidth="450" maxHeight="400" id="contentGrid"
 			GridPane.rowIndex="2">
 			<padding>
 				<Insets bottom="5" />
 			</padding>
-
-
 			<rowConstraints>
 				<RowConstraints percentHeight="14.3" />
 				<RowConstraints percentHeight="14.3" />
@@ -94,7 +79,6 @@
 			<columnConstraints>
 				<ColumnConstraints prefWidth="100" />
 			</columnConstraints>
-
 			<children>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0"
 					alignment="CENTER">
@@ -133,7 +117,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />
@@ -141,18 +124,8 @@
 			<Button fx:id="btnClose" prefWidth="120" styleClass="flat-btn"
 				text="Fermer"></Button>
 		</HBox>
-
-
 	</children>
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
-
-
-
 </GridPane>
-
-
-
-

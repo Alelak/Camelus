@@ -20,7 +20,6 @@
 <GridPane id="motherGrid" prefHeight="550" prefWidth="350"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.UnitsController">
-
 	<rowConstraints>
 		<RowConstraints percentHeight="5.5" />
 		<RowConstraints percentHeight="84.5" />
@@ -29,7 +28,6 @@
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -40,15 +38,12 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label text="Unites" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" prefHeight="30"
@@ -73,7 +68,6 @@
 				</VBox.margin>
 			</ListView>
 		</VBox>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets right="5" bottom="8" />

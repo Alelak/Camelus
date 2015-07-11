@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +48,7 @@ import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.utils.Choice;
+import com.devsolutions.camelus.utils.CustomDialogBox;
 import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
@@ -205,24 +207,55 @@ public class ShowVendorsController implements Initializable {
 		});
 
 		deleteButton.setOnAction(e -> {
-			Vendor vendor = vendorTableView.getSelectionModel()
-					.getSelectedItem();
-			if (ClientManager.getByVendorId(vendor.getId()).isEmpty()) {
+			Stage stage = (Stage) deleteButton.getScene().getWindow();
+			try {
+				CustomDialogBox customDialogBox = new CustomDialogBox(stage,
+						"Voulez vous vraiment supprimer ce vendeur?", "Oui",
+						"Non");
+				customDialogBox.positiveButton
+						.setOnAction(new EventHandler<ActionEvent>() {
 
-				VendorManager.delete(vendor.getId());
-				removeFromTableView(vendor);
+							@Override
+							public void handle(ActionEvent event) {
+								Vendor vendor = vendorTableView
+										.getSelectionModel().getSelectedItem();
+								if (ClientManager.getByVendorId(vendor.getId())
+										.isEmpty()) {
 
-				if (vendorsList.isEmpty()) {
-					noDataToShow();
-				}
-			} else {
-				try {
-					new CustomInfoBox((Stage) deleteButton.getScene()
-							.getWindow(),
-							"Ce vendeur est deja associee a un client", "Ok");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+									VendorManager.delete(vendor.getId());
+									removeFromTableView(vendor);
+
+									if (vendorsList.isEmpty()) {
+										noDataToShow();
+									}
+								} else {
+
+									try {
+										new CustomInfoBox(
+												(Stage) deleteButton.getScene()
+														.getWindow(),
+												"Ce vendeur est deja associee a un client",
+												"Ok");
+									} catch (IOException e) {
+
+										e.printStackTrace();
+									}
+								}
+								customDialogBox.stage.close();
+							}
+						});
+				customDialogBox.negativeButton
+						.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								customDialogBox.stage.close();
+
+							}
+						});
+			} catch (Exception e2) {
+
+				e2.printStackTrace();
 			}
 
 		});
@@ -311,8 +344,8 @@ public class ShowVendorsController implements Initializable {
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
 									parentStage,
-									"Il faut choisir au moins une ann�e pour g�n�rer un rapport.",
-									"Ok", "#303030");
+									"Il faut choisir au moins une annee pour generer un rapport.",
+									"Ok");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
 										@Override
@@ -479,13 +512,12 @@ public class ShowVendorsController implements Initializable {
 				ex.printStackTrace();
 			}
 
-			String[] params = { "cmd", "/c", savedFile.getAbsolutePath() };
 			try {
-				Runtime.getRuntime().exec(params);
+				Desktop.getDesktop().open(savedFile);
 			} catch (Exception ex) {
 				try {
 					new CustomInfoBox(stage, "Impossible d'ouvrir ce fichier!",
-							"Ok", "#ff0000");
+							"Ok");
 
 				} catch (IOException e2) {
 					e2.printStackTrace();
@@ -502,7 +534,7 @@ public class ShowVendorsController implements Initializable {
 		PdfPTable tableNoItems = new PdfPTable(1);
 
 		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a �t� effectu�e durant ce mois.", boldFont));
+				"Aucune vente n'a ete effectuee durant ce mois.", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -545,7 +577,7 @@ public class ShowVendorsController implements Initializable {
 
 		if (currentCommissionTVList.size() == 0) {
 			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a �t� effectu�e durant ce mois.", boldFont));
+					"Aucune vente n'a ete effectuee durant ce mois.", boldFont));
 
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -706,7 +738,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearObservableList = FXCollections
 				.observableArrayList();
-		yearObservableList.add(new Choice(0, "Ann�e"));
+		yearObservableList.add(new Choice(0, "Annee"));
 		yearComboBox.setItems(yearObservableList);
 		yearComboBox.getSelectionModel().select(0);
 	}
@@ -760,7 +792,7 @@ public class ShowVendorsController implements Initializable {
 		yearComboBox.getItems().clear();
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
-		yearsObservableList.add(new Choice(0, "Ann�e"));
+		yearsObservableList.add(new Choice(0, "Annee"));
 		Calendar cal = Calendar.getInstance();
 		for (OrderTV orderTV : orders) {
 			cal.setTime(orderTV.getOrdered_at());

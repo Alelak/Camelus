@@ -13,11 +13,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.image.*?>
-
 <GridPane id="motherGrid" prefHeight="670" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.AddProductController">
-
 	<rowConstraints>
 		<RowConstraints percentHeight="4.5" />
 		<RowConstraints percentHeight="84.5" />
@@ -26,7 +24,6 @@
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -37,16 +34,12 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
-
 				<Label text="Ajouter Produit" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
@@ -59,7 +52,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<GridPane GridPane.rowIndex="1">
 			<padding>
 				<Insets top="10"></Insets>
@@ -76,7 +68,6 @@
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints percentHeight="10.3" />
 				<RowConstraints valignment="TOP" percentHeight="40" />
-
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints halignment="RIGHT"
@@ -85,7 +76,6 @@
 					percentWidth="45" />
 				<ColumnConstraints halignment="LEFT" percentWidth="20" />
 			</columnConstraints>
-
 			<children>
 				<HBox alignment="CENTER" GridPane.rowIndex="0"
 					GridPane.ColumnIndex="0" GridPane.ColumnSpan="3">
@@ -109,8 +99,6 @@
 						<Insets right="70" />
 					</padding>
 				</Label>
-
-
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="UPC:">
 				</Label>
 				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0"
@@ -134,7 +122,6 @@
 				<Label GridPane.rowIndex="9" GridPane.ColumnIndex="0"
 					text="Prix de Vente:">
 				</Label>
-
 				<TextField fx:id="upc" GridPane.rowIndex="2"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
 				<TextField fx:id="name" GridPane.rowIndex="3"
@@ -153,44 +140,34 @@
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
 				<TextField fx:id="sellingPrice" GridPane.rowIndex="9"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-
-
 				<TitledPane prefHeight="110" GridPane.rowIndex="10"
 					GridPane.ColumnIndex="0" GridPane.ColumnSpan="3" animated="true"
 					text="Description">
 					<padding>
 						<Insets right="5" left="5" />
 					</padding>
-
 					<content>
 						<TextArea fx:id="description" promptText="Veillez saisir une descritpion" />
 					</content>
-
 				</TitledPane>
-
-
-
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-
 				<Label GridPane.rowIndex="8" GridPane.ColumnIndex="2" text="($)">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
@@ -198,11 +175,9 @@
 					</graphic>
 				</Label>
 				<Label GridPane.rowIndex="9" GridPane.ColumnIndex="2" text="($)">
-
 				</Label>
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets right="5" />
@@ -213,11 +188,7 @@
 				text="Annuler"></Button>
 		</HBox>
 	</children>
-
-
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
 </GridPane>
-

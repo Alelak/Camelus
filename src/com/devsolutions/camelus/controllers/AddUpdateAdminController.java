@@ -76,9 +76,6 @@ public class AddUpdateAdminController implements Initializable {
 					String fname = fnametxt.getText().trim();
 					String sin = sintxt.getText().trim();
 					String date = null;
-					Admin adminByLogin = AdminManager.getByUserName(login);
-					Vendor vendorBySin = VendorManager.getBySin(sin);
-					Admin adminBySin = AdminManager.getBySin(sin);
 					if (hiredatetxt.getValue() != null) {
 						date = hiredatetxt.getValue().toString();
 					}
@@ -86,7 +83,7 @@ public class AddUpdateAdminController implements Initializable {
 							|| lname.isEmpty() || fname.isEmpty()
 							|| sin.isEmpty()) {
 						valid = false;
-						feedbackmsg += "Tous les champs avec une etoile sont requis.\n";
+						feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
 					}
 					if (password.length() < 8) {
 						valid = false;
@@ -95,39 +92,54 @@ public class AddUpdateAdminController implements Initializable {
 					if (adminToUpdate != null) {
 						if (login.isEmpty()) {
 							valid = false;
-						} else if (adminByLogin != null
-								&& !adminByLogin.getLogin().equals(
-										adminToUpdate.getLogin())) {
-							feedbackmsg += "Ce nom d'utilisateur a etait deja choisie. \n";
-							valid = false;
+						} else {
+							Admin adminByLogin = AdminManager
+									.getByUserName(login);
+							if (adminByLogin != null
+									&& !adminToUpdate.getLogin().equals(
+											adminByLogin.getLogin())) {
+								feedbackmsg += "Ce nom d'utilisateur a était deja choisie. \n";
+								valid = false;
+							}
 						}
+
 						if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 							valid = false;
-
 							feedbackmsg += "Le NAS doit etre un nombre de 9 chiffres. \n";
-						} else if (adminBySin != null
-								&& vendorBySin != null
-								&& !adminBySin.getSin().equals(
-										adminToUpdate.getSin())
-								&& !vendorBySin.getSin().equals(
-										adminToUpdate.getSin())) {
-							feedbackmsg += "Ce NAS existe deja, veuillez saisir un NAS valide. \n";
-							valid = false;
+						} else {
+							Vendor vendorBySin = VendorManager.getBySin(sin);
+							Admin adminBySin = AdminManager.getBySin(sin);
+							if (vendorBySin != null
+									&& !adminToUpdate.getSin().equals(
+											vendorBySin.getSin())) {
+								feedbackmsg += "Ce NAS existe déja, veuillez saisir un NAS valide. \n";
+								valid = false;
+							}
+							if (adminBySin != null
+									&& !adminToUpdate.getSin().equals(
+											adminBySin.getSin())) {
+								feedbackmsg += "Ce NAS existe déja, veuillez saisir un NAS valide. \n";
+								valid = false;
+							}
 
 						}
+
 					} else {
+
 						if (login.isEmpty()) {
 							valid = false;
-						} else if (adminByLogin != null) {
-							feedbackmsg += "Ce nom d'utilisateur a etait deja choisie. \n";
-							valid = false;
-						}
-						if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						} else if (AdminManager.getByUserName(login) != null) {
+							feedbackmsg += "Ce nom d'utilisateur a était déja choisie. \n";
 							valid = false;
 
+						}
+
+						if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+							valid = false;
 							feedbackmsg += "Le NAS doit etre un nombre de 9 chiffres. \n";
-						} else if (adminBySin != null && vendorBySin != null) {
-							feedbackmsg += "Ce NAS existe deja, veuillez saisir un NAS valide. \n";
+						} else if (VendorManager.getBySin(sin) != null
+								|| AdminManager.getBySin(sin) != null) {
+							feedbackmsg += "Ce NAS existe déja, veuillez saisir un NAS valide. \n";
 							valid = false;
 
 						}

@@ -8,6 +8,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +26,8 @@ import javafx.stage.StageStyle;
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.utils.CRUD;
+import com.devsolutions.camelus.utils.CustomDialogBox;
+import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.devsolutions.camelus.utils.StringUtils;
 
 public class ShowAdminsController implements Initializable {
@@ -64,6 +68,8 @@ public class ShowAdminsController implements Initializable {
 					super.updateItem(item, empty);
 					if (item != null && !empty) {
 						setText(StringUtils.formatDate(item));
+					} else {
+						setText("");
 					}
 				}
 			};
@@ -100,11 +106,49 @@ public class ShowAdminsController implements Initializable {
 					.getSelectedIndex(), CRUD.UPDATE);
 		});
 		deleteBtn.setOnAction(e -> {
+			Stage stage = (Stage) deleteBtn.getScene().getWindow();
 			Admin adminTodelete = adminsTableView.getSelectionModel()
 					.getSelectedItem();
 			if (adminTodelete.getSuper_admin() == 0) {
-				adminsOb.remove(adminTodelete);
-				AdminManager.delete(adminTodelete.getId());
+
+				try {
+					CustomDialogBox dialogBox = new CustomDialogBox(stage,
+							"Voulez vous vraiment supprimer ce admin?", "Oui",
+							"Non");
+					dialogBox.positiveButton
+							.setOnAction(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent event) {
+									adminsOb.remove(adminTodelete);
+									AdminManager.delete(adminTodelete.getId());
+									adminsTableView.getSelectionModel()
+											.clearSelection();
+									dialogBox.stage.close();
+								}
+
+							});
+					dialogBox.negativeButton
+							.setOnAction(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent event) {
+									dialogBox.stage.close();
+
+								}
+							});
+
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+			} else {
+				try {
+					new CustomInfoBox(stage,
+							"Impossible de supprimer le super admin", "Ok");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 
 		});

@@ -76,7 +76,7 @@ public class AddUpdateVendorController implements Initializable {
 		commissions = CommissionManager.getAll();
 
 		commissionChoices = FXCollections.observableArrayList();
-		commissionChoices.add(new Choice(0, "No selection"));
+		commissionChoices.add(new Choice(0, "Choisir"));
 
 		for (Commission commission : commissions) {
 			if (commission.getType() == 0)
@@ -105,22 +105,14 @@ public class AddUpdateVendorController implements Initializable {
 
 			String invalidFields = "";
 			boolean validfields = true;
-			Vendor vendorByLogin = VendorManager.getByUserName(username);
-			Vendor vendorBySin = VendorManager.getBySin(sin);
-			Admin adminBySin = AdminManager.getBySin(sin);
 			if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
 					|| sin.isEmpty() || password.isEmpty()) {
-				invalidFields += " - Tous les champs doivent �tre remplis \n";
+				invalidFields += " - Tous les champs doivent étre remplis \n";
 				validfields = false;
 			}
 
 			if (password.length() < 8) {
-				invalidFields += " - Mot de passe de 8 caract�res et plus \n";
-				validfields = false;
-			}
-
-			if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-				invalidFields += " - Le NAS doit �tre un nombre de 9 chiffres \n";
+				invalidFields += " - Mot de passe de 8 caractéres et plus \n";
 				validfields = false;
 			}
 
@@ -135,30 +127,49 @@ public class AddUpdateVendorController implements Initializable {
 			}
 
 			if (vendorToUpdate != null) {
-				if (vendorByLogin != null
-						&& !vendorByLogin.getLogin().equals(
-								vendorToUpdate.getLogin())) {
+				if (username.isEmpty()) {
 					validfields = false;
-					invalidFields += " - Ce nom d'utilisateur a �tait d�j� choisie \n";
-				}
+				} else {
+					Vendor vendorByLogin = VendorManager
+							.getByUserName(username);
+					if (vendorByLogin != null
+							&& !vendorByLogin.getLogin().equals(
+									vendorToUpdate.getLogin())) {
+						validfields = false;
+						invalidFields += " - Ce nom d'utilisateur a �tait déja choisie \n";
+					}
 
-				if (adminBySin != null
-						&& vendorBySin != null
-						&& !vendorBySin.getSin()
-								.equals(vendorToUpdate.getSin())
-						&& !adminBySin.getSin().equals(vendorToUpdate.getSin())) {
+				}
+				if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+					invalidFields += " - Le NAS doit etre un nombre de 9 chiffres \n";
 					validfields = false;
-					invalidFields += " - Ce NAS existe d�j�, veuillez saisir un NAS valide. \n";
+				} else {
+					Vendor vendorBySin = VendorManager.getBySin(sin);
+					Admin adminBySin = AdminManager.getBySin(sin);
+					if (vendorBySin != null
+							&& !vendorToUpdate.getSin().equals(
+									vendorBySin.getSin())) {
+						invalidFields += "Ce NAS existe déja, veuillez saisir un NAS valide. \n";
+						validfields = false;
+					}
+					if (adminBySin != null
+							&& !vendorToUpdate.getSin().equals(
+									adminBySin.getSin())) {
+						invalidFields += "Ce NAS existe déja, veuillez saisir un NAS valide. \n";
+						validfields = false;
+					}
+
 				}
 			} else {
-				if (vendorByLogin != null) {
+				if (VendorManager.getByUserName(username) != null) {
 					validfields = false;
-					invalidFields += " - Ce nom d'utilisateur a �tait d�j� choisie \n";
+					invalidFields += " - Ce nom d'utilisateur a était déja choisie \n";
 				}
 
-				if (vendorByLogin != null && adminBySin != null) {
+				if (VendorManager.getBySin(sin) != null
+						|| AdminManager.getBySin(sin) != null) {
 					validfields = false;
-					invalidFields += " - Ce NAS existe d�j�, veuillez saisir un NAS valide. \n";
+					invalidFields += " - Ce NAS existe déja, veuillez saisir un NAS valide. \n";
 				}
 			}
 

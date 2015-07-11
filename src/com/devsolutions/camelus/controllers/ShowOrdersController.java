@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,8 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -126,7 +125,7 @@ public class ShowOrdersController implements Initializable {
 		} else {
 			ordersObservableList = FXCollections
 					.observableArrayList(OrderManager.getAllTV());
-			message2.setText("Effectuer maintenant une commande.");
+			message2.setText("Effectuer une commande.");
 		}
 
 		if (ordersObservableList.size() == 0) {
@@ -333,12 +332,12 @@ public class ShowOrdersController implements Initializable {
 						PdfPCell cell2 = new PdfPCell();
 
 						Paragraph p = new Paragraph(new Phrase(
-								"Num�ro de commande : " + orderTV.getId()
+								"Numero de commande : " + orderTV.getId()
 										+ "\n", boldFontHeaderFields));
-						p.add(new Phrase("Num�ro du client          : "
+						p.add(new Phrase("Numero du client          : "
 								+ orderTV.getClient_id() + "\n",
 								boldFontHeaderFields));
-						p.add(new Phrase("Num�ro du vendeur     : "
+						p.add(new Phrase("Numero du vendeur     : "
 								+ orderTV.getAssociated_vendor(),
 								boldFontHeaderFields));
 
@@ -368,7 +367,7 @@ public class ShowOrdersController implements Initializable {
 					p2.add(new Phrase(client.getEnterprise_name() + "\n",
 							boldFont));
 
-					p2.add(new Phrase("Adress      : "));
+					p2.add(new Phrase("Adresse      : "));
 					p2.add(new Phrase(client.getAddress(), boldFont));
 
 					p2.setSpacingBefore(10f);
@@ -405,7 +404,7 @@ public class ShowOrdersController implements Initializable {
 
 					Font boldFontDetails = new Font(Font.FontFamily.HELVETICA,
 							18, Font.BOLD);
-					Paragraph p4 = new Paragraph(new Phrase("D�tails : ",
+					Paragraph p4 = new Paragraph(new Phrase("Details : ",
 							boldFontDetails));
 					p4.setIndentationLeft(20f);
 					p4.setSpacingAfter(50f);
@@ -450,42 +449,22 @@ public class ShowOrdersController implements Initializable {
 				} catch (DocumentException | FileNotFoundException ex) {
 					ex.printStackTrace();
 				}
-				String[] params = { "cmd", "/c", savedFile.getAbsolutePath() };
 				try {
-					Runtime.getRuntime().exec(params);
+					Desktop.getDesktop().open(savedFile);
 				} catch (Exception ex) {
 					try {
-						CustomInfoBox customDialogBox = new CustomInfoBox(
-								stage, "Impossible d'ouvrir ce fichier!", "Ok",
-								"#ff0000");
-						customDialogBox.btn
-								.setOnAction(new EventHandler<ActionEvent>() {
-									@Override
-									public void handle(ActionEvent event) {
-										stage = (Stage) customDialogBox.btn
-												.getScene().getWindow();
-										stage.close();
-									}
-								});
+						new CustomInfoBox(stage,
+								"Impossible d'ouvrir ce fichier!", "Ok");
 					} catch (IOException e2) {
 						e2.printStackTrace();
 					}
 				}
 			} else {
 				try {
-					CustomInfoBox customDialogBox = new CustomInfoBox(
+					new CustomInfoBox(
 							stage,
-							"Ce fichier est d�j� ouvert, veuillez le fermer puis r�essayez de nouveau.",
-							"Ok", "#000000");
-					customDialogBox.btn
-							.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent event) {
-									stage = (Stage) customDialogBox.btn
-											.getScene().getWindow();
-									stage.close();
-								}
-							});
+							"Ce fichier est deja ouvert, veuillez le fermer puis reessayer de nouveau.",
+							"Ok");
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
@@ -509,11 +488,11 @@ public class ShowOrdersController implements Initializable {
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Prix ajust� ($)", boldFont));
+		c1 = new PdfPCell(new Phrase("Prix ajuste ($)", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("Quantit�", boldFont));
+		c1 = new PdfPCell(new Phrase("Quantite", boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
@@ -571,6 +550,8 @@ public class ShowOrdersController implements Initializable {
 					super.updateItem(item, empty);
 					if (item != null && !empty) {
 						setText(StringUtils.formatDate(item));
+					} else {
+						setText("");
 					}
 				}
 			};

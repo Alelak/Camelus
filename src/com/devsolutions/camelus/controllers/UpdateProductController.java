@@ -7,7 +7,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -305,10 +304,8 @@ public class UpdateProductController implements Initializable {
 	}
 
 	private void listChoiceBoxUnit(int index) {
-		List<Unit> unitList = UnitManager.getAll();
 		listChoiceUnit = FXCollections.observableArrayList();
-		listChoiceUnit.add(new Choice(0, "No Selection"));
-		for (Unit unit : unitList) {
+		for (Unit unit : UnitManager.getAll()) {
 			listChoiceUnit.add(new Choice(unit.getId(), unit.getDescription()));
 		}
 		unit.setItems(listChoiceUnit);
@@ -316,10 +313,8 @@ public class UpdateProductController implements Initializable {
 	}
 
 	private void listChoiceBoxCategory(int index) {
-		List<Category> CategoryList = CategoryManager.getAll();
 		listChoiceCategory = FXCollections.observableArrayList();
-		listChoiceCategory.add(new Choice(0, "No Selection"));
-		for (Category category : CategoryList) {
+		for (Category category : CategoryManager.getAll()) {
 			listChoiceCategory.add(new Choice(category.getId(), category
 					.getDescription()));
 		}

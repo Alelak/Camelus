@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowOrdersController">
@@ -116,7 +115,7 @@
 						icon="ICON_DOWNLOAD" />
 				</graphic>
 			</Button>
-<Button disable="true" fx:id="cancelOrderBtn" prefWidth="120"
+			<Button disable="true" fx:id="cancelOrderBtn" prefWidth="120"
 				styleClass="flat-btn" text="Annuler">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
@@ -129,32 +128,3 @@
 		<URL value="@Content.css" />
 	</stylesheets>
 </GridPane>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

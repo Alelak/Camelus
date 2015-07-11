@@ -221,7 +221,7 @@ public class AddProductController implements Initializable {
 					}
 					if (verifUpc == true) {
 						upc.setStyle(FXUtils.HAS_ERROR);
-						errorMsg += "Le upc existe deja, veuillez saisir un autre upc\n";
+						errorMsg += "Le upc existe déja, veuillez saisir un autre upc\n";
 						error = true;
 					}
 					if (nameStr.isEmpty()) {
@@ -229,10 +229,10 @@ public class AddProductController implements Initializable {
 						error = true;
 					}
 					if (!StringUtils.isInteger(quantityStr)) {
-						errorMsg += "Veuillez saisir une quantite valide\n";
+						errorMsg += "Veuillez saisir une quantité valide\n";
 						error = true;
 					} else if (Integer.parseInt(quantityStr) < 0) {
-						errorMsg += "Veuillez saisir une quantite valide\n";
+						errorMsg += "Veuillez saisir une quantité valide\n";
 						error = true;
 					}
 					if (!StringUtils.isDouble(costPriceStr)) {

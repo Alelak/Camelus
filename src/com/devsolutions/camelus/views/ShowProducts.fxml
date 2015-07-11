@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowProductsController">

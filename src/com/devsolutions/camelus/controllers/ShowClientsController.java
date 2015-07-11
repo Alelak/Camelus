@@ -151,9 +151,8 @@ public class ShowClientsController implements Initializable {
 								if (ClientsOb.isEmpty()) {
 									noDataToShow();
 								}
-								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
-										.getScene().getWindow();
-								dialogBoxStage.close();
+
+								customDialogBox.stage.close();
 							}
 						});
 
@@ -161,9 +160,7 @@ public class ShowClientsController implements Initializable {
 						.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								Stage dialogBoxStage = (Stage) customDialogBox.positiveButton
-										.getScene().getWindow();
-								dialogBoxStage.close();
+								customDialogBox.stage.close();
 
 							}
 						});

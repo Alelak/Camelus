@@ -13,13 +13,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
-
-
-
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowClientController">
-
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="10" />
@@ -29,7 +25,6 @@
 	<columnConstraints>
 		<ColumnConstraints halignment="CENTER" percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -40,9 +35,7 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label style="-fx-font-family:'Roboto Bold';" GridPane.ColumnIndex="0" Text="Consulter client">
 					<padding>
 						<Insets left="7" />
@@ -61,7 +54,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_CENTER" GridPane.rowIndex="1">
 		<padding>
 		<Insets bottom="10" />
@@ -70,15 +62,11 @@
 			<Label style=" -fx-text-fill:#016699; -fx-font-family: 'Roboto Bold'; -fx-underline: true ;" fx:id="ContactName" GridPane.rowIndex="0"></Label>
 			<Label text="."></Label>
 		</HBox>
-
-
 		<GridPane maxWidth="450" maxHeight="400"  id="contentGrid"
 			GridPane.rowIndex="2">
 			<padding>
 			<Insets bottom="5" />
 			</padding>
-		
-			
 			<rowConstraints>
 				<RowConstraints percentHeight="16" />
 				<RowConstraints percentHeight="16" />
@@ -90,7 +78,6 @@
 			<columnConstraints>
 				<ColumnConstraints prefWidth="100" />
 			</columnConstraints>
-
 			<children>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0" alignment="CENTER">
 					<Label text="Nom de l'entreprise:" />
@@ -107,21 +94,16 @@
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="3" alignment="CENTER">
 					<Label text="Adresse de correspondance:" />
 					<Label style="-fx-font-family:'Roboto Bold';" fx:id="adress" />
-				</HBox>
-				
-				
+				</HBox>		
 				<TitledPane GridPane.rowIndex="4"  GridPane.rowSpan="2"  minWidth="450"
 					 animated="true" text="Description">
 					<padding>
 						<Insets right="5" left="5" />
 					</padding>
-
 					<content>
 						<TextArea fx:id="description" wrapText="true"   editable="false"/>
 					</content>
-
 				</TitledPane>
-
 			</children>
 		</GridPane>
 
@@ -133,15 +115,7 @@
 				text="Fermer"></Button>
 		</HBox>
 	</children>
-
-
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
-
-
 </GridPane>
-
-
-

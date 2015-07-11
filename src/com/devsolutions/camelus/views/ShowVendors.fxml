@@ -59,41 +59,37 @@
 								<Insets bottom="5.0" />
 							</padding>
 							<TextField fx:id="searchField" minWidth="387"
-								promptText="Chercher des vendeurs, des entreprise ou des numéros de téléphone"></TextField>		
+								promptText="Chercher des vendeurs, des entreprise ou des numéros de téléphone"></TextField>
 						</HBox>
-						
+
 						<HBox spacing="4" alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
 							GridPane.columnIndex="1">
 							<padding>
 								<Insets bottom="5.0" />
 							</padding>
-							 <ChoiceBox styleClass="flat-combo,chooseAccountType" fx:id="monthComboBox" prefWidth="150.0"/>
-							 <ChoiceBox styleClass="flat-combo,chooseAccountType" fx:id="yearComboBox"  prefWidth="150.0"/>
-							 
+							<ChoiceBox styleClass="flat-combo,chooseAccountType"
+								fx:id="monthComboBox" prefWidth="150.0" />
+							<ChoiceBox styleClass="flat-combo,chooseAccountType"
+								fx:id="yearComboBox" prefWidth="150.0" />
+
 							<Button fx:id="commissionBtn" prefWidth="120" styleClass="flat-btn"
-								text="Exporter Rapport">
+								text="Exporter">
 								<graphic>
-									<FontAwesomeIconView styleClass="whiteFont" icon="ICON_DOWNLOAD" />
+									<FontAwesomeIconView styleClass="whiteFont"
+										icon="ICON_DOWNLOAD" />
 								</graphic>
 							</Button>
 						</HBox>
-						
-						
-                         
-                        
-           
-						
-						
-						
-						
-						
-						
-						<TableView styleClass="tableView" fx:id="vendorTableView" GridPane.rowIndex="1"
-							GridPane.columnIndex="0" GridPane.columnSpan="2">
+						<TableView styleClass="tableView" fx:id="vendorTableView"
+							GridPane.rowIndex="1" GridPane.columnIndex="0"
+							GridPane.columnSpan="2">
 							<columns>
-								<TableColumn minWidth="292" fx:id="vendorIdCol" text="No" />
-								<TableColumn minWidth="292" fx:id="vendorNameCol" text="Nom et Prénom"/>	
-								<TableColumn minWidth="292" fx:id="vendorLoginCol" text="Login" />			
+								<TableColumn minWidth="292" fx:id="vendorIdCol"
+									text="No" />
+								<TableColumn minWidth="292" fx:id="vendorNameCol"
+									text="Nom et Prénom" />
+								<TableColumn minWidth="292" fx:id="vendorLoginCol"
+									text="Login" />
 							</columns>
 						</TableView>
 					</children>
@@ -106,31 +102,36 @@
 			<Button fx:id="addButton" prefWidth="120" styleClass="flat-btn"
 				text="Ajouter">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont"  icon="ICON_PLUS" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PLUS" />
 				</graphic>
 			</Button>
-			<Button   disable="true" fx:id="editButton" prefWidth="120" styleClass="flat-btn"
-				text="Modifer">
+			<Button disable="true" fx:id="editButton" prefWidth="120"
+				styleClass="flat-btn" text="Modifier">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_PENCIL" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PENCIL" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="deleteButton" prefWidth="120" styleClass="flat-btn"
-				text="Supprimer">
+			<Button disable="true" fx:id="deleteButton" prefWidth="120"
+				styleClass="flat-btn" text="Supprimer">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_MINUS" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_MINUS" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="showButton" prefWidth="120" styleClass="flat-btn"
-				text="Consulter">
+			<Button disable="true" fx:id="showButton" prefWidth="120"
+				styleClass="flat-btn" text="Consulter">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="ordersBtn" prefWidth="120" styleClass="flat-btn" 
-				text="Commandes">
-				<graphic >
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_FILE_TEXT" />
+			<Button disable="true" fx:id="ordersBtn" prefWidth="120"
+				styleClass="flat-btn" text="Commandes">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_FILE_TEXT" />
 				</graphic>
 			</Button>
 		</HBox>
@@ -139,13 +140,3 @@
 		<URL value="@Content.css" />
 	</stylesheets>
 </GridPane>
-
-
-
-
-
-
-
-
-
-

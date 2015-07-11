@@ -14,8 +14,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.*?>
-
-
 <GridPane prefHeight="550" prefWidth="550" id="motherGrid"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.controllers.ShowProductController">
@@ -28,7 +26,6 @@
 	<columnConstraints>
 		<ColumnConstraints halignment="CENTER" percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -39,9 +36,7 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label style="-fx-font-family:'Roboto Bold';"
 					GridPane.ColumnIndex="0" Text="Consulter client">
 					<padding>
@@ -61,7 +56,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_CENTER" GridPane.rowIndex="1">
 			<padding>
 				<Insets bottom="10" />
@@ -72,14 +66,10 @@
 				fx:id="name" GridPane.rowIndex="0"></Label>
 			<Label text="."></Label>
 		</HBox>
-
-
 		<GridPane maxWidth="450" id="contentGrid" GridPane.rowIndex="2">
 			<padding>
 				<Insets bottom="5" />
 			</padding>
-
-
 			<rowConstraints>
 				<RowConstraints percentHeight="22" />
 				<RowConstraints percentHeight="11" />
@@ -92,7 +82,6 @@
 			<columnConstraints>
 				<ColumnConstraints />
 			</columnConstraints>
-
 			<children>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0">
 					<padding>
@@ -145,16 +134,12 @@
 						<padding>
 							<Insets right="5" left="5" />
 						</padding>
-
 						<content>
 							<TextArea fx:id="description" wrapText="true" editable="false" />
 						</content>
-
 					</TitledPane>
-
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />
@@ -163,15 +148,7 @@
 				text="Fermer"></Button>
 		</HBox>
 	</children>
-
-
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
-
-
 </GridPane>
-
-
-
