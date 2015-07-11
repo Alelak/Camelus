@@ -73,6 +73,16 @@ public class LoginController implements Initializable {
 
 			}
 		});
+		usernametxt.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ENTER)) {
+					loginLogic();
+				}
+
+			}
+		});
 	}
 
 	@FXML
@@ -185,17 +195,14 @@ public class LoginController implements Initializable {
 						}
 					} else {
 						if (username.isEmpty()) {
-							usernametxt
-									.setStyle("-fx-border-color:red; -fx-border-width:2");
+							usernametxt.setStyle(FXUtils.HAS_ERROR);
 						}
 						if (password.isEmpty()) {
-							passwordtxt
-									.setStyle("-fx-border-color:red; -fx-border-width:2");
+							passwordtxt.setStyle(FXUtils.HAS_ERROR);
 						}
 
 						if (accountType == 0) {
-							chooseAccountType
-									.setStyle("-fx-border-color:red; -fx-border-width:2");
+							chooseAccountType.setStyle(FXUtils.HAS_ERROR);
 						}
 
 					}
@@ -208,7 +215,7 @@ public class LoginController implements Initializable {
 	}
 
 	private void showError() {
-		usernametxt.setStyle("-fx-border-color:red; -fx-border-width:2");
-		passwordtxt.setStyle("-fx-border-color:red; -fx-border-width:2");
+		usernametxt.setStyle(FXUtils.HAS_ERROR);
+		passwordtxt.setStyle(FXUtils.HAS_ERROR);
 	}
 }

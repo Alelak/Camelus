@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -201,17 +198,7 @@ public class AddUpdateVendorController implements Initializable {
 
 			} else {
 				try {
-					CustomInfoBox customDialogBox = new CustomInfoBox(stage,
-							invalidFields, "Ok", "#ff0000");
-					customDialogBox.btn
-							.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent event) {
-									stage = (Stage) customDialogBox.btn
-											.getScene().getWindow();
-									stage.close();
-								}
-							});
+					new CustomInfoBox(stage, invalidFields, "Ok");
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
@@ -242,13 +229,8 @@ public class AddUpdateVendorController implements Initializable {
 		textFname.setText(vendorToUpdate.getFname());
 		textLname.setText(vendorToUpdate.getLname());
 
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(vendorToUpdate.getHire_date());
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH);
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-
-		hireDate.setValue(LocalDate.of(year, month + 1, day));
+		hireDate.setValue(vendorToUpdate.getHire_date().toInstant()
+				.atZone(ZoneId.systemDefault()).toLocalDate());
 
 		textSin.setText(String.valueOf(vendorToUpdate.getSin()));
 		commission.getSelectionModel()

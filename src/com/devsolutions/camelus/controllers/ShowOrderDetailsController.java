@@ -88,7 +88,7 @@ public class ShowOrderDetailsController implements Initializable {
 		});
 	}
 
-	public void initTableView() {
+	private void initTableView() {
 		orderLinesObservableList = FXCollections.observableArrayList();
 
 		productUpcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));

@@ -32,6 +32,7 @@ import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomDialogBox;
 import com.devsolutions.camelus.utils.FXUtils;
@@ -89,8 +90,13 @@ public class ShowClientsController implements Initializable {
 
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
-		ClientsOb = FXCollections.observableArrayList(ClientManager.getAll());
-
+		if (Session.admin != null) {
+			ClientsOb = FXCollections.observableArrayList(ClientManager
+					.getAll());
+		} else {
+			ClientsOb = FXCollections.observableArrayList(ClientManager
+					.getByVendorId(Session.vendor.getId()));
+		}
 		if (ClientsOb.size() == 0) {
 
 			noDataToShow();

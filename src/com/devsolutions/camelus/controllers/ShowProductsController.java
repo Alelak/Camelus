@@ -5,8 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,8 +41,10 @@ import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
+import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.CustomDialogBox;
 import com.devsolutions.camelus.utils.CustomInfoBox;
+import com.devsolutions.camelus.utils.StringUtils;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -95,17 +96,17 @@ public class ShowProductsController implements Initializable {
 	private TableView<ProductTableView> tableViewProduct;
 	private ObservableList<ProductTableView> productsObservableList;
 	@FXML
-	private TableColumn<ProductTableView, String> idCol;
+	private TableColumn<ProductTableView, Long> idCol;
 	@FXML
 	private TableColumn<ProductTableView, String> upcCol;
 	@FXML
 	private TableColumn<ProductTableView, String> nameCol;
 	@FXML
-	private TableColumn<ProductTableView, String> quantityCol;
+	private TableColumn<ProductTableView, Integer> quantityCol;
 	@FXML
 	private TableColumn<ProductTableView, String> categoryCol;
 	@FXML
-	private TableColumn<ProductTableView, String> priceSellingcol;
+	private TableColumn<ProductTableView, Double> priceSellingcol;
 	@FXML
 	private SortedList<ProductTableView> sortedData;
 	private Stage stage;
@@ -114,8 +115,11 @@ public class ShowProductsController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		gridRowTwo.setVisible(false);
 		gridRowOne.setVisible(false);
-
 		initTableView();
+		if (Session.vendor != null) {
+			btnAddProduct.setDisable(true);
+		}
+
 		if (productsObservableList.size() == 0) {
 
 			noDataToShow();
@@ -314,9 +318,12 @@ public class ShowProductsController implements Initializable {
 		tableViewProduct.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
-						btnDeleteProduct.setDisable(false);
+						if (Session.vendor == null) {
+							btnDeleteProduct.setDisable(false);
+
+							btnUpdateProduct.setDisable(false);
+						}
 						btnShowProduct.setDisable(false);
-						btnUpdateProduct.setDisable(false);
 
 					} else {
 						btnDeleteProduct.setDisable(true);
@@ -325,6 +332,11 @@ public class ShowProductsController implements Initializable {
 
 					}
 				});
+		btnRefresh.setOnAction(e -> {
+			productsObservableList.clear();
+			productsObservableList.addAll(ProductManager
+					.getAllProductTableView());
+		});
 	}
 
 	private void noDataToShow() {
@@ -341,7 +353,7 @@ public class ShowProductsController implements Initializable {
 		rowTwo.setPercentHeight(100);
 	}
 
-	public void initTableView() {
+	private void initTableView() {
 
 		productsObservableList = FXCollections
 				.observableArrayList(ProductManager.getAllProductTableView());
@@ -353,10 +365,8 @@ public class ShowProductsController implements Initializable {
 		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
 		categoryCol.setCellValueFactory(new PropertyValueFactory<>(
 				"descriptionCategory"));
-
 		priceSellingcol.setCellValueFactory(new PropertyValueFactory<>(
 				"selling_price"));
 
@@ -387,9 +397,7 @@ public class ShowProductsController implements Initializable {
 
 	private void creatPDF() {
 		Document document = new Document();
-		String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar
-				.getInstance().getTime());
-
+		String timeStamp = StringUtils.formatDate(new Date());
 		stage = (Stage) btnPdfProduct.getScene().getWindow();
 
 		FileChooser fileChooser = new FileChooser();
@@ -564,19 +572,18 @@ public class ShowProductsController implements Initializable {
 			tabFooter.addCell(cell1);
 			PdfPCell cell2 = new PdfPCell(new Phrase(
 					"255 Cr�mazie Est, bureau 015 Montr�al, Quebec, H2M 1M2"));
-			;
+
 			cell2.setBorder(Rectangle.NO_BORDER);
 			cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
 			tabFooter.addCell(cell2);
 			PdfPCell cell3 = new PdfPCell(new Phrase(
 					"T�l�phone: (514)-316-9202"));
-			;
+
 			cell3.setBorder(Rectangle.NO_BORDER);
 			cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
 			tabFooter.addCell(cell3);
 			document.add(tabFooter);
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -628,7 +635,6 @@ public class ShowProductsController implements Initializable {
 
 			table.addCell(imagecell);
 		} catch (IOException | BadElementException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

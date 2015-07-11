@@ -21,8 +21,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -44,7 +42,7 @@ public class AddUpdateClientController implements Initializable {
 	private Label lblClose;
 	@FXML
 	private ComboBox<Vendor> vendorCombobox;
-	
+
 	@FXML
 	private Button btnAddUpdate;
 	@FXML
@@ -63,7 +61,7 @@ public class AddUpdateClientController implements Initializable {
 	private TextField addressTxt;
 	@FXML
 	private TextArea descriptionTxt;
-	
+
 	private ObservableList<Vendor> vendorOservableList;
 
 	@Override
@@ -71,33 +69,26 @@ public class AddUpdateClientController implements Initializable {
 		FXUtils.addDraggableNode(titleBar);
 		vendorOservableList = FXCollections.observableArrayList();
 		vendorCombobox.setItems(vendorOservableList);
-		if(Session.vendor == null)
-		{
-			
+		if (Session.vendor == null) {
+
 			vendorOservableList.addAll(VendorManager.getAll());
-		}
-		else
-		{
+		} else {
 			vendorOservableList.add(Session.vendor);
 			vendorCombobox.getSelectionModel().select(index);
 			vendorCombobox.setDisable(true);
 		}
-		
+
 		new AutoCompleteComboBoxListener<Vendor>(vendorCombobox);
-		
-		contact_telTxt
-				.setOnKeyReleased(e -> {
-					if (StringUtils.validPhoneNumber(contact_telTxt.getText()
-							.trim())) {
 
-						contact_telTxt
-								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+		contact_telTxt.setOnKeyReleased(e -> {
+			if (StringUtils.validPhoneNumber(contact_telTxt.getText().trim())) {
 
-					} else {
-						contact_telTxt
-								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-					}
-				});
+				contact_telTxt.setStyle(FXUtils.HAS_SUCCESS);
+
+			} else {
+				contact_telTxt.setStyle(FXUtils.HAS_ERROR);
+			}
+		});
 
 		contact_telTxt.focusedProperty().addListener(
 				new ChangeListener<Boolean>() {
@@ -122,17 +113,13 @@ public class AddUpdateClientController implements Initializable {
 					}
 				});
 
-		contact_emailTxt
-				.setOnKeyReleased(e -> {
-					if (StringUtils.validEmail(contact_emailTxt.getText()
-							.trim())) {
-						contact_emailTxt
-								.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
-					} else {
-						contact_emailTxt
-								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-					}
-				});
+		contact_emailTxt.setOnKeyReleased(e -> {
+			if (StringUtils.validEmail(contact_emailTxt.getText().trim())) {
+				contact_emailTxt.setStyle(FXUtils.HAS_SUCCESS);
+			} else {
+				contact_emailTxt.setStyle(FXUtils.HAS_ERROR);
+			}
+		});
 
 		contact_emailTxt.focusedProperty().addListener(
 				new ChangeListener<Boolean>() {
@@ -174,7 +161,7 @@ public class AddUpdateClientController implements Initializable {
 					String phoneNumber = contact_telTxt.getText().trim();
 					String address = addressTxt.getText().trim();
 					String description = descriptionTxt.getText().trim();
-					
+
 					Client client = new Client();
 					client.setEnterprise_name(enterprise);
 					client.setContact_name(name);
@@ -185,15 +172,13 @@ public class AddUpdateClientController implements Initializable {
 					if (vendorCombobox.getSelectionModel().getSelectedIndex() > -1) {
 						int index = vendorCombobox.getSelectionModel()
 								.getSelectedIndex();
-						client.setAssociated_vendor(vendorOservableList.get(index).getId());
-					}
-					else
-					{
+						client.setAssociated_vendor(vendorOservableList.get(
+								index).getId());
+					} else {
 						valid = false;
 						feedbackmsg += "Il faut choisir un vendeur.\n";
 					}
-					
-					
+
 					Client ClientByEntrepriseAndClientName = ClientManager
 							.getByEntrepriseAndClientName(client);
 
@@ -234,17 +219,7 @@ public class AddUpdateClientController implements Initializable {
 						stage.close();
 					} else {
 						try {
-							CustomInfoBox customDialogBox = new CustomInfoBox(
-									stage, feedbackmsg, "Ok", "#282828");
-							customDialogBox.btn
-									.setOnAction(new EventHandler<ActionEvent>() {
-										@Override
-										public void handle(ActionEvent event) {
-											stage = (Stage) customDialogBox.btn
-													.getScene().getWindow();
-											stage.close();
-										}
-									});
+							new CustomInfoBox(stage, feedbackmsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -271,7 +246,7 @@ public class AddUpdateClientController implements Initializable {
 			this.clientToUpdate = client;
 			this.index = index;
 			setData(clientToUpdate);
-			
+
 			break;
 		default:
 			titleWindow.setText("Default");
@@ -286,9 +261,8 @@ public class AddUpdateClientController implements Initializable {
 		contact_emailTxt.setText(client.getContact_email());
 		addressTxt.setText(client.getAddress());
 		descriptionTxt.setText(client.getDescription());
-		for(Vendor vendor : vendorOservableList){
-			if(client.getAssociated_vendor() == vendor.getId())
-			{
+		for (Vendor vendor : vendorOservableList) {
+			if (client.getAssociated_vendor() == vendor.getId()) {
 				vendorCombobox.getSelectionModel().select(vendor);
 			}
 		}

@@ -1,7 +1,6 @@
 package com.devsolutions.camelus.controllers;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -25,6 +24,7 @@ import javafx.stage.StageStyle;
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.utils.CRUD;
+import com.devsolutions.camelus.utils.StringUtils;
 
 public class ShowAdminsController implements Initializable {
 
@@ -55,7 +55,6 @@ public class ShowAdminsController implements Initializable {
 		fullnameColumn.setCellValueFactory(new PropertyValueFactory<>(
 				"full_name"));
 		loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		hireDateColumn.setCellValueFactory(new PropertyValueFactory<>(
 				"hire_date"));
 		hireDateColumn.setCellFactory(column -> {
@@ -64,7 +63,7 @@ public class ShowAdminsController implements Initializable {
 				protected void updateItem(Date item, boolean empty) {
 					super.updateItem(item, empty);
 					if (item != null && !empty) {
-						setText(simpleDateFormat.format(item));
+						setText(StringUtils.formatDate(item));
 					}
 				}
 			};

@@ -12,8 +12,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -152,7 +150,6 @@ public class TakeOrderController implements Initializable {
 		unites = UnitManager.getAll();
 		noImage = productImage.getImage();
 
-
 		products = ProductManager.getAll();
 		if (Session.admin != null) {
 			clients = ClientManager.getAll();
@@ -195,14 +192,14 @@ public class TakeOrderController implements Initializable {
 							+ (currentProduct.getCost_price() * 10) / 100;
 
 					if (!StringUtils.isInteger(quantity)) {
-						invalidFields += " - Veuillez saisir une quantité valide. \n";
+						invalidFields += " - Veuillez saisir une quantitï¿½ valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) <= 0) {
-						invalidFields += " - Veuillez saisir une quantité valide. \n";
+						invalidFields += " - Veuillez saisir une quantitï¿½ valide. \n";
 						validfields = false;
 					} else if (Integer.parseInt(quantity) > currentProduct
 							.getQuantity()) {
-						invalidFields += " - La quantité disponible ne peut satisfaire votre demande! \n";
+						invalidFields += " - La quantitï¿½ disponible ne peut satisfaire votre demande! \n";
 						validfields = false;
 					}
 
@@ -216,7 +213,7 @@ public class TakeOrderController implements Initializable {
 							validfields = false;
 						} else if (Double.parseDouble(modifiedPriceField
 								.getText()) < minModifiedPrice) {
-							invalidFields += " - Le prix ajusté ne peut être plus petit que : "
+							invalidFields += " - Le prix ajustï¿½ ne peut ï¿½tre plus petit que : "
 									+ minModifiedPrice + " $.\n";
 							validfields = false;
 						}
@@ -227,7 +224,7 @@ public class TakeOrderController implements Initializable {
 								.getItems()) {
 							if (productToOrderTV.getId() == currentProduct
 									.getId()) {
-								invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimer  \n";
+								invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veuillez le modifier ou le supprimer  \n";
 								validfields = false;
 							}
 						}
@@ -240,7 +237,7 @@ public class TakeOrderController implements Initializable {
 									.getId()) {
 								if (currentProduct.getId() != selectedProductToModifie
 										.getId()) {
-									invalidFields += " - Ce produit existe déjà dans la liste. Veuillez le modifier ou le supprimmer  \n";
+									invalidFields += " - Ce produit existe dï¿½jï¿½ dans la liste. Veuillez le modifier ou le supprimmer  \n";
 									validfields = false;
 
 								}
@@ -285,17 +282,7 @@ public class TakeOrderController implements Initializable {
 						try {
 							stage = (Stage) addOrderLineBtn.getScene()
 									.getWindow();
-							CustomInfoBox customDialogBox = new CustomInfoBox(
-									stage, invalidFields, "Ok", "#000000");
-							customDialogBox.btn
-									.setOnAction(new EventHandler<ActionEvent>() {
-										@Override
-										public void handle(ActionEvent event) {
-											stage = (Stage) customDialogBox.btn
-													.getScene().getWindow();
-											stage.close();
-										}
-									});
+							new CustomInfoBox(stage, invalidFields, "Ok");
 						} catch (IOException e2) {
 							e2.printStackTrace();
 						}
@@ -353,7 +340,8 @@ public class TakeOrderController implements Initializable {
 
 		takeOrderBtn.setOnAction(e -> {
 			OrderTV orderTV = new OrderTV();
-			Vendor vendor = vendorComboBox.getItems().get(vendorComboBox.getSelectionModel().getSelectedIndex());
+			Vendor vendor = vendorComboBox.getItems().get(
+					vendorComboBox.getSelectionModel().getSelectedIndex());
 
 			Order order = new Order();
 			order.setVendor_id(vendor.getId());
@@ -378,7 +366,7 @@ public class TakeOrderController implements Initializable {
 			orderTV.setClient_id(order.getClient_id());
 			orderTV.setId(order.getId());
 			orderTV.setComment(order.getComment());
-		
+
 			orderTV.setAssociated_vendor(vendor.getId());
 			orderTV.setCommission_id(vendor.getCommission_id());
 			orderTV.setEnterprise_name(currentClient.getEnterprise_name());
@@ -530,7 +518,7 @@ public class TakeOrderController implements Initializable {
 		modifiedPriceField.setText("");
 	}
 
-	public void initTableView() {
+	private void initTableView() {
 		productToOrderObservableList = FXCollections.observableArrayList();
 
 		upcCol.setCellValueFactory(new PropertyValueFactory<>("upc"));
@@ -543,7 +531,7 @@ public class TakeOrderController implements Initializable {
 		orderLinesTableView.setItems(productToOrderObservableList);
 
 		orderLinesTableView.setPlaceholder(new Label(
-				"Aucun produit n'a pas été ajouté à la liste"));
+				"Aucun produit n'a pas ï¿½tï¿½ ajoutï¿½ ï¿½ la liste"));
 	}
 
 	public void addToTableView(ProductToOrderTV productToOrderTV) {

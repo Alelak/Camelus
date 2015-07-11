@@ -653,13 +653,12 @@ public class ShowVendorsController implements Initializable {
 			}
 
 		} else {
+			Calendar cal = Calendar.getInstance();
 			for (OrderTV orderTV : orders) {
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(orderTV.getOrdered_at());
-				int year = cal.get(Calendar.YEAR);
-				int month = cal.get(Calendar.MONTH);
 
-				if (month + 1 == selectedMonth && year == selectedYear) {
+				cal.setTime(orderTV.getOrdered_at());
+				if (cal.get(Calendar.MONTH) + 1 == selectedMonth
+						&& cal.get(Calendar.YEAR) == selectedYear) {
 					ordersNeeded.add(orderTV);
 				}
 			}
@@ -762,12 +761,10 @@ public class ShowVendorsController implements Initializable {
 		ObservableList<Choice> yearsObservableList = FXCollections
 				.observableArrayList();
 		yearsObservableList.add(new Choice(0, "Ann�e"));
-
+		Calendar cal = Calendar.getInstance();
 		for (OrderTV orderTV : orders) {
-			Calendar cal = Calendar.getInstance();
 			cal.setTime(orderTV.getOrdered_at());
 			int year = cal.get(Calendar.YEAR);
-
 			if (!exist(yearsObservableList, year))
 				yearsObservableList.add(new Choice(year, "" + year));
 		}
@@ -799,7 +796,7 @@ public class ShowVendorsController implements Initializable {
 		return exist;
 	}
 
-	public void initTableView() {
+	private void initTableView() {
 		vendorIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 		vendorNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		vendorLoginCol.setCellValueFactory(new PropertyValueFactory<>("login"));

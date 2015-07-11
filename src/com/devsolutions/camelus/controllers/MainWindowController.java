@@ -84,11 +84,14 @@ public class MainWindowController implements Initializable {
 			GridPane.setMargin(outerToolbarHbox, new Insets(0, 130, 0, 0));
 			innerToolbarHbox.getChildren()
 					.removeAll(tbvendeursbtn, tbadminsbtn);
+			settingsmenubutton.getItems().removeAll(categoriesMI, UnitesMI,
+					CommissionsMI, LogsMI);
 		} else if (Session.admin.getSuper_admin() == 0) {
 			GridPane.setMargin(outerToolbarHbox, new Insets(0, 60, 0, 0));
 			innerToolbarHbox.getChildren().remove(tbadminsbtn);
+			settingsmenubutton.getItems().remove(ProfileMi);
 		} else {
-			// super admin
+			settingsmenubutton.getItems().remove(ProfileMi);
 		}
 		tbacceuilbtn.setStyle(BACKGROUND_CAMELUS_LIGHT_BLUE);
 		switchScene("home");
@@ -293,13 +296,7 @@ public class MainWindowController implements Initializable {
 
 	@FXML
 	public void profilemihandler() {
-		if (Session.admin != null) {
-			// admin
-
-		} else {
-			openMenuWindows("vendorprofile");
-		}
-
+		openMenuWindows("vendorprofile");
 	}
 
 	@FXML

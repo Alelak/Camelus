@@ -75,7 +75,7 @@ public class ShowProductController implements Initializable {
 	}
 
 	private void initForm() {
-		upc.setText("" + productToUpdate.getUpc());
+		upc.setText(productToUpdate.getUpc());
 		name.setText(productToUpdate.getName());
 		quantity.setText("" + productToUpdate.getQuantity());
 

@@ -34,7 +34,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
@@ -109,7 +108,6 @@ public class ShowOrdersController implements Initializable {
 	@FXML
 	private TableColumn<OrderTV, String> statusCol;
 
-	private List<OrderTV> ordersList;
 	private ObservableList<OrderTV> ordersObservableList;
 	private SortedList<OrderTV> sortedData;
 
@@ -122,15 +120,14 @@ public class ShowOrdersController implements Initializable {
 		gridRowOne.setVisible(false);
 
 		if (Session.vendor != null) {
-
-			ordersList = OrderManager.getByVendorId(Session.vendor.getId());
+			ordersObservableList = FXCollections
+					.observableArrayList(OrderManager
+							.getByVendorId(Session.vendor.getId()));
 		} else {
-			ordersList = OrderManager.getAllTV();
+			ordersObservableList = FXCollections
+					.observableArrayList(OrderManager.getAllTV());
 			message2.setText("Effectuer maintenant une commande.");
 		}
-
-		ordersObservableList = FXCollections.observableArrayList();
-		ordersObservableList.addAll(ordersList);
 
 		if (ordersObservableList.size() == 0) {
 
@@ -552,7 +549,7 @@ public class ShowOrdersController implements Initializable {
 
 	}
 
-	public void initTableView() {
+	private void initTableView() {
 
 		orderIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 

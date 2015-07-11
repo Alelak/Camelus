@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 public class FXUtils {
 	private static double initialX;
 	private static double initialY;
+	public static final String HAS_ERROR = "-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;";
+	public static final String HAS_SUCCESS = "-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;";
 
 	public static <T> boolean customcontains(ObservableList<T> observableList,
 			String string) {

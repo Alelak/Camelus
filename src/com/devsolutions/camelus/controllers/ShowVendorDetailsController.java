@@ -1,13 +1,13 @@
 package com.devsolutions.camelus.controllers;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.utils.FXUtils;
+import com.devsolutions.camelus.utils.StringUtils;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,11 +52,10 @@ public class ShowVendorDetailsController implements Initializable {
 	}
 
 	public void initData(Vendor currentVendor) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		usernameLabel.setText(currentVendor.getLogin());
 		fnameLabel.setText(currentVendor.getFname());
 		lnameLabel.setText(currentVendor.getLname());
-		hiredateLabel.setText(simpleDateFormat.format(currentVendor
+		hiredateLabel.setText(StringUtils.formatDate(currentVendor
 				.getHire_date()));
 		sinLabel.setText(currentVendor.getSin());
 		Commission commission = CommissionManager.getById(currentVendor

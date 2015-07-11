@@ -13,8 +13,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -70,17 +68,15 @@ public class AddProductController implements Initializable {
 	@FXML
 	private ChoiceBox<Choice> category;
 	@FXML
-	private TextField imgUrl;
-	@FXML
 	private ChoiceBox<Choice> unit;
 	private Stage stage;
-	Product product;
+	private Product product;
 	private ObservableList<Choice> listChoiceUnit;
 	private ObservableList<Choice> listChoiceCategory;
 	private byte[] imageInByte;
 	private ShowProductsController productController;
-	private boolean verifUpc = false;
-	private boolean error = false;
+	private boolean verifUpc;
+	private boolean error;
 
 	private String errorMsg;
 
@@ -98,45 +94,39 @@ public class AddProductController implements Initializable {
 			if (upc.getText()
 					.matches(
 							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-				upc.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+				upc.setStyle(FXUtils.HAS_SUCCESS);
 
 			} else
-				upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+				upc.setStyle(FXUtils.HAS_ERROR);
 		});
 
 		quantity.setOnKeyReleased(e -> {
 			if (StringUtils.isInteger(quantity.getText())) {
 				if (Double.parseDouble(quantity.getText()) > 0)
-					quantity.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+					quantity.setStyle(FXUtils.HAS_SUCCESS);
 			} else
-				quantity.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
+				quantity.setStyle(FXUtils.HAS_ERROR);
 
 		});
 
-		costPrice
-				.setOnKeyReleased(e -> {
-					if (StringUtils.isDouble(costPrice.getText())) {
+		costPrice.setOnKeyReleased(e -> {
+			if (StringUtils.isDouble(costPrice.getText())) {
 
-						if (Double.parseDouble(costPrice.getText()) > 0)
-							costPrice
-									.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+				if (Double.parseDouble(costPrice.getText()) > 0)
+					costPrice.setStyle(FXUtils.HAS_SUCCESS);
 
-					} else
-						costPrice
-								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-				});
-		sellingPrice
-				.setOnKeyReleased(e -> {
-					if (StringUtils.isDouble(sellingPrice.getText())) {
+			} else
+				costPrice.setStyle(FXUtils.HAS_ERROR);
+		});
+		sellingPrice.setOnKeyReleased(e -> {
+			if (StringUtils.isDouble(sellingPrice.getText())) {
 
-						if (Double.parseDouble(sellingPrice.getText()) > 0)
-							sellingPrice
-									.setStyle("-fx-border-color: green;-fx-border-width: 2; -fx-focus-color: transparent;");
+				if (Double.parseDouble(sellingPrice.getText()) > 0)
+					sellingPrice.setStyle(FXUtils.HAS_SUCCESS);
 
-					} else
-						sellingPrice
-								.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-				});
+			} else
+				sellingPrice.setStyle(FXUtils.HAS_ERROR);
+		});
 
 		upc.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -202,71 +192,90 @@ public class AddProductController implements Initializable {
 				});
 		btnAddProduct
 				.setOnAction(e -> {
+					error = false;
+					verifUpc = false;
+					String upcStr = upc.getText().trim();
+					String nameStr = name.getText().trim();
+					String quantityStr = quantity.getText().trim();
+					String costPriceStr = costPrice.getText().trim();
+					String sellingPriceStr = sellingPrice.getText().trim();
+					errorMsg = "";
 					for (ProductTableView b : productController
 							.getProductsObservableList()) {
 
-						if (b.getUpc().equals(upc.getText()))
+						if (b.getUpc().equals(upcStr))
 							verifUpc = true;
 
 					}
 
-					if (!(!upc.getText().isEmpty() && !name.getText().isEmpty()
-							&& !quantity.getText().isEmpty() && !costPrice
-							.getText().isEmpty())) {
-						errorMsg += "- il faut remplir au minimum UPC, Name, Prix coutant, Quantiter SVP \n";
+					if (!(!upcStr.isEmpty() && !nameStr.isEmpty()
+							&& !quantityStr.isEmpty() && !costPriceStr
+							.isEmpty())) {
+						errorMsg += "Tous les champs avec une etoile sont requis\n";
 						error = true;
 					}
-					if (!upc.getText()
-							.matches(
-									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-						errorMsg += "- le UPC doit avoir 12 chiffres \n ";
+					if (!upcStr
+							.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						errorMsg += "Le upc doit avoir 12 chiffres\n ";
 						error = true;
 					}
 					if (verifUpc == true) {
-						upc.setStyle("-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;");
-						errorMsg += "- le UPC existe deja veillez entrer un nouveau upc svp\n";
+						upc.setStyle(FXUtils.HAS_ERROR);
+						errorMsg += "Le upc existe deja, veuillez saisir un autre upc\n";
 						error = true;
 					}
-					if (name.getText().equals("")) {
-						errorMsg += "- Veillez saisire le nom de produit SVP\n";
+					if (nameStr.isEmpty()) {
+						errorMsg += "Veuillez saisir un nom de produit\n";
 						error = true;
 					}
-					if (!StringUtils.isInteger(quantity.getText())) {
-						errorMsg += "- entrer une Quantiter valide\n";
+					if (!StringUtils.isInteger(quantityStr)) {
+						errorMsg += "Veuillez saisir une quantite valide\n";
 						error = true;
-					} else if (Integer.parseInt(quantity.getText()) < 0) {
-						errorMsg += "- Veuillez entrez une qunatiter Posetive SVP\n";
-						error = true;
-					}
-					if (!StringUtils.isDouble(costPrice.getText())) {
-						errorMsg += "- saisie un prix valide Svp\n";
-						error = true;
-					} else if (Double.parseDouble(costPrice.getText()) < 0) {
-						errorMsg += "- saisie un prix Posetive Svp\n";
+					} else if (Integer.parseInt(quantityStr) < 0) {
+						errorMsg += "Veuillez saisir une quantite valide\n";
 						error = true;
 					}
+					if (!StringUtils.isDouble(costPriceStr)) {
+						errorMsg += "Veuillez saisir un prix coutant valide\n";
+						error = true;
+					} else if (Double.parseDouble(costPriceStr) < 0) {
+						errorMsg += "Veuillez saisir un prix coutant valide\n";
+						error = true;
+					}
+					if (!sellingPriceStr.isEmpty()) {
+						if (!StringUtils.isDouble(sellingPriceStr)) {
+							errorMsg += "Veuillez saisir un prix vendant valide\n";
+							error = true;
+						} else if (Double.parseDouble(sellingPriceStr) < 0) {
+							errorMsg += "Veuillez saisir un prix vendant valide\n";
+							error = true;
+						}
+					}
+
 					stage = (Stage) btnAddProduct.getScene().getWindow();
 					if (error == false) {
-
-						ProductManager.add(addProduct());
+						product = new Product();
+						product.setUpc(upcStr);
+						product.setName(nameStr);
+						product.setQuantity(Integer.parseInt(quantityStr));
+						product.setUnit_id(unit.getSelectionModel()
+								.getSelectedItem().getId());
+						product.setCategory_id(category.getSelectionModel()
+								.getSelectedItem().getId());
+						product.setImg(imageInByte);
+						product.setDescription(description.getText());
+						product.setCost_price(Double.parseDouble(costPriceStr));
+						if(!sellingPriceStr.isEmpty())
+						product.setSelling_price(Double
+								.parseDouble(sellingPriceStr));
+						ProductManager.add(product);
 						addProductToTableView();
 						stage.close();
 						productController.showTableView();
 						productController.selectLastRow();
 					} else {
 						try {
-							CustomInfoBox customDialogBox = new CustomInfoBox(
-									stage, errorMsg, "Ok", "#282828");
-							customDialogBox.btn
-									.setOnAction(new EventHandler<ActionEvent>() {
-										@Override
-										public void handle(ActionEvent event) {
-											stage = (Stage) customDialogBox.btn
-													.getScene().getWindow();
-											errorMsg = "";
-											stage.close();
-										}
-									});
+							new CustomInfoBox(stage, errorMsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -280,7 +289,7 @@ public class AddProductController implements Initializable {
 
 	}
 
-	public void listChoiceBoxUnit() {
+	private void listChoiceBoxUnit() {
 		listChoiceUnit = FXCollections.observableArrayList();
 		for (Unit unit : UnitManager.getAll()) {
 			listChoiceUnit.add(new Choice(unit.getId(), unit.getDescription()));
@@ -289,7 +298,7 @@ public class AddProductController implements Initializable {
 		unit.getSelectionModel().select(0);
 	}
 
-	public void listChoiceBoxCategory() {
+	private void listChoiceBoxCategory() {
 		listChoiceCategory = FXCollections.observableArrayList();
 		for (Category category : CategoryManager.getAll()) {
 			listChoiceCategory.add(new Choice(category.getId(), category
@@ -301,28 +310,7 @@ public class AddProductController implements Initializable {
 
 	}
 
-	public Product addProduct()
-
-	{
-
-		product = new Product();
-
-		product.setUpc(upc.getText());
-		product.setName(name.getText());
-		product.setQuantity(Integer.parseInt(quantity.getText()));
-		product.setUnit_id(unit.getSelectionModel().getSelectedItem().getId());
-		product.setCategory_id(category.getSelectionModel().getSelectedItem()
-				.getId());
-		product.setImg(imageInByte);
-		product.setDescription(description.getText());
-		product.setCost_price(Double.parseDouble(costPrice.getText()));
-		if (!sellingPrice.getText().isEmpty())
-			product.setSelling_price(Double.parseDouble(sellingPrice.getText()));
-
-		return product;
-	}
-
-	public void addProductToTableView() {
+	private void addProductToTableView() {
 		ProductTableView productTableView = new ProductTableView();
 		productTableView.setId(product.getId());
 		productTableView.setUpc(product.getUpc());
@@ -336,7 +324,7 @@ public class AddProductController implements Initializable {
 
 	}
 
-	public void addPicture() {
+	private void addPicture() {
 		File defaultDirectory = new File(System.getProperty("user.home")
 				+ "/Pictures");
 

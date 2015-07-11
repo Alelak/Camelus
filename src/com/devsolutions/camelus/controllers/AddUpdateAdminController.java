@@ -15,11 +15,8 @@ import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.CustomInfoBox;
 import com.devsolutions.camelus.utils.FXUtils;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -29,9 +26,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class AddUpdateAdminController implements Initializable {
-
-	@FXML
-	private Parent root;
 	@FXML
 	private GridPane titleBar;
 	@FXML
@@ -167,17 +161,7 @@ public class AddUpdateAdminController implements Initializable {
 						stage.close();
 					} else {
 						try {
-							CustomInfoBox customDialogBox = new CustomInfoBox(
-									stage, feedbackmsg, "Ok", "#ff0000");
-							customDialogBox.btn
-									.setOnAction(new EventHandler<ActionEvent>() {
-										@Override
-										public void handle(ActionEvent event) {
-											stage = (Stage) customDialogBox.btn
-													.getScene().getWindow();
-											stage.close();
-										}
-									});
+							new CustomInfoBox(stage, feedbackmsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
