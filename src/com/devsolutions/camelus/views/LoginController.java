@@ -3,6 +3,8 @@ package com.devsolutions.camelus.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -116,7 +118,8 @@ public class LoginController implements Initializable {
 							Admin admin = AdminManager.getByUserName(username);
 							if (admin != null) {
 
-								if (admin.getPassword().equals(password)) {
+								if (admin.getPassword().equals(
+										DigestUtils.sha1Hex(password))) {
 									Session.admin = admin;
 									FXMLLoader loader = new FXMLLoader(
 											getClass().getResource(
@@ -155,7 +158,8 @@ public class LoginController implements Initializable {
 							Vendor vendor = VendorManager
 									.getByUserName(username);
 							if (vendor != null) {
-								if (vendor.getPassword().equals(password)) {
+								if (vendor.getPassword().equals(
+										DigestUtils.sha1Hex(password))) {
 									Session.vendor = vendor;
 									FXMLLoader loader = new FXMLLoader(
 											getClass().getResource(

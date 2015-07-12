@@ -28,7 +28,7 @@ public interface VendorMapper {
 	Vendor getBySin(String sin);
 
 	@Insert("INSERT INTO vendors (login, password, fname, lname, hire_date, sin, commission_id)"
-			+ " VALUES (#{login}, #{password}, #{fname}, #{lname}, #{hire_date}, #{sin}, #{commission_id})")
+			+ " VALUES (#{login}, SHA1(#{password}), #{fname}, #{lname}, #{hire_date}, #{sin}, #{commission_id})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id", flushCache = true)
 	void add(Vendor vendor);
 
@@ -40,7 +40,7 @@ public interface VendorMapper {
 	@Options(flushCache = true)
 	void delete(int id);
 
-	@Update("UPDATE  vendors SET password = #{password}, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
+	@Update("UPDATE  vendors SET password = SHA1(#{password}), updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void updatePassword(@Param("id") int id, @Param("password") String password);
 }

@@ -23,7 +23,7 @@ public interface AdminMapper {
 	Admin getBySin(String sin);
 
 	@Insert("INSERT INTO admins (login, password, fname, lname, hire_date, sin)"
-			+ " VALUES (#{login}, #{password}, #{fname}, #{lname}, #{hire_date}, #{sin})")
+			+ " VALUES (#{login}, SHA1(#{password}), #{fname}, #{lname}, #{hire_date}, #{sin})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id", flushCache = true)
 	void add(Admin admin);
 
