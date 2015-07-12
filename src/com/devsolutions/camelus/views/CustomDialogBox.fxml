@@ -14,7 +14,7 @@
 <GridPane id="gridPane" alignment="CENTER" gridLinesVisible="false"
 	prefHeight="177.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/8"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.CustomDialogBoxController">
+	fx:controller="com.devsolutions.camelus.views.CustomDialogBoxController">
 
 
 	<rowConstraints>

@@ -12,7 +12,7 @@
 <?import java.net.*?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-	fx:controller="com.devsolutions.camelus.controllers.ShowAdminsController">
+	fx:controller="com.devsolutions.camelus.views.ShowAdminsController">
 	<rowConstraints>
 		<RowConstraints percentHeight="90.0" />
 		<RowConstraints percentHeight="10.0" />
@@ -71,9 +71,5 @@
 				<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 			</columnResizePolicy>
 		</TableView>
-
 	</children>
-	<stylesheets>
-		<URL value="@Content.css" />
-	</stylesheets>
 </GridPane>

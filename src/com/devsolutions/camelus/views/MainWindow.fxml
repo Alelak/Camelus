@@ -19,7 +19,7 @@
 <GridPane id="parent" gridLinesVisible="false" maxHeight="-Infinity"
 	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
 	prefHeight="696.0" prefWidth="1224.0" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.controllers.MainWindowController">
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.views.MainWindowController">
 	<rowConstraints>
 		<RowConstraints percentHeight="7.0" />
 		<RowConstraints percentHeight="7.0" />

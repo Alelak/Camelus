@@ -15,7 +15,7 @@
 <?import javafx.scene.control.PasswordField?>
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.AddUpdateAdminController">
+	fx:controller="com.devsolutions.camelus.views.AddUpdateAdminController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="84.6" />
@@ -35,7 +35,7 @@
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
 			<children>
-				<Label  GridPane.ColumnIndex="0" fx:id="titleWindow">
+				<Label GridPane.ColumnIndex="0" fx:id="titleWindow">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -101,7 +101,7 @@
 
 				<TextField fx:id="logintxt" GridPane.rowIndex="1"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<PasswordField  fx:id="passwordtxt" GridPane.rowIndex="2"
+				<PasswordField fx:id="passwordtxt" GridPane.rowIndex="2"
 					GridPane.ColumnIndex="1" maxWidth="235"></PasswordField>
 				<TextField fx:id="fnametxt" GridPane.rowIndex="3"
 					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
@@ -153,7 +153,4 @@
 				text="Annuler"></Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@childWindow.css" />
-	</stylesheets>
 </GridPane>

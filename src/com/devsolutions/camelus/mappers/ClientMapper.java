@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
 import com.devsolutions.camelus.entities.Client;
 
 public interface ClientMapper {
@@ -24,7 +26,9 @@ public interface ClientMapper {
 
 	@Select("SELECT * FROM clients WHERE enterprise_name = #{enterprise_name} AND contact_name = #{contact_name} AND "
 			+ DELETED_CONDITION)
-	Client getByEntrepriseAndClientName(Client client);
+	Client getByEntrepriseAndClientName(
+			@Param("enterprise_name") String enterprise_name,
+			@Param("contact_name") String contact_name);
 
 	@Insert("INSERT INTO clients (associated_vendor, enterprise_name, contact_name, contact_tel, contact_email, address, description)"
 			+ " VALUES (#{associated_vendor}, #{enterprise_name}, #{contact_name}, #{contact_tel}, #{contact_email}, #{address}, #{description})")

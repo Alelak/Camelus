@@ -10,7 +10,7 @@
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <VBox id="motherGrid" prefHeight="546.0" prefWidth="800"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowOrderDetailsController">
+	fx:controller="com.devsolutions.camelus.views.ShowOrderDetailsController">
 	<children>
 		<GridPane prefHeight="61" fx:id="titleBar"
 			style="-fx-background-color: #efefef;">
@@ -166,12 +166,12 @@
 						<Insets left="50.0" right="50.0" />
 					</VBox.margin>
 					<columns>
-					<TableColumn fx:id="productUpcCol" text="UPC" />
-					<TableColumn fx:id="productNameCol" text="Nom du produit" />
-					<TableColumn fx:id="quantityCol" text="Quantité" />
-					<TableColumn fx:id="priceCol" text="Prix unitaire ($)" />
-					<TableColumn fx:id="modifiedPriceCol" text="Prix ajusté ($)" />
-					<TableColumn fx:id="totalCol" text="Total ($)" />
+						<TableColumn fx:id="productUpcCol" text="UPC" />
+						<TableColumn fx:id="productNameCol" text="Nom du produit" />
+						<TableColumn fx:id="quantityCol" text="Quantité" />
+						<TableColumn fx:id="priceCol" text="Prix unitaire ($)" />
+						<TableColumn fx:id="modifiedPriceCol" text="Prix ajusté ($)" />
+						<TableColumn fx:id="totalCol" text="Total ($)" />
 					</columns>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -243,8 +243,4 @@
 			</VBox.margin>
 		</VBox>
 	</children>
-	<stylesheets>
-		<URL value="@Content.css" />
-		<URL value="@childWindow.css" />
-	</stylesheets>
 </VBox>

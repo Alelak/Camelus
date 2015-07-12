@@ -17,7 +17,7 @@
 <GridPane id="parent" maxHeight="470.0" maxWidth="500.0"
 	minHeight="470.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.LoginController">
+	fx:controller="com.devsolutions.camelus.views.LoginController">
 	<rowConstraints>
 		<RowConstraints percentHeight="6" />
 		<RowConstraints percentHeight="94" />
@@ -42,7 +42,7 @@
 						<Insets bottom="0" left="8" right="0" top="0" />
 					</GridPane.margin>
 					<image>
-						<Image url="@../../../../images/logo_icon.png" />
+						<Image url="@/images/logo_icon.png" />
 					</image>
 				</ImageView>
 				<HBox GridPane.columnIndex="1" alignment="CENTER_RIGHT">

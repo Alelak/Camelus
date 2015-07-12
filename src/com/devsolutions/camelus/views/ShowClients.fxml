@@ -11,7 +11,7 @@
 <?import javafx.geometry.Insets?>
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowClientsController">
+	fx:controller="com.devsolutions.camelus.views.ShowClientsController">
 	<rowConstraints>
 		<RowConstraints percentHeight="90" />
 		<RowConstraints percentHeight="10" />
@@ -58,7 +58,7 @@
 								<Insets bottom="5.0" />
 							</padding>
 							<TextField fx:id="textFieldSearch" minWidth="370"
-								promptText="Chercher des clients, des entreprise ou des numéros de téléphone"></TextField>		
+								promptText="Chercher des clients, des entreprise ou des numéros de téléphone"></TextField>
 						</HBox>
 						<HBox alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
 							GridPane.columnIndex="1">
@@ -68,17 +68,22 @@
 							<Button fx:id="btnRefresh" prefWidth="120" styleClass="flat-btn"
 								text="Actualiser">
 								<graphic>
-									<FontAwesomeIconView styleClass="whiteFont" icon="ICON_REFRESH" />
+									<FontAwesomeIconView styleClass="whiteFont"
+										icon="ICON_REFRESH" />
 								</graphic>
 							</Button>
 						</HBox>
-						<TableView styleClass="tableView" fx:id="clientTableView" GridPane.rowIndex="1"
-							GridPane.columnIndex="0" GridPane.columnSpan="2">
+						<TableView styleClass="tableView" fx:id="clientTableView"
+							GridPane.rowIndex="1" GridPane.columnIndex="0"
+							GridPane.columnSpan="2">
 							<columns>
 								<TableColumn maxWidth="0" fx:id="idColumn" text="Id" />
-								<TableColumn minWidth="292" fx:id="enterprise_name_Column" text="Nom de l'entreprise"/>
-								<TableColumn minWidth="292" fx:id="contact_name_Column" text="Nom et pénom" />
-								<TableColumn minWidth="292" fx:id="contact_tel_Column" text="Numéro de téléphone" />			
+								<TableColumn minWidth="292" fx:id="enterprise_name_Column"
+									text="Nom de l'entreprise" />
+								<TableColumn minWidth="292" fx:id="contact_name_Column"
+									text="Nom et pénom" />
+								<TableColumn minWidth="292" fx:id="contact_tel_Column"
+									text="Numéro de téléphone" />
 							</columns>
 						</TableView>
 					</children>
@@ -91,36 +96,38 @@
 			<Button fx:id="btnAdd" prefWidth="120" styleClass="flat-btn"
 				text="Ajouter">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont"  icon="ICON_PLUS" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PLUS" />
 				</graphic>
 			</Button>
-			<Button   disable="true" fx:id="btnUpdate" prefWidth="120" styleClass="flat-btn"
-				text="Modifer">
+			<Button disable="true" fx:id="btnUpdate" prefWidth="120"
+				styleClass="flat-btn" text="Modifer">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_PENCIL" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_PENCIL" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="btnDelete" prefWidth="120" styleClass="flat-btn"
-				text="Supprimer">
+			<Button disable="true" fx:id="btnDelete" prefWidth="120"
+				styleClass="flat-btn" text="Supprimer">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_MINUS" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_MINUS" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="btnConsult" prefWidth="120" styleClass="flat-btn"
-				text="Consulter">
+			<Button disable="true" fx:id="btnConsult" prefWidth="120"
+				styleClass="flat-btn" text="Consulter">
 				<graphic>
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_EYE_OPEN" />
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button disable="true" fx:id="btnOrder" prefWidth="120" styleClass="flat-btn" 
-				text="Commandes">
-				<graphic >
-					<FontAwesomeIconView styleClass="whiteFont" icon="ICON_FILE_TEXT" />
+			<Button disable="true" fx:id="btnOrder" prefWidth="120"
+				styleClass="flat-btn" text="Commandes">
+				<graphic>
+					<FontAwesomeIconView styleClass="whiteFont"
+						icon="ICON_FILE_TEXT" />
 				</graphic>
 			</Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@Content.css" />
-	</stylesheets>
 </GridPane>

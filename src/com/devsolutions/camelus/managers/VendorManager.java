@@ -2,6 +2,7 @@ package com.devsolutions.camelus.managers;
 
 import java.util.List;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
 import com.devsolutions.camelus.auditing.Audit;
@@ -11,6 +12,7 @@ import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.mappers.VendorMapper;
 import com.devsolutions.camelus.services.DBConnection;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.FXUtils;
 
 public class VendorManager {
 	public static List<Vendor> getAll() {
@@ -46,8 +48,13 @@ public class VendorManager {
 	public static void add(Vendor vendor) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).add(vendor);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
 						"a ajouter un vendeur id : " + vendor.getId()));
@@ -57,8 +64,13 @@ public class VendorManager {
 	public static void update(Vendor vendor) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).update(vendor);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
 						"a modifier un vendeur id : " + vendor.getId()));
@@ -68,8 +80,13 @@ public class VendorManager {
 	public static void updatePassword(int id, String password) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).updatePassword(id, password);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
 						"a modifier son mot de passe"));
@@ -79,8 +96,13 @@ public class VendorManager {
 	public static void delete(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(VendorMapper.class).delete(id);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.DELETE,
 						"a supprimer un vendeur id : " + id));

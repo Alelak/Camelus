@@ -2,6 +2,7 @@ package com.devsolutions.camelus.managers;
 
 import java.util.List;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
 import com.devsolutions.camelus.auditing.Audit;
@@ -12,14 +13,20 @@ import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.mappers.OrderMapper;
 import com.devsolutions.camelus.services.DBConnection;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.FXUtils;
 
 public class OrderManager {
 
 	public static void add(Order order) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(OrderMapper.class).add(order);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		if (Session.vendor != null) {
 			AuditUtils.getAuditingService().setAudit(
 					new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
@@ -74,8 +81,13 @@ public class OrderManager {
 	public static void cancel(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(OrderMapper.class).cancel(id);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		if (Session.vendor != null) {
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,

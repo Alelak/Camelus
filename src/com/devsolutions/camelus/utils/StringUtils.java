@@ -33,7 +33,7 @@ public class StringUtils {
 			monthName = "Janvier";
 			break;
 		case 2:
-			monthName = "F�vrier";
+			monthName = "Fevrier";
 			break;
 		case 3:
 			monthName = "Mars";
@@ -63,7 +63,7 @@ public class StringUtils {
 			monthName = "Novembre";
 			break;
 		case 12:
-			monthName = "D�cembre";
+			monthName = "Decembre";
 			break;
 		}
 

@@ -14,10 +14,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TableColumn?>
-
 <GridPane id="motherGrid" xmlns:fx="http://javafx.com/fxml/1"
 	prefHeight="600" prefWidth="600" xmlns="http://javafx.com/javafx/8"
-	fx:controller="com.devsolutions.camelus.controllers.CommissionsController">
+	fx:controller="com.devsolutions.camelus.views.CommissionsController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5" />
 		<RowConstraints percentHeight="14" />
@@ -93,13 +92,5 @@
 					styleClass="flat-btn" fx:id="deleteBtn"></Button>
 			</VBox>
 		</HBox>
-
-
 	</children>
-
-	<stylesheets>
-		<URL value="@Content.css" />
-		<URL value="@ChildWindow.css" />
-	</stylesheets>
 </GridPane>
-

@@ -11,7 +11,7 @@
 <?import javafx.geometry.Insets?>
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowProductsController">
+	fx:controller="com.devsolutions.camelus.views.ShowProductsController">
 	<rowConstraints>
 		<RowConstraints percentHeight="90" />
 		<RowConstraints percentHeight="10" />
@@ -124,7 +124,7 @@
 						icon="ICON_EYE_OPEN" />
 				</graphic>
 			</Button>
-			<Button  fx:id="btnPdfProduct" prefWidth="120" disable="true"
+			<Button fx:id="btnPdfProduct" prefWidth="120" disable="true"
 				styleClass="flat-btn" text="Catalogue">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
@@ -133,7 +133,4 @@
 			</Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@Content.css" />
-	</stylesheets>
 </GridPane>

@@ -15,7 +15,7 @@
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowAdminController">
+	fx:controller="com.devsolutions.camelus.views.ShowAdminController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="10" />
@@ -110,7 +110,4 @@
 				text="Fermer"></Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@childWindow.css" />
-	</stylesheets>
 </GridPane>

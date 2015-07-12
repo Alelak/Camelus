@@ -9,18 +9,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 <?import java.net.*?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.PasswordField?>
-
-
-
-
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.VendorProfileController">
+	fx:controller="com.devsolutions.camelus.views.VendorProfileController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="86.6" />
@@ -29,7 +24,6 @@
 	<columnConstraints>
 		<ColumnConstraints halignment="CENTER" percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -40,10 +34,7 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
-
 			<children>
-
 				<Label style="-fx-font-family:'Roboto Bold';"
 					GridPane.ColumnIndex="0" text="Profil">
 					<padding>
@@ -62,15 +53,12 @@
 					</children>
 				</HBox>
 			</children>
-
 		</GridPane>
 		<GridPane maxWidth="450" maxHeight="400" id="contentGrid"
 			GridPane.rowIndex="1">
 			<padding>
 				<Insets bottom="5" />
 			</padding>
-
-
 			<rowConstraints>
 				<RowConstraints percentHeight="11.11" />
 				<RowConstraints percentHeight="11.11" />
@@ -85,7 +73,6 @@
 			<columnConstraints>
 				<ColumnConstraints prefWidth="100" />
 			</columnConstraints>
-
 			<children>
 				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0"
 					alignment="CENTER">
@@ -142,28 +129,14 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets right="5" bottom="8" />
 			</padding>
-			<Button fx:id="updateBtn" disable="true" prefWidth="120" styleClass="flat-btn"
-				text="Confirmer"></Button>
+			<Button fx:id="updateBtn" disable="true" prefWidth="120"
+				styleClass="flat-btn" text="Confirmer"></Button>
 			<Button fx:id="btnClose" onMouseClicked="#CloseWindow"
 				prefWidth="120" styleClass="flat-btn" text="Fermer"></Button>
 		</HBox>
-
-
 	</children>
-
-	<stylesheets>
-		<URL value="@childWindow.css" />
-	</stylesheets>
-
-
-
 </GridPane>
-
-
-
-

@@ -29,8 +29,7 @@ public class AuditDBConnection {
 			Reader reader = Resources.getResourceAsReader(ressource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader,
 					properties);
-			sqlSessionFactory.getConfiguration().addMappers(
-					"com/devsolutions/camelus/auditing");
+			sqlSessionFactory.getConfiguration().addMapper(AuditMapper.class);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -44,7 +43,7 @@ public class AuditDBConnection {
 
 	public static DBConfig getDBConfig() throws FileNotFoundException {
 		JsonReader jsonReader = new JsonReader(new FileReader(
-				"AuditDBConfig.json"));
+				System.getenv("APPDATA") + "\\Camelus\\AuditDBConfig.json"));
 		Gson gson = new Gson();
 		return gson.fromJson(jsonReader, DBConfig.class);
 	}

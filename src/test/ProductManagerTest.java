@@ -17,7 +17,7 @@ public class ProductManagerTest {
 		product.setUnit_id(1);
 		product.setCost_price(100.00);
 		product.setSelling_price(110.00);
-		product.setDescription("du metal à vie!");
+		product.setDescription("du metal e vie!");
 		product.setCategory_id(1);
 		ProductManager.add(product);
 		System.out.println("Record inserted");
@@ -32,7 +32,7 @@ public class ProductManagerTest {
 		product.setUnit_id(1);
 		product.setCost_price(100.00);
 		product.setSelling_price(120.00);
-		product.setDescription("une excellente qualité de metal!");
+		product.setDescription("une excellente qualite de metal!");
 		product.setCategory_id(1);
 
 		ProductManager.update(product);

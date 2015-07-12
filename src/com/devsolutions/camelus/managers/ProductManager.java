@@ -2,6 +2,7 @@ package com.devsolutions.camelus.managers;
 
 import java.util.List;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
 import com.devsolutions.camelus.auditing.Audit;
@@ -12,6 +13,7 @@ import com.devsolutions.camelus.entities.ProductTableView;
 import com.devsolutions.camelus.mappers.ProductMapper;
 import com.devsolutions.camelus.services.DBConnection;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.FXUtils;
 
 public class ProductManager {
 	public static List<Product> getAll() {
@@ -56,8 +58,13 @@ public class ProductManager {
 	public static void add(Product product) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ProductMapper.class).add(product);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
 						"a ajouter un produit id : " + product.getId()));
@@ -67,8 +74,13 @@ public class ProductManager {
 	public static void update(Product product) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ProductMapper.class).update(product);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
 						"a modifier un produit id : " + product.getId()));
@@ -78,8 +90,13 @@ public class ProductManager {
 	public static void delete(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(ProductMapper.class).delete(id);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.DELETE,
 						"a supprimer un produit id : " + id));

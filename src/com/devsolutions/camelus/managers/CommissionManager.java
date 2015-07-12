@@ -2,6 +2,7 @@ package com.devsolutions.camelus.managers;
 
 import java.util.List;
 
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
 import com.devsolutions.camelus.auditing.Audit;
@@ -11,14 +12,20 @@ import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.mappers.CommissionMapper;
 import com.devsolutions.camelus.services.DBConnection;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.FXUtils;
 
 public class CommissionManager {
 
 	public static void add(Commission commission) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(CommissionMapper.class).add(commission);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
 						"a ajouter une commission id : " + commission.getId()));
@@ -27,25 +34,41 @@ public class CommissionManager {
 
 	public static List<Commission> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Commission> commissions = session
-				.getMapper(CommissionMapper.class).getAll();
-		session.close();
+		List<Commission> commissions = null;
+		try {
+			commissions = session.getMapper(CommissionMapper.class).getAll();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		return commissions;
 	}
 
 	public static Commission getById(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Commission commission = session.getMapper(CommissionMapper.class)
-				.getById(id);
-		session.close();
+		Commission commission = null;
+		try {
+			commission = session.getMapper(CommissionMapper.class).getById(id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
+
 		return commission;
 	}
 
 	public static void delete(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(CommissionMapper.class).delete(id);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService().setAudit(
 				new Audit(Session.admin.getLogin(), AuditTypes.DELETE,
 						"a supprimer une commission id : " + id));
@@ -55,8 +78,13 @@ public class CommissionManager {
 	public static void update(Commission commission) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		session.getMapper(CommissionMapper.class).update(commission);
-		session.commit();
-		session.close();
+		try {
+			session.commit();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		AuditUtils.getAuditingService()
 				.setAudit(
 						new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,

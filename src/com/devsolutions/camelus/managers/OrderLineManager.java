@@ -16,8 +16,9 @@ public class OrderLineManager {
 		session.getMapper(OrderLineMapper.class).add(orderLine);
 		session.commit();
 		session.close();
+
 	}
-	
+
 	public static List<OrderLineTV> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		List<OrderLineTV> orderLinesTV = session.getMapper(

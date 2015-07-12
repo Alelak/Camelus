@@ -12,7 +12,7 @@
 <?import javafx.geometry.Insets?>
 <GridPane id="motherGrid" prefWidth="1216.0" maxHeight="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.TakeOrderController">
+	fx:controller="com.devsolutions.camelus.views.TakeOrderController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.1" />
 		<RowConstraints percentHeight="94.9" />
@@ -530,9 +530,5 @@
 			</items>
 		</SplitPane>
 	</children>
-	<stylesheets>
-		<URL value="@childWindow.css" />
-		<URL value="@Content.css" />
-	</stylesheets>
 </GridPane>
 	

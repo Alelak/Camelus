@@ -16,7 +16,7 @@
 <?import javafx.scene.image.*?>
 <GridPane prefHeight="550" prefWidth="550" id="motherGrid"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowProductController">
+	fx:controller="com.devsolutions.camelus.views.ShowProductController">
 	<rowConstraints>
 		<RowConstraints percentHeight="4.8" />
 		<RowConstraints percentHeight="10" />
@@ -148,7 +148,4 @@
 				text="Fermer"></Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@childWindow.css" />
-	</stylesheets>
 </GridPane>

@@ -12,7 +12,7 @@
 
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowVendorsController">
+	fx:controller="com.devsolutions.camelus.views.ShowVendorsController">
 	<rowConstraints>
 		<RowConstraints percentHeight="90" />
 		<RowConstraints percentHeight="10" />
@@ -136,7 +136,4 @@
 			</Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@Content.css" />
-	</stylesheets>
 </GridPane>

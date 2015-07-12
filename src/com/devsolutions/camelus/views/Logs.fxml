@@ -20,8 +20,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <GridPane id="motherGrid" prefHeight="250" prefWidth="450"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.LogsController">
-
+	fx:controller="com.devsolutions.camelus.views.LogsController">
 	<rowConstraints>
 		<RowConstraints percentHeight="12" />
 		<RowConstraints percentHeight="88" />
@@ -29,7 +28,6 @@
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -40,15 +38,12 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label text="Logs" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" prefHeight="30"
@@ -79,7 +74,4 @@
 			</HBox>
 		</VBox>
 	</children>
-	<stylesheets>
-		<URL value="@childWindow.css" />
-	</stylesheets>
 </GridPane>

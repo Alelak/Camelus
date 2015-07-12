@@ -11,7 +11,7 @@
 <?import javafx.geometry.Insets?>
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.ShowOrdersController">
+	fx:controller="com.devsolutions.camelus.views.ShowOrdersController">
 	<rowConstraints>
 		<RowConstraints percentHeight="90" />
 		<RowConstraints percentHeight="10" />
@@ -124,7 +124,4 @@
 			</Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@Content.css" />
-	</stylesheets>
 </GridPane>

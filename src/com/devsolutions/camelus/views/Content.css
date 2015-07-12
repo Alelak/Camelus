@@ -1,18 +1,12 @@
 
-
 #footer{
 	-fx-background-color: white  ;
 }
-
-
-
 #textFieldSearch:focused{
 	 -fx-focus-color: transparent;
 	 -fx-border-color: #004263;
 	-fx-border-width: 1.5;
 }
-
-
 
 .tableView  {
   -fx-focus-color: transparent;
@@ -124,10 +118,3 @@
 .chooseAccountType .arrow {
     -fx-background-color: white;
 }
-
-
-
-
-
-
-

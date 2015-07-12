@@ -1,11 +1,17 @@
 package com.devsolutions.camelus.utils;
 
+import java.io.IOException;
+
+import com.devsolutions.camelus.views.CustomInfoBox;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 public class FXUtils {
+
+	private static Stage stage;
 	private static double initialX;
 	private static double initialY;
 	public static final String HAS_ERROR = "-fx-border-color: red;-fx-border-width: 2; -fx-focus-color: transparent;";
@@ -43,6 +49,24 @@ public class FXUtils {
 		childStage
 				.setY((parentStage.getY() + parentStage.getHeight() / 2 - childStage
 						.getHeight() / 2) + y);
+	}
+
+	public static void openDBErrorDialog() {
+		try {
+			new CustomInfoBox(stage,
+					"Echec de connexion a la base de donnee \n"
+							+ "Impossible de ouvrir la fenetre demande", "Ok");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Stage getStage() {
+		return stage;
+	}
+
+	public static void setStage(Stage stage) {
+		FXUtils.stage = stage;
 	}
 
 }

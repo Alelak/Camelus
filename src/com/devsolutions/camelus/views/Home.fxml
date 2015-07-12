@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <GridPane id="test" gridLinesVisible="false"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.controllers.HomeController">
+	fx:controller="com.devsolutions.camelus.views.HomeController">
 	<rowConstraints>
 		<RowConstraints percentHeight="60" />
 		<RowConstraints percentHeight="40" />
@@ -24,7 +24,7 @@
 			<ImageView fitWidth="800" pickOnBounds="true"
 				preserveRatio="true">
 				<image>
-					<Image url="@../../../../images/gfc.png" />
+					<Image url="@/images/gfc.png" />
 				</image>
 			</ImageView>
 		</HBox>
