@@ -12,19 +12,21 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Hyperlink?>
 <GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.AboutController">
-
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
-		<RowConstraints percentHeight="84.6" />
-		<RowConstraints percentHeight="10" />
+		<RowConstraints percentHeight="86.8" />
+		<RowConstraints percentHeight="7.8" />
 	</rowConstraints>
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -35,16 +37,13 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
-				<Label style="-fx-font-family: 'Roboto Bold';"  GridPane.ColumnIndex="0"
-					text="À propos de Camelus">
+				<Label style="-fx-font-family: 'Roboto Bold';"
+					GridPane.ColumnIndex="0" text="À propos de Camelus">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
@@ -57,45 +56,221 @@
 				</HBox>
 			</children>
 		</GridPane>
-<ScrollPane styleClass="edge-to-edge" GridPane.rowIndex="1">
-	<GridPane minHeight="1000" gridLinesVisible="false" >
-			<rowConstraints>
-				<RowConstraints valignment="CENTER" percentHeight="11.5" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints valignment="TOP" percentHeight="40" />
-
-			</rowConstraints>
-			<columnConstraints>
-				<ColumnConstraints halignment="RIGHT"
-					percentWidth="39" />
-				<ColumnConstraints halignment="CENTER"
-					percentWidth="45" />
-				<ColumnConstraints halignment="LEFT" percentWidth="16" />
-			</columnConstraints>
-
-			<children>
-			
-			</children>
-		</GridPane>
-</ScrollPane>
-	
-
-		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
+		<ScrollPane style=" -fx-background-color: #f7f7f7"
+			styleClass="edge-to-edge" GridPane.rowIndex="1">
+			<GridPane style=" -fx-background-color: #f7f7f7" minHeight="630"
+				gridLinesVisible="false">
+				<rowConstraints>
+					<RowConstraints prefHeight="80" />
+					<RowConstraints prefHeight="64" />
+					<RowConstraints prefHeight="30" />
+					<RowConstraints prefHeight="199" />
+					<RowConstraints prefHeight="30" />
+					<RowConstraints prefHeight="120" />
+					<RowConstraints prefHeight="70" />
+					<RowConstraints />
+				</rowConstraints>
+				<columnConstraints>
+					<ColumnConstraints percentWidth="100" />
+				</columnConstraints>
+				<children>
+					<GridPane GridPane.rowIndex="0" gridLinesVisible="false">
+						<padding>
+							<Insets left="10" top="10"></Insets>
+						</padding>
+						<rowConstraints>
+							<RowConstraints valignment="CENTER" percentHeight="100" />
+						</rowConstraints>
+						<columnConstraints>
+							<ColumnConstraints halignment="CENTER"
+								percentWidth="15" />
+							<ColumnConstraints halignment="LEFT"
+								percentWidth="85" />
+						</columnConstraints>
+						<children>
+							<ImageView preserveRatio="true" GridPane.columnIndex="0"
+								fitHeight="50" fitWidth="50">
+								<image>
+									<Image url="@../../../../images/logo_icon.png" />
+								</image>
+							</ImageView>
+							<VBox spacing="2" GridPane.columnIndex="1">
+								<padding>
+									<Insets bottom="20" top="20"></Insets>
+								</padding>
+								<HBox spacing="2" GridPane.columnIndex="1">
+									<Label text="Titre: " style="-fx-font-family: 'Roboto Bold'"></Label>
+									<Label text="Camilus"></Label>
+								</HBox>
+								<HBox spacing="2" GridPane.columnIndex="2">
+									<Label text="Version: " style="-fx-font-family: 'Roboto Bold'"></Label>
+									<Label text="0.0.1"></Label>
+								</HBox>
+							</VBox>
+						</children>
+					</GridPane>
+					<VBox GridPane.rowIndex="1" spacing="2">
+						<padding>
+							<Insets left="10" bottom="10" top="10"></Insets>
+						</padding>
+						<Label text="Copyright © 2015 Dev Solutions. Tous droits résérvés."
+							style="-fx-font-size: 13.0"></Label>
+						<Label text="Camelus est une marque déposée par Dev Solutions."
+							style="-fx-font-size: 13.0"></Label>
+					</VBox>
+					<Label GridPane.rowIndex="2"
+						text="Le logiciel utilise les composants et les technologies suivants :"
+						style="-fx-font-size: 11.0;-fx-text-fill: gray; ">
+						<padding>
+							<Insets left="10"></Insets>
+						</padding>
+					</Label>
+					<VBox GridPane.rowIndex="3" spacing="2">
+						<padding>
+							<Insets left="20"></Insets>
+						</padding>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkJavafx" text="Javafx"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkMySql" text="MySql"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkSceneBuilder" text="SceneBuilder"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkFontAwsome" text="FontAwsome"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkRobtoFont" text="RobtoFont"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkItextPFD" text="ItextPFD"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkMyBatis" text="MyBatis"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkJson" text="Json"></Hyperlink>
+						</HBox>
+					</VBox>
+					<Label GridPane.rowIndex="4" text="Le logiciel est développé par : "
+						style="-fx-font-size: 11.0;-fx-text-fill: gray; ">
+						<padding>
+							<Insets left="10"></Insets>
+						</padding>
+					</Label>
+					<VBox GridPane.rowIndex="5" spacing="2">
+						<padding>
+							<Insets left="20"></Insets>
+						</padding>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkAlladin" text="Alladin El Akhrass (The Genius)"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkAmine"
+								text="Amine Massinissa Aberbache (The Machine)"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkBilel" text="Bilel Bouach (The Designer)"></Hyperlink>
+						</HBox>
+						<HBox alignment="CENTER_LEFT" spacing="2">
+							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
+								<graphic>
+									<FontAwesomeIconView id="closeFont" icon="ICON_CIRCLE"
+										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
+								</graphic>
+							</Label>
+							<Hyperlink fx:id="linkSaid" text="Said Bejoui (The Joker)"></Hyperlink>
+						</HBox>
+					</VBox>
+					<Label maxWidth="530" GridPane.rowIndex="6" wrapText="true"
+						text="Attention : ce programme est protégé par les lois sur le copyright et des traités internationaux. Toute
+reproduction ou distribution non autorisée de ce programme, ou d'une partie de celui-ci vous expose à
+des poursuites judiciaires qui seront punies par les peines maximales prévues par la loi."
+						style="-fx-font-size: 12.0;-fx-text-fill: #424344; ">
+						<padding>
+							<Insets left="10" right="10"></Insets>
+						</padding>
+					</Label>
+				</children>
+			</GridPane>
+		</ScrollPane>
+		<HBox style=" -fx-background-color: #f7f7f7" alignment="BOTTOM_RIGHT"
+			spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets right="5" bottom="8" />
 			</padding>
-
 			<Button prefWidth="120" styleClass="flat-btn" onAction="#CloseWindow"
 				text="Fermer"></Button>
 		</HBox>
 	</children>
-
-
-
 	<stylesheets>
 		<URL value="@childWindow.css" />
 	</stylesheets>
