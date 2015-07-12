@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.ProductTableView;
+import com.devsolutions.camelus.entities.ProductTV;
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
@@ -201,7 +201,7 @@ public class UpdateProductController implements Initializable {
 					String quantityStr = quantity.getText().trim();
 					String costPriceStr = costPrice.getText().trim();
 					String sellingPriceStr = sellingPrice.getText().trim();
-					for (ProductTableView b : productController
+					for (ProductTV b : productController
 							.getProductsObservableList()) {
 
 						if (b.getUpc().equals(upcStr))
@@ -271,7 +271,7 @@ public class UpdateProductController implements Initializable {
 							product.setSelling_price(Double
 									.parseDouble(sellingPriceStr));
 						ProductManager.update(product);
-						ProductTableView productTable = new ProductTableView();
+						ProductTV productTable = new ProductTV();
 						productTable.setId(product.getId());
 
 						productTable.setName(product.getName());

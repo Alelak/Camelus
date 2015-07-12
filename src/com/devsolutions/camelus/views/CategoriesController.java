@@ -158,7 +158,9 @@ public class CategoriesController implements Initializable {
 		});
 		categoriesOb = FXCollections.observableArrayList(CategoryManager
 				.getAll());
-		categoriesOb.remove(0);
+		if (!categoriesOb.isEmpty()) {
+			categoriesOb.remove(0);
+		}
 		categorielist.setItems(categoriesOb);
 		categorielist.setEditable(true);
 		categorielist.getSelectionModel().selectedItemProperty()

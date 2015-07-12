@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -18,7 +19,7 @@ public class ClientManager {
 
 	public static List<Client> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Client> clients = null;
+		List<Client> clients = Collections.emptyList();
 
 		try {
 			clients = session.getMapper(ClientMapper.class).getAll();
@@ -33,7 +34,7 @@ public class ClientManager {
 
 	public static List<Client> getByVendorId(int associated_vendor) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Client> clients = null;
+		List<Client> clients = Collections.emptyList();
 		try {
 			clients = session.getMapper(ClientMapper.class).getByVendorId(
 					associated_vendor);

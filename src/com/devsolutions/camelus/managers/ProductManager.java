@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -9,7 +10,7 @@ import com.devsolutions.camelus.auditing.Audit;
 import com.devsolutions.camelus.auditing.AuditTypes;
 import com.devsolutions.camelus.auditing.AuditUtils;
 import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.ProductTableView;
+import com.devsolutions.camelus.entities.ProductTV;
 import com.devsolutions.camelus.mappers.ProductMapper;
 import com.devsolutions.camelus.services.DBConnection;
 import com.devsolutions.camelus.services.Session;
@@ -26,32 +27,60 @@ public class ProductManager {
 
 	public static List<Product> getByCategory(int category_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Product> products = session.getMapper(ProductMapper.class)
-				.getByCategory(category_id);
-		session.close();
+		List<Product> products = Collections.emptyList();
+		try {
+			products = session.getMapper(ProductMapper.class).getByCategory(
+					category_id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
+
 		return products;
 	}
 
 	public static List<Product> getByUnit(int unit_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Product> products = session.getMapper(ProductMapper.class)
-				.getByUnit(unit_id);
-		session.close();
+		List<Product> products = Collections.emptyList();
+		try {
+			products = session.getMapper(ProductMapper.class)
+					.getByUnit(unit_id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		return products;
 	}
 
-	public static List<ProductTableView> getAllProductTableView() {
+	public static List<ProductTV> getAllProductTableView() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<ProductTableView> products = session
-				.getMapper(ProductMapper.class).getAllProductTableView();
-		session.close();
+
+		List<ProductTV> products = Collections.emptyList();
+		try {
+			products = session.getMapper(ProductMapper.class)
+					.getAllProductTableView();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		return products;
 	}
 
 	public static Product getById(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Product product = session.getMapper(ProductMapper.class).getById(id);
-		session.close();
+		Product product = null;
+		try {
+
+		} catch (PersistenceException e) {
+			product = session.getMapper(ProductMapper.class).getById(id);
+		}
+
+		finally {
+			session.close();
+		}
 		return product;
 	}
 

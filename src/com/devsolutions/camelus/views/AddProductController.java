@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.ProductTableView;
+import com.devsolutions.camelus.entities.ProductTV;
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
@@ -199,7 +199,7 @@ public class AddProductController implements Initializable {
 					String costPriceStr = costPrice.getText().trim();
 					String sellingPriceStr = sellingPrice.getText().trim();
 					errorMsg = "";
-					for (ProductTableView b : productController
+					for (ProductTV b : productController
 							.getProductsObservableList()) {
 
 						if (b.getUpc().equals(upcStr))
@@ -310,7 +310,7 @@ public class AddProductController implements Initializable {
 	}
 
 	private void addProductToTableView() {
-		ProductTableView productTableView = new ProductTableView();
+		ProductTV productTableView = new ProductTV();
 		productTableView.setId(product.getId());
 		productTableView.setUpc(product.getUpc());
 		productTableView.setName(product.getName());

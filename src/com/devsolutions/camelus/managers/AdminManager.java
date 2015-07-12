@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -18,7 +19,7 @@ public class AdminManager {
 	public static List<Admin> getAll() {
 
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Admin> admins = null;
+		List<Admin> admins = Collections.emptyList();
 		try {
 			admins = session.getMapper(AdminMapper.class).getAll();
 		} catch (PersistenceException e) {

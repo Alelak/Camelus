@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -18,15 +19,30 @@ public class UnitManager {
 
 	public static List<Unit> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Unit> units = session.getMapper(UnitMapper.class).getAll();
-		session.close();
+		List<Unit> units =  Collections.emptyList();
+		try {
+			units = session.getMapper(UnitMapper.class).getAll();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
+
 		return units;
 	}
 
 	public static Unit getById(int id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Unit unit = session.getMapper(UnitMapper.class).getById(id);
-		session.close();
+		Unit unit = null;
+		try {
+			unit = session.getMapper(UnitMapper.class).getById(id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
+
 		return unit;
 	}
 

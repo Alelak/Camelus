@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -31,9 +32,7 @@ public class OrderManager {
 			AuditUtils.getAuditingService().setAudit(
 					new Audit(Session.vendor.getLogin(), AuditTypes.INSERT,
 							"a ajouter une  commande id : " + order.getId()));
-		}
-		else
-		{
+		} else {
 			AuditUtils.getAuditingService().setAudit(
 					new Audit(Session.admin.getLogin(), AuditTypes.INSERT,
 							"a ajouter une  commande id : " + order.getId()));
@@ -43,37 +42,71 @@ public class OrderManager {
 
 	public static List<Order> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Order> orders = session.getMapper(OrderMapper.class).getAll();
-		session.close();
+		List<Order> orders = Collections.emptyList();
+		try {
+			orders = session.getMapper(OrderMapper.class).getAll();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
 		return orders;
 	}
 
 	public static List<OrderTV> getByVendorId(int vendor_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<OrderTV> orders = session.getMapper(OrderMapper.class)
-				.getByVendorId(vendor_id);
-		session.close();
+		List<OrderTV> orders = Collections.emptyList();
+		try {
+			orders = session.getMapper(OrderMapper.class).getByVendorId(
+					vendor_id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
 		return orders;
 	}
 
 	public static List<OrderTV> getAllTV() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<OrderTV> orders = session.getMapper(OrderMapper.class).getAllTV();
-		session.close();
+		List<OrderTV> orders = Collections.emptyList();
+		try {
+			orders = session.getMapper(OrderMapper.class).getAllTV();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
 		return orders;
 	}
 
 	public static List<Order> getByClientId(long client_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Order> orders = session.getMapper(OrderMapper.class)
-				.getByClientId(client_id);
-		session.close();
+		List<Order> orders = Collections.emptyList();
+		try {
+			orders = session.getMapper(OrderMapper.class).getByClientId(
+					client_id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
 		return orders;
 	}
 
 	public static Order getById(long id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Order order = session.getMapper(OrderMapper.class).getById(id);
+		Order order = null;
+		try {
+			order = session.getMapper(OrderMapper.class).getById(id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		}
+
 		session.close();
 		return order;
 	}
@@ -89,11 +122,10 @@ public class OrderManager {
 			session.close();
 		}
 		if (Session.vendor != null) {
-		AuditUtils.getAuditingService().setAudit(
-				new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
-						"a annulé une commande id : " + id));
-		}else
-		{
+			AuditUtils.getAuditingService().setAudit(
+					new Audit(Session.vendor.getLogin(), AuditTypes.UPDATE,
+							"a annulé une commande id : " + id));
+		} else {
 			AuditUtils.getAuditingService().setAudit(
 					new Audit(Session.admin.getLogin(), AuditTypes.UPDATE,
 							"a annulé une commande id : " + id));

@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -17,31 +18,55 @@ import com.devsolutions.camelus.utils.FXUtils;
 public class VendorManager {
 	public static List<Vendor> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Vendor> vendors = session.getMapper(VendorMapper.class).getAll();
-		session.close();
+		List<Vendor> vendors = Collections.emptyList();
+		try {
+			vendors = session.getMapper(VendorMapper.class).getAll();
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		return vendors;
 	}
 
 	public static List<Vendor> getByCommission(int commission_id) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Vendor> vendors = session.getMapper(VendorMapper.class)
-				.getByCommission(commission_id);
-		session.close();
+		List<Vendor> vendors = Collections.emptyList();
+		try {
+			vendors = session.getMapper(VendorMapper.class).getByCommission(
+					commission_id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		return vendors;
 	}
 
 	public static Vendor getByUserName(String login) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Vendor vendor = session.getMapper(VendorMapper.class).getByUserName(
-				login);
-		session.close();
+		Vendor vendor = null;
+		try {
+			vendor = session.getMapper(VendorMapper.class).getByUserName(login);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
+
 		return vendor;
 	}
 
 	public static Vendor getBySin(String sin) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		Vendor vendor = session.getMapper(VendorMapper.class).getBySin(sin);
-		session.close();
+		Vendor vendor = null;
+		try {
+			vendor = session.getMapper(VendorMapper.class).getBySin(sin);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
 		return vendor;
 	}
 

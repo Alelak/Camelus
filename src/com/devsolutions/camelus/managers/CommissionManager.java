@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -34,7 +35,7 @@ public class CommissionManager {
 
 	public static List<Commission> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Commission> commissions = null;
+		List<Commission> commissions = Collections.emptyList();
 		try {
 			commissions = session.getMapper(CommissionMapper.class).getAll();
 		} catch (PersistenceException e) {

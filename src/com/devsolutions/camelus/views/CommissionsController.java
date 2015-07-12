@@ -151,25 +151,63 @@ public class CommissionsController implements Initializable {
 			}
 		});
 		addBtn.setOnAction(e -> {
+			Stage stage = (Stage) addBtn.getScene().getWindow();
 			double rate = Double.parseDouble(rateTxt.getText().trim());
 			double mcondition = Double.parseDouble(conditionTxt.getText()
 					.trim());
 			int type = chooseCommisionType.getSelectionModel()
 					.getSelectedIndex();
+			boolean exist = false;
 			if (addBtn.getText().equals("Confirmer")) {
-				commissionToModify.setType(type);
-				commissionToModify.setRate(rate);
-				commissionToModify.setMcondition(mcondition);
-				CommissionManager.update(commissionToModify);
-				commissionsOb.set(commissionToModifyIndex, commissionToModify);
-				addBtn.setText("Ajouter");
+				for (Commission commission : commissionsOb) {
+
+					if (!commission.equals(commissionToModify)
+							&& commission.getRate() == rate
+							&& commission.getMcondition() == mcondition
+							&& commission.getType() == type) {
+						exist = true;
+					}
+				}
+				if (!exist) {
+					commissionToModify.setType(type);
+					commissionToModify.setRate(rate);
+					commissionToModify.setMcondition(mcondition);
+					CommissionManager.update(commissionToModify);
+					commissionsOb.set(commissionToModifyIndex,
+							commissionToModify);
+					addBtn.setText("Ajouter");
+				} else {
+					try {
+						new CustomInfoBox(stage,
+								"Cette combinaison existe deja!", "Ok");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
 			} else {
-				Commission c = new Commission();
-				c.setType(type);
-				c.setRate(rate);
-				c.setMcondition(mcondition);
-				CommissionManager.add(c);
-				commissionsOb.add(c);
+				for (Commission commission : commissionsOb) {
+
+					if (commission.getRate() == rate
+							&& commission.getMcondition() == mcondition
+							&& commission.getType() == type) {
+						exist = true;
+					}
+				}
+				if (!exist) {
+					Commission c = new Commission();
+					c.setType(type);
+					c.setRate(rate);
+					c.setMcondition(mcondition);
+					CommissionManager.add(c);
+					commissionsOb.add(c);
+				} else {
+					try {
+						new CustomInfoBox(stage,
+								"Cette combinaison existe deja!", "Ok");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 
 			reinitialise();

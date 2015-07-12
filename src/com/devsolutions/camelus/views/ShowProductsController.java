@@ -37,7 +37,7 @@ import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Product;
-import com.devsolutions.camelus.entities.ProductTableView;
+import com.devsolutions.camelus.entities.ProductTV;
 import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
@@ -92,22 +92,22 @@ public class ShowProductsController implements Initializable {
 	@FXML
 	private Button btnShowProduct;
 	@FXML
-	private TableView<ProductTableView> tableViewProduct;
-	private ObservableList<ProductTableView> productsObservableList;
+	private TableView<ProductTV> tableViewProduct;
+	private ObservableList<ProductTV> productsObservableList;
 	@FXML
-	private TableColumn<ProductTableView, Long> idCol;
+	private TableColumn<ProductTV, Long> idCol;
 	@FXML
-	private TableColumn<ProductTableView, String> upcCol;
+	private TableColumn<ProductTV, String> upcCol;
 	@FXML
-	private TableColumn<ProductTableView, String> nameCol;
+	private TableColumn<ProductTV, String> nameCol;
 	@FXML
-	private TableColumn<ProductTableView, Integer> quantityCol;
+	private TableColumn<ProductTV, Integer> quantityCol;
 	@FXML
-	private TableColumn<ProductTableView, String> categoryCol;
+	private TableColumn<ProductTV, String> categoryCol;
 	@FXML
-	private TableColumn<ProductTableView, Double> priceSellingcol;
+	private TableColumn<ProductTV, Double> priceSellingcol;
 	@FXML
-	private SortedList<ProductTableView> sortedData;
+	private SortedList<ProductTV> sortedData;
 	private Stage stage;
 
 	@Override
@@ -127,7 +127,7 @@ public class ShowProductsController implements Initializable {
 			showTableView();
 			btnPdfProduct.setDisable(false);
 		}
-		FilteredList<ProductTableView> filteredData = new FilteredList<>(
+		FilteredList<ProductTV> filteredData = new FilteredList<>(
 				productsObservableList, p -> true);
 
 		textFieldSearch.textProperty().addListener(
@@ -195,7 +195,7 @@ public class ShowProductsController implements Initializable {
 					int index = tableViewProduct.getSelectionModel()
 							.getSelectedIndex();
 					if (index > -1) {
-						ProductTableView productTableView = tableViewProduct
+						ProductTV productTableView = tableViewProduct
 								.getSelectionModel().getSelectedItem();
 
 						Product product = ProductManager
@@ -233,7 +233,7 @@ public class ShowProductsController implements Initializable {
 					int index = tableViewProduct.getSelectionModel()
 							.getSelectedIndex();
 					if (index > -1) {
-						ProductTableView productTableView = tableViewProduct
+						ProductTV productTableView = tableViewProduct
 								.getSelectionModel().getSelectedItem();
 
 						Product product = ProductManager
@@ -283,7 +283,7 @@ public class ShowProductsController implements Initializable {
 								.setOnAction(new EventHandler<ActionEvent>() {
 									@Override
 									public void handle(ActionEvent event) {
-										ProductTableView productTable = tableViewProduct
+										ProductTV productTable = tableViewProduct
 												.getSelectionModel()
 												.getSelectedItem();
 										if (productTable != null) {
@@ -381,15 +381,15 @@ public class ShowProductsController implements Initializable {
 		tableViewProduct.getFocusModel().focus(index);
 	}
 
-	public void addToTableView(ProductTableView product) {
+	public void addToTableView(ProductTV product) {
 		productsObservableList.add(product);
 	}
 
-	public void updateTableView(int index, ProductTableView product) {
+	public void updateTableView(int index, ProductTV product) {
 		productsObservableList.set(index, product);
 	}
 
-	public ObservableList<ProductTableView> getProductsObservableList() {
+	public ObservableList<ProductTV> getProductsObservableList() {
 		return productsObservableList;
 	}
 

@@ -160,12 +160,16 @@ public class AddUpdateVendorController implements Initializable {
 
 				}
 			} else {
-				if (VendorManager.getByUserName(username) != null) {
+				if (username.isEmpty()) {
+					validfields = false;
+				} else if (VendorManager.getByUserName(username) != null) {
 					validfields = false;
 					invalidFields += " - Ce nom d'utilisateur a était déja choisie \n";
 				}
-
-				if (VendorManager.getBySin(sin) != null
+				if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+					invalidFields += " - Le NAS doit etre un nombre de 9 chiffres \n";
+					validfields = false;
+				} else if (VendorManager.getBySin(sin) != null
 						|| AdminManager.getBySin(sin) != null) {
 					validfields = false;
 					invalidFields += " - Ce NAS existe déja, veuillez saisir un NAS valide. \n";

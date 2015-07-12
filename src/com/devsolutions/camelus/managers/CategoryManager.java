@@ -1,5 +1,6 @@
 package com.devsolutions.camelus.managers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -18,7 +19,7 @@ public class CategoryManager {
 
 	public static List<Category> getAll() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
-		List<Category> categories = null;
+		List<Category> categories = Collections.emptyList();
 		try {
 			categories = session.getMapper(CategoryMapper.class).getAll();
 		} catch (PersistenceException e) {

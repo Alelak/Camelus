@@ -1,6 +1,6 @@
 package com.devsolutions.camelus.entities;
 
-public class ProductTableView {
+public class ProductTV {
 
 	private long id;
 	private String upc;

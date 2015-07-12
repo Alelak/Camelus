@@ -51,7 +51,9 @@ public class UnitsController implements Initializable {
 		FXUtils.addDraggableNode(titleBar);
 		unitslist.setPlaceholder(new Label("Pas de unites"));
 		unitsOb = FXCollections.observableArrayList(UnitManager.getAll());
-		unitsOb.remove(0);
+		if (!unitsOb.isEmpty()) {
+			unitsOb.remove(0);
+		}
 		unitslist.setItems(unitsOb);
 		unitslist.setEditable(true);
 		lblClose.setOnMouseClicked(e -> {
