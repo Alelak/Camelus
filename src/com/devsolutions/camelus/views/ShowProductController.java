@@ -91,7 +91,7 @@ public class ShowProductController implements Initializable {
 			Showimage();
 		else {
 			imageProduct.setImage(new Image(getClass().getResourceAsStream(
-					"../../../../images/nopicture.jpg")));
+					"/images/nopicture.jpg")));
 		}
 
 	}

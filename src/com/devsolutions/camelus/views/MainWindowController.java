@@ -107,7 +107,7 @@ public class MainWindowController implements Initializable {
 							@Override
 							public void handle(ActionEvent event) {
 								FXMLLoader loader = new FXMLLoader(getClass()
-										.getResource("login.fxml"));
+										.getResource("Login.fxml"));
 								Parent root = null;
 								try {
 									root = loader.load();

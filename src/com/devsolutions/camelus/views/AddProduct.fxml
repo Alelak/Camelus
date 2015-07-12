@@ -86,7 +86,7 @@
 							style="-fx-background-color: white;" fitWidth="100.0"
 							pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../../../../images/nopicture.jpg">
+								<Image url="@/images/nopicture.jpg">
 								</Image>
 							</image>
 						</ImageView>

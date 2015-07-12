@@ -345,7 +345,7 @@ public class ShowOrdersController implements Initializable {
 						Font boldFontHeaderFields = new Font(
 								Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
-						Image image = Image.getInstance("src/images/gfc.png");
+						Image image = Image.getInstance(getClass().getResource("/images/gfc.png"));
 
 						Paragraph imageParagraph = new Paragraph();
 						imageParagraph.add(image);

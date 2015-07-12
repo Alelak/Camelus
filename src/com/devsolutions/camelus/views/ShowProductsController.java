@@ -231,9 +231,11 @@ public class ShowProductsController implements Initializable {
 				});
 		btnShowProduct
 				.setOnAction(e -> {
+
 					int index = tableViewProduct.getSelectionModel()
 							.getSelectedIndex();
 					if (index > -1) {
+
 						ProductTV productTableView = tableViewProduct
 								.getSelectionModel().getSelectedItem();
 
@@ -273,7 +275,8 @@ public class ShowProductsController implements Initializable {
 
 					try {
 						CustomDialogBox customDialogBox = new CustomDialogBox(
-								(Stage) btnDeleteProduct.getScene().getWindow(),BoxType.WARNING,
+								(Stage) btnDeleteProduct.getScene().getWindow(),
+								BoxType.WARNING,
 								"Voulez vous vraiment supprimer "
 										+ tableViewProduct.getSelectionModel()
 												.getSelectedItem().getName()
@@ -427,7 +430,8 @@ public class ShowProductsController implements Initializable {
 
 				try {
 
-					Image image = Image.getInstance("src/images/gfc.png");
+					Image image = Image.getInstance(getClass().getResource(
+							"/images/gfc.png"));
 
 					Paragraph imageParagraph = new Paragraph();
 					imageParagraph.add(image);
@@ -546,8 +550,8 @@ public class ShowProductsController implements Initializable {
 				Desktop.getDesktop().open(savedFile);
 			} catch (Exception ex) {
 				try {
-					new CustomInfoBox(stage,BoxType.ERROR, "Impossible d'ouvrir ce fichier!",
-							"Ok");
+					new CustomInfoBox(stage, BoxType.ERROR,
+							"Impossible d'ouvrir ce fichier!", "Ok");
 
 				} catch (IOException e2) {
 					e2.printStackTrace();
@@ -619,7 +623,8 @@ public class ShowProductsController implements Initializable {
 		try {
 			Image image = null;
 			if (product.getImg() == null)
-				image = Image.getInstance("src/images/nopicture.jpg");
+				image = Image.getInstance(getClass().getResource(
+						"/images/nopicture.jpg"));
 			else
 				image = Image.getInstance(product.getImg());
 

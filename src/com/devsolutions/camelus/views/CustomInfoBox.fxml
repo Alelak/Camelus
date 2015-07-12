@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -9,7 +8,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.GridPane?>
-
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <GridPane id="gridPane" alignment="CENTER" gridLinesVisible="false"
 	prefHeight="180.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8"
@@ -38,9 +36,7 @@
 						<ColumnConstraints halignment="RIGHT"
 							percentWidth="50" />
 					</columnConstraints>
-
 					<children>
-
 						<Label GridPane.columnIndex="0" alignment="CENTER_LEFT"
 							prefHeight="30" prefWidth="30">
 							<GridPane.margin>

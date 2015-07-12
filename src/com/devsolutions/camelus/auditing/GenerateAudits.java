@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class GenerateAudits {
@@ -18,11 +19,8 @@ public class GenerateAudits {
 		}
 		RandomAccessFile file = new RandomAccessFile(filename, "rw");
 		FileChannel fileChannel = file.getChannel();
-		ByteBuffer buf = ByteBuffer.allocate(stringBuilder.length());
-
-		buf.clear();
-		buf.put(stringBuilder.toString().getBytes());
-		buf.flip();
+		ByteBuffer buf = ByteBuffer.wrap(stringBuilder.toString().getBytes(
+				Charset.forName("UTF-8")));
 		while (buf.hasRemaining()) {
 			fileChannel.write(buf);
 		}

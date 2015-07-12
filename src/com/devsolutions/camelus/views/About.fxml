@@ -91,7 +91,7 @@
 							<ImageView preserveRatio="true" GridPane.columnIndex="0"
 								fitHeight="50" fitWidth="50">
 								<image>
-									<Image url="@../../../../images/logo_icon.png" />
+									<Image url="@/images/logo_icon.png" />
 								</image>
 							</ImageView>
 							<VBox spacing="2" GridPane.columnIndex="1">
@@ -199,7 +199,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkJson" text="Json"></Hyperlink>
+							<Hyperlink fx:id="linkJson" text="Gson"></Hyperlink>
 						</HBox>
 					</VBox>
 					<Label GridPane.rowIndex="4" text="Le logiciel est développé par : "
@@ -271,10 +271,4 @@ des poursuites judiciaires qui seront punies par les peines maximales prévues p
 				text="Fermer"></Button>
 		</HBox>
 	</children>
-	<stylesheets>
-		<URL value="@childWindow.css" />
-	</stylesheets>
 </GridPane>
-
-
-

@@ -47,14 +47,14 @@ public class AboutController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
-		linkJavafx.setOnMouseClicked(e -> runLink("http://www.oracle.com/technetwork/java/javafx/overview/index.html"));
-		linkMySql.setOnMouseClicked(e -> runLink("https://www.mysql.fr/"));
-		linkSceneBuilder.setOnMouseClicked(e -> runLink("http://www.oracle.com/technetwork/java/javafx/downloads/devpreview-1429449.html"));
+		linkJavafx.setOnMouseClicked(e -> runLink("http://www.oracle.com/technetwork/java/javase/overview/javafx-overview-2158620.html"));
+		linkMySql.setOnMouseClicked(e -> runLink("https://www.mysql.com/"));
+		linkSceneBuilder.setOnMouseClicked(e -> runLink("http://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-info-2157684.html"));
 		linkFontAwsome.setOnMouseClicked(e -> runLink("https://github.com/cathive/fonts-fontawesome"));
 		linkRobtoFont.setOnMouseClicked(e -> runLink("https://www.google.com/fonts/specimen/Roboto"));
 		linkItextPFD.setOnMouseClicked(e -> runLink("http://itextpdf.com/"));
 		linkMyBatis.setOnMouseClicked(e -> runLink("https://mybatis.github.io/mybatis-3/"));
-		linkJson.setOnMouseClicked(e -> runLink("http://json.org/"));
+		linkJson.setOnMouseClicked(e -> runLink("https://github.com/google/gson"));
 		linkAlladin.setOnMouseClicked(e -> runLink("https://www.linkedin.com/in/alladinelakhrass"));
 		linkAmine.setOnMouseClicked(e -> runLink("https://www.linkedin.com/pub/massinissa-amine-aberbache/a7/14/b72"));
 		linkBilel.setOnMouseClicked(e -> runLink("https://www.linkedin.com/pub/bilel-bouach/87/548/43"));

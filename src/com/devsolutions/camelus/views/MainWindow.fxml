@@ -50,7 +50,7 @@
 						<Insets bottom="0" left="8" right="0" top="-4" />
 					</GridPane.margin>
 					<image>
-						<Image url="@../../../../images/logo_icon.png" />
+						<Image url="@/images/logo_icon.png" />
 					</image>
 				</ImageView>
 				<Label id="lblTitle"
@@ -225,7 +225,7 @@
 							<Insets bottom="0" left="8" right="0" top="-4" />
 						</GridPane.margin>
 						<image>
-							<Image url="@../../../../images/dev-solution-logo.png" />
+							<Image url="@/images/dev-solution-logo.png" />
 						</image>
 					</ImageView>
 				</HBox>

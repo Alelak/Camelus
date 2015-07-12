@@ -191,7 +191,7 @@
 																										pickOnBounds="true" preserveRatio="false"
 																										BorderPane.alignment="CENTER">
 																										<image>
-																											<Image url="@../../../../images/nopicture.jpg">
+																											<Image url="@/images/nopicture.jpg">
 																											</Image>
 																										</image>
 																									</ImageView>

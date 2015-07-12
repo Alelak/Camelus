@@ -73,12 +73,10 @@ public class ProductManager {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Product product = null;
 		try {
-
-		} catch (PersistenceException e) {
 			product = session.getMapper(ProductMapper.class).getById(id);
-		}
-
-		finally {
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
 			session.close();
 		}
 		return product;
