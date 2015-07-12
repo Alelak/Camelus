@@ -33,6 +33,7 @@ import javafx.stage.StageStyle;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.FXUtils;
 
@@ -132,7 +133,7 @@ public class ShowClientsController implements Initializable {
 		btnDelete.setOnAction(e -> {
 			try {
 				CustomDialogBox customDialogBox = new CustomDialogBox(
-						(Stage) btnDelete.getScene().getWindow(),
+						(Stage) btnDelete.getScene().getWindow(),BoxType.WARNING,
 						"Voulez vous vraiment supprimer "
 								+ clientTableView.getSelectionModel()
 										.getSelectedItem().getContact_name()

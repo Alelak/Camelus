@@ -43,6 +43,7 @@ import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.StringUtils;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
@@ -272,7 +273,7 @@ public class ShowProductsController implements Initializable {
 
 					try {
 						CustomDialogBox customDialogBox = new CustomDialogBox(
-								(Stage) btnDeleteProduct.getScene().getWindow(),
+								(Stage) btnDeleteProduct.getScene().getWindow(),BoxType.WARNING,
 								"Voulez vous vraiment supprimer "
 										+ tableViewProduct.getSelectionModel()
 												.getSelectedItem().getName()
@@ -545,8 +546,8 @@ public class ShowProductsController implements Initializable {
 				Desktop.getDesktop().open(savedFile);
 			} catch (Exception ex) {
 				try {
-					new CustomInfoBox(stage, "Impossible d'ouvrir ce fichier!",
-							"Ok", "#ff0000");
+					new CustomInfoBox(stage,BoxType.ERROR, "Impossible d'ouvrir ce fichier!",
+							"Ok");
 
 				} catch (IOException e2) {
 					e2.printStackTrace();

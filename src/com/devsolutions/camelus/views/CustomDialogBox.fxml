@@ -11,10 +11,11 @@
 <?import javafx.scene.layout.GridPane?>
 
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.RowConstraints?>
 <GridPane id="gridPane" alignment="CENTER" gridLinesVisible="false"
 	prefHeight="177.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.devsolutions.camelus.views.CustomDialogBoxController">
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devsolutions.camelus.views.CustomDialogBoxController">
 
 
 	<rowConstraints>
@@ -26,19 +27,52 @@
 	</columnConstraints>
 
 	<children>
-		<HBox fx:id="toolBar" alignment="TOP_RIGHT" style="-fx-background-color: #46474c;"
-			GridPane.rowIndex="0">
+		<HBox>
 			<children>
-				<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
-					prefHeight="30" prefWidth="30">
-					<HBox.margin>
-						<Insets bottom="0" left="0" right="-2" top="-2" />
-					</HBox.margin>
-					<graphic>
-						<FontAwesomeIconView id="closeFont"
-							styleClass="font-awesome" icon="ICON_REMOVE" />
-					</graphic>
-				</Label>
+				<GridPane prefWidth="439.0" fx:id="toolBar" alignment="TOP_RIGHT"
+					style="-fx-background-color: #46474c;" GridPane.rowIndex="0">
+					<padding>
+						<Insets left="5"></Insets>
+					</padding>
+					<rowConstraints>
+						<RowConstraints valignment="CENTER" percentHeight="100" />
+					</rowConstraints>
+					<columnConstraints>
+						<ColumnConstraints percentWidth="4.5" />
+						<ColumnConstraints halignment="LEFT"
+							percentWidth="45.5" />
+						<ColumnConstraints halignment="RIGHT"
+							percentWidth="50" />
+					</columnConstraints>
+
+					<children>
+
+						<Label GridPane.columnIndex="0" alignment="CENTER_LEFT"
+							prefHeight="30" prefWidth="30">
+							<GridPane.margin>
+								<Insets bottom="1"></Insets>
+							</GridPane.margin>
+							<graphic>
+								<FontAwesomeIconView fx:id="iconBox"
+									 styleClass="font-awesome" />
+							</graphic>
+						</Label>
+						<Label GridPane.columnIndex="1" fx:id="titleBox" alignment="CENTER"
+							style="-fx-text-fill: white;-fx-font-family: 'Roboto Bold';"></Label>
+						<Label GridPane.columnIndex="2" fx:id="lblClose" alignment="CENTER"
+							onMouseClicked="#CloseWindow" prefHeight="30" prefWidth="30">
+							<GridPane.margin>
+								<Insets bottom="0" left="0" right="-2" top="-2" />
+							</GridPane.margin>
+							<graphic>
+								<FontAwesomeIconView id="closeFont"
+									styleClass="font-awesome" icon="ICON_REMOVE" />
+							</graphic>
+						</Label>
+
+
+					</children>
+				</GridPane>
 			</children>
 		</HBox>
 

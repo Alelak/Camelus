@@ -3,11 +3,14 @@ package com.devsolutions.camelus.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
+
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -178,7 +181,7 @@ public class CommissionsController implements Initializable {
 					addBtn.setText("Ajouter");
 				} else {
 					try {
-						new CustomInfoBox(stage,
+						new CustomInfoBox(stage,BoxType.ERROR,
 								"Cette combinaison existe deja!", "Ok");
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -202,7 +205,7 @@ public class CommissionsController implements Initializable {
 					commissionsOb.add(c);
 				} else {
 					try {
-						new CustomInfoBox(stage,
+						new CustomInfoBox(stage,BoxType.ERROR,
 								"Cette combinaison existe deja!", "Ok");
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -255,8 +258,8 @@ public class CommissionsController implements Initializable {
 					} else {
 						try {
 							new CustomInfoBox(
-									(Stage) deleteBtn.getScene().getWindow(),
-									"Cette commission a ete deja attribuer a un vendeur",
+									(Stage) deleteBtn.getScene().getWindow(),BoxType.INFORMATION,
+									"Cette commission a été déjà attribuer à un vendeur",
 									"Ok");
 						} catch (Exception e1) {
 							e1.printStackTrace();

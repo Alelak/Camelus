@@ -47,6 +47,7 @@ import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.Choice;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
@@ -207,7 +208,7 @@ public class ShowVendorsController implements Initializable {
 		deleteButton.setOnAction(e -> {
 			Stage stage = (Stage) deleteButton.getScene().getWindow();
 			try {
-				CustomDialogBox customDialogBox = new CustomDialogBox(stage,
+				CustomDialogBox customDialogBox = new CustomDialogBox(stage,BoxType.WARNING,
 						"Voulez vous vraiment supprimer ce vendeur?", "Oui",
 						"Non");
 				customDialogBox.positiveButton
@@ -231,8 +232,8 @@ public class ShowVendorsController implements Initializable {
 									try {
 										new CustomInfoBox(
 												(Stage) deleteButton.getScene()
-														.getWindow(),
-												"Ce vendeur est deja associee a un client",
+														.getWindow(), BoxType.ERROR,
+												"Impossible de supprimer ce vendeur, il est déjà associée à un client",
 												"Ok");
 									} catch (IOException e) {
 
@@ -334,8 +335,8 @@ public class ShowVendorsController implements Initializable {
 							Stage parentStage = (Stage) motherGrid.getScene()
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
-									parentStage,
-									"Il faut choisir au moins une annee pour generer un rapport.",
+									parentStage,BoxType.INFORMATION,
+									"Il faut choisir au moins une année pour générer un rapport.",
 									"Ok");
 							customDialogBox.btn
 									.setOnAction(new EventHandler<ActionEvent>() {
@@ -507,7 +508,7 @@ public class ShowVendorsController implements Initializable {
 				Desktop.getDesktop().open(savedFile);
 			} catch (Exception ex) {
 				try {
-					new CustomInfoBox(stage, "Impossible d'ouvrir ce fichier!",
+					new CustomInfoBox(stage,BoxType.ERROR, "Impossible d'ouvrir ce fichier!",
 							"Ok");
 
 				} catch (IOException e2) {

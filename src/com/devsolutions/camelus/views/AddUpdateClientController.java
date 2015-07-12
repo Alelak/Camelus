@@ -12,6 +12,7 @@ import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
@@ -219,7 +220,7 @@ public class AddUpdateClientController implements Initializable {
 						stage.close();
 					} else {
 						try {
-							new CustomInfoBox(stage, feedbackmsg, "Ok");
+							new CustomInfoBox(stage,BoxType.INFORMATION, feedbackmsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}

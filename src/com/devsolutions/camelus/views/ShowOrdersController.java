@@ -43,6 +43,7 @@ import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.FileUtils;
 import com.devsolutions.camelus.utils.StringUtils;
@@ -257,7 +258,7 @@ public class ShowOrdersController implements Initializable {
 		cancelOrderBtn.setOnAction(e -> {
 			try {
 				CustomDialogBox dialogBox = new CustomDialogBox(
-						(Stage) cancelOrderBtn.getScene().getWindow(),
+						(Stage) cancelOrderBtn.getScene().getWindow(),BoxType.WARNING,
 						"Voulez vous vraiment annuler cette commande?", "Oui",
 						"Non");
 				dialogBox.positiveButton
@@ -483,7 +484,7 @@ public class ShowOrdersController implements Initializable {
 					Desktop.getDesktop().open(savedFile);
 				} catch (Exception ex) {
 					try {
-						new CustomInfoBox(stage,
+						new CustomInfoBox(stage, BoxType.ERROR,
 								"Impossible d'ouvrir ce fichier!", "Ok");
 					} catch (IOException e2) {
 						e2.printStackTrace();
@@ -492,7 +493,7 @@ public class ShowOrdersController implements Initializable {
 			} else {
 				try {
 					new CustomInfoBox(
-							stage,
+							stage,BoxType.INFORMATION,
 							"Ce fichier est deja ouvert, veuillez le fermer puis reessayer de nouveau.",
 							"Ok");
 				} catch (IOException e2) {

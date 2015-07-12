@@ -28,6 +28,7 @@ import javafx.util.Duration;
 import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.FontAwesomeIconView;
 
@@ -98,6 +99,7 @@ public class MainWindowController implements Initializable {
 		logoutbtn.setOnMouseClicked(e -> {
 			try {
 				CustomDialogBox customDialogBox = new CustomDialogBox(stage,
+						BoxType.QUESTION,
 						"Voulez vous vraiment se deconnecter?", "Oui", "Non");
 				customDialogBox.positiveButton
 						.setOnAction(new EventHandler<ActionEvent>() {
@@ -182,6 +184,7 @@ public class MainWindowController implements Initializable {
 			stage = (Stage) lblClose.getScene().getWindow();
 
 			CustomDialogBox customDialogBox = new CustomDialogBox(stage,
+					BoxType.QUESTION,
 					"Voulez vous vraiment quitter l'application?", "Oui", "Non");
 
 			customDialogBox.positiveButton

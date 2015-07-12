@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.FontAwesomeIcon;
 import com.devsolutions.camelus.utils.FontAwesomeIconView;
 import com.devsolutions.camelus.utils.StringUtils;
+
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -115,7 +118,7 @@ public class VendorProfileController implements Initializable {
 				passwordTxt.setText("");
 			} else {
 				try {
-					new CustomInfoBox(stage, msg, "Ok");
+					new CustomInfoBox(stage,BoxType.INFORMATION, msg, "Ok");
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,8 +24,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.managers.AdminManager;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.StringUtils;
 
@@ -110,7 +113,7 @@ public class ShowAdminsController implements Initializable {
 			if (adminTodelete.getSuper_admin() == 0) {
 
 				try {
-					CustomDialogBox dialogBox = new CustomDialogBox(stage,
+					CustomDialogBox dialogBox = new CustomDialogBox(stage,BoxType.WARNING,
 							"Voulez vous vraiment supprimer ce admin?", "Oui",
 							"Non");
 					dialogBox.positiveButton
@@ -133,7 +136,7 @@ public class ShowAdminsController implements Initializable {
 
 			} else {
 				try {
-					new CustomInfoBox(stage,
+					new CustomInfoBox(stage,BoxType.ERROR,
 							"Impossible de supprimer le super admin", "Ok");
 				} catch (Exception e1) {
 					e1.printStackTrace();

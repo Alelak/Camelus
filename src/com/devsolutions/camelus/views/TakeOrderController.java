@@ -45,6 +45,7 @@ import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.services.Session;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 
@@ -281,7 +282,7 @@ public class TakeOrderController implements Initializable {
 						try {
 							stage = (Stage) addOrderLineBtn.getScene()
 									.getWindow();
-							new CustomInfoBox(stage, invalidFields, "Ok");
+							new CustomInfoBox(stage, BoxType.INFORMATION,invalidFields, "Ok");
 						} catch (IOException e2) {
 							e2.printStackTrace();
 						}

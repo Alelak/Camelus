@@ -7,12 +7,15 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.AdminManager;
 import com.devsolutions.camelus.managers.VendorManager;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.FXUtils;
+
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -172,7 +175,7 @@ public class AddUpdateAdminController implements Initializable {
 						stage.close();
 					} else {
 						try {
-							new CustomInfoBox(stage, feedbackmsg, "Ok");
+							new CustomInfoBox(stage,BoxType.INFORMATION, feedbackmsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}

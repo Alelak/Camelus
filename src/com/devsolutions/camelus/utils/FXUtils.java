@@ -53,7 +53,7 @@ public class FXUtils {
 
 	public static void openDBErrorDialog() {
 		try {
-			new CustomInfoBox(stage,
+			new CustomInfoBox(stage,BoxType.ERROR,
 					"Echec de connexion a la base de donnee \n"
 							+ "Impossible de ouvrir la fenetre demande", "Ok");
 		} catch (IOException e) {

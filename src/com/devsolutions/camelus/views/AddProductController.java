@@ -33,6 +33,7 @@ import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
+import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.Choice;
 import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
@@ -274,7 +275,7 @@ public class AddProductController implements Initializable {
 						productController.selectLastRow();
 					} else {
 						try {
-							new CustomInfoBox(stage, errorMsg, "Ok");
+							new CustomInfoBox(stage,BoxType.INFORMATION, errorMsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -348,7 +349,7 @@ public class AddProductController implements Initializable {
 					stage = (Stage) btnAddProduct.getScene().getWindow();
 					try {
 						new CustomInfoBox(
-								stage,
+								stage,BoxType.INFORMATION,
 								"Choisissez une image avec une taille de 1MO ou moins",
 								"Ok");
 
