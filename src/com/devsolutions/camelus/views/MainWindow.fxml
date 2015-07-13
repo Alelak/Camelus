@@ -115,6 +115,10 @@
 						<children>
 							<Button prefHeight="20" prefWidth="125" fx:id="tbacceuilbtn"
 								styleClass="tbbtn" text="Acceuil" />
+								<Button prefHeight="20" prefWidth="125" fx:id="tbadminsbtn"
+								styleClass="tbbtn" text="Admins" />
+								<Button prefHeight="20" prefWidth="125" fx:id="tbvendeursbtn"
+								styleClass="tbbtn" text="Vendeurs" />
 							<Button prefHeight="20" prefWidth="125" fx:id="tbclientsbtn"
 								styleClass="tbbtn" text="Clients" />
 							<Button prefHeight="20" prefWidth="125" fx:id="tbproduitsbtn"
@@ -122,10 +126,8 @@
 							<Button prefHeight="20" prefWidth="125" fx:id="tbcommands"
 								styleClass="tbbtn" text="Commandes" />
 
-							<Button prefHeight="20" prefWidth="125" fx:id="tbvendeursbtn"
-								styleClass="tbbtn" text="Vendeurs" />
-							<Button prefHeight="20" prefWidth="125" fx:id="tbadminsbtn"
-								styleClass="tbbtn" text="Admins" />
+							
+							
 						</children>
 					</HBox>
 				</HBox>

@@ -78,7 +78,6 @@ public class ShowVendorsController implements Initializable {
 	private RowConstraints rowTwo;
 	@FXML
 	private GridPane gridRowTwo;
-
 	@FXML
 	private TableView<Vendor> vendorTableView;
 	@FXML
@@ -93,15 +92,12 @@ public class ShowVendorsController implements Initializable {
 	private Button commissionBtn;
 	@FXML
 	private Button ordersBtn;
-
 	@FXML
 	private TextField searchField;
-
 	@FXML
 	private ChoiceBox<Choice> monthComboBox;
 	@FXML
 	private ChoiceBox<Choice> yearComboBox;
-
 	@FXML
 	private TableColumn<Vendor, String> vendorNameCol;
 	@FXML
@@ -110,7 +106,6 @@ public class ShowVendorsController implements Initializable {
 	private TableColumn<Vendor, String> vendorLoginCol;
 	@FXML
 	private TableColumn<Vendor, Date> vendorHireDateCol;
-
 	private List<Vendor> vendorsList;
 	private ObservableList<Vendor> vendorsObservableList;
 	private SortedList<Vendor> sortedData;
@@ -228,7 +223,7 @@ public class ShowVendorsController implements Initializable {
 									VendorManager.delete(vendor.getId());
 									removeFromTableView(vendor);
 
-									if (vendorsList.isEmpty()) {
+									if (vendorsObservableList.isEmpty()) {
 										noDataToShow();
 									}
 								} else {
@@ -407,10 +402,13 @@ public class ShowVendorsController implements Initializable {
 	}
 
 	public void showTableView() {
-		gridRowOne.setVisible(false);
-		gridRowTwo.setVisible(true);
-		rowOne.setPercentHeight(0);
-		rowTwo.setPercentHeight(100);
+		if(vendorsObservableList.size() == 1){
+			gridRowOne.setVisible(false);
+			gridRowTwo.setVisible(true);
+			rowOne.setPercentHeight(0);
+			rowTwo.setPercentHeight(100);
+		}
+		
 	}
 
 	private void creatPDF() {

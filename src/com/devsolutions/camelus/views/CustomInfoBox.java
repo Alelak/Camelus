@@ -40,7 +40,7 @@ public class CustomInfoBox {
 		case QUESTION:
 			this.titleBox = "Question";
 			this.iconBox = FontAwesomeIcon.ICON_QUESTION_SIGN;
-			this.iconBoxColor = "-fx-text-fill: #a2b292"; 
+			this.iconBoxColor = "-fx-text-fill: #afafaf"; 
 			break;
 		case SUCCESS:
 			this.titleBox = "Succès";

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -96,6 +98,32 @@ public class AddUpdateVendorController implements Initializable {
 		commission.setItems(commissionChoices);
 		commission.getSelectionModel().select(0);
 
+		textSin.setOnKeyReleased(e -> {
+			if (textSin.getText()
+					.matches(
+							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+				textSin.setStyle(FXUtils.HAS_SUCCESS);
+
+			} else
+				textSin.setStyle(FXUtils.HAS_ERROR);
+		});
+		
+		textSin.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0,
+					Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (!newPropertyValue) {
+					if (textSin.getText().isEmpty())
+						textSin.setStyle("-fx-border-width: 0;");
+					if (textSin.getText()
+							.matches(
+									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						textSin.setStyle("-fx-border-width: 0;");
+					}
+				}
+			}
+		});
+		
 		btn.setOnAction(e -> {
 			String username = textUsername.getText().trim();
 			String password = textPassword.getText().trim();
@@ -203,6 +231,7 @@ public class AddUpdateVendorController implements Initializable {
 				if (vendorToUpdate == null) {
 					VendorManager.add(vendor);
 					vendorTVConroller.addToTableView(vendor);
+					vendorTVConroller.showTableView();
 				} else {
 					vendor.setId(vendorToUpdate.getId());
 					VendorManager.update(vendor);

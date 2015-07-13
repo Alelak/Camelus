@@ -69,19 +69,19 @@
 		</HBox>
 		<GridPane gridLinesVisible="false" GridPane.rowIndex="2">
 			<rowConstraints>
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
-				<RowConstraints valignment="BOTTOM" percentHeight="12.5" />
+				<RowConstraints  percentHeight="12.5" />
+				<RowConstraints percentHeight="12.5" />
+				<RowConstraints percentHeight="12.5" />
+				<RowConstraints  percentHeight="12.5" />
+				<RowConstraints  percentHeight="12.5" />
+				<RowConstraints  percentHeight="12.5" />
+				<RowConstraints  percentHeight="12.5" />
+				<RowConstraints  percentHeight="12.5" />
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints halignment="RIGHT"
 					percentWidth="35" />
-				<ColumnConstraints halignment="CENTER"
+				<ColumnConstraints  halignment="CENTER"
 					percentWidth="45" />
 				<ColumnConstraints halignment="LEFT" percentWidth="20" />
 			</columnConstraints>

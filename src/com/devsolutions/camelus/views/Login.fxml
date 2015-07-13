@@ -14,20 +14,20 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Label?>
 
-<GridPane id="parent" maxHeight="470.0" maxWidth="500.0"
-	minHeight="470.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0"
+<GridPane id="parent" minHeight="470.0"  minWidth="470.0"
+	
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.LoginController">
 	<rowConstraints>
 		<RowConstraints percentHeight="6" />
-		<RowConstraints percentHeight="94" />
+		<RowConstraints valignment="CENTER" percentHeight="94" />
 	</rowConstraints>
 	<columnConstraints>
-		<ColumnConstraints percentWidth="100" />
+		<ColumnConstraints  halignment="CENTER"  percentWidth="100" />
 	</columnConstraints>
 	<children>
-		<GridPane fx:id="titlebar" style="-fx-background-color: #F5F5F5"
-			GridPane.rowIndex="0">
+		<GridPane GridPane.rowIndex="0" fx:id="titlebar"
+			style="-fx-background-color: #F5F5F5">
 			<rowConstraints>
 				<RowConstraints percentHeight="100" />
 			</rowConstraints>
@@ -46,18 +46,8 @@
 					</image>
 				</ImageView>
 				<HBox GridPane.columnIndex="1" alignment="CENTER_RIGHT">
-					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
-						fx:id="lblHelp">
-						<tooltip>
-							<Tooltip text="Aide" />
-						</tooltip>
-						<graphic>
-							<FontAwesomeIconView id="helpFont"
-								styleClass="font-awesome" icon="ICON_QUESTION" />
-						</graphic>
-					</Label>
 					<Label alignment="BOTTOM_CENTER" prefWidth="30" prefHeight="30"
-						fx:id="lblMinimize" onMouseClicked="#MinimizeWindow">
+						id="lblMinimize" onMouseClicked="#MinimizeWindow">
 						<tooltip>
 							<Tooltip text="Minimiser" />
 						</tooltip>
@@ -67,7 +57,7 @@
 						</graphic>
 					</Label>
 					<Label alignment="CENTER" prefWidth="30" prefHeight="30"
-						fx:id="lblClose" onMouseClicked="#CloseWindow">
+						id="lblClose" onMouseClicked="#CloseWindow">
 						<tooltip>
 							<Tooltip text="Fermer" />
 						</tooltip>
@@ -79,30 +69,59 @@
 				</HBox>
 			</children>
 		</GridPane>
-		<VBox spacing="20" alignment="CENTER" GridPane.rowIndex="1">
-			<Label id="lblTitle" alignment="TOP_CENTER" text="Camelus"
-				style="-fx-font-size: 30; -fx-font-family: 'Roboto Bold'; -fx-text-fill: #2b2a2a;-fx-font-smoothing-type: gray;" />
-			<ChoiceBox maxWidth="200" styleClass="flat-btn" fx:id="chooseAccountType">
-			</ChoiceBox>
-			<TextField maxWidth="200" fx:id="usernametxt" promptText="Nom d'utilisateur">
-				<tooltip>
-					<Tooltip text="Entrer votre nom" />
-				</tooltip>
-			</TextField>
-			<PasswordField maxWidth="200" fx:id="passwordtxt"
-				promptText="Mot de passe">
-				<tooltip>
-					<Tooltip text="Entrer votre mot de passe" />
-				</tooltip>
-			</PasswordField>
-			<Button prefHeight="20" prefWidth="200" fx:id="loginbtn"
-				styleClass="flat-btn" mnemonicParsing="false" text="Se connecter">
-				<tooltip>
-					<Tooltip text="Cliquer pour se connecter" />
-				</tooltip>
-			</Button>
-			<ProgressIndicator fx:id="progressIndicator"
-				visible="false"></ProgressIndicator>
-		</VBox>
+
+
+
+		<GridPane maxWidth="400" maxHeight="380.0" GridPane.rowIndex="1" 
+			gridLinesVisible="false">
+			
+			<rowConstraints>
+				<RowConstraints valignment="CENTER" percentHeight="15" />
+				<RowConstraints valignment="CENTER" percentHeight="10" />
+				<RowConstraints valignment="CENTER" percentHeight="14" />
+				<RowConstraints valignment="CENTER" percentHeight="10" />
+				<RowConstraints valignment="CENTER" percentHeight="10" />
+				<RowConstraints valignment="CENTER" percentHeight="12" />
+				<RowConstraints valignment="CENTER" percentHeight="15" />
+				<RowConstraints valignment="CENTER" percentHeight="15" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" percentWidth="100" />
+			</columnConstraints>
+			<children>
+				<Label GridPane.rowIndex="1" id="lblTitle" 
+					text="Camelus"
+					style="-fx-font-size: 30; -fx-font-family: 'Roboto Bold'; -fx-text-fill: #2b2a2a;-fx-font-smoothing-type: gray;" />
+				<ChoiceBox GridPane.rowIndex="2" maxWidth="200"
+					styleClass="flat-btn" fx:id="chooseAccountType">
+				</ChoiceBox>
+				<TextField GridPane.rowIndex="3" maxWidth="200" fx:id="usernametxt"
+					promptText="Nom d'utilisateur">
+					<tooltip>
+						<Tooltip text="Entrer votre nom" />
+					</tooltip>
+				</TextField>
+				<PasswordField GridPane.rowIndex="4" maxWidth="200"
+					fx:id="passwordtxt" promptText="Mot de passe">
+					<tooltip>
+						<Tooltip text="Entrer votre mot de passe" />
+					</tooltip>
+				</PasswordField>
+				<Button GridPane.rowIndex="5" prefHeight="20" prefWidth="200"
+					fx:id="loginbtn" styleClass="flat-btn" mnemonicParsing="false"
+					text="Se connecter">
+					<tooltip>
+						<Tooltip text="Cliquer pour se connecter" />
+					</tooltip>
+				</Button>
+				<ProgressIndicator GridPane.rowIndex="6"
+					 fx:id="progressIndicator" visible="false"></ProgressIndicator>
+			</children>
+		</GridPane>
+
+
+
+
+
 	</children>
 </GridPane>

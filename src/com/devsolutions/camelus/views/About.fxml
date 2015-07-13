@@ -100,7 +100,7 @@
 								</padding>
 								<HBox spacing="2" GridPane.columnIndex="1">
 									<Label text="Titre: " style="-fx-font-family: 'Roboto Bold'"></Label>
-									<Label text="Camilus"></Label>
+									<Label text="Camelus"></Label>
 								</HBox>
 								<HBox spacing="2" GridPane.columnIndex="2">
 									<Label text="Version: " style="-fx-font-family: 'Roboto Bold'"></Label>
@@ -136,7 +136,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkJavafx" text="Javafx"></Hyperlink>
+							<Hyperlink fx:id="linkJavafx" text="JavaFX"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -145,7 +145,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkMySql" text="MySql"></Hyperlink>
+							<Hyperlink fx:id="linkMySql" text="MySQL"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -154,7 +154,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkSceneBuilder" text="SceneBuilder"></Hyperlink>
+							<Hyperlink fx:id="linkSceneBuilder" text="Scene Builder"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -163,7 +163,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkFontAwsome" text="FontAwsome"></Hyperlink>
+							<Hyperlink fx:id="linkFontAwsome" text="Font Awesome"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -172,7 +172,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkRobtoFont" text="RobtoFont"></Hyperlink>
+							<Hyperlink fx:id="linkRobtoFont" text="Google Fonts Roboto"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -181,7 +181,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkItextPFD" text="ItextPFD"></Hyperlink>
+							<Hyperlink fx:id="linkItextPFD" text="iText PDF Software"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -219,7 +219,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkAlladin" text="Alladin El Akhrass (The Genius)"></Hyperlink>
+							<Hyperlink fx:id="linkAlladin" text="Alladin El Akhrass"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -229,7 +229,7 @@
 								</graphic>
 							</Label>
 							<Hyperlink fx:id="linkAmine"
-								text="Amine Massinissa Aberbache (The Machine)"></Hyperlink>
+								text="Amine Massinissa Aberbache"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -238,7 +238,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkBilel" text="Bilel Bouach (The Designer)"></Hyperlink>
+							<Hyperlink fx:id="linkBilel" text="Bilel Bouach"></Hyperlink>
 						</HBox>
 						<HBox alignment="CENTER_LEFT" spacing="2">
 							<Label alignment="CENTER" prefHeight="10" prefWidth="10">
@@ -247,7 +247,7 @@
 										style="  -fx-font-smoothing-type: gray; -fx-font-size: 8.0;-fx-text-fill: #20a6db " />
 								</graphic>
 							</Label>
-							<Hyperlink fx:id="linkSaid" text="Said Bejoui (The Joker)"></Hyperlink>
+							<Hyperlink fx:id="linkSaid" text="Said Bejoui"></Hyperlink>
 						</HBox>
 					</VBox>
 					<Label maxWidth="530" GridPane.rowIndex="6" wrapText="true"
