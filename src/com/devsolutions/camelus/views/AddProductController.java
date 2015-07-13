@@ -199,6 +199,7 @@ public class AddProductController implements Initializable {
 					String quantityStr = quantity.getText().trim();
 					String costPriceStr = costPrice.getText().trim();
 					String sellingPriceStr = sellingPrice.getText().trim();
+
 					errorMsg = "";
 					for (ProductTV b : productController
 							.getProductsObservableList()) {
@@ -246,14 +247,21 @@ public class AddProductController implements Initializable {
 						if (!StringUtils.isDouble(sellingPriceStr)) {
 							errorMsg += "Veuillez saisir un prix vendant valide\n";
 							error = true;
-						} else if (Double.parseDouble(sellingPriceStr) < 0) {
-							errorMsg += "Veuillez saisir un prix vendant valide\n";
-							error = true;
+						} else if (!error) {
+							double costprice = Double.parseDouble(costPriceStr);
+							double minSellingPrice = costprice
+									+ (costprice * 10) / 100;
+							if (Double.parseDouble(sellingPriceStr) < minSellingPrice) {
+								errorMsg += " - Le prix ajuste ne peut etre plus petit que : "
+										+ minSellingPrice + " $.\n";
+								error = true;
+							}
+
 						}
 					}
 
 					stage = (Stage) btnAddProduct.getScene().getWindow();
-					if (error == false) {
+					if (!error) {
 						product = new Product();
 						product.setUpc(upcStr);
 						product.setName(nameStr);
@@ -265,9 +273,9 @@ public class AddProductController implements Initializable {
 						product.setImg(imageInByte);
 						product.setDescription(description.getText());
 						product.setCost_price(Double.parseDouble(costPriceStr));
-						if(!sellingPriceStr.isEmpty())
-						product.setSelling_price(Double
-								.parseDouble(sellingPriceStr));
+						if (!sellingPriceStr.isEmpty())
+							product.setSelling_price(Double
+									.parseDouble(sellingPriceStr));
 						ProductManager.add(product);
 						addProductToTableView();
 						stage.close();
@@ -275,7 +283,8 @@ public class AddProductController implements Initializable {
 						productController.selectLastRow();
 					} else {
 						try {
-							new CustomInfoBox(stage,BoxType.INFORMATION, errorMsg, "Ok");
+							new CustomInfoBox(stage, BoxType.INFORMATION,
+									errorMsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -349,7 +358,8 @@ public class AddProductController implements Initializable {
 					stage = (Stage) btnAddProduct.getScene().getWindow();
 					try {
 						new CustomInfoBox(
-								stage,BoxType.INFORMATION,
+								stage,
+								BoxType.INFORMATION,
 								"Choisissez une image avec une taille de 1MO ou moins",
 								"Ok");
 

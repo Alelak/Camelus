@@ -260,13 +260,20 @@ public class UpdateProductController implements Initializable {
 						if (!StringUtils.isDouble(sellingPriceStr)) {
 							errorMsg += "Veuillez saisir un prix vendant valide\n";
 							error = true;
-						} else if (Double.parseDouble(sellingPriceStr) < 0) {
-							errorMsg += "Veuillez saisir un prix vendant valide\n";
-							error = true;
+						} else if (!error) {
+							double costprice = Double.parseDouble(costPriceStr);
+							double minSellingPrice = costprice
+									+ (costprice * 10) / 100;
+							if (Double.parseDouble(sellingPriceStr) < minSellingPrice) {
+								errorMsg += " - Le prix ajuste ne peut etre plus petit que : "
+										+ minSellingPrice + " $.\n";
+								error = true;
+							}
+
 						}
 					}
 					stage = (Stage) btnUpdateProduct.getScene().getWindow();
-					if (error == false) {
+					if (!error) {
 						product = new Product();
 						product.setId(productToUpdate.getId());
 						product.setUpc(upcStr);
