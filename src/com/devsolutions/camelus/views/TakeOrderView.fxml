@@ -10,6 +10,8 @@
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import java.net.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <GridPane id="motherGrid" prefWidth="1216.0" maxHeight="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.TakeOrderController">
@@ -63,9 +65,6 @@
 								<Label styleClass="boldLabel"
 									text="Ajouter un produit à la liste de commande"
 									BorderPane.alignment="CENTER">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
 									<BorderPane.margin>
 										<Insets bottom="10.0" top="10.0" />
 									</BorderPane.margin>
@@ -413,9 +412,6 @@
 							<center>
 								<Label styleClass="boldLabel" text="Liste des produits à commader"
 									BorderPane.alignment="CENTER">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
 									<BorderPane.margin>
 										<Insets bottom="10.0" top="10.0" />
 									</BorderPane.margin>
@@ -443,6 +439,16 @@
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
 						</TableView>
+						<HBox spacing="10">
+							<VBox.margin>
+								<Insets top="5" bottom="5" left="450"></Insets>
+							</VBox.margin>
+							<Label styleClass="boldLabel" text="Totale : ">
+							</Label>
+							<Label text="0.0$" fx:id="orderTotalTxt">
+
+							</Label>
+						</HBox>
 						<TitledPane animated="false" text="Commentaire"
 							prefHeight="130">
 							<VBox.margin>

@@ -77,11 +77,11 @@
 							GridPane.rowIndex="1" GridPane.columnIndex="0"
 							GridPane.columnSpan="2">
 							<columns>
-								<TableColumn maxWidth="650" fx:id="idCol" text="No" />
+								<TableColumn maxWidth="600" fx:id="idCol" text="No" />
 								<TableColumn fx:id="upcCol" text="UPC" />
 								<TableColumn fx:id="nameCol" text="Nom" />
 								<TableColumn fx:id="quantityCol" text="Quantite" />
-								<TableColumn fx:id="categoryCol" text="Categories" />
+								<TableColumn fx:id="categoryCol" text="Categorie" />
 								<TableColumn fx:id="priceSellingcol" text="Prix ($)" />
 							</columns>
 							<columnResizePolicy>

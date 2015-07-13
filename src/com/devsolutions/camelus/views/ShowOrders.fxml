@@ -77,7 +77,7 @@
 							GridPane.rowIndex="1" GridPane.columnIndex="0"
 							GridPane.columnSpan="2">
 							<columns>
-								<TableColumn maxWidth="450" fx:id="orderIdCol" text="No" />
+								<TableColumn maxWidth="600" fx:id="orderIdCol" text="No" />
 								<TableColumn fx:id="vendorNameCol" text="Nom du Vendeur" />
 								<TableColumn fx:id="clientNameCol" text="Nom du Client" />
 								<TableColumn fx:id="orderedAtCol" text="Date de commande" />

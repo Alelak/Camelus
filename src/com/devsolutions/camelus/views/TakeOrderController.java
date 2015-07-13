@@ -75,6 +75,8 @@ public class TakeOrderController implements Initializable {
 	private Label sellingPriceLabel;
 	@FXML
 	private Label categoryLabel;
+	@FXML
+	private Label orderTotalTxt;
 
 	@FXML
 	private TextField modifiedPriceField;
@@ -132,14 +134,13 @@ public class TakeOrderController implements Initializable {
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
 	private Image noImage;
-
 	private String quantity;
 	private String modifiedPrice;
 	private double minModifiedPrice;
+	private double total;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		FXUtils.addDraggableNode(titleBar);
 		initTableView();
 
@@ -158,8 +159,11 @@ public class TakeOrderController implements Initializable {
 		}
 
 		productObservableList = FXCollections.observableArrayList();
-		productObservableList.addAll(products);
-
+		for (Product p : products) {
+			if (p.getSelling_price() > 0) {
+				productObservableList.add(p);
+			}
+		}
 		clientObservableList = FXCollections.observableArrayList();
 		clientObservableList.addAll(clients);
 
@@ -176,7 +180,6 @@ public class TakeOrderController implements Initializable {
 		new AutoCompleteComboBoxListener<Product>(productComboBox);
 		new AutoCompleteComboBoxListener<Client>(clientComboBox);
 		new AutoCompleteComboBoxListener<Vendor>(vendorComboBox);
-
 		addOrderLineBtn
 				.setOnAction(e -> {
 					int index = 0;
@@ -246,6 +249,19 @@ public class TakeOrderController implements Initializable {
 					}
 
 					if (validfields) {
+						if (addOrderLineBtn.getText().equals("Modifier")) {
+							if (selectedProductToModifie.getModified_price() == 0) {
+								substractFromOrderTotal(selectedProductToModifie
+										.getSelling_price()
+										* selectedProductToModifie
+												.getQuantity());
+							} else {
+								substractFromOrderTotal(selectedProductToModifie
+										.getModified_price()
+										* selectedProductToModifie
+												.getQuantity());
+							}
+						}
 						if (!clientComboBox.isDisabled()) {
 							clientComboBox.setDisable(true);
 						}
@@ -253,21 +269,26 @@ public class TakeOrderController implements Initializable {
 						if (!vendorComboBox.isDisabled()) {
 							vendorComboBox.setDisable(true);
 						}
+						int mquantity = Integer.parseInt(quantity);
 						currentProductToOrderTV = new ProductToOrderTV();
-						currentProductToOrderTV.setQuantity(Integer
-								.parseInt(quantity));
+						currentProductToOrderTV.setQuantity(mquantity);
 						currentProductToOrderTV.setId(currentProduct.getId());
 						currentProductToOrderTV.setUpc(currentProduct.getUpc());
 						currentProductToOrderTV.setName(currentProduct
 								.getName());
 						currentProductToOrderTV.setSelling_price(currentProduct
 								.getSelling_price());
-						if (!modifiedPrice.isEmpty())
-							currentProductToOrderTV.setModified_price(Double
-									.parseDouble(modifiedPrice));
-						else
-							currentProductToOrderTV.setModified_price(0);
 
+						if (!modifiedPrice.isEmpty()) {
+							double mprice = Double.parseDouble(modifiedPrice);
+							currentProductToOrderTV.setModified_price(mprice);
+							addToOrderTotal(mprice * mquantity);
+
+						} else {
+							addToOrderTotal(currentProduct.getSelling_price()
+									* mquantity);
+							currentProductToOrderTV.setModified_price(0);
+						}
 						if (addOrderLineBtn.getText().equals("Modifier")) {
 							updateTableView(index, currentProductToOrderTV);
 						} else {
@@ -282,7 +303,8 @@ public class TakeOrderController implements Initializable {
 						try {
 							stage = (Stage) addOrderLineBtn.getScene()
 									.getWindow();
-							new CustomInfoBox(stage, BoxType.INFORMATION,invalidFields, "Ok");
+							new CustomInfoBox(stage, BoxType.INFORMATION,
+									invalidFields, "Ok");
 						} catch (IOException e2) {
 							e2.printStackTrace();
 						}
@@ -317,6 +339,13 @@ public class TakeOrderController implements Initializable {
 			ProductToOrderTV productToOrderTV = orderLinesTableView
 					.getSelectionModel().getSelectedItem();
 			orderLinesTableView.getItems().remove(productToOrderTV);
+			if (productToOrderTV.getModified_price() == 0) {
+				substractFromOrderTotal(productToOrderTV.getSelling_price()
+						* productToOrderTV.getQuantity());
+			} else {
+				substractFromOrderTotal(productToOrderTV.getModified_price()
+						* productToOrderTV.getQuantity());
+			}
 			initForm();
 			if (addOrderLineBtn.getText().equals("Modifier")) {
 				addOrderLineBtn.setText("Ajouter");
@@ -329,6 +358,7 @@ public class TakeOrderController implements Initializable {
 		});
 
 		resetBtn.setOnAction(e -> {
+			orderTotalTxt.setText("0.0$");
 			orderLinesTableView.getItems().removeAll(
 					orderLinesTableView.getItems());
 			productComboBox.getSelectionModel().clearSelection();
@@ -550,5 +580,17 @@ public class TakeOrderController implements Initializable {
 	private void CloseWindow() {
 		stage = (Stage) lblClose.getScene().getWindow();
 		stage.close();
+	}
+
+	private void addToOrderTotal(double value) {
+		total += value;
+		total = Math.floor(total * 100) / 100;
+		orderTotalTxt.setText(total + "$");
+	}
+
+	private void substractFromOrderTotal(double value) {
+		total -= value;
+		total = Math.floor(total * 100) / 100;
+		orderTotalTxt.setText(total + "$");
 	}
 }
