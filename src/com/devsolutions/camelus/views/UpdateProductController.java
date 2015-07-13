@@ -86,6 +86,17 @@ public class UpdateProductController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXUtils.addDraggableNode(titleBar);
+		listChoiceUnit = FXCollections.observableArrayList();
+
+		for (Unit u : UnitManager.getAll()) {
+			listChoiceUnit.add(new Choice(u.getId(), u.getDescription()));
+		}
+		unit.setItems(listChoiceUnit);
+		listChoiceCategory = FXCollections.observableArrayList();
+		for (Category c : CategoryManager.getAll()) {
+			listChoiceCategory.add(new Choice(c.getId(), c.getDescription()));
+		}
+		category.setItems(listChoiceCategory);
 		upc.setOnKeyReleased(e -> {
 			if (upc.getText()
 					.matches(
@@ -261,25 +272,12 @@ public class UpdateProductController implements Initializable {
 						product.setUpc(upcStr);
 						product.setName(nameStr);
 						product.setQuantity(Integer.parseInt(quantityStr));
-						
-						
-						if(unit.getSelectionModel()
-								.getSelectedItem() != null){
-							product.setUnit_id(unit.getSelectionModel()
-									.getSelectedItem().getId());
-							
-						}else{
-							product.setUnit_id(1);
-						}
-						
-						if(category.getSelectionModel()
-								.getSelectedItem() != null){
-							product.setCategory_id(category.getSelectionModel()
-									.getSelectedItem().getId());
-						}else{
-							product.setCategory_id(1);
-						}
-						
+
+						product.setUnit_id(unit.getSelectionModel()
+								.getSelectedItem().getId());
+						product.setCategory_id(category.getSelectionModel()
+								.getSelectedItem().getId());
+
 						product.setImg(imageInByte);
 						product.setDescription(description.getText());
 						product.setCost_price(Double.parseDouble(costPriceStr));
@@ -295,21 +293,17 @@ public class UpdateProductController implements Initializable {
 						productTable.setUpc(product.getUpc());
 						productTable.setSelling_price(product
 								.getSelling_price());
-						if(category.getSelectionModel()
-								.getSelectedItem() != null){			
-							productTable.setDescriptionCategory(category.getValue()
-									.toString());
-						}else{
-							productTable.setDescriptionCategory("pas spécifié");
-						}
-					
+						productTable.setDescriptionCategory(category.getValue()
+								.toString());
+
 						productController.updateTableView(index, productTable);
 
 						stage.close();
 						productController.selectTheModifierRow(index);
 					} else {
 						try {
-							new CustomInfoBox(stage, BoxType.INFORMATION, errorMsg, "Ok");
+							new CustomInfoBox(stage, BoxType.INFORMATION,
+									errorMsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -321,27 +315,6 @@ public class UpdateProductController implements Initializable {
 			stage = (Stage) btnCancelProduct.getScene().getWindow();
 			stage.close();
 		});
-
-	}
-
-	private void listChoiceBoxUnit(int index) {
-		listChoiceUnit = FXCollections.observableArrayList();
-		for (Unit unit : UnitManager.getAll()) {
-			listChoiceUnit.add(new Choice(unit.getId(), unit.getDescription()));
-		}
-		unit.setItems(listChoiceUnit);
-		unit.getSelectionModel().select(index);
-	}
-
-	private void listChoiceBoxCategory(int index) {
-		listChoiceCategory = FXCollections.observableArrayList();
-		for (Category category : CategoryManager.getAll()) {
-			listChoiceCategory.add(new Choice(category.getId(), category
-					.getDescription()));
-		}
-
-		category.setItems(listChoiceCategory);
-		category.getSelectionModel().select(index);
 
 	}
 
@@ -370,7 +343,8 @@ public class UpdateProductController implements Initializable {
 					stage = (Stage) btnUpdateProduct.getScene().getWindow();
 					try {
 						new CustomInfoBox(
-								stage,BoxType.INFORMATION,
+								stage,
+								BoxType.INFORMATION,
 								"Choisissez une image avec une taille de 1MO ou moins",
 								"Ok");
 
@@ -399,9 +373,16 @@ public class UpdateProductController implements Initializable {
 			imageProduct.setImage(new Image(getClass().getResourceAsStream(
 					"/images/nopicture.jpg")));
 		}
-
-		listChoiceBoxUnit(productToUpdate.getUnit_id());
-		listChoiceBoxCategory(productToUpdate.getCategory_id());
+		for (Choice cc : listChoiceCategory) {
+			if (cc.getId() == productToUpdate.getCategory_id()) {
+				category.getSelectionModel().select(cc);
+			}
+		}
+		for (Choice cu : listChoiceUnit) {
+			if (cu.getId() == productToUpdate.getUnit_id()) {
+				unit.getSelectionModel().select(cu);
+			}
+		}
 
 	}
 
