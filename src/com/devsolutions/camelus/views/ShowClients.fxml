@@ -77,14 +77,15 @@
 							GridPane.rowIndex="1" GridPane.columnIndex="0"
 							GridPane.columnSpan="2">
 							<columns>
-								<TableColumn maxWidth="0" fx:id="idColumn" text="Id" />
-								<TableColumn minWidth="292" fx:id="enterprise_name_Column"
-									text="Nom de l'entreprise" />
-								<TableColumn minWidth="292" fx:id="contact_name_Column"
-									text="Nom et pénom" />
-								<TableColumn minWidth="292" fx:id="contact_tel_Column"
-									text="Numéro de téléphone" />
+								<TableColumn fx:id="idColumn" text="No" maxWidth="600" />
+								<TableColumn fx:id="enterprise_name_Column" text="Nom de l'entreprise" />
+								<TableColumn fx:id="contact_name_Column" text="Nom et pénom" />
+								<TableColumn fx:id="contact_tel_Column" text="Numéro de téléphone" />
+								<TableColumn fx:id="created_at_col" text="Ajoute le" />
 							</columns>
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
 						</TableView>
 					</children>
 				</GridPane>

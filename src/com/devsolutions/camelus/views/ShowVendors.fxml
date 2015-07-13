@@ -84,13 +84,15 @@
 							GridPane.rowIndex="1" GridPane.columnIndex="0"
 							GridPane.columnSpan="2">
 							<columns>
-								<TableColumn minWidth="292" fx:id="vendorIdCol"
+								<TableColumn maxWidth="600" fx:id="vendorIdCol"
 									text="No" />
-								<TableColumn minWidth="292" fx:id="vendorNameCol"
-									text="Nom et Prénom" />
-								<TableColumn minWidth="292" fx:id="vendorLoginCol"
-									text="Login" />
+								<TableColumn fx:id="vendorNameCol" text="Nom et Prénom" />
+								<TableColumn fx:id="vendorLoginCol" text="Login" />
+								<TableColumn fx:id="vendorHireDateCol" text="Date D'embauche" />
 							</columns>
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
 						</TableView>
 					</children>
 				</GridPane>

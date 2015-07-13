@@ -2,6 +2,7 @@ package com.devsolutions.camelus.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -36,6 +38,7 @@ import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.FXUtils;
+import com.devsolutions.camelus.utils.StringUtils;
 
 public class ShowClientsController implements Initializable {
 	@FXML
@@ -66,6 +69,8 @@ public class ShowClientsController implements Initializable {
 	private TableColumn<Client, String> contact_name_Column;
 	@FXML
 	private TableColumn<Client, String> contact_tel_Column;
+	@FXML
+	private TableColumn<Client, Date> created_at_col;
 	@FXML
 	private Button btnAdd;
 	@FXML
@@ -133,8 +138,8 @@ public class ShowClientsController implements Initializable {
 		btnDelete.setOnAction(e -> {
 			try {
 				CustomDialogBox customDialogBox = new CustomDialogBox(
-						(Stage) btnDelete.getScene().getWindow(),BoxType.WARNING,
-						"Voulez vous vraiment supprimer "
+						(Stage) btnDelete.getScene().getWindow(),
+						BoxType.WARNING, "Voulez vous vraiment supprimer "
 								+ clientTableView.getSelectionModel()
 										.getSelectedItem().getContact_name()
 								+ " de votre liste de clients?", "Oui", "Non");
@@ -233,14 +238,28 @@ public class ShowClientsController implements Initializable {
 	private void initTableView() {
 		idColumn.setCellValueFactory(new PropertyValueFactory<Client, Long>(
 				"id"));
-		idColumn.setMaxWidth(0);
-		idColumn.setMinWidth(0);
 		enterprise_name_Column.setCellValueFactory(new PropertyValueFactory<>(
 				"enterprise_name"));
 		contact_name_Column.setCellValueFactory(new PropertyValueFactory<>(
 				"contact_name"));
 		contact_tel_Column.setCellValueFactory(new PropertyValueFactory<>(
 				"contact_tel"));
+		created_at_col.setCellValueFactory(new PropertyValueFactory<>(
+				"created_at"));
+		created_at_col.setCellFactory(column -> {
+			return new TableCell<Client, Date>() {
+				@Override
+				protected void updateItem(Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item != null && !empty) {
+						setText(StringUtils.formatDate(item));
+					} else {
+						setText("");
+					}
+				}
+
+			};
+		});
 	}
 
 	private void noDataToShow() {

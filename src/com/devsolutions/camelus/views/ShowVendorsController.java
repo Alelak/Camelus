@@ -1,4 +1,3 @@
-
 package com.devsolutions.camelus.views;
 
 import java.awt.Desktop;
@@ -26,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -108,6 +108,8 @@ public class ShowVendorsController implements Initializable {
 	private TableColumn<Vendor, String> vendorIdCol;
 	@FXML
 	private TableColumn<Vendor, String> vendorLoginCol;
+	@FXML
+	private TableColumn<Vendor, Date> vendorHireDateCol;
 
 	private List<Vendor> vendorsList;
 	private ObservableList<Vendor> vendorsObservableList;
@@ -209,7 +211,8 @@ public class ShowVendorsController implements Initializable {
 		deleteButton.setOnAction(e -> {
 			Stage stage = (Stage) deleteButton.getScene().getWindow();
 			try {
-				CustomDialogBox customDialogBox = new CustomDialogBox(stage,BoxType.WARNING,
+				CustomDialogBox customDialogBox = new CustomDialogBox(stage,
+						BoxType.WARNING,
 						"Voulez vous vraiment supprimer ce vendeur?", "Oui",
 						"Non");
 				customDialogBox.positiveButton
@@ -233,7 +236,8 @@ public class ShowVendorsController implements Initializable {
 									try {
 										new CustomInfoBox(
 												(Stage) deleteButton.getScene()
-														.getWindow(), BoxType.ERROR,
+														.getWindow(),
+												BoxType.ERROR,
 												"Impossible de supprimer ce vendeur, il est déjà associée à un client",
 												"Ok");
 									} catch (IOException e) {
@@ -336,7 +340,8 @@ public class ShowVendorsController implements Initializable {
 							Stage parentStage = (Stage) motherGrid.getScene()
 									.getWindow();
 							CustomInfoBox customDialogBox = new CustomInfoBox(
-									parentStage,BoxType.INFORMATION,
+									parentStage,
+									BoxType.INFORMATION,
 									"Il faut choisir au moins une année pour générer un rapport.",
 									"Ok");
 							customDialogBox.btn
@@ -509,8 +514,8 @@ public class ShowVendorsController implements Initializable {
 				Desktop.getDesktop().open(savedFile);
 			} catch (Exception ex) {
 				try {
-					new CustomInfoBox(stage,BoxType.ERROR, "Impossible d'ouvrir ce fichier!",
-							"Ok");
+					new CustomInfoBox(stage, BoxType.ERROR,
+							"Impossible d'ouvrir ce fichier!", "Ok");
 
 				} catch (IOException e2) {
 					e2.printStackTrace();
@@ -825,6 +830,21 @@ public class ShowVendorsController implements Initializable {
 		vendorIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 		vendorNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		vendorLoginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
+		vendorHireDateCol.setCellValueFactory(new PropertyValueFactory<>(
+				"hire_date"));
+		vendorHireDateCol.setCellFactory(column -> {
+			return new TableCell<Vendor, Date>() {
+				@Override
+				protected void updateItem(Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item != null && !empty) {
+						setText(StringUtils.formatDate(item));
+					} else {
+						setText("");
+					}
+				}
+			};
+		});
 	}
 
 	public void initData(MainWindowController mainWindowController) {
