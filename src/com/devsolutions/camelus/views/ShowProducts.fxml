@@ -104,7 +104,7 @@
 				</graphic>
 			</Button>
 			<Button disable="true" fx:id="btnUpdateProduct" prefWidth="120"
-				styleClass="flat-btn" text="Modifer">
+				styleClass="flat-btn" text="Modifier">
 				<graphic>
 					<FontAwesomeIconView styleClass="whiteFont"
 						icon="ICON_PENCIL" />
