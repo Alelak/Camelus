@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.control.ScrollPane?>
 <GridPane prefHeight="550" prefWidth="550" id="motherGrid"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.ShowProductController">
@@ -28,7 +29,7 @@
 	</columnConstraints>
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
-			style="-fx-background-color: #efefef;">
+			style="-fx-background-color: #efefef; -fx-font-family: 'Roboto Bold';">
 			<rowConstraints>
 				<RowConstraints percentHeight="100" />
 			</rowConstraints>
@@ -38,7 +39,7 @@
 			</columnConstraints>
 			<children>
 				<Label style="-fx-font-family:'Roboto Bold';"
-					GridPane.ColumnIndex="0" Text="Consulter client">
+					GridPane.ColumnIndex="0" Text="Consulter Produit">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -66,7 +67,12 @@
 				fx:id="name" GridPane.rowIndex="0"></Label>
 			<Label text="."></Label>
 		</HBox>
-		<GridPane maxWidth="450" id="contentGrid" GridPane.rowIndex="2">
+		
+		<ScrollPane style="-fx-background-color: white"  GridPane.rowIndex="2" styleClass="edge-to-edge" >
+		<padding>
+				<Insets left="37" right="37" bottom="5"  top="5"/>
+			</padding>
+		<GridPane style="-fx-background-color: white"  maxWidth="450" id="contentGrid" >
 			<padding>
 				<Insets bottom="5" />
 			</padding>
@@ -99,7 +105,8 @@
 							<HBox.margin>
 								<Insets left="65" />
 							</HBox.margin>
-							<HBox>
+							<HBox alignment="CENTER_LEFT">
+							
 								<Label text="Numero UPC: " />
 								<Label style="-fx-font-family:'Roboto Bold';" fx:id="upc" />
 							</HBox>
@@ -140,6 +147,8 @@
 					</TitledPane>
 			</children>
 		</GridPane>
+		</ScrollPane>
+		
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />

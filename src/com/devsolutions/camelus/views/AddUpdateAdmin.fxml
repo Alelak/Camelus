@@ -26,7 +26,7 @@
 	</columnConstraints>
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
-			style="-fx-background-color: #efefef;">
+			style="-fx-background-color: #efefef; -fx-font-family: 'Roboto Bold';">
 			<rowConstraints>
 				<RowConstraints percentHeight="100" />
 			</rowConstraints>

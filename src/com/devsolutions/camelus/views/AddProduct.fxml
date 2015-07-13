@@ -13,12 +13,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.image.*?>
-<GridPane id="motherGrid" prefHeight="670" prefWidth="550"
+<?import javafx.scene.control.ScrollPane?>
+<GridPane id="motherGrid" prefHeight="550" prefWidth="550"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.AddProductController">
 	<rowConstraints>
-		<RowConstraints percentHeight="4.5" />
-		<RowConstraints percentHeight="84.5" />
+		<RowConstraints percentHeight="5.4" />
+		<RowConstraints percentHeight="84.6" />
 		<RowConstraints percentHeight="10" />
 	</rowConstraints>
 	<columnConstraints>
@@ -26,7 +27,7 @@
 	</columnConstraints>
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
-			style="-fx-background-color: #efefef;">
+			style="-fx-background-color: #efefef; -fx-font-family: 'Roboto Bold';">
 			<rowConstraints>
 				<RowConstraints percentHeight="100" />
 			</rowConstraints>
@@ -52,135 +53,159 @@
 				</HBox>
 			</children>
 		</GridPane>
-		<GridPane GridPane.rowIndex="1">
-			<padding>
-				<Insets top="10"></Insets>
-			</padding>
-			<rowConstraints>
-				<RowConstraints valignment="BOTTOM" />
-				<RowConstraints valignment="CENTER" percentHeight="11.5" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints valignment="TOP" percentHeight="40" />
-			</rowConstraints>
-			<columnConstraints>
-				<ColumnConstraints halignment="RIGHT"
-					percentWidth="35" />
-				<ColumnConstraints halignment="CENTER"
-					percentWidth="45" />
-				<ColumnConstraints halignment="LEFT" percentWidth="20" />
-			</columnConstraints>
-			<children>
-				<HBox alignment="CENTER" GridPane.rowIndex="0"
-					GridPane.ColumnIndex="0" GridPane.ColumnSpan="3">
-					<HBox
-						style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
 
-						<ImageView fx:id="imageProduct" fitHeight="80.0"
-							style="-fx-background-color: white;" fitWidth="100.0"
-							pickOnBounds="true" preserveRatio="true">
-							<image>
-								<Image url="@/images/nopicture.jpg">
-								</Image>
-							</image>
-						</ImageView>
+		<ScrollPane vmin="0"  vvalue="0" styleClass="edge-to-edge" GridPane.rowIndex="1">
+			<GridPane style="-fx-background-color: white"  gridLinesVisible="false"  minHeight="650" maxHeight="650">
+				<padding>
+					<Insets  top="10"></Insets>
+				</padding>
+				<rowConstraints>			
+					<RowConstraints valignment="TOP"  percentHeight="3" />
+					<RowConstraints valignment="TOP"  percentHeight="12" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.035" />
+					<RowConstraints percentHeight="8.095" />
+					<RowConstraints valignment="TOP" percentHeight="20.66" />
+				</rowConstraints>
+				<columnConstraints>
+					<ColumnConstraints halignment="RIGHT"
+						percentWidth="35" />
+					<ColumnConstraints halignment="CENTER"
+						percentWidth="47" />
+					<ColumnConstraints halignment="LEFT"
+						percentWidth="18" />
+				</columnConstraints>
+				<children>
+					<HBox maxWidth="530" minWidth="530"  alignment="CENTER" GridPane.rowIndex="1"
+						GridPane.ColumnIndex="0" GridPane.ColumnSpan="3">
+						<padding>
+						<Insets left="87"/>
+						</padding>
+						<HBox
+							style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
+							<ImageView fx:id="imageProduct" fitHeight="80.0"
+								style="-fx-background-color: white;" fitWidth="100.0"
+								pickOnBounds="true" preserveRatio="true">
+								<image>
+									<Image url="@../../../../images/nopicture.jpg">
+									</Image>
+								</image>
+							</ImageView>
+						</HBox>
 					</HBox>
-				</HBox>
-				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
-					GridPane.ColumnSpan="3"
-					text="*Saisir tous les champs qui sont avec étoile afin de passer la validation du formulaire. ">
-					<padding>
-						<Insets right="70" />
-					</padding>
-				</Label>
-				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="UPC:">
-				</Label>
-				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0"
-					text="Nom de Produit:">
-				</Label>
-				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0"
-					text="Quantitè de Produit">
-				</Label>
-				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0"
-					text="Unitè de Produit:">
-				</Label>
-				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
-					text="Categorie de Produit:">
-				</Label>
-				<Label GridPane.rowIndex="7" GridPane.ColumnIndex="0"
-					text="Image de Produit:">
-				</Label>
-				<Label GridPane.rowIndex="8" GridPane.ColumnIndex="0"
-					text="Prix d'achat:">
-				</Label>
-				<Label GridPane.rowIndex="9" GridPane.ColumnIndex="0"
-					text="Prix de Vente:">
-				</Label>
-				<TextField fx:id="upc" GridPane.rowIndex="2"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TextField fx:id="name" GridPane.rowIndex="3"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TextField fx:id="quantity" GridPane.rowIndex="4"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<ChoiceBox fx:id="unit" GridPane.rowIndex="5"
-					GridPane.ColumnIndex="1" maxWidth="235">
-				</ChoiceBox>
-				<ChoiceBox fx:id="category" GridPane.rowIndex="6"
-					GridPane.ColumnIndex="1" maxWidth="235">
-				</ChoiceBox>
-				<Button fx:id="btnAddImg" GridPane.rowIndex="7"
-					GridPane.ColumnIndex="1" maxWidth="235" text="Ajouter image"></Button>
-				<TextField fx:id="costPrice" GridPane.rowIndex="8"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TextField fx:id="sellingPrice" GridPane.rowIndex="9"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TitledPane prefHeight="110" GridPane.rowIndex="10"
-					GridPane.ColumnIndex="0" GridPane.ColumnSpan="3" animated="true"
-					text="Description">
-					<padding>
-						<Insets right="5" left="5" />
-					</padding>
-					<content>
-						<TextArea fx:id="description" promptText="Veillez saisir une descritpion" />
-					</content>
-				</TitledPane>
-				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="2">
-					<graphic>
-						<FontAwesomeIconView styleClass="starFont"
-							icon="ICON_STAR" />
-					</graphic>
-				</Label>
-				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="2">
-					<graphic>
-						<FontAwesomeIconView styleClass="starFont"
-							icon="ICON_STAR" />
-					</graphic>
-				</Label>
-				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="2">
-					<graphic>
-						<FontAwesomeIconView styleClass="starFont"
-							icon="ICON_STAR" />
-					</graphic>
-				</Label>
-				<Label GridPane.rowIndex="8" GridPane.ColumnIndex="2" text="($)">
-					<graphic>
-						<FontAwesomeIconView styleClass="starFont"
-							icon="ICON_STAR" />
-					</graphic>
-				</Label>
-				<Label GridPane.rowIndex="9" GridPane.ColumnIndex="2" text="($)">
-				</Label>
-			</children>
-		</GridPane>
-		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
+
+					<HBox spacing="2" GridPane.rowIndex="0" GridPane.ColumnIndex="0"
+						GridPane.ColumnSpan="3">
+						<padding>
+							<Insets top="5" left="8" />
+						</padding>
+						<Label alignment="CENTER">
+							<graphic>
+								<FontAwesomeIconView styleClass="starFont"
+									icon="ICON_STAR" />
+							</graphic>
+						</Label>
+						<Label text="Saisir tous les champs requis">
+						</Label>
+					</HBox>
+
+					<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="UPC:">
+					</Label>
+					<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0"
+						text="Nom de Produit:">
+					</Label>
+					<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0"
+						text="Quantitè de Produit">
+					</Label>
+					<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0"
+						text="Unitè de Produit:">
+					</Label>
+					<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
+						text="Categorie de Produit:">
+					</Label>
+					<Label GridPane.rowIndex="7" GridPane.ColumnIndex="0"
+						text="Image de Produit:">
+					</Label>
+					<Label GridPane.rowIndex="8" GridPane.ColumnIndex="0"
+						text="Prix d'achat:">
+					</Label>
+					<Label GridPane.rowIndex="9" GridPane.ColumnIndex="0"
+						text="Prix de Vente:">
+					</Label>
+					<TextField fx:id="upc" GridPane.rowIndex="2"
+						GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+					<TextField fx:id="name" GridPane.rowIndex="3"
+						GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+					<TextField fx:id="quantity" GridPane.rowIndex="4"
+						GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+					<ChoiceBox fx:id="unit" GridPane.rowIndex="5"
+						GridPane.ColumnIndex="1" maxWidth="235">
+					</ChoiceBox>
+					<ChoiceBox fx:id="category" GridPane.rowIndex="6"
+						GridPane.ColumnIndex="1" maxWidth="235">
+					</ChoiceBox>
+					<Button fx:id="btnAddImg" GridPane.rowIndex="7"
+						GridPane.ColumnIndex="1" maxWidth="235" text="Ajouter image"></Button>
+					<TextField fx:id="costPrice" GridPane.rowIndex="8"
+						GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+					<TextField fx:id="sellingPrice" GridPane.rowIndex="9"
+						GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+					<TitledPane prefHeight="120" GridPane.rowIndex="10"
+						GridPane.ColumnIndex="0" GridPane.ColumnSpan="3" animated="true"
+						text="Description">
+						<padding>
+							<Insets right="5" left="5" />
+						</padding>
+						<content>
+							<TextArea fx:id="description" promptText="Veillez saisir une descritpion" />
+						</content>
+					</TitledPane>
+					<Label GridPane.rowIndex="2" GridPane.ColumnIndex="2">
+						<graphic>
+							<FontAwesomeIconView styleClass="starFont"
+								icon="ICON_STAR" />
+						</graphic>
+					</Label>
+					<Label GridPane.rowIndex="3" GridPane.ColumnIndex="2">
+						<graphic>
+							<FontAwesomeIconView styleClass="starFont"
+								icon="ICON_STAR" />
+						</graphic>
+					</Label>
+					<Label GridPane.rowIndex="4" GridPane.ColumnIndex="2">
+						<graphic>
+							<FontAwesomeIconView styleClass="starFont"
+								icon="ICON_STAR" />
+						</graphic>
+					</Label>
+					
+					<HBox spacing="2" alignment="CENTER" GridPane.rowIndex="8" GridPane.ColumnIndex="2" > 
+					<GridPane.margin>
+					<Insets right="68"/>
+					</GridPane.margin>
+					<Label text="($)"></Label>
+					<Label >
+						<graphic>
+							<FontAwesomeIconView styleClass="starFont"
+								icon="ICON_STAR" />
+						</graphic>
+					</Label>
+					</HBox>
+					<Label GridPane.rowIndex="9" GridPane.ColumnIndex="2" text="($)">
+					</Label>
+				</children>
+			</GridPane>
+
+		</ScrollPane>
+
+		<HBox alignment="CENTER_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
-				<Insets right="5" />
+				<Insets top="11" right="5" />
 			</padding>
 			<Button prefWidth="120" styleClass="flat-btn" fx:id="btnAddProduct"
 				text="Ajouter"></Button>

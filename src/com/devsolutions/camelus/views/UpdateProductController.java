@@ -261,10 +261,25 @@ public class UpdateProductController implements Initializable {
 						product.setUpc(upcStr);
 						product.setName(nameStr);
 						product.setQuantity(Integer.parseInt(quantityStr));
-						product.setUnit_id(unit.getSelectionModel()
-								.getSelectedItem().getId());
-						product.setCategory_id(category.getSelectionModel()
-								.getSelectedItem().getId());
+						
+						
+						if(unit.getSelectionModel()
+								.getSelectedItem() != null){
+							product.setUnit_id(unit.getSelectionModel()
+									.getSelectedItem().getId());
+							
+						}else{
+							product.setUnit_id(1);
+						}
+						
+						if(category.getSelectionModel()
+								.getSelectedItem() != null){
+							product.setCategory_id(category.getSelectionModel()
+									.getSelectedItem().getId());
+						}else{
+							product.setCategory_id(1);
+						}
+						
 						product.setImg(imageInByte);
 						product.setDescription(description.getText());
 						product.setCost_price(Double.parseDouble(costPriceStr));
@@ -280,8 +295,14 @@ public class UpdateProductController implements Initializable {
 						productTable.setUpc(product.getUpc());
 						productTable.setSelling_price(product
 								.getSelling_price());
-						productTable.setDescriptionCategory(category.getValue()
-								.toString());
+						if(category.getSelectionModel()
+								.getSelectedItem() != null){			
+							productTable.setDescriptionCategory(category.getValue()
+									.toString());
+						}else{
+							productTable.setDescriptionCategory("pas spécifié");
+						}
+					
 						productController.updateTableView(index, productTable);
 
 						stage.close();

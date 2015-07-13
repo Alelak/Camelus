@@ -44,6 +44,7 @@ import com.devsolutions.camelus.managers.ProductManager;
 import com.devsolutions.camelus.managers.UnitManager;
 import com.devsolutions.camelus.services.Session;
 import com.devsolutions.camelus.utils.BoxType;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
@@ -188,7 +189,7 @@ public class ShowProductsController implements Initializable {
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.initOwner(motherGrid.getScene().getWindow());
 					stage.show();
-
+					FXUtils.centerStage((Stage) motherGrid.getScene().getWindow(), stage, 22);
 				});
 
 		btnUpdateProduct
@@ -225,7 +226,7 @@ public class ShowProductsController implements Initializable {
 							stage.initModality(Modality.APPLICATION_MODAL);
 							stage.initOwner(motherGrid.getScene().getWindow());
 							stage.show();
-
+							FXUtils.centerStage((Stage) motherGrid.getScene().getWindow(), stage, 22);
 						}
 					}
 				});
@@ -265,7 +266,7 @@ public class ShowProductsController implements Initializable {
 							stage.initModality(Modality.APPLICATION_MODAL);
 							stage.initOwner(motherGrid.getScene().getWindow());
 							stage.show();
-
+							FXUtils.centerStage((Stage) motherGrid.getScene().getWindow(), stage, 22);
 						}
 					}
 				});
