@@ -99,15 +99,14 @@ public class AddUpdateVendorController implements Initializable {
 		commission.getSelectionModel().select(0);
 
 		textSin.setOnKeyReleased(e -> {
-			if (textSin.getText()
-					.matches(
-							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+			if (textSin.getText().matches(
+					"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 				textSin.setStyle(FXUtils.HAS_SUCCESS);
 
 			} else
 				textSin.setStyle(FXUtils.HAS_ERROR);
 		});
-		
+
 		textSin.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0,
@@ -115,15 +114,14 @@ public class AddUpdateVendorController implements Initializable {
 				if (!newPropertyValue) {
 					if (textSin.getText().isEmpty())
 						textSin.setStyle("-fx-border-width: 0;");
-					if (textSin.getText()
-							.matches(
-									"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+					if (textSin.getText().matches(
+							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 						textSin.setStyle("-fx-border-width: 0;");
 					}
 				}
 			}
 		});
-		
+
 		btn.setOnAction(e -> {
 			String username = textUsername.getText().trim();
 			String password = textPassword.getText().trim();
@@ -242,7 +240,8 @@ public class AddUpdateVendorController implements Initializable {
 
 			} else {
 				try {
-					new CustomInfoBox(stage,BoxType.INFORMATION, invalidFields, "Ok");
+					new CustomInfoBox(stage, BoxType.INFORMATION,
+							invalidFields, "Ok");
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}

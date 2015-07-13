@@ -402,13 +402,10 @@ public class ShowVendorsController implements Initializable {
 	}
 
 	public void showTableView() {
-		if(vendorsObservableList.size() == 1){
-			gridRowOne.setVisible(false);
-			gridRowTwo.setVisible(true);
-			rowOne.setPercentHeight(0);
-			rowTwo.setPercentHeight(100);
-		}
-		
+		gridRowOne.setVisible(false);
+		gridRowTwo.setVisible(true);
+		rowOne.setPercentHeight(0);
+		rowTwo.setPercentHeight(100);
 	}
 
 	private void creatPDF() {

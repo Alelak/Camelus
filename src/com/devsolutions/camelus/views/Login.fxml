@@ -14,7 +14,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Label?>
 
-<GridPane id="parent" minHeight="470.0"  minWidth="470.0"
+<GridPane id="parent" minHeight="300.0"  minWidth="470.0"
 	
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.LoginController">
@@ -82,8 +82,9 @@
 				<RowConstraints valignment="CENTER" percentHeight="10" />
 				<RowConstraints valignment="CENTER" percentHeight="10" />
 				<RowConstraints valignment="CENTER" percentHeight="12" />
+				<RowConstraints valignment="CENTER" percentHeight="3" />
 				<RowConstraints valignment="CENTER" percentHeight="15" />
-				<RowConstraints valignment="CENTER" percentHeight="15" />
+				<RowConstraints valignment="CENTER" percentHeight="12" />
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints halignment="CENTER" percentWidth="100" />
@@ -114,7 +115,7 @@
 						<Tooltip text="Cliquer pour se connecter" />
 					</tooltip>
 				</Button>
-				<ProgressIndicator GridPane.rowIndex="6"
+				<ProgressIndicator GridPane.rowIndex="7"
 					 fx:id="progressIndicator" visible="false"></ProgressIndicator>
 			</children>
 		</GridPane>
