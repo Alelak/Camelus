@@ -209,8 +209,8 @@
 						<TitledPane animated="false" prefHeight="142.0" text="Commentaire"
 							BorderPane.alignment="CENTER">
 							<content>
-								<TextArea fx:id="orderCommentTextArea" editable="false"
-									text="Ceci est un commentaire" />
+								<TextArea fx:id="orderCommentTextArea" wrapText="true"
+									editable="false" text="Ceci est un commentaire" />
 							</content>
 						</TitledPane>
 					</center>

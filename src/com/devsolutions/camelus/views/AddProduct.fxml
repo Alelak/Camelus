@@ -162,7 +162,7 @@
 							<Insets right="5" left="5" />
 						</padding>
 						<content>
-							<TextArea fx:id="description" promptText="Veillez saisir une descritpion" />
+							<TextArea wrapText="true" fx:id="description" promptText="Veillez saisir une descritpion" />
 						</content>
 					</TitledPane>
 					<Label GridPane.rowIndex="2" GridPane.ColumnIndex="2">
