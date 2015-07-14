@@ -176,8 +176,24 @@ public class AddUpdateClientController implements Initializable {
 							|| address.isEmpty() || email.isEmpty()) {
 						valid = false;
 						feedbackmsg += "Il faut saisir Tous les champs requis.\n";
+					} else {
+						if (enterprise.length() > 75) {
+							valid = false;
+							feedbackmsg += "Le nom de l'entreprise ne doit pas depasse 75 caractères \n";
+						}
+						if (name.length() > 90) {
+							valid = false;
+							feedbackmsg += "Le nom du client ne doit pas depasse 90 caractères \n";
+						}
+						if (address.length() > 255) {
+							valid = false;
+							feedbackmsg += "L'address ne doit pas depasse 255 caractères \n";
+						}
+						if (email.length() > 255) {
+							valid = false;
+							feedbackmsg += "L'email ne doit pas depasse 255 caractères \n";
+						}
 					}
-
 					if (clientToUpdate == null) {
 						if (enterprise.isEmpty() && !name.isEmpty()) {
 							if (ClientManager.getByEntrepriseAndClientName(
@@ -196,7 +212,10 @@ public class AddUpdateClientController implements Initializable {
 						feedbackmsg += "Vous devez saisir une adresse email valide. \n";
 						valid = false;
 					}
-
+					if (description.length() > 255) {
+						feedbackmsg += "La description ne doit pas depasse 255 caractères \n";
+						valid = false;
+					}
 					if (valid) {
 						Client client = new Client();
 						client.setEnterprise_name(enterprise);
@@ -220,7 +239,8 @@ public class AddUpdateClientController implements Initializable {
 						stage.close();
 					} else {
 						try {
-							new CustomInfoBox(stage,BoxType.INFORMATION, feedbackmsg, "Ok");
+							new CustomInfoBox(stage, BoxType.INFORMATION,
+									feedbackmsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}

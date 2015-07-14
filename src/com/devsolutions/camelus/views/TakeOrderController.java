@@ -207,11 +207,7 @@ public class TakeOrderController implements Initializable {
 					}
 
 					if (!modifiedPrice.isEmpty()) {
-						if (!StringUtils.isDouble(modifiedPrice)) {
-							invalidFields += " - Veuillez saisir un prix valide \n";
-							validfields = false;
-						} else if (Double.parseDouble(modifiedPriceField
-								.getText()) <= 0) {
+						if (!StringUtils.validDecimal(modifiedPrice)) {
 							invalidFields += " - Veuillez saisir un prix valide \n";
 							validfields = false;
 						} else if (Double.parseDouble(modifiedPriceField
@@ -359,6 +355,7 @@ public class TakeOrderController implements Initializable {
 
 		resetBtn.setOnAction(e -> {
 			orderTotalTxt.setText("0.0$");
+			total = 0;
 			orderLinesTableView.getItems().removeAll(
 					orderLinesTableView.getItems());
 			productComboBox.getSelectionModel().clearSelection();
@@ -368,55 +365,74 @@ public class TakeOrderController implements Initializable {
 			vendorComboBox.setDisable(false);
 		});
 
-		takeOrderBtn.setOnAction(e -> {
-			OrderTV orderTV = new OrderTV();
-			Vendor vendor = vendorComboBox.getItems().get(
-					vendorComboBox.getSelectionModel().getSelectedIndex());
+		takeOrderBtn
+				.setOnAction(e -> {
+					stage = (Stage) takeOrderBtn.getScene().getWindow();
+					String comment = commentTextArea.getText().trim();
+					if (comment.length() > 255) {
+						try {
+							new CustomInfoBox(
+									stage,
+									BoxType.WARNING,
+									"Le commentaire ne doit pas depasse 255 caractères ",
+									"Ok");
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					} else {
+						OrderTV orderTV = new OrderTV();
+						Vendor vendor = vendorComboBox.getItems().get(
+								vendorComboBox.getSelectionModel()
+										.getSelectedIndex());
 
-			Order order = new Order();
-			order.setVendor_id(vendor.getId());
-			order.setClient_id(currentClient.getId());
-			order.setComment(commentTextArea.getText());
+						Order order = new Order();
+						order.setVendor_id(vendor.getId());
+						order.setClient_id(currentClient.getId());
+						order.setComment(comment);
 
-			OrderManager.add(order);
+						OrderManager.add(order);
 
-			productToOrderObservableList = orderLinesTableView.getItems();
-			for (int i = 0; i < productToOrderObservableList.size(); i++) {
-				OrderLine orderLine = new OrderLine();
-				orderLine.setProduct_id(productToOrderObservableList.get(i)
-						.getId());
-				orderLine.setOrder_id(order.getId());
-				orderLine.setModified_price(productToOrderObservableList.get(i)
-						.getModified_price());
-				orderLine.setQuantity(productToOrderObservableList.get(i)
-						.getQuantity());
-				OrderLineManager.add(orderLine);
-			}
+						productToOrderObservableList = orderLinesTableView
+								.getItems();
+						for (int i = 0; i < productToOrderObservableList.size(); i++) {
+							OrderLine orderLine = new OrderLine();
+							orderLine
+									.setProduct_id(productToOrderObservableList
+											.get(i).getId());
+							orderLine.setOrder_id(order.getId());
+							orderLine
+									.setModified_price(productToOrderObservableList
+											.get(i).getModified_price());
+							orderLine.setQuantity(productToOrderObservableList
+									.get(i).getQuantity());
+							OrderLineManager.add(orderLine);
+						}
 
-			orderTV.setClient_id(order.getClient_id());
-			orderTV.setId(order.getId());
-			orderTV.setComment(order.getComment());
+						orderTV.setClient_id(order.getClient_id());
+						orderTV.setId(order.getId());
+						orderTV.setComment(order.getComment());
 
-			orderTV.setAssociated_vendor(vendor.getId());
-			orderTV.setCommission_id(vendor.getCommission_id());
-			orderTV.setEnterprise_name(currentClient.getEnterprise_name());
-			orderTV.setFname(vendor.getFname());
-			orderTV.setLname(vendor.getLname());
-			orderTV.setOrdered_at(new Date());
+						orderTV.setAssociated_vendor(vendor.getId());
+						orderTV.setCommission_id(vendor.getCommission_id());
+						orderTV.setEnterprise_name(currentClient
+								.getEnterprise_name());
+						orderTV.setFname(vendor.getFname());
+						orderTV.setLname(vendor.getLname());
+						orderTV.setOrdered_at(new Date());
 
-			for (ProductToOrderTV productToOrderTV : orderLinesTableView
-					.getItems()) {
-				ProductManager.decrementQuantity(
-						productToOrderTV.getQuantity(),
-						productToOrderTV.getId());
-			}
+						for (ProductToOrderTV productToOrderTV : orderLinesTableView
+								.getItems()) {
+							ProductManager.decrementQuantity(
+									productToOrderTV.getQuantity(),
+									productToOrderTV.getId());
+						}
 
-			showOrdersController.addToTableView(orderTV);
-			showOrdersController.showTableView();
+						showOrdersController.addToTableView(orderTV);
+						showOrdersController.showTableView();
 
-			stage = (Stage) takeOrderBtn.getScene().getWindow();
-			stage.close();
-		});
+						stage.close();
+					}
+				});
 
 		orderLinesTableView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {

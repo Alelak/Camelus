@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -213,6 +212,7 @@ public class UpdateProductController implements Initializable {
 					String quantityStr = quantity.getText().trim();
 					String costPriceStr = costPrice.getText().trim();
 					String sellingPriceStr = sellingPrice.getText().trim();
+					String descriptionStr = description.getText().trim();
 					for (ProductTV b : productController
 							.getProductsObservableList()) {
 
@@ -221,9 +221,8 @@ public class UpdateProductController implements Initializable {
 
 					}
 
-					if (!(!upcStr.isEmpty() && !nameStr.isEmpty()
-							&& !quantityStr.isEmpty() && !costPriceStr
-							.isEmpty())) {
+					if (upcStr.isEmpty() || nameStr.isEmpty()
+							|| quantityStr.isEmpty() || costPriceStr.isEmpty()) {
 						errorMsg += "Tous les champs avec une etoile sont requis\n";
 						error = true;
 					}
@@ -241,6 +240,9 @@ public class UpdateProductController implements Initializable {
 					if (nameStr.isEmpty()) {
 						errorMsg += "Veuillez saisir un nom de produit\n";
 						error = true;
+					} else if (nameStr.length() > 50) {
+						errorMsg += "Le nom du produit ne doit pas depasse 50 caracteres\n";
+						error = true;
 					}
 					if (!StringUtils.isInteger(quantityStr)) {
 						errorMsg += "Veuillez saisir une quantite valide\n";
@@ -249,15 +251,12 @@ public class UpdateProductController implements Initializable {
 						errorMsg += "Veuillez saisir une quantite valide\n";
 						error = true;
 					}
-					if (!StringUtils.isDouble(costPriceStr)) {
-						errorMsg += "Veuillez saisir un prix coutant valide\n";
-						error = true;
-					} else if (Double.parseDouble(costPriceStr) < 0) {
+					if (!StringUtils.validDecimal(costPriceStr)) {
 						errorMsg += "Veuillez saisir un prix coutant valide\n";
 						error = true;
 					}
 					if (!sellingPriceStr.isEmpty()) {
-						if (!StringUtils.isDouble(sellingPriceStr)) {
+						if (!StringUtils.validDecimal(sellingPriceStr)) {
 							errorMsg += "Veuillez saisir un prix vendant valide\n";
 							error = true;
 						} else if (!error) {
@@ -271,6 +270,10 @@ public class UpdateProductController implements Initializable {
 							}
 
 						}
+					}
+					if (descriptionStr.length() > 255) {
+						errorMsg += "La description ne doit pas depasse 255 caractères";
+						error = true;
 					}
 					stage = (Stage) btnUpdateProduct.getScene().getWindow();
 					if (!error) {
@@ -286,7 +289,7 @@ public class UpdateProductController implements Initializable {
 								.getSelectedItem().getId());
 
 						product.setImg(imageInByte);
-						product.setDescription(description.getText());
+						product.setDescription(descriptionStr);
 						product.setCost_price(Double.parseDouble(costPriceStr));
 						if (!sellingPriceStr.isEmpty())
 							product.setSelling_price(Double

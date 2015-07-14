@@ -22,7 +22,7 @@ USE `camelus` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camelus`.`units` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(20) NOT NULL,
   `deleted` TINYINT(1) NULL DEFAULT 0,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -35,7 +35,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camelus`.`categories` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(20) NOT NULL,
   `deleted` TINYINT(1) NULL DEFAULT 0,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -49,12 +49,12 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `camelus`.`products` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `upc` VARCHAR(12) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
   `quantity` INT NOT NULL,
   `cost_price` DECIMAL(10,2) NOT NULL,
   `selling_price` DECIMAL(10,2) NULL,
   `unit_id` INT NULL,
-  `description` VARCHAR(45) NULL,
+  `description` VARCHAR(255) NULL,
   `category_id` INT NULL,
   `img` LONGBLOB NULL,
   `deleted` TINYINT(1) NULL DEFAULT 0,
@@ -96,8 +96,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camelus`.`vendors` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(16) NOT NULL,
+  `password` CHAR(40) NOT NULL,
   `fname` VARCHAR(45) NOT NULL,
   `lname` VARCHAR(45) NOT NULL,
   `hire_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -122,11 +122,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `camelus`.`clients` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `associated_vendor` INT NOT NULL,
-  `enterprise_name` VARCHAR(45) NOT NULL,
-  `contact_name` VARCHAR(45) NOT NULL,
-  `contact_tel` VARCHAR(45) NOT NULL,
-  `contact_email` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
+  `enterprise_name` VARCHAR(75) NOT NULL,
+  `contact_name` VARCHAR(90) NOT NULL,
+  `contact_tel` CHAR(14) NOT NULL,
+  `contact_email` VARCHAR(255) NOT NULL,
+  `address` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
   `deleted` TINYINT(1) NULL DEFAULT 0,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -197,8 +197,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `camelus`.`admins` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(16) NOT NULL,
+  `password`  CHAR(40) NOT NULL,
   `fname` VARCHAR(45) NOT NULL,
   `lname` VARCHAR(45) NOT NULL,
   `sin` VARCHAR(9) NOT NULL,
@@ -219,3 +219,4 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO categories (description) VALUES ("pas spécifié");
 INSERT INTO units (description) VALUES ("pas spécifié");
+INSERT INTO admins (login,password,fname,lname,sin,super_admin) VALUES ('admin', 'c772f9581550b468734c14172e3abb8e8b617908', 'admin', 'admin', '000000000','1')

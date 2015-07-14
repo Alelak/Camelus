@@ -110,35 +110,40 @@ public class CategoriesController implements Initializable {
 						Category category = event.getNewValue();
 						int index = event.getIndex();
 						Category category2 = categoriesOb.get(index);
-						if (!category.getDescription().isEmpty()) {
-							if (!FXUtils.customcontains(categoriesOb,
-									category.getDescription())) {
-								if (isNew) {
-									CategoryManager.add(category);
-
-									categoriesOb.set(index, category);
-
-								} else {
-
-									category2.setDescription(category
-											.getDescription());
-									CategoryManager.update(category2);
-									categoriesOb.set(index, category2);
-								}
-								msgtxt.setText("");
-							} else {
-								msgtxt.setText("Cette categorie existe deja!");
-							}
+						if (category.getDescription().length() > 20) {
+							msgtxt.setText("20 caractères max");
 						} else {
+							if (!category.getDescription().isEmpty()) {
+								if (!FXUtils.customcontains(categoriesOb,
+										category.getDescription())) {
+									if (isNew) {
+										CategoryManager.add(category);
 
-							if (!isNew) {
-								if (ProductManager.getByCategory(
-										category.getId()).isEmpty()) {
-									categoriesOb.remove(index);
-									CategoryManager.delete(category2.getId());
+										categoriesOb.set(index, category);
+
+									} else {
+
+										category2.setDescription(category
+												.getDescription());
+										CategoryManager.update(category2);
+										categoriesOb.set(index, category2);
+									}
 									msgtxt.setText("");
 								} else {
-									msgtxt.setText("Cette categorie est lié avec un produit!");
+									msgtxt.setText("Cette categorie existe deja!");
+								}
+							} else {
+
+								if (!isNew) {
+									if (ProductManager.getByCategory(
+											category.getId()).isEmpty()) {
+										categoriesOb.remove(index);
+										CategoryManager.delete(category2
+												.getId());
+										msgtxt.setText("");
+									} else {
+										msgtxt.setText("Cette categorie est lié avec un produit!");
+									}
 								}
 							}
 						}

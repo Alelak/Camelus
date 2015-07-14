@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
 		// test
 		chooseAccountType.getSelectionModel().select(1);
 		usernametxt.setText("admin");
-		passwordtxt.setText("1234");
+		passwordtxt.setText("abc123...");
 
 		loginbtn.setOnAction(e -> {
 

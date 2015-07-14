@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -131,28 +133,18 @@ public class AddUpdateVendorController implements Initializable {
 
 			String invalidFields = "";
 			boolean validfields = true;
-			if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
-					|| sin.isEmpty() || password.isEmpty()) {
-				invalidFields += " - Tous les champs doivent étre remplis \n";
-				validfields = false;
-			}
 
 			if (password.length() < 8) {
 				invalidFields += " - Mot de passe de 8 caractéres et plus \n";
 				validfields = false;
 			}
-
-			if (hireDate.getValue() == null) {
-				invalidFields += " - Vous devez choisir une date d'embauche \n";
-				validfields = false;
-			}
-
-			if (commission.getSelectionModel().getSelectedIndex() == 0) {
-				invalidFields += " - Vous devez choisir une commission \n";
-				validfields = false;
-			}
-
 			if (vendorToUpdate != null) {
+				if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
+						|| sin.isEmpty()) {
+					invalidFields += " - Tous les champs doivent étre remplis \n";
+					validfields = false;
+				}
+
 				if (username.isEmpty()) {
 					validfields = false;
 				} else {
@@ -162,14 +154,16 @@ public class AddUpdateVendorController implements Initializable {
 							&& !vendorByLogin.getLogin().equals(
 									vendorToUpdate.getLogin())) {
 						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur a �tait déja choisie \n";
+						invalidFields += " - Ce nom d'utilisateur a était déja choisie \n";
 					}
 
 				}
+
 				if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
 					invalidFields += " - Le NAS doit etre un nombre de 9 chiffres \n";
 					validfields = false;
 				} else {
+
 					Vendor vendorBySin = VendorManager.getBySin(sin);
 					Admin adminBySin = AdminManager.getBySin(sin);
 					if (vendorBySin != null
@@ -186,7 +180,22 @@ public class AddUpdateVendorController implements Initializable {
 					}
 
 				}
+				if (!password.isEmpty()) {
+					if (password.length() < 8) {
+						validfields = false;
+						invalidFields += "Mot de passe de 8 caracteres et plus. \n";
+					}
+				}
 			} else {
+				if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
+						|| sin.isEmpty() || password.isEmpty()) {
+					invalidFields += " - Tous les champs doivent étre remplis \n";
+					validfields = false;
+				}
+				if (password.length() < 8) {
+					validfields = false;
+					invalidFields += "Mot de passe de 8 caracteres et plus. \n";
+				}
 				if (username.isEmpty()) {
 					validfields = false;
 				} else if (VendorManager.getByUserName(username) != null) {
@@ -202,7 +211,29 @@ public class AddUpdateVendorController implements Initializable {
 					invalidFields += " - Ce NAS existe déja, veuillez saisir un NAS valide. \n";
 				}
 			}
+			if (username.length() > 16) {
+				validfields = false;
+				invalidFields += "le nom d'utilisateur ne doit pas depasse 16 caracteres \n";
+			}
+			if (fname.length() > 45) {
+				invalidFields += "Le prenom ne doit pas depasse 45 caracteres\n";
+				validfields = false;
 
+			}
+			if (lname.length() > 45) {
+				invalidFields += "Le nom ne doit pas depasse 45 caracteres\n";
+				validfields = false;
+
+			}
+			if (hireDate.getValue() == null) {
+				invalidFields += " - Vous devez choisir une date d'embauche \n";
+				validfields = false;
+			}
+
+			if (commission.getSelectionModel().getSelectedIndex() == 0) {
+				invalidFields += " - Vous devez choisir une commission \n";
+				validfields = false;
+			}
 			stage = (Stage) btnCancel.getScene().getWindow();
 
 			if (validfields) {
@@ -218,7 +249,7 @@ public class AddUpdateVendorController implements Initializable {
 				Vendor vendor = new Vendor();
 
 				vendor.setLogin(username);
-				vendor.setPassword(password);
+
 				vendor.setFname(fname);
 				vendor.setLname(lname);
 				vendor.setSin(sin);
@@ -227,10 +258,17 @@ public class AddUpdateVendorController implements Initializable {
 				vendor.setHire_date(date);
 
 				if (vendorToUpdate == null) {
+					vendor.setPassword(password);
 					VendorManager.add(vendor);
 					vendorTVConroller.addToTableView(vendor);
 					vendorTVConroller.showTableView();
 				} else {
+					if (password.isEmpty()) {
+						vendor.setPassword(vendorToUpdate.getPassword());
+					} else {
+						vendor.setPassword(DigestUtils.sha1Hex(password));
+					}
+
 					vendor.setId(vendorToUpdate.getId());
 					VendorManager.update(vendor);
 					vendorTVConroller.updateTableView(index, vendor);

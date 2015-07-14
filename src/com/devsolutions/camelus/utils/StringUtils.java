@@ -86,4 +86,15 @@ public class StringUtils {
 				.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$");
 		return (ptr.matcher(email).matches()) ? true : false;
 	}
+
+	// tous les droits sont réservés a Alladin
+	public static boolean validDecimal(String value) {
+		if (StringUtils.isDouble(value)) {
+			double i = Double.parseDouble(value);
+			return (i > 0 && i <= 99999999.99) ? true : false;
+		} else {
+			return false;
+		}
+	}
+
 }

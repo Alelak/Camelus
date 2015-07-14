@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import org.apache.commons.codec.digest.DigestUtils;
 
 import com.devsolutions.camelus.entities.Admin;
 import com.devsolutions.camelus.entities.Vendor;
@@ -16,7 +17,8 @@ import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.FXUtils;
 
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -67,6 +69,30 @@ public class AddUpdateAdminController implements Initializable {
 			stage = (Stage) btnCancel.getScene().getWindow();
 			stage.close();
 		});
+
+		sintxt.setOnKeyReleased(e -> {
+			if (sintxt.getText().matches(
+					"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+				sintxt.setStyle(FXUtils.HAS_SUCCESS);
+
+			} else
+				sintxt.setStyle(FXUtils.HAS_ERROR);
+		});
+
+		sintxt.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0,
+					Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (!newPropertyValue) {
+					if (sintxt.getText().isEmpty())
+						sintxt.setStyle("-fx-border-width: 0;");
+					if (sintxt.getText().matches(
+							"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
+						sintxt.setStyle("-fx-border-width: 0;");
+					}
+				}
+			}
+		});
 		btnAddUpdate
 				.setOnAction(e -> {
 					stage = (Stage) btnAddUpdate.getScene().getWindow();
@@ -81,17 +107,12 @@ public class AddUpdateAdminController implements Initializable {
 					if (hiredatetxt.getValue() != null) {
 						date = hiredatetxt.getValue().toString();
 					}
-					if (login.isEmpty() || password.isEmpty()
-							|| lname.isEmpty() || fname.isEmpty()
-							|| sin.isEmpty()) {
-						valid = false;
-						feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
-					}
-					if (password.length() < 8) {
-						valid = false;
-						feedbackmsg += "Mot de passe de 8 caracteres et plus. \n";
-					}
 					if (adminToUpdate != null) {
+						if (login.isEmpty() || lname.isEmpty()
+								|| fname.isEmpty() || sin.isEmpty()) {
+							valid = false;
+							feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
+						}
 						if (login.isEmpty()) {
 							valid = false;
 						} else {
@@ -125,9 +146,24 @@ public class AddUpdateAdminController implements Initializable {
 							}
 
 						}
+						if (!password.isEmpty()) {
+							if (password.length() < 8) {
+								valid = false;
+								feedbackmsg += "Mot de passe de 8 caracteres et plus. \n";
+							}
+						}
 
 					} else {
-
+						if (login.isEmpty() || password.isEmpty()
+								|| lname.isEmpty() || fname.isEmpty()
+								|| sin.isEmpty()) {
+							valid = false;
+							feedbackmsg += "Tous les champs avec une étoile sont requis.\n";
+						}
+						if (password.length() < 8) {
+							valid = false;
+							feedbackmsg += "Mot de passe de 8 caracteres et plus. \n";
+						}
 						if (login.isEmpty()) {
 							valid = false;
 						} else if (AdminManager.getByUserName(login) != null) {
@@ -145,6 +181,20 @@ public class AddUpdateAdminController implements Initializable {
 							valid = false;
 
 						}
+					}
+					if (login.length() > 16) {
+						feedbackmsg += "le nom d'utilisateur ne doit pas depasse 16 caracteres \n";
+						valid = false;
+					}
+					if (fname.length() > 45) {
+						feedbackmsg += "Le prenom ne doit pas depasse 45 caracteres\n";
+						valid = false;
+
+					}
+					if (lname.length() > 45) {
+						feedbackmsg += "Le nom ne doit pas depasse 45 caracteres\n";
+						valid = false;
+
 					}
 					if (valid) {
 						SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
@@ -165,17 +215,24 @@ public class AddUpdateAdminController implements Initializable {
 							admin.setHire_date(new Date());
 						}
 						if (adminToUpdate != null) {
+							if (password.isEmpty()) {
+								admin.setPassword(adminToUpdate.getPassword());
+							} else {
+								admin.setPassword(DigestUtils.sha1Hex(password));
+							}
 							admin.setId(adminToUpdate.getId());
 							AdminManager.update(admin);
 							showAdminsController.updateTable(index, admin);
 						} else {
+							admin.setPassword(password);
 							AdminManager.add(admin);
 							showAdminsController.addToTable(admin);
 						}
 						stage.close();
 					} else {
 						try {
-							new CustomInfoBox(stage,BoxType.INFORMATION, feedbackmsg, "Ok");
+							new CustomInfoBox(stage, BoxType.INFORMATION,
+									feedbackmsg, "Ok");
 						} catch (IOException ex) {
 							ex.printStackTrace();
 						}
@@ -205,7 +262,6 @@ public class AddUpdateAdminController implements Initializable {
 
 	private void setData(Admin admin) {
 		logintxt.setText(admin.getLogin());
-		passwordtxt.setText(admin.getPassword());
 		lnametxt.setText(admin.getLname());
 		fnametxt.setText(admin.getFname());
 		sintxt.setText(admin.getSin());

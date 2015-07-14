@@ -111,33 +111,39 @@ public class UnitsController implements Initializable {
 				Unit unit = event.getNewValue();
 				int index = event.getIndex();
 				Unit unit2 = unitsOb.get(index);
-				if (!unit.getDescription().isEmpty()) {
-					if (!FXUtils.customcontains(unitsOb, unit.getDescription())) {
-						if (isNew) {
-							UnitManager.add(unit);
-
-							unitsOb.set(index, unit);
-						} else {
-
-							unit2.setDescription(unit.getDescription());
-							unitsOb.set(index, unit2);
-							UnitManager.update(unit2);
-
-						}
-						msgtxt.setText("");
-					} else {
-						msgtxt.setText("Cette unite existe deja!");
-					}
+				if (unit.getDescription().length() > 20) {
+					msgtxt.setText("20 caractères max");
 				} else {
+					if (!unit.getDescription().isEmpty()) {
+						if (!FXUtils.customcontains(unitsOb,
+								unit.getDescription())) {
+							if (isNew) {
+								UnitManager.add(unit);
 
-					if (!isNew) {
-						if (ProductManager.getByUnit(unit2.getId()).isEmpty()) {
-							unitsOb.remove(index);
-							UnitManager.delete(unit2.getId());
+								unitsOb.set(index, unit);
+							} else {
+
+								unit2.setDescription(unit.getDescription());
+								unitsOb.set(index, unit2);
+								UnitManager.update(unit2);
+
+							}
 							msgtxt.setText("");
 						} else {
-							msgtxt.setText("Cette unite est lié avec un produit!");
+							msgtxt.setText("Cette unite existe deja!");
+						}
+					} else {
 
+						if (!isNew) {
+							if (ProductManager.getByUnit(unit2.getId())
+									.isEmpty()) {
+								unitsOb.remove(index);
+								UnitManager.delete(unit2.getId());
+								msgtxt.setText("");
+							} else {
+								msgtxt.setText("Cette unite est lié avec un produit!");
+
+							}
 						}
 					}
 				}
