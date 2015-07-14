@@ -4,11 +4,12 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,16 +20,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
 import com.devsolutions.camelus.entities.Admin;
+import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.AdminManager;
+import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
+import com.devsolutions.camelus.utils.FXUtils;
 import com.devsolutions.camelus.utils.StringUtils;
 
 public class ShowAdminsController implements Initializable {
@@ -50,8 +54,13 @@ public class ShowAdminsController implements Initializable {
 	@FXML
 	private Button deleteBtn;
 	@FXML
+	private Button btnRefresh;
+	@FXML
 	private Button showDetailsBtn;
+	@FXML
+	private TextField textFieldSearch;
 	private ObservableList<Admin> adminsOb;
+	private SortedList<Admin> sortedData;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -101,11 +110,48 @@ public class ShowAdminsController implements Initializable {
 
 				});
 
+		btnRefresh.setOnAction(e -> {
+			adminsOb.clear();
+			adminsOb.addAll(AdminManager.getAll());
+		});
+
 		updateBtn.setOnAction(e -> {
 			showAddUpdateWindow(adminsTableView.getSelectionModel()
 					.getSelectedItem(), adminsTableView.getSelectionModel()
 					.getSelectedIndex(), CRUD.UPDATE);
 		});
+
+		FilteredList<Admin> filteredData = new FilteredList<>(adminsOb,
+				p -> true);
+		textFieldSearch.textProperty().addListener(
+				(observable, oldValue, newValue) -> {
+					filteredData.setPredicate(Admin -> {
+						if (newValue == null || newValue.isEmpty()) {
+							return true;
+						}
+						String lowerCaseFilter = newValue.toLowerCase();
+						String id = Admin.getId() + "";
+						if (Admin.getLogin().toLowerCase()
+								.contains(lowerCaseFilter)) {
+							return true;
+						} else if (Admin.getFull_name().toLowerCase()
+								.contains(lowerCaseFilter)) {
+							return true;
+						} else if (Admin.getHire_date().toString()
+								.toLowerCase().contains(lowerCaseFilter)) {
+							return true;
+						} else if (id.contains(lowerCaseFilter)) {
+							return true;
+						}
+						return false;
+					});
+				});
+
+		sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(
+				adminsTableView.comparatorProperty());
+		adminsTableView.setItems(sortedData);
+
 		deleteBtn.setOnAction(e -> {
 			Stage stage = (Stage) deleteBtn.getScene().getWindow();
 			Admin adminTodelete = adminsTableView.getSelectionModel()
@@ -113,7 +159,8 @@ public class ShowAdminsController implements Initializable {
 			if (adminTodelete.getSuper_admin() == 0) {
 
 				try {
-					CustomDialogBox dialogBox = new CustomDialogBox(stage,BoxType.WARNING,
+					CustomDialogBox dialogBox = new CustomDialogBox(stage,
+							BoxType.WARNING,
 							"Voulez vous vraiment supprimer ce admin?", "Oui",
 							"Non");
 					dialogBox.positiveButton
@@ -136,7 +183,7 @@ public class ShowAdminsController implements Initializable {
 
 			} else {
 				try {
-					new CustomInfoBox(stage,BoxType.ERROR,
+					new CustomInfoBox(stage, BoxType.ERROR,
 							"Impossible de supprimer le super admin", "Ok");
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -163,6 +210,8 @@ public class ShowAdminsController implements Initializable {
 				newStage.initOwner(addBtn.getScene().getWindow());
 				newStage.initModality(Modality.APPLICATION_MODAL);
 				newStage.show();
+				FXUtils.centerStage((Stage) addBtn.getScene().getWindow(),
+						newStage, 22);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -196,6 +245,8 @@ public class ShowAdminsController implements Initializable {
 			newStage.initOwner(addBtn.getScene().getWindow());
 			newStage.initModality(Modality.APPLICATION_MODAL);
 			newStage.show();
+			FXUtils.centerStage((Stage) addBtn.getScene().getWindow(),
+					newStage, 22);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
