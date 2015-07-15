@@ -57,7 +57,7 @@
 							<padding>
 								<Insets bottom="5.0" />
 							</padding>
-							<TextField fx:id="searchField" minWidth="387"
+							<TextField fx:id="searchField" minWidth="405"
 								promptText="Chercher des vendeurs, par des entreprise ou des numéros de téléphone"></TextField>
 						</HBox>
 						<HBox spacing="4" alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
