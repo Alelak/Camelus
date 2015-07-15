@@ -100,7 +100,7 @@
 																		</ComboBox>
 																	</children>
 																	<BorderPane.margin>
-																		<Insets left="60"></Insets>
+																		<Insets left="70"></Insets>
 																	</BorderPane.margin>
 																</HBox>
 															</left>
@@ -120,7 +120,7 @@
 																		</ComboBox>
 																	</children>
 																	<BorderPane.margin>
-																		<Insets left="60"></Insets>
+																		<Insets left="74"></Insets>
 																	</BorderPane.margin>
 																</HBox>
 															</right>
