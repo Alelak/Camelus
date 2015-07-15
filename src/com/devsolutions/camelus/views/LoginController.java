@@ -55,6 +55,7 @@ public class LoginController implements Initializable {
 		accountTypes = FXCollections.observableArrayList();
 		accountTypes.addAll("Type de Compte", "Admin", "Vendeur");
 		chooseAccountType.setItems(accountTypes);
+		chooseAccountType.getSelectionModel().select(0);
 		progressIndicator.visibleProperty().bind(loginbtn.armedProperty());
 		loginbtn.setOnAction(e -> {
 
