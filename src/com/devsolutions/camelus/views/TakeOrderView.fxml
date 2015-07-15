@@ -87,23 +87,6 @@
 															<left>
 																<HBox>
 																	<children>
-																		<Label text="Vendeur :">
-																			<HBox.margin>
-																				<Insets top="13.0" />
-																			</HBox.margin>
-																		</Label>
-																		<ComboBox fx:id="vendorComboBox" editable="true"
-																			prefWidth="120.0">
-																			<HBox.margin>
-																				<Insets bottom="10.0" left="10.0" top="10.0" />
-																			</HBox.margin>
-																		</ComboBox>
-																	</children>
-																</HBox>
-															</left>
-															<center>
-																<HBox>
-																	<children>
 																		<Label text="Client :">
 																			<HBox.margin>
 																				<Insets top="13.0" />
@@ -116,11 +99,11 @@
 																			</HBox.margin>
 																		</ComboBox>
 																	</children>
+																	<BorderPane.margin>
+																		<Insets left="60"></Insets>
+																	</BorderPane.margin>
 																</HBox>
-																<BorderPane.margin>
-																	<Insets left="15.0" right="15.0" />
-																</BorderPane.margin>
-															</center>
+															</left>
 															<right>
 																<HBox>
 																	<children>
@@ -136,11 +119,11 @@
 																			</HBox.margin>
 																		</ComboBox>
 																	</children>
+																	<BorderPane.margin>
+																		<Insets left="60"></Insets>
+																	</BorderPane.margin>
 																</HBox>
 															</right>
-															<HBox.margin>
-																<Insets bottom="10.0" top="10.0" />
-															</HBox.margin>
 														</BorderPane>
 													</children>
 													<padding>

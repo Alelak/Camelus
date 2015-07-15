@@ -57,6 +57,20 @@ public class VendorManager {
 		return vendor;
 	}
 
+	public static Vendor getById(int id) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		Vendor vendor = null;
+		try {
+			vendor = session.getMapper(VendorMapper.class).getById(id);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+			session.close();
+		}
+
+		return vendor;
+	}
+
 	public static Vendor getBySin(String sin) {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		Vendor vendor = null;

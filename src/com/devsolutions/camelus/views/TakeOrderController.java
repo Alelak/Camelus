@@ -60,8 +60,6 @@ public class TakeOrderController implements Initializable {
 	private ComboBox<Product> productComboBox;
 	@FXML
 	private ComboBox<Client> clientComboBox;
-	@FXML
-	private ComboBox<Vendor> vendorComboBox;
 
 	@FXML
 	private Label upcLabel;
@@ -131,7 +129,6 @@ public class TakeOrderController implements Initializable {
 	private ShowOrdersController showOrdersController;
 	private SimpleBooleanProperty productfound;
 	private SimpleBooleanProperty clientfound;
-	private SimpleBooleanProperty vendorfound;
 	private List<Category> categories;
 	private List<Unit> unites;
 	private ProductToOrderTV selectedProductToModifie;
@@ -148,7 +145,6 @@ public class TakeOrderController implements Initializable {
 
 		productfound = new SimpleBooleanProperty();
 		clientfound = new SimpleBooleanProperty();
-		vendorfound = new SimpleBooleanProperty();
 		categories = CategoryManager.getAll();
 		unites = UnitManager.getAll();
 		noImage = productImage.getImage();
@@ -172,16 +168,14 @@ public class TakeOrderController implements Initializable {
 		if (Session.vendor != null) {
 			vendorObservableList = FXCollections.observableArrayList();
 			vendorObservableList.add(Session.vendor);
-			vendorComboBox.getSelectionModel().select(Session.vendor);
 		} else
 			vendorObservableList = FXCollections
 					.observableArrayList(VendorManager.getAll());
-		vendorComboBox.setItems(vendorObservableList);
+
 		productComboBox.setItems(productObservableList);
 		clientComboBox.setItems(clientObservableList);
 		new AutoCompleteComboBoxListener<Product>(productComboBox);
 		new AutoCompleteComboBoxListener<Client>(clientComboBox);
-		new AutoCompleteComboBoxListener<Vendor>(vendorComboBox);
 		addOrderLineBtn
 				.setOnAction(e -> {
 					int index = 0;
@@ -264,9 +258,6 @@ public class TakeOrderController implements Initializable {
 							clientComboBox.setDisable(true);
 						}
 
-						if (!vendorComboBox.isDisabled()) {
-							vendorComboBox.setDisable(true);
-						}
 						int mquantity = Integer.parseInt(quantity);
 						currentProductToOrderTV = new ProductToOrderTV();
 						currentProductToOrderTV.setQuantity(mquantity);
@@ -328,7 +319,6 @@ public class TakeOrderController implements Initializable {
 			addOrderLineBtn.setText("Modifier");
 			if (orderLinesTableView.getItems().size() == 1) {
 				clientComboBox.setDisable(false);
-				vendorComboBox.setDisable(false);
 			}
 
 		});
@@ -351,7 +341,6 @@ public class TakeOrderController implements Initializable {
 			if (orderLinesTableView.getItems().size() == 0) {
 				takeOrderBtn.setDisable(true);
 				clientComboBox.setDisable(false);
-				vendorComboBox.setDisable(false);
 			}
 		});
 
@@ -364,7 +353,6 @@ public class TakeOrderController implements Initializable {
 			initForm();
 			takeOrderBtn.setDisable(true);
 			clientComboBox.setDisable(false);
-			vendorComboBox.setDisable(false);
 		});
 
 		takeOrderBtn
@@ -382,11 +370,9 @@ public class TakeOrderController implements Initializable {
 							e1.printStackTrace();
 						}
 					} else {
-
+						Vendor vendor = VendorManager.getById(currentClient
+								.getAssociated_vendor());
 						OrderTV orderTV = new OrderTV();
-						Vendor vendor = vendorComboBox.getItems().get(
-								vendorComboBox.getSelectionModel()
-										.getSelectedIndex());
 						Commission commission = CommissionManager
 								.getById(vendor.getCommission_id());
 						Order order = new Order();
@@ -400,7 +386,7 @@ public class TakeOrderController implements Initializable {
 							}
 						}
 						order.setTotal(total);
-						order.setVendor_id(vendor.getId());
+						order.setVendor_id(currentClient.getAssociated_vendor());
 						order.setClient_id(currentClient.getId());
 						order.setComment(comment);
 
@@ -426,7 +412,6 @@ public class TakeOrderController implements Initializable {
 						orderTV.setId(order.getId());
 						orderTV.setComment(order.getComment());
 
-						orderTV.setAssociated_vendor(vendor.getId());
 						orderTV.setCommission_id(vendor.getCommission_id());
 						orderTV.setEnterprise_name(currentClient
 								.getEnterprise_name());
@@ -467,8 +452,7 @@ public class TakeOrderController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable,
 					Boolean oldValue, Boolean newValue) {
 				if (newValue.booleanValue() == true
-						&& clientfound.get() == true
-						&& vendorfound.get() == true) {
+						&& clientfound.get() == true) {
 					addOrderLineBtn.setDisable(false);
 				} else {
 					addOrderLineBtn.setDisable(true);
@@ -483,25 +467,6 @@ public class TakeOrderController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable,
 					Boolean oldValue, Boolean newValue) {
 				if (newValue.booleanValue() == true
-						&& productfound.get() == true
-						&& vendorfound.get() == true) {
-
-					addOrderLineBtn.setDisable(false);
-				} else {
-					addOrderLineBtn.setDisable(true);
-				}
-
-			}
-
-		});
-
-		vendorfound.addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable,
-					Boolean oldValue, Boolean newValue) {
-				if (newValue.booleanValue() == true
-						&& clientfound.get() == true
 						&& productfound.get() == true) {
 
 					addOrderLineBtn.setDisable(false);
@@ -552,16 +517,11 @@ public class TakeOrderController implements Initializable {
 				int index = clientComboBox.getSelectionModel()
 						.getSelectedIndex();
 				currentClient = clientComboBox.getItems().get(index);
+
 				clientfound.set(true);
 			} else {
+
 				clientfound.set(false);
-			}
-		});
-		vendorComboBox.setOnAction(e -> {
-			if (vendorComboBox.getSelectionModel().getSelectedIndex() > -1) {
-				vendorfound.set(true);
-			} else {
-				vendorfound.set(false);
 			}
 		});
 	}
