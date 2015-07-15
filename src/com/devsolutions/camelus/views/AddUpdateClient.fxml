@@ -156,6 +156,12 @@
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
+				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="2">
+					<graphic>
+						<FontAwesomeIconView styleClass="starFont"
+							icon="ICON_STAR" />
+					</graphic>
+				</Label>
 			</children>
 		</GridPane>
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
