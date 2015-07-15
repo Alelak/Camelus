@@ -53,7 +53,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<ScrollPane vmin="0"  vvalue="0" styleClass="edge-to-edge" GridPane.rowIndex="1">
 			<GridPane style="-fx-background-color: white"  gridLinesVisible="false"  minHeight="650" maxHeight="650">
 				<padding>
@@ -200,9 +199,7 @@
 					</Label>
 				</children>
 			</GridPane>
-
 		</ScrollPane>
-
 		<HBox alignment="CENTER_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets top="11" right="5" />

@@ -71,6 +71,7 @@ public class UnitsController implements Initializable {
 		animation.setCycleCount(1);
 
 		addBtn.setOnAction(e -> {
+			addBtn.setDisable(true);
 			unitslist.getItems().add(new Unit(""));
 			unitslist.getSelectionModel().selectLast();
 			animation.play();
@@ -108,6 +109,7 @@ public class UnitsController implements Initializable {
 
 			@Override
 			public void handle(EditEvent<Unit> event) {
+				addBtn.setDisable(false);
 				Unit unit = event.getNewValue();
 				int index = event.getIndex();
 				Unit unit2 = unitsOb.get(index);

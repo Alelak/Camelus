@@ -133,15 +133,10 @@ public class AddUpdateVendorController implements Initializable {
 
 			String invalidFields = "";
 			boolean validfields = true;
-
-			if (password.length() < 8) {
-				invalidFields += " - Mot de passe de 8 caractéres et plus \n";
-				validfields = false;
-			}
 			if (vendorToUpdate != null) {
 				if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
 						|| sin.isEmpty()) {
-					invalidFields += " - Tous les champs doivent étre remplis \n";
+					invalidFields += "Tous les champs doivent étre remplis \n";
 					validfields = false;
 				}
 
@@ -154,13 +149,13 @@ public class AddUpdateVendorController implements Initializable {
 							&& !vendorByLogin.getLogin().equals(
 									vendorToUpdate.getLogin())) {
 						validfields = false;
-						invalidFields += " - Ce nom d'utilisateur a était déja choisie \n";
+						invalidFields += "Ce nom d'utilisateur a était déja choisie \n";
 					}
 
 				}
 
 				if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-					invalidFields += " - Le NAS doit etre un nombre de 9 chiffres \n";
+					invalidFields += "Le NAS doit etre un nombre de 9 chiffres \n";
 					validfields = false;
 				} else {
 
@@ -189,7 +184,7 @@ public class AddUpdateVendorController implements Initializable {
 			} else {
 				if (fname.isEmpty() || lname.isEmpty() || username.isEmpty()
 						|| sin.isEmpty() || password.isEmpty()) {
-					invalidFields += " - Tous les champs doivent étre remplis \n";
+					invalidFields += "Tous les champs doivent étre remplis \n";
 					validfields = false;
 				}
 				if (password.length() < 8) {
@@ -200,20 +195,20 @@ public class AddUpdateVendorController implements Initializable {
 					validfields = false;
 				} else if (VendorManager.getByUserName(username) != null) {
 					validfields = false;
-					invalidFields += " - Ce nom d'utilisateur a était déja choisie \n";
+					invalidFields += "Ce nom d'utilisateur a était déja choisie \n";
 				}
 				if (!sin.matches("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")) {
-					invalidFields += " - Le NAS doit etre un nombre de 9 chiffres \n";
+					invalidFields += "Le NAS doit etre un nombre de 9 chiffres \n";
 					validfields = false;
 				} else if (VendorManager.getBySin(sin) != null
 						|| AdminManager.getBySin(sin) != null) {
 					validfields = false;
-					invalidFields += " - Ce NAS existe déja, veuillez saisir un NAS valide. \n";
+					invalidFields += "Ce NAS existe déja, veuillez saisir un NAS valide. \n";
 				}
 			}
 			if (username.length() > 16) {
 				validfields = false;
-				invalidFields += "le nom d'utilisateur ne doit pas depasse 16 caracteres \n";
+				invalidFields += "Le nom d'utilisateur ne doit pas depasse 16 caracteres \n";
 			}
 			if (fname.length() > 45) {
 				invalidFields += "Le prenom ne doit pas depasse 45 caracteres\n";
@@ -226,12 +221,12 @@ public class AddUpdateVendorController implements Initializable {
 
 			}
 			if (hireDate.getValue() == null) {
-				invalidFields += " - Vous devez choisir une date d'embauche \n";
+				invalidFields += "Vous devez choisir une date d'embauche \n";
 				validfields = false;
 			}
 
 			if (commission.getSelectionModel().getSelectedIndex() == 0) {
-				invalidFields += " - Vous devez choisir une commission \n";
+				invalidFields += "Vous devez choisir une commission \n";
 				validfields = false;
 			}
 			stage = (Stage) btnCancel.getScene().getWindow();
@@ -306,7 +301,6 @@ public class AddUpdateVendorController implements Initializable {
 
 	private void initForm() {
 		textUsername.setText(vendorToUpdate.getLogin());
-		textPassword.setText(vendorToUpdate.getPassword());
 		textFname.setText(vendorToUpdate.getFname());
 		textLname.setText(vendorToUpdate.getLname());
 

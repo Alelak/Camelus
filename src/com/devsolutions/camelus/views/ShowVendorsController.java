@@ -556,12 +556,14 @@ public class ShowVendorsController implements Initializable {
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(c1);
 
-			c1 = new PdfPCell(new Phrase("" + commissionTV.getTotal_sale()));
+			c1 = new PdfPCell(new Phrase(""
+					+ Math.round(commissionTV.getTotal_sale() * 100.0) / 100.0));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(c1);
 
 			c1 = new PdfPCell(new Phrase(""
-					+ commissionTV.getTotal_commission()));
+					+ Math.round(commissionTV.getTotal_commission() * 100.0)
+					/ 100.0));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(c1);
 		}

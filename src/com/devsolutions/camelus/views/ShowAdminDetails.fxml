@@ -99,7 +99,6 @@
 					<Label text="Date D'embauche :" />
 					<Label style="-fx-font-family:'Roboto Bold';" fx:id="hiredatetxt" />
 				</HBox>
-
 			</children>
 		</GridPane>
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">

@@ -23,14 +23,12 @@
 		<GridPane  GridPane.rowIndex="0"
 			gridLinesVisible="False">
 			<rowConstraints>
-				<RowConstraints percentHeight="100" />
-				
+				<RowConstraints percentHeight="100" />				
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints percentWidth="100" />
 			</columnConstraints>
-			<children>
-				
+			<children>				
 				<GridPane GridPane.rowIndex="0"
 					gridLinesVisible="false">
 					<padding>
@@ -85,7 +83,6 @@
 		</GridPane>
 		<HBox alignment="TOP_CENTER" spacing="5" id="footer"
 			GridPane.rowIndex="1">
-
 			<Button fx:id="addBtn" prefWidth="120" styleClass="flat-btn"
 				text="Ajouter">
 				<graphic>

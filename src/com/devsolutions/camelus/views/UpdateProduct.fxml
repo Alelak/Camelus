@@ -53,7 +53,6 @@
 				</HBox>
 			</children>
 		</GridPane>
-
 		<ScrollPane styleClass="edge-to-edge" GridPane.rowIndex="1">
 			<GridPane style="-fx-background-color: white"
 				gridLinesVisible="false" minHeight="650" maxHeight="650">
@@ -100,7 +99,6 @@
 							</ImageView>
 						</HBox>
 					</HBox>
-
 					<HBox spacing="2" GridPane.rowIndex="0" GridPane.ColumnIndex="0"
 						GridPane.ColumnSpan="3">
 						<padding>
@@ -115,7 +113,6 @@
 						<Label text="Saisir tous les champs requis">
 						</Label>
 					</HBox>
-
 					<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="UPC:">
 					</Label>
 					<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0"
@@ -186,7 +183,6 @@
 								icon="ICON_STAR" />
 						</graphic>
 					</Label>
-
 					<HBox spacing="2" alignment="CENTER" GridPane.rowIndex="8"
 						GridPane.ColumnIndex="2">
 						<GridPane.margin>
@@ -204,9 +200,7 @@
 					</Label>
 				</children>
 			</GridPane>
-
 		</ScrollPane>
-
 		<HBox alignment="CENTER_RIGHT" spacing="5" GridPane.rowIndex="2">
 			<padding>
 				<Insets top="11" right="5" />

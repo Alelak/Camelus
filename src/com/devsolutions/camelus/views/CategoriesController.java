@@ -68,6 +68,7 @@ public class CategoriesController implements Initializable {
 		animation.setCycleCount(1);
 
 		addBtn.setOnAction(e -> {
+			addBtn.setDisable(true);
 			categorielist.getItems().add(new Category(""));
 			categorielist.getSelectionModel().selectLast();
 			animation.play();
@@ -107,9 +108,11 @@ public class CategoriesController implements Initializable {
 
 					@Override
 					public void handle(EditEvent<Category> event) {
+						addBtn.setDisable(false);
 						Category category = event.getNewValue();
 						int index = event.getIndex();
 						Category category2 = categoriesOb.get(index);
+
 						if (category.getDescription().length() > 20) {
 							msgtxt.setText("20 caractères max");
 						} else {

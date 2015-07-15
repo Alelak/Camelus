@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import com.devsolutions.camelus.utils.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-
 <GridPane fx:id="motherGrid" prefWidth="900"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.ShowVendorsController">
@@ -59,9 +58,8 @@
 								<Insets bottom="5.0" />
 							</padding>
 							<TextField fx:id="searchField" minWidth="387"
-								promptText="Chercher des vendeurs, des entreprise ou des numéros de téléphone"></TextField>
+								promptText="Chercher des vendeurs, par des entreprise ou des numéros de téléphone"></TextField>
 						</HBox>
-
 						<HBox spacing="4" alignment="BOTTOM_RIGHT" GridPane.rowIndex="0"
 							GridPane.columnIndex="1">
 							<padding>
@@ -100,7 +98,6 @@
 		</GridPane>
 		<HBox alignment="TOP_CENTER" spacing="5" id="footer"
 			GridPane.rowIndex="1">
-
 			<Button fx:id="addButton" prefWidth="120" styleClass="flat-btn"
 				text="Ajouter">
 				<graphic>

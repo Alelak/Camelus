@@ -251,7 +251,7 @@ public class AddProductController implements Initializable {
 							double minSellingPrice = costprice
 									+ (costprice * 10) / 100;
 							if (Double.parseDouble(sellingPriceStr) < minSellingPrice) {
-								errorMsg += " - Le prix ajuste ne peut etre plus petit que : "
+								errorMsg += "Le prix ajuste ne peut etre plus petit que : "
 										+ minSellingPrice + " $.\n";
 								error = true;
 							}

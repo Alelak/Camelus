@@ -44,7 +44,6 @@
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
@@ -67,46 +66,46 @@
 				fx:id="name" GridPane.rowIndex="0"></Label>
 			<Label text="."></Label>
 		</HBox>
-		
-		<ScrollPane style="-fx-background-color: white"  GridPane.rowIndex="2" styleClass="edge-to-edge" >
-		<padding>
-				<Insets left="37" right="37" bottom="5"  top="5"/>
-			</padding>
-		<GridPane style="-fx-background-color: white"  maxWidth="450" id="contentGrid" >
+		<ScrollPane style="-fx-background-color: white"
+			GridPane.rowIndex="2" styleClass="edge-to-edge">
 			<padding>
-				<Insets bottom="5" />
+				<Insets left="37" right="37" bottom="5" top="5" />
 			</padding>
-			<rowConstraints>
-				<RowConstraints percentHeight="22" />
-				<RowConstraints percentHeight="11" />
-				<RowConstraints percentHeight="11" />
-				<RowConstraints percentHeight="12" />
-				<RowConstraints percentHeight="12" />
-				<RowConstraints valignment="TOP" percentHeight="20" />
-				<RowConstraints percentHeight="12" />
-			</rowConstraints>
-			<columnConstraints>
-				<ColumnConstraints />
-			</columnConstraints>
-			<children>
-				<HBox spacing="2" minWidth="450" GridPane.rowIndex="0">
-					<padding>
-						<Insets top="5" left="5" />
-					</padding>
-					<HBox
-						style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
-						<ImageView fx:id="imageProduct" fitHeight="100.0"
-							style="-fx-background-color: white;" fitWidth="100.0"
-							pickOnBounds="true" preserveRatio="false">
-
-						</ImageView>
+			<GridPane style="-fx-background-color: white" maxWidth="450"
+				id="contentGrid">
+				<padding>
+					<Insets bottom="5" />
+				</padding>
+				<rowConstraints>
+					<RowConstraints percentHeight="22" />
+					<RowConstraints percentHeight="11" />
+					<RowConstraints percentHeight="11" />
+					<RowConstraints percentHeight="12" />
+					<RowConstraints percentHeight="12" />
+					<RowConstraints valignment="TOP" percentHeight="20" />
+					<RowConstraints percentHeight="12" />
+				</rowConstraints>
+				<columnConstraints>
+					<ColumnConstraints />
+				</columnConstraints>
+				<children>
+					<HBox spacing="2" minWidth="450" GridPane.rowIndex="0">
+						<padding>
+							<Insets top="5" left="5" />
+						</padding>
+						<HBox
+							style="-fx-border-color: #016699 ; -fx-border-style: dashed ; -fx-border-width: 1;">
+							<ImageView fx:id="imageProduct" fitHeight="100.0"
+								style="-fx-background-color: white;" fitWidth="100.0"
+								pickOnBounds="true" preserveRatio="false">
+							</ImageView>
 						</HBox>
 						<VBox spacing="30" alignment="CENTER">
 							<HBox.margin>
 								<Insets left="65" />
 							</HBox.margin>
 							<HBox alignment="CENTER_LEFT">
-							
+
 								<Label text="Numero UPC: " />
 								<Label style="-fx-font-family:'Roboto Bold';" fx:id="upc" />
 							</HBox>
@@ -145,10 +144,9 @@
 							<TextArea fx:id="description" wrapText="true" editable="false" />
 						</content>
 					</TitledPane>
-			</children>
-		</GridPane>
+				</children>
+			</GridPane>
 		</ScrollPane>
-		
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />

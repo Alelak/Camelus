@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
@@ -41,7 +40,6 @@
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"

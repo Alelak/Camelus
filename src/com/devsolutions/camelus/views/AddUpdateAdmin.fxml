@@ -20,7 +20,6 @@
 		<RowConstraints percentHeight="5.4" />
 		<RowConstraints percentHeight="7" />
 		<RowConstraints percentHeight="77.6" />
-		<RowConstraints percentHeight="10" />
 	</rowConstraints>
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
@@ -98,7 +97,7 @@
 				</Label>
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="Nom:">
 				</Label>
-				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0" text="Prenom:">
+				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0" text="Prénom:">
 				</Label>
 				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0" text="NAS:">
 				</Label>

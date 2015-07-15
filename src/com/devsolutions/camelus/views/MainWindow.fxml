@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -15,7 +14,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-
 <GridPane id="parent" gridLinesVisible="false" maxHeight="-Infinity"
 	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
 	prefHeight="696.0" prefWidth="1224.0" xmlns="http://javafx.com/javafx/8"
@@ -34,7 +32,6 @@
 	<children>
 		<GridPane styleClass="header" gridLinesVisible="false"
 			GridPane.rowIndex="0">
-
 			<rowConstraints>
 				<RowConstraints percentHeight="100.0" />
 			</rowConstraints>
@@ -115,9 +112,9 @@
 						<children>
 							<Button prefHeight="20" prefWidth="125" fx:id="tbacceuilbtn"
 								styleClass="tbbtn" text="Acceuil" />
-								<Button prefHeight="20" prefWidth="125" fx:id="tbadminsbtn"
+							<Button prefHeight="20" prefWidth="125" fx:id="tbadminsbtn"
 								styleClass="tbbtn" text="Admins" />
-								<Button prefHeight="20" prefWidth="125" fx:id="tbvendeursbtn"
+							<Button prefHeight="20" prefWidth="125" fx:id="tbvendeursbtn"
 								styleClass="tbbtn" text="Vendeurs" />
 							<Button prefHeight="20" prefWidth="125" fx:id="tbclientsbtn"
 								styleClass="tbbtn" text="Clients" />
@@ -125,9 +122,6 @@
 								styleClass="tbbtn" text="Produits" />
 							<Button prefHeight="20" prefWidth="125" fx:id="tbcommands"
 								styleClass="tbbtn" text="Commandes" />
-
-							
-							
 						</children>
 					</HBox>
 				</HBox>
@@ -151,6 +145,9 @@
 							<MenuItem fx:id="UnitesMI" text="Unites" onAction="#unitsmihandler"></MenuItem>
 							<MenuItem fx:id="LogsMI" text="Logs" onAction="#logsmihandler"></MenuItem>
 						</items>
+						<tooltip>
+							<Tooltip text="Paramètres"></Tooltip>
+						</tooltip>
 					</MenuButton>
 					<Label prefWidth="30" prefHeight="30">
 						<HBox.margin>
@@ -160,6 +157,9 @@
 							<FontAwesomeIconView fx:id="logoutbtn"
 								styleClass="settings-font" icon="ICON_SIGNOUT" />
 						</graphic>
+						<tooltip>
+							<Tooltip text="Deconnexion"></Tooltip>
+						</tooltip>
 					</Label>
 				</HBox>
 			</children>
@@ -192,21 +192,23 @@
 						<Insets bottom="0" left="0" right="0" top="0" />
 					</GridPane.margin>
 
-					<Label fx:id="lblFacebook" alignment="CENTER" prefWidth="30" prefHeight="30">
+					<Label fx:id="lblFacebook" alignment="CENTER" prefWidth="30"
+						prefHeight="30">
 						<graphic>
 							<FontAwesomeIconView styleClass="footerFont"
 								id="facebookFont" icon="ICON_FACEBOOK" />
 						</graphic>
 					</Label>
 
-					<Label fx:id="lblTwitter" alignment="CENTER" prefWidth="30" prefHeight="30">
+					<Label fx:id="lblTwitter" alignment="CENTER" prefWidth="30"
+						prefHeight="30">
 						<graphic>
 							<FontAwesomeIconView styleClass="footerFont"
 								id="twitterFont" icon="ICON_TWITTER" />
 						</graphic>
 					</Label>
-
-					<Label fx:id="lblLinkedin" alignment="CENTER" prefWidth="30" prefHeight="30">
+					<Label fx:id="lblLinkedin" alignment="CENTER" prefWidth="30"
+						prefHeight="30">
 						<graphic>
 							<FontAwesomeIconView styleClass="footerFont"
 								id="linkedinFont" icon="ICON_LINKEDIN" />
@@ -215,11 +217,9 @@
 				</HBox>
 				<HBox spacing="2" alignment="CENTER_RIGHT"
 					GridPane.columnIndex="1">
-
 					<GridPane.margin>
 						<Insets bottom="0" left="0" right="10" top="0" />
 					</GridPane.margin>
-
 					<Label text="Copyright © 2015 | Dev Solutions"></Label>
 					<ImageView preserveRatio="true" GridPane.columnIndex="0"
 						fitHeight="25" fitWidth="25">

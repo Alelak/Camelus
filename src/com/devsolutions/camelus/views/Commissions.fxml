@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -25,7 +24,6 @@
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100" />
 	</columnConstraints>
-
 	<children>
 		<GridPane fx:id="titleBar" GridPane.rowIndex="0"
 			style="-fx-background-color: #efefef;">
@@ -36,15 +34,12 @@
 				<ColumnConstraints percentWidth="50" />
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
-
 			<children>
-
 				<Label text="Commissions" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" prefHeight="30"
@@ -58,7 +53,6 @@
 			</children>
 		</GridPane>
 		<HBox GridPane.rowIndex="1" spacing="10" alignment="CENTER">
-
 			<ChoiceBox prefWidth="145" fx:id="chooseCommisionType"
 				styleClass="flat-btn"></ChoiceBox>
 			<TextField prefWidth="120" promptText="taux" fx:id="rateTxt"></TextField>

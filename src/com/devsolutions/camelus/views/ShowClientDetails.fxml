@@ -41,7 +41,6 @@
 						<Insets left="7" />
 					</padding>
 				</Label>
-
 				<HBox GridPane.columnIndex="1" alignment="TOP_RIGHT">
 					<children>
 						<Label fx:id="lblClose" alignment="CENTER" onMouseClicked="#CloseWindow"
@@ -106,7 +105,6 @@
 				</TitledPane>
 			</children>
 		</GridPane>
-
 		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />
