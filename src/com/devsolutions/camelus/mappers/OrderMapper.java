@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -32,11 +33,19 @@ public interface OrderMapper {
 	@Select("SELECT * FROM orders WHERE id = #{id}")
 	Order getById(long id);
 
-	@Insert("INSERT INTO orders (vendor_id,client_id,comment) VALUES (#{vendor_id},#{client_id},#{comment})")
+	@Select("SELECT * FROM orders WHERE vendor_id = #{vendor_id} AND YEAR(ordered_at) = #{year} AND MONTH(ordered_at) = #{month}")
+	List<Order> getByMonthAndYear(@Param("vendor_id") int vendor_id,
+			@Param("year") int year, @Param("month") int month);
+
+	@Select("SELECT * FROM orders WHERE vendor_id = #{vendor_id} AND YEAR(ordered_at) = #{year}")
+	List<Order> getByYear(@Param("vendor_id") int vendor_id,
+			@Param("year") int year);
+
+	@Insert("INSERT INTO orders (vendor_id,client_id,total,commission,comment) VALUES (#{vendor_id},#{client_id},#{total},#{commission},#{comment})")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Order order);
 
-	@Update("UPDATE orders SET status = 1 WHERE id = #{id}")
+	@Update("UPDATE orders SET status = 1,updated_at = CURRENT_TIMESTAMP WHERE id = #{id} ")
 	@Options(flushCache = true)
 	void cancel(long id);
 }

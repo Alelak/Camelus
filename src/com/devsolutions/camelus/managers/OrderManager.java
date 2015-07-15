@@ -69,6 +69,37 @@ public class OrderManager {
 		return orders;
 	}
 
+	public static List<Order> getByMonthAndYear(int vendor_id, int year,
+			int month) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<Order> orders = Collections.emptyList();
+		try {
+			orders = session.getMapper(OrderMapper.class).getByMonthAndYear(
+					vendor_id, year, month);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
+		return orders;
+	}
+
+	public static List<Order> getByYear(int vendor_id, int year) {
+		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
+		List<Order> orders = Collections.emptyList();
+		try {
+			orders = session.getMapper(OrderMapper.class).getByYear(vendor_id,
+					year);
+		} catch (PersistenceException e) {
+			FXUtils.openDBErrorDialog();
+		} finally {
+
+			session.close();
+		}
+		return orders;
+	}
+
 	public static List<OrderTV> getAllTV() {
 		SqlSession session = DBConnection.getSqlSessionFactory().openSession();
 		List<OrderTV> orders = Collections.emptyList();

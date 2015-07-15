@@ -10,17 +10,11 @@ import com.devsolutions.camelus.entities.OrderLine;
 import com.devsolutions.camelus.entities.OrderLineTV;
 
 public interface OrderLineMapper {
-
-	/*
-	 * @Select("SELECT * FROM order_lines WHERE order_id = #{order_id}")
-	 * List<OrderLine> getByOrderId(long order_id);
-	 */
-
 	@Select("SELECT upc, name, selling_price, modified_price, order_lines.quantity"
 			+ " FROM order_lines INNER JOIN products ON order_lines.product_id = products.id"
 			+ " WHERE order_id = #{order_id}")
 	List<OrderLineTV> getByOrderId(long order_id);
-	
+
 	@Select("SELECT upc, name, selling_price, modified_price, order_lines.quantity"
 			+ " FROM order_lines INNER JOIN products ON order_lines.product_id = products.id"
 			+ " INNER JOIN orders ON orders.id = order_id")

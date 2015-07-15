@@ -27,9 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import com.devsolutions.camelus.entities.Admin;
-import com.devsolutions.camelus.entities.Client;
 import com.devsolutions.camelus.managers.AdminManager;
-import com.devsolutions.camelus.managers.ClientManager;
 import com.devsolutions.camelus.utils.BoxType;
 import com.devsolutions.camelus.utils.CRUD;
 import com.devsolutions.camelus.utils.FXUtils;

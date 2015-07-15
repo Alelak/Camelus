@@ -41,13 +41,13 @@ public interface ProductMapper {
 	@Options(flushCache = true)
 	void update(Product product);
 
-	@Update("UPDATE  products SET deleted = 1 WHERE id = #{id}")
+	@Update("UPDATE  products SET deleted = 1 , updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(long id);
 
-	@Update("UPDATE products SET quantity = quantity - #{quantity} WHERE id = #{id}")
+	@Update("UPDATE products SET quantity = quantity - #{quantity} , updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	void decrementQuantity(@Param("quantity") int quantity, @Param("id") long id);
 
-	@Update("UPDATE products SET quantity = quantity + #{quantity} WHERE id = #{id}")
+	@Update("UPDATE products SET quantity = quantity + #{quantity} , updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	void incrementQuantity(@Param("quantity") int quantity, @Param("id") long id);
 }

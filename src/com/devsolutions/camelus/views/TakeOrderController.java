@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import com.devsolutions.camelus.Listeners.AutoCompleteComboBoxListener;
 import com.devsolutions.camelus.entities.Category;
 import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.entities.Commission;
 import com.devsolutions.camelus.entities.Order;
 import com.devsolutions.camelus.entities.OrderLine;
 import com.devsolutions.camelus.entities.OrderTV;
@@ -39,6 +40,7 @@ import com.devsolutions.camelus.entities.Unit;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.CategoryManager;
 import com.devsolutions.camelus.managers.ClientManager;
+import com.devsolutions.camelus.managers.CommissionManager;
 import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.ProductManager;
@@ -380,12 +382,24 @@ public class TakeOrderController implements Initializable {
 							e1.printStackTrace();
 						}
 					} else {
+
 						OrderTV orderTV = new OrderTV();
 						Vendor vendor = vendorComboBox.getItems().get(
 								vendorComboBox.getSelectionModel()
 										.getSelectedIndex());
-
+						Commission commission = CommissionManager
+								.getById(vendor.getCommission_id());
 						Order order = new Order();
+						order.setCommission(0.0);
+						if (total >= commission.getMcondition()) {
+							if (commission.getType() == 0) {
+								order.setCommission(total
+										* commission.getRate() / 100);
+							} else {
+								order.setCommission(commission.getRate());
+							}
+						}
+						order.setTotal(total);
 						order.setVendor_id(vendor.getId());
 						order.setClient_id(currentClient.getId());
 						order.setComment(comment);

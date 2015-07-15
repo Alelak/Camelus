@@ -2,6 +2,7 @@ package com.devsolutions.camelus.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -225,6 +226,7 @@ public class AddUpdateClientController implements Initializable {
 						client.setAddress(address);
 						client.setDescription(description);
 						client.setAssociated_vendor(associated_vendor);
+						client.setCreated_at(new Date());
 						if (clientToUpdate != null) {
 							client.setId(clientToUpdate.getId());
 							ClientManager.update(client);

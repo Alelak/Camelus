@@ -6,6 +6,8 @@ public class Order {
 	private long id;
 	private long vendor_id;
 	private long client_id;
+	private double total;
+	private double commission;
 	private String comment;
 	private Date oderedAt;
 
@@ -47,6 +49,22 @@ public class Order {
 
 	public void setOderedAt(Date oderedAt) {
 		this.oderedAt = oderedAt;
+	}
+
+	public double getCommission() {
+		return commission;
+	}
+
+	public void setCommission(double commission) {
+		this.commission = commission;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 }

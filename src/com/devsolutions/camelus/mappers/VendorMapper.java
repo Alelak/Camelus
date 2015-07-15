@@ -36,7 +36,7 @@ public interface VendorMapper {
 	@Options(flushCache = true)
 	void update(Vendor vendor);
 
-	@Update("UPDATE  vendors SET deleted = 1 WHERE id = #{id}")
+	@Update("UPDATE  vendors SET deleted = 1, updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(int id);
 

@@ -258,7 +258,8 @@ public class ShowOrdersController implements Initializable {
 		cancelOrderBtn.setOnAction(e -> {
 			try {
 				CustomDialogBox dialogBox = new CustomDialogBox(
-						(Stage) cancelOrderBtn.getScene().getWindow(),BoxType.WARNING,
+						(Stage) cancelOrderBtn.getScene().getWindow(),
+						BoxType.WARNING,
 						"Voulez vous vraiment annuler cette commande?", "Oui",
 						"Non");
 				dialogBox.positiveButton
@@ -345,7 +346,8 @@ public class ShowOrdersController implements Initializable {
 						Font boldFontHeaderFields = new Font(
 								Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
-						Image image = Image.getInstance(getClass().getResource("/images/gfc.png"));
+						Image image = Image.getInstance(getClass().getResource(
+								"/images/gfc.png"));
 
 						Paragraph imageParagraph = new Paragraph();
 						imageParagraph.add(image);
@@ -459,7 +461,8 @@ public class ShowOrdersController implements Initializable {
 					p6.setAlignment(Element.ALIGN_RIGHT);
 					p6.setIndentationRight(60f);
 					p6.setSpacingBefore(10f);
-					p6.add(new Phrase("Total de la commande : " + total + " $",
+					p6.add(new Phrase("Total de la commande : "
+							+ Math.round(total * 100.0) / 100.0 + " $",
 							boldFontTotal));
 					document.add(p6);
 
@@ -493,7 +496,8 @@ public class ShowOrdersController implements Initializable {
 			} else {
 				try {
 					new CustomInfoBox(
-							stage,BoxType.INFORMATION,
+							stage,
+							BoxType.INFORMATION,
 							"Ce fichier est deja ouvert, veuillez le fermer puis reessayer de nouveau.",
 							"Ok");
 				} catch (IOException e2) {
@@ -552,7 +556,8 @@ public class ShowOrdersController implements Initializable {
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(c1);
 
-			c1 = new PdfPCell(new Phrase("" + orderLineTV.getTotal()));
+			c1 = new PdfPCell(new Phrase(""
+					+ Math.round(orderLineTV.getTotal() * 100.0) / 100.0));
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(c1);
 		}

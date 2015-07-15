@@ -38,14 +38,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import com.devsolutions.camelus.entities.Commission;
+import com.devsolutions.camelus.entities.Client;
+import com.devsolutions.camelus.entities.Order;
 import com.devsolutions.camelus.entities.VendorReport;
-import com.devsolutions.camelus.entities.OrderLineTV;
 import com.devsolutions.camelus.entities.OrderTV;
 import com.devsolutions.camelus.entities.Vendor;
 import com.devsolutions.camelus.managers.ClientManager;
-import com.devsolutions.camelus.managers.CommissionManager;
-import com.devsolutions.camelus.managers.OrderLineManager;
 import com.devsolutions.camelus.managers.OrderManager;
 import com.devsolutions.camelus.managers.VendorManager;
 import com.devsolutions.camelus.utils.BoxType;
@@ -526,8 +524,8 @@ public class ShowVendorsController implements Initializable {
 
 		PdfPTable tableNoItems = new PdfPTable(1);
 
-		PdfPCell c1 = new PdfPCell(new Phrase(
-				"Aucune vente n'a ete effectuee durant ce mois.", boldFont));
+		PdfPCell c1 = new PdfPCell(new Phrase("Aucune vente n'a ete effectuee",
+				boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		c1.setFixedHeight(45f);
@@ -569,8 +567,8 @@ public class ShowVendorsController implements Initializable {
 		}
 
 		if (currentCommissionTVList.size() == 0) {
-			c1 = new PdfPCell(new Phrase(
-					"Aucune vente n'a ete effectuee durant ce mois.", boldFont));
+			c1 = new PdfPCell(new Phrase("Aucune vente n'a ete effectuee",
+					boldFont));
 
 			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 			c1.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -585,145 +583,48 @@ public class ShowVendorsController implements Initializable {
 		c1.setColspan(2);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("" + totaSales + "$"));
+		c1 = new PdfPCell(new Phrase("" + Math.round(totaSales * 100.0) / 100.0
+				+ "$"));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase("" + totalCommission + " $"));
+		c1 = new PdfPCell(new Phrase("" + Math.round(totalCommission * 100.0)
+				/ 100.0 + " $"));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
 	}
 
 	private void comissionBtnAction() {
+		currentCommissionTVList.clear();
 		Vendor vendor = vendorTableView.getSelectionModel().getSelectedItem();
 
 		int selectedMonth = monthComboBox.getSelectionModel().getSelectedItem()
 				.getId();
 		int selectedYear = yearComboBox.getSelectionModel().getSelectedItem()
 				.getId();
-
-		List<OrderTV> orders = OrderManager.getByVendorId(vendor.getId());
-		List<OrderTV> ordersNeeded = new ArrayList<OrderTV>();
-
-		List<OrderLineTV> orderLinesTVNeeded = new ArrayList<OrderLineTV>();
-		List<VendorReport> commissionTVList = new ArrayList<VendorReport>();
-
+		List<Order> orders = new ArrayList<>();
+		List<Client> clients = ClientManager.getByVendorId(vendor.getId());
 		if (selectedMonth == 0) {
-			orders = OrderManager.getAllTV();
-			Commission commission = CommissionManager.getById(vendor
-					.getCommission_id());
-			for (OrderTV order : orders) {
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(order.getOrdered_at());
-				int year = cal.get(Calendar.YEAR);
-
-				if (year == selectedYear
-						&& order.getAssociated_vendor() == vendor
-								.getCommission_id()) {
-
-					List<OrderLineTV> orderLinesTV = OrderLineManager
-							.getByOrderId(order.getId());
-
-					double totalSale = 0;
-					double commissionAmount = 0;
-
-					for (OrderLineTV orderLineTV : orderLinesTV) {
-						totalSale += orderLineTV.getTotal();
-					}
-
-					if (totalSale >= commission.getMcondition()) {
-
-						if (commission.getType() == 0) {
-							commissionAmount = (totalSale * commission
-									.getRate()) / 100;
-						} else
-							commissionAmount = commission.getRate();
-					}
-
-					VendorReport commissionTV = new VendorReport();
-					commissionTV.setClient_id(order.getClient_id());
-					commissionTV.setEntreprise_name(order.getEnterprise_name());
-					commissionTV.setTotal_sale(totalSale);
-					commissionTV.setTotal_commission(commissionAmount);
-
-					commissionTVList.add(commissionTV);
-				}
-			}
-
-			for (OrderTV orderTV : ordersNeeded) {
-
-				double totalSale = 0;
-				double commissionAmount = 0;
-
-				for (OrderLineTV orderLineTV : orderLinesTVNeeded) {
-					totalSale += orderLineTV.getTotal();
-				}
-
-				if (totalSale >= commission.getMcondition()) {
-
-					if (commission.getType() == 0) {
-						commissionAmount = (totalSale * commission.getRate()) / 100;
-					} else
-						commissionAmount = commission.getRate();
-				}
-
-				VendorReport commissionTV = new VendorReport();
-				commissionTV.setClient_id(orderTV.getClient_id());
-				commissionTV.setEntreprise_name(orderTV.getEnterprise_name());
-				commissionTV.setTotal_sale(totalSale);
-				commissionTV.setTotal_commission(commissionAmount);
-
-				commissionTVList.add(commissionTV);
-			}
-
+			orders = OrderManager.getByYear(vendor.getId(), selectedYear);
 		} else {
-			Calendar cal = Calendar.getInstance();
-			for (OrderTV orderTV : orders) {
-
-				cal.setTime(orderTV.getOrdered_at());
-				if (cal.get(Calendar.MONTH) + 1 == selectedMonth
-						&& cal.get(Calendar.YEAR) == selectedYear) {
-					ordersNeeded.add(orderTV);
+			orders = OrderManager.getByMonthAndYear(vendor.getId(),
+					selectedYear, selectedMonth);
+		}
+		for (Order order : orders) {
+			VendorReport vendorReport = new VendorReport();
+			for (Client client : clients) {
+				if (order.getClient_id() == client.getId()) {
+					vendorReport.setClient_id(client.getId());
+					vendorReport
+							.setEntreprise_name(client.getEnterprise_name());
+					vendorReport.setTotal_commission(order.getCommission());
+					vendorReport.setTotal_sale(order.getTotal());
+					currentCommissionTVList.add(vendorReport);
 				}
-			}
-
-			Commission commission = CommissionManager.getById(vendor
-					.getCommission_id());
-			for (OrderTV orderTV : ordersNeeded) {
-				List<OrderLineTV> orderLinesTV = OrderLineManager
-						.getByOrderId(orderTV.getId());
-				for (OrderLineTV orderLineTV : orderLinesTV) {
-					orderLinesTVNeeded.add(orderLineTV);
-				}
-				double totalSale = 0;
-				double commissionAmount = 0;
-
-				for (OrderLineTV orderLineTV : orderLinesTVNeeded) {
-					totalSale += orderLineTV.getTotal();
-				}
-
-				if (totalSale >= commission.getMcondition()) {
-
-					if (commission.getType() == 0) {
-						commissionAmount = (totalSale * commission.getRate()) / 100;
-					} else
-						commissionAmount = commission.getRate();
-				}
-
-				VendorReport commissionTV = new VendorReport();
-				commissionTV.setClient_id(orderTV.getClient_id());
-				commissionTV.setEntreprise_name(orderTV.getEnterprise_name());
-				commissionTV.setTotal_sale(totalSale);
-				commissionTV.setTotal_commission(commissionAmount);
-
-				commissionTVList.add(commissionTV);
 			}
 
 		}
-
-		currentCommissionTVList.clear();
-		currentCommissionTVList.addAll(commissionTVList);
 
 	}
 

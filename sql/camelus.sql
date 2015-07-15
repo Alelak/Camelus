@@ -148,6 +148,8 @@ CREATE TABLE IF NOT EXISTS `camelus`.`orders` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `vendor_id` INT NOT NULL,
   `client_id` BIGINT NOT NULL,
+  `total` DECIMAL(10,2) NOT NULL,
+  `commission` DECIMAL(10,2) NOT NULL,
   `comment` VARCHAR(255) NULL,
   `status` TINYINT(1) NULL DEFAULT 0,
   `ordered_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,

@@ -39,7 +39,7 @@ public interface ClientMapper {
 	@Options(flushCache = true)
 	void update(Client client);
 
-	@Update("UPDATE  clients SET deleted = 1 WHERE id = #{id}")
+	@Update("UPDATE  clients SET deleted = 1,updated_at = CURRENT_TIMESTAMP WHERE id = #{id}")
 	@Options(flushCache = true)
 	void delete(long id);
 
