@@ -19,7 +19,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ChoiceBox?>
-<GridPane id="motherGrid" prefHeight="250" prefWidth="450"
+<GridPane id="motherGrid" prefHeight="200" prefWidth="450"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.LogsController">
 	<rowConstraints>
@@ -40,7 +40,9 @@
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
 			<children>
-				<Label text="Logs" GridPane.ColumnIndex="0">
+				<Label
+					style="-fx-background-color: #efefef; -fx-font-family: 'Roboto Bold';"
+					text="Logs" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -57,25 +59,45 @@
 				</HBox>
 			</children>
 		</GridPane>
-		<VBox spacing="20" alignment="TOP_CENTER" GridPane.rowIndex="1">
-			<GridPane.margin>
-				<Insets left="30" top="30"></Insets>
-			</GridPane.margin>
-			<Label fx:id="msgTxt">
-			</Label>
-			<ChoiceBox fx:id="durationChoiceBox" styleClass="flat-btn"
-				id="chooseCommisionType">
-			</ChoiceBox>
-			<HBox spacing="10">
-				<TextField fx:id="filepathTxt" promptText="Chemin du fichier"
-					prefWidth="240"></TextField>
-				<VBox spacing="5">
-					<Button prefWidth="120" styleClass="flat-btn" fx:id="browseBtn"
-						text="Naviguer"></Button>
-					<Button prefWidth="120" styleClass="flat-btn" disable="true"
-						fx:id="exportBtn" text="Exporter"></Button>
-				</VBox>
-			</HBox>
-		</VBox>
+
+
+		<GridPane gridLinesVisible="false" GridPane.rowIndex="1">
+			<padding>
+				<Insets top="8" bottom="20"></Insets>
+			</padding>
+			<rowConstraints>
+				<RowConstraints percentHeight="30" />
+				<RowConstraints percentHeight="60" />
+			</rowConstraints>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="100" />
+			</columnConstraints>
+			<children>
+
+				<Label alignment="TOP_CENTER"
+					text="Cliquer sur naviger pour choisir l'emplacement où vous voulez enregistrer le fichier log."
+					fx:id="msgTxt" GridPane.rowIndex="0" wrapText="true">
+					<padding>
+						<Insets left="7"></Insets>
+					</padding>
+				</Label>
+
+				<HBox alignment="CENTER" spacing="10" GridPane.rowIndex="1">
+					<TextField fx:id="filepathTxt" promptText="Chemin du fichier"
+						></TextField>
+					<VBox alignment="CENTER" spacing="5">
+						<ChoiceBox fx:id="durationChoiceBox" styleClass="flat-btn"
+						 prefWidth="120"	id="chooseCommisionType">
+						</ChoiceBox>
+						<Button prefWidth="120" styleClass="flat-btn" fx:id="browseBtn"
+							text="Naviguer"></Button>
+						<Button prefWidth="120" styleClass="flat-btn" disable="true"
+							fx:id="exportBtn" text="Exporter"></Button>
+					</VBox>
+				</HBox>
+			</children>
+		</GridPane>
+
+
 	</children>
 </GridPane>

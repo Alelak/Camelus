@@ -192,21 +192,21 @@
 						<Insets bottom="0" left="0" right="0" top="0" />
 					</GridPane.margin>
 
-					<Label alignment="CENTER" prefWidth="30" prefHeight="30">
+					<Label fx:id="lblFacebook" alignment="CENTER" prefWidth="30" prefHeight="30">
 						<graphic>
 							<FontAwesomeIconView styleClass="footerFont"
 								id="facebookFont" icon="ICON_FACEBOOK" />
 						</graphic>
 					</Label>
 
-					<Label alignment="CENTER" prefWidth="30" prefHeight="30">
+					<Label fx:id="lblTwitter" alignment="CENTER" prefWidth="30" prefHeight="30">
 						<graphic>
 							<FontAwesomeIconView styleClass="footerFont"
 								id="twitterFont" icon="ICON_TWITTER" />
 						</graphic>
 					</Label>
 
-					<Label alignment="CENTER" prefWidth="30" prefHeight="30">
+					<Label fx:id="lblLinkedin" alignment="CENTER" prefWidth="30" prefHeight="30">
 						<graphic>
 							<FontAwesomeIconView styleClass="footerFont"
 								id="linkedinFont" icon="ICON_LINKEDIN" />

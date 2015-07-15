@@ -104,7 +104,7 @@
 								</HBox>
 								<HBox spacing="2" GridPane.columnIndex="2">
 									<Label text="Version: " style="-fx-font-family: 'Roboto Bold'"></Label>
-									<Label text="0.0.1"></Label>
+									<Label text="1.0.0"></Label>
 								</HBox>
 							</VBox>
 						</children>

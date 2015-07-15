@@ -13,12 +13,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.PasswordField?>
-<GridPane id="motherGrid" prefHeight="550" prefWidth="550"
+<GridPane id="motherGrid" prefHeight="550" prefWidth="550" 
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.AddUpdateAdminController">
 	<rowConstraints>
 		<RowConstraints percentHeight="5.4" />
-		<RowConstraints percentHeight="84.6" />
+		<RowConstraints percentHeight="7" />
+		<RowConstraints percentHeight="77.6" />
 		<RowConstraints percentHeight="10" />
 	</rowConstraints>
 	<columnConstraints>
@@ -52,65 +53,77 @@
 				</HBox>
 			</children>
 		</GridPane>
-		<GridPane GridPane.rowIndex="1">
-			<GridPane.margin>
-				<Insets top="40"></Insets>
-			</GridPane.margin>
+
+		<HBox spacing="2" GridPane.rowIndex="1" GridPane.ColumnIndex="0">
+			<padding>
+				<Insets top="10" left="8" />
+			</padding>
+			<Label alignment="CENTER">
+				<graphic>
+					<FontAwesomeIconView styleClass="starFont"
+						icon="ICON_STAR" />
+				</graphic>
+			</Label>
+			<Label text="Saisir tous les champs requis.">
+			</Label>
+		</HBox>
+
+
+		<GridPane GridPane.rowIndex="2" >
+			<padding>
+			<Insets  top="30" bottom="40"></Insets>
+			</padding>
 			<rowConstraints>
-				<RowConstraints valignment="CENTER" percentHeight="11.5" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
-				<RowConstraints percentHeight="10.3" />
+				<RowConstraints percentHeight="16.67" />
+				<RowConstraints percentHeight="16.67" />
+				<RowConstraints percentHeight="16.67" />
+				<RowConstraints percentHeight="16.67" />
+				<RowConstraints percentHeight="16.67" />
+				<RowConstraints percentHeight="16.65" />
+				
 			</rowConstraints>
 			<columnConstraints>
 				<ColumnConstraints halignment="RIGHT"
-					percentWidth="39" />
+					percentWidth="35" />
 				<ColumnConstraints halignment="CENTER"
 					percentWidth="45" />
-				<ColumnConstraints halignment="LEFT" percentWidth="16" />
+				<ColumnConstraints halignment="LEFT" percentWidth="21" />
 			</columnConstraints>
 			<children>
 				<Label GridPane.rowIndex="0" GridPane.ColumnIndex="0"
-					GridPane.ColumnSpan="3" text="Champs requis">
-					<padding>
-						<Insets right="400" />
-					</padding>
+					text="Nom d'utilisateur:">
+				</Label>
+				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
+					text="Mot de Passe:">
+				</Label>
+				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0" text="Nom:">
+				</Label>
+				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0" text="Prenom:">
+				</Label>
+				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0" text="NAS:">
+				</Label>
+				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0"
+					text="Date d'embauche:">
+				</Label>
+
+				<TextField fx:id="logintxt" GridPane.rowIndex="0"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<PasswordField fx:id="passwordtxt" GridPane.rowIndex="1"
+					GridPane.ColumnIndex="1" maxWidth="235"></PasswordField>
+				<TextField fx:id="fnametxt" GridPane.rowIndex="2"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="lnametxt" GridPane.rowIndex="3"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<TextField fx:id="sintxt" GridPane.rowIndex="4"
+					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
+				<DatePicker fx:id="hiredatetxt" GridPane.rowIndex="5"
+					GridPane.ColumnIndex="1" maxWidth="235"></DatePicker>
+				<Label GridPane.rowIndex="0" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0"
-					text="Nom d'utilisateur:">
-				</Label>
-				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0"
-					text="Mot de Passe:">
-				</Label>
-				<Label GridPane.rowIndex="3" GridPane.ColumnIndex="0" text="Nom:">
-				</Label>
-				<Label GridPane.rowIndex="4" GridPane.ColumnIndex="0" text="Prenom:">
-				</Label>
-				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="0" text="NAS:">
-				</Label>
-				<Label GridPane.rowIndex="6" GridPane.ColumnIndex="0"
-					text="Date d'embauche:">
-				</Label>
-
-				<TextField fx:id="logintxt" GridPane.rowIndex="1"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<PasswordField fx:id="passwordtxt" GridPane.rowIndex="2"
-					GridPane.ColumnIndex="1" maxWidth="235"></PasswordField>
-				<TextField fx:id="fnametxt" GridPane.rowIndex="3"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TextField fx:id="lnametxt" GridPane.rowIndex="4"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<TextField fx:id="sintxt" GridPane.rowIndex="5"
-					GridPane.ColumnIndex="1" maxWidth="235"></TextField>
-				<DatePicker fx:id="hiredatetxt" GridPane.rowIndex="6"
-					GridPane.ColumnIndex="1" maxWidth="235"></DatePicker>
 				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="2">
 					<graphic>
 						<FontAwesomeIconView styleClass="starFont"
@@ -135,15 +148,9 @@
 							icon="ICON_STAR" />
 					</graphic>
 				</Label>
-				<Label GridPane.rowIndex="5" GridPane.ColumnIndex="2">
-					<graphic>
-						<FontAwesomeIconView styleClass="starFont"
-							icon="ICON_STAR" />
-					</graphic>
-				</Label>
 			</children>
 		</GridPane>
-		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="2">
+		<HBox alignment="BOTTOM_RIGHT" spacing="5" GridPane.rowIndex="3">
 			<padding>
 				<Insets right="5" bottom="8" />
 			</padding>

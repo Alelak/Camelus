@@ -64,7 +64,7 @@
 						icon="ICON_STAR" />
 				</graphic>
 			</Label>
-			<Label text="Saisir tous les champs requis">
+			<Label text="Saisir tous les champs requis.">
 			</Label>
 		</HBox>
 		<GridPane gridLinesVisible="false" GridPane.rowIndex="2">

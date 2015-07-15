@@ -70,13 +70,21 @@
 				<ColumnConstraints halignment="LEFT" percentWidth="16" />
 			</columnConstraints>
 			<children>
-				<Label GridPane.rowIndex="0" GridPane.ColumnIndex="0"
-					GridPane.ColumnSpan="3"
-					text="*Saisir tous les champs qui sont avec étoile afin de passer la validation du formulaire. ">
+
+				<HBox spacing="2" GridPane.rowIndex="0" GridPane.ColumnIndex="0"
+					GridPane.ColumnSpan="3">
 					<padding>
-						<Insets right="70" />
+						<Insets top="10" left="8" />
 					</padding>
-				</Label>
+					<Label alignment="CENTER">
+						<graphic>
+							<FontAwesomeIconView styleClass="starFont"
+								icon="ICON_STAR" />
+						</graphic>
+					</Label>
+					<Label text="Saisir tous les champs requis.">
+					</Label>
+				</HBox>
 				<Label GridPane.rowIndex="1" GridPane.ColumnIndex="0" text="Vendeur:">
 				</Label>
 				<Label GridPane.rowIndex="2" GridPane.ColumnIndex="0"

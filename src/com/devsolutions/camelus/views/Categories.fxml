@@ -39,7 +39,7 @@
 				<ColumnConstraints percentWidth="50" />
 			</columnConstraints>
 			<children>
-				<Label text="Categories" GridPane.ColumnIndex="0">
+				<Label style="-fx-background-color: #efefef; -fx-font-family: 'Roboto Bold';" text="Catégories" GridPane.ColumnIndex="0">
 					<padding>
 						<Insets left="7" />
 					</padding>
@@ -57,7 +57,7 @@
 			</children>
 		</GridPane>
 		<VBox spacing="20" GridPane.rowIndex="1">
-			<Label fx:id="msgtxt">
+			<Label text="Cliquer sur ajouter pour commencer." fx:id="msgtxt">
 				<VBox.margin>
 					<Insets top="20" left="20" right="20"></Insets>
 				</VBox.margin>

@@ -1,6 +1,9 @@
 package com.devsolutions.camelus.views;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -71,6 +74,12 @@ public class MainWindowController implements Initializable {
 	private MenuItem LogsMI;
 	@FXML
 	private MenuItem ProfileMi;
+	@FXML
+	private Label lblFacebook;
+	@FXML
+	private Label lblTwitter;
+	@FXML
+	private Label lblLinkedin;
 	private Stage stage;
 	private FadeTransition fadeTransition;
 
@@ -166,6 +175,10 @@ public class MainWindowController implements Initializable {
 			resetButtonColor();
 			tbadminsbtn.setStyle(BACKGROUND_CAMELUS_LIGHT_BLUE);
 		});
+		
+		lblFacebook.setOnMouseClicked(e -> runLink("https://www.facebook.com/DevSolutions2015"));
+		lblTwitter.setOnMouseClicked(e -> runLink("https://twitter.com/DevSolutions15"));
+		lblLinkedin.setOnMouseClicked(e -> runLink("https://www.linkedin.com/"));
 	}
 
 	public void resetButtonColor() {
@@ -350,6 +363,16 @@ public class MainWindowController implements Initializable {
 					.getWindow(), stage, 22);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void runLink(String url) {
+		if (Desktop.isDesktopSupported()) {
+			try {
+				Desktop.getDesktop().browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+
+			}
 		}
 	}
 }

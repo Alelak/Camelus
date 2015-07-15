@@ -14,7 +14,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Label?>
 
-<GridPane id="parent" minHeight="300.0"  minWidth="470.0"
+<GridPane id="parent" maxHeight="300.0"  minWidth="470.0"
 	
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.LoginController">

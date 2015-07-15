@@ -71,7 +71,7 @@ public class CategoriesController implements Initializable {
 			categorielist.getItems().add(new Category(""));
 			categorielist.getSelectionModel().selectLast();
 			animation.play();
-			msgtxt.setText("Saisissez une categorie puis entrez");
+			msgtxt.setText("Saisir une catégorie puis taper sur entrée.");
 		});
 		categorielist.setCellFactory(TextFieldListCell
 				.forListView(new StringConverter<Category>() {

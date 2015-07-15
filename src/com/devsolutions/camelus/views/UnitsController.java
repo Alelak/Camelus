@@ -74,7 +74,7 @@ public class UnitsController implements Initializable {
 			unitslist.getItems().add(new Unit(""));
 			unitslist.getSelectionModel().selectLast();
 			animation.play();
-			msgtxt.setText("Saisissez une unite puis entrez");
+			msgtxt.setText("Saisir une unité puis taper sur entrée.");
 		});
 		unitslist.setCellFactory(TextFieldListCell
 				.forListView(new StringConverter<Unit>() {
