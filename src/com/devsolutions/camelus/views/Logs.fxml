@@ -18,6 +18,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ChoiceBox?>
 <GridPane id="motherGrid" prefHeight="250" prefWidth="450"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.devsolutions.camelus.views.LogsController">
@@ -62,6 +63,9 @@
 			</GridPane.margin>
 			<Label fx:id="msgTxt">
 			</Label>
+			<ChoiceBox fx:id="durationChoiceBox" styleClass="flat-btn"
+				id="chooseCommisionType">
+			</ChoiceBox>
 			<HBox spacing="10">
 				<TextField fx:id="filepathTxt" promptText="Chemin du fichier"
 					prefWidth="240"></TextField>

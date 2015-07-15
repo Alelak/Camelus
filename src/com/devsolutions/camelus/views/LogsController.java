@@ -8,13 +8,17 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.devsolutions.camelus.auditing.GenerateAudits;
+import com.devsolutions.camelus.utils.Choice;
 import com.devsolutions.camelus.utils.FXUtils;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -35,12 +39,18 @@ public class LogsController implements Initializable {
 	private Label msgTxt;
 	@FXML
 	private Button exportBtn;
+	@FXML
+	private ChoiceBox<Choice> durationChoiceBox;
+	private ObservableList<Choice> durationOb = FXCollections
+			.observableArrayList();
+
 	private Service<Void> generateAuditService;
 	private String filename;
+	private int duration;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		initChoiceBox();
 		FXUtils.addDraggableNode(titleBar);
 		lblClose.setOnMouseClicked(e -> {
 			((Stage) lblClose.getScene().getWindow()).close();
@@ -53,7 +63,7 @@ public class LogsController implements Initializable {
 					@Override
 					protected Void call() throws Exception {
 						try {
-							GenerateAudits.generate(filename);
+							GenerateAudits.generate(filename, duration);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -104,9 +114,19 @@ public class LogsController implements Initializable {
 					}
 				});
 		exportBtn.setOnAction(e -> {
+			duration = durationChoiceBox.getSelectionModel().getSelectedItem()
+					.getId();
 			generateAuditService.start();
 
 		});
 	}
 
+	private void initChoiceBox() {
+		durationOb.addAll(new Choice(1, "Dernière heure"), new Choice(24,
+				"24 dernières heures"), new Choice(72, "Trois derniers jours"),
+				new Choice(168, "La semaine dernière"), new Choice(730,
+						"Le mois dernier"));
+		durationChoiceBox.setItems(durationOb);
+		durationChoiceBox.getSelectionModel().select(0);
+	}
 }

@@ -9,8 +9,9 @@ import java.util.List;
 
 public class GenerateAudits {
 
-	public static void generate(String filename) throws IOException {
-		List<Audit> audits = AuditManager.getAll();
+	public static void generate(String filename, int duration)
+			throws IOException {
+		List<Audit> audits = AuditManager.getBySpecificTime(duration);
 		StringBuilder stringBuilder = new StringBuilder();
 		for (Audit audit : audits) {
 			stringBuilder.append(audit.getCreated_at() + " : "

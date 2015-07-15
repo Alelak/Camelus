@@ -21,4 +21,13 @@ public class AuditManager {
 		session.close();
 		return audits;
 	}
+
+	public static List<Audit> getBySpecificTime(int duration) {
+		SqlSession session = AuditDBConnection.getSqlSessionFactory()
+				.openSession();
+		List<Audit> audits = session.getMapper(AuditMapper.class)
+				.getBySpecificTime(duration);
+		session.close();
+		return audits;
+	}
 }
