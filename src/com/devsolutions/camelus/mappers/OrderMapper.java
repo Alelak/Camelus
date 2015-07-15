@@ -45,7 +45,7 @@ public interface OrderMapper {
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id", flushCache = true)
 	void add(Order order);
 
-	@Update("UPDATE orders SET status = 1,updated_at = CURRENT_TIMESTAMP WHERE id = #{id} ")
+	@Update("UPDATE orders SET status = 1 WHERE id = #{id} ")
 	@Options(flushCache = true)
 	void cancel(long id);
 }
