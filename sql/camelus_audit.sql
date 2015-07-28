@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema camelus_audit
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `camelus_audit` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+CREATE SCHEMA IF NOT EXISTS `camelus_audits` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `camelus_audit` ;
 
 -- -----------------------------------------------------
